@@ -1241,10 +1241,10 @@ Function CheckDependencies()
 		ErrorReport = ErrorReport + " RaceMenu"
 		Display = True
 	endIf
-	if !CheckSKSE("powerofthree's Papyrus Extender", 4)
-		ErrorReport  = ErrorReport + " po3 Papyrus Extender"
-		Display = True
-	endIf
+	;if !CheckSKSE("powerofthree's Papyrus Extender", 4)
+	;	ErrorReport  = ErrorReport + " po3 Papyrus Extender"
+	;	Display = True
+	;endIf
 	if XPMSELib.GetXPMSELibVersion() < 4.2
 		ErrorReport  = ErrorReport + " XPMSE"
 		Display = True
