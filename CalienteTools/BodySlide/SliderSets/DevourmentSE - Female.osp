@@ -376,284 +376,305 @@
     <SliderSet name="DevourmentSE - TBD">
         <DataFolder>DevourmentSE - Female</DataFolder>
         <SourceFile>DevourmentSE - TBD AllSliders.nif</SourceFile>
-        <OutputPath>meshes\actors\character\character assets</OutputPath>
+        <OutputPath>Meshes\Actors\Character\character assets</OutputPath>
         <OutputFile GenWeights="true">femalebody</OutputFile>
-        <Shape target="TBDBody_YTS" DataFolder="Devourment SE - TBD AllSliders">TBDBody_YTS</Shape>
-        <Slider name="Vore prey belly" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSVore prey belly" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSVore prey belly</Data>
-        </Slider>
+        <Shape target="TBDBody">TBDBody</Shape>
         <Slider name="Body_Muscular" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_Muscular" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_Muscular</Data>
+            <Data name="TBDBodyBody_Muscular" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_Muscular</Data>
         </Slider>
         <Slider name="Body_Skinny" invert="false" small="100" big="0">
-            <Data name="TBDBody_YTSBody_Skinny" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_Skinny</Data>
+            <Data name="TBDBodyBody_Skinny" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_Skinny</Data>
         </Slider>
         <Slider name="Body_Toned" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_Toned" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_Toned</Data>
+            <Data name="TBDBodyBody_Toned" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_Toned</Data>
         </Slider>
         <Slider name="Body_DMRA_Guts" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_DMRA_Guts" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_DMRA_Guts</Data>
+            <Data name="TBDBodyBody_DMRA_Guts" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_DMRA_Guts</Data>
         </Slider>
         <Slider name="Body_Vanilla_H" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_Vanilla_H" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_Vanilla_H</Data>
+            <Data name="TBDBodyBody_Vanilla_H" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_Vanilla_H</Data>
         </Slider>
         <Slider name="Body_Vanilla_L" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_Vanilla_L" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_Vanilla_L</Data>
+            <Data name="TBDBodyBody_Vanilla_L" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_Vanilla_L</Data>
         </Slider>
         <Slider name="Body_NeckFix" invert="false" small="100" big="0" hidden="true">
-            <Data name="TBDBody_YTSBody_NeckFix" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_NeckFix</Data>
+            <Data name="TBDBodyBody_NeckFix" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_NeckFix</Data>
         </Slider>
         <Slider name="Arm_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSArm_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSArm_Smooth</Data>
+            <Data name="TBDBodyArm_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyArm_Smooth</Data>
         </Slider>
         <Slider name="Back_LowArch_Accentuate" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBack_LowArch_Accentuate" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBack_LowArch_Accentuate</Data>
+            <Data name="TBDBodyBack_LowArch_Accentuate" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBack_LowArch_Accentuate</Data>
         </Slider>
         <Slider name="Back_LowArch_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBack_LowArch_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBack_LowArch_Smooth</Data>
+            <Data name="TBDBodyBack_LowArch_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBack_LowArch_Smooth</Data>
         </Slider>
         <Slider name="Back_Narrow" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBack_Narrow" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBack_Narrow</Data>
+            <Data name="TBDBodyBack_Narrow" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBack_Narrow</Data>
         </Slider>
         <Slider name="Back_Wide" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBack_Wide" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBack_Wide</Data>
+            <Data name="TBDBodyBack_Wide" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBack_Wide</Data>
         </Slider>
         <Slider name="Belly_In" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBelly_In" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBelly_In</Data>
+            <Data name="TBDBodyBelly_In" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBelly_In</Data>
         </Slider>
         <Slider name="Belly_Size" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBelly_Size" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBelly_Size</Data>
+            <Data name="TBDBodyBelly_Size" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBelly_Size</Data>
         </Slider>
         <Slider name="Belly_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBelly_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBelly_Smooth</Data>
+            <Data name="TBDBodyBelly_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBelly_Smooth</Data>
         </Slider>
         <Slider name="Belly_Toned" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBelly_Toned" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBelly_Toned</Data>
+            <Data name="TBDBodyBelly_Toned" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBelly_Toned</Data>
         </Slider>
         <Slider name="Bombshell" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBombshell" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBombshell</Data>
+            <Data name="TBDBodyBombshell" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBombshell</Data>
         </Slider>
         <Slider name="Breast_Height" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreast_Height" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreast_Height</Data>
+            <Data name="TBDBodyBreast_Height" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreast_Height</Data>
         </Slider>
         <Slider name="Breasts_Areola_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Areola_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Areola_Smooth</Data>
+            <Data name="TBDBodyBreasts_Areola_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Areola_Smooth</Data>
         </Slider>
         <Slider name="Breasts_Gravity" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Gravity" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Gravity</Data>
+            <Data name="TBDBodyBreasts_Gravity" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Gravity</Data>
         </Slider>
         <Slider name="Breasts_Huge" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Huge" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Huge</Data>
+            <Data name="TBDBodyBreasts_Huge" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Huge</Data>
         </Slider>
         <Slider name="Breasts_NippleHoles" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_NippleHoles" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_NippleHoles</Data>
+            <Data name="TBDBodyBreasts_NippleHoles" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_NippleHoles</Data>
         </Slider>
         <Slider name="Breasts_NippleLarge" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_NippleLarge" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_NippleLarge</Data>
+            <Data name="TBDBodyBreasts_NippleLarge" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_NippleLarge</Data>
         </Slider>
         <Slider name="Breasts_NippleSmall" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_NippleSmall" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_NippleSmall</Data>
+            <Data name="TBDBodyBreasts_NippleSmall" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_NippleSmall</Data>
         </Slider>
         <Slider name="Breasts_NippleSmooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_NippleSmooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_NippleSmooth</Data>
+            <Data name="TBDBodyBreasts_NippleSmooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_NippleSmooth</Data>
         </Slider>
         <Slider name="Breasts_NippleWide" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_NippleWide" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_NippleWide</Data>
+            <Data name="TBDBodyBreasts_NippleWide" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_NippleWide</Data>
         </Slider>
         <Slider name="Breasts_Shape01" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Shape01" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Shape01</Data>
+            <Data name="TBDBodyBreasts_Shape01" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Shape01</Data>
         </Slider>
         <Slider name="Breasts_Shape02" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Shape02" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Shape02</Data>
+            <Data name="TBDBodyBreasts_Shape02" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Shape02</Data>
         </Slider>
         <Slider name="Breasts_Shape03" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Shape03" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Shape03</Data>
+            <Data name="TBDBodyBreasts_Shape03" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Shape03</Data>
         </Slider>
         <Slider name="Breasts_Slope" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Slope" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Slope</Data>
+            <Data name="TBDBodyBreasts_Slope" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Slope</Data>
         </Slider>
         <Slider name="Breasts_Small" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreasts_Small" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreasts_Small</Data>
+            <Data name="TBDBodyBreasts_Small" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreasts_Small</Data>
         </Slider>
         <Slider name="Butt_Flat" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Flat" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Flat</Data>
+            <Data name="TBDBodyButt_Flat" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Flat</Data>
         </Slider>
         <Slider name="Butt_Height" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Height" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Height</Data>
+            <Data name="TBDBodyButt_Height" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Height</Data>
         </Slider>
         <Slider name="Butt_Huge" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Huge" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Huge</Data>
+            <Data name="TBDBodyButt_Huge" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Huge</Data>
         </Slider>
         <Slider name="Butt_Narrow" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Narrow" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Narrow</Data>
+            <Data name="TBDBodyButt_Narrow" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Narrow</Data>
         </Slider>
         <Slider name="Butt_Small" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Small" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Small</Data>
+            <Data name="TBDBodyButt_Small" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Small</Data>
         </Slider>
         <Slider name="Butt_Stretch" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Stretch" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Stretch</Data>
+            <Data name="TBDBodyButt_Stretch" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Stretch</Data>
         </Slider>
         <Slider name="Butt_Wide" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Wide" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Wide</Data>
+            <Data name="TBDBodyButt_Wide" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Wide</Data>
         </Slider>
         <Slider name="Calves_Shape01" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSCalves_Shape01" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSCalves_Shape01</Data>
+            <Data name="TBDBodyCalves_Shape01" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyCalves_Shape01</Data>
         </Slider>
         <Slider name="Calves_Shape02" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSCalves_Shape02" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSCalves_Shape02</Data>
+            <Data name="TBDBodyCalves_Shape02" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyCalves_Shape02</Data>
         </Slider>
         <Slider name="Calves_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSCalves_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSCalves_Smooth</Data>
+            <Data name="TBDBodyCalves_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyCalves_Smooth</Data>
         </Slider>
         <Slider name="Crotch_Gap" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSCrotch_Gap" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSCrotch_Gap</Data>
+            <Data name="TBDBodyCrotch_Gap" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyCrotch_Gap</Data>
         </Slider>
         <Slider name="Hips_Bones" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSHips_Bones" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSHips_Bones</Data>
+            <Data name="TBDBodyHips_Bones" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyHips_Bones</Data>
         </Slider>
         <Slider name="Hips_Foward" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSHips_Foward" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSHips_Foward</Data>
+            <Data name="TBDBodyHips_Foward" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyHips_Foward</Data>
         </Slider>
         <Slider name="Hips_Narrow" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSHips_Narrow" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSHips_Narrow</Data>
+            <Data name="TBDBodyHips_Narrow" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyHips_Narrow</Data>
         </Slider>
         <Slider name="Hips_Wide" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSHips_Wide" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSHips_Wide</Data>
+            <Data name="TBDBodyHips_Wide" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyHips_Wide</Data>
         </Slider>
         <Slider name="Thighs_AltShape_01" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_AltShape_01" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_AltShape_01</Data>
+            <Data name="TBDBodyThighs_AltShape_01" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_AltShape_01</Data>
         </Slider>
         <Slider name="Thighs_Inner_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_Inner_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_Inner_Smooth</Data>
+            <Data name="TBDBodyThighs_Inner_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_Inner_Smooth</Data>
         </Slider>
         <Slider name="Thighs_KneeInner_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_KneeInner_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_KneeInner_Smooth</Data>
+            <Data name="TBDBodyThighs_KneeInner_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_KneeInner_Smooth</Data>
         </Slider>
         <Slider name="Thighs_KneeMuscles_Size" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_KneeMuscles_Size" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_KneeMuscles_Size</Data>
+            <Data name="TBDBodyThighs_KneeMuscles_Size" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_KneeMuscles_Size</Data>
         </Slider>
         <Slider name="Thighs_Outer_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_Outer_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_Outer_Smooth</Data>
+            <Data name="TBDBodyThighs_Outer_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_Outer_Smooth</Data>
         </Slider>
         <Slider name="Thighs_Slim" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_Slim" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_Slim</Data>
+            <Data name="TBDBodyThighs_Slim" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_Slim</Data>
         </Slider>
         <Slider name="Thighs_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_Smooth</Data>
+            <Data name="TBDBodyThighs_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_Smooth</Data>
         </Slider>
         <Slider name="Thighs_Thick" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_Thick" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_Thick</Data>
+            <Data name="TBDBodyThighs_Thick" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_Thick</Data>
         </Slider>
         <Slider name="Torso_ChestDepth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSTorso_ChestDepth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSTorso_ChestDepth</Data>
+            <Data name="TBDBodyTorso_ChestDepth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyTorso_ChestDepth</Data>
         </Slider>
         <Slider name="Torso_Clavicule_Size" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSTorso_Clavicule_Size" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSTorso_Clavicule_Size</Data>
+            <Data name="TBDBodyTorso_Clavicule_Size" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyTorso_Clavicule_Size</Data>
         </Slider>
         <Slider name="Torso_Large" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSTorso_Large" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSTorso_Large</Data>
+            <Data name="TBDBodyTorso_Large" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyTorso_Large</Data>
         </Slider>
         <Slider name="Torso_ShouldersHeight" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSTorso_ShouldersHeight" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSTorso_ShouldersHeight</Data>
+            <Data name="TBDBodyTorso_ShouldersHeight" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyTorso_ShouldersHeight</Data>
         </Slider>
         <Slider name="Torso_ShouldersNarrow" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSTorso_ShouldersNarrow" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSTorso_ShouldersNarrow</Data>
+            <Data name="TBDBodyTorso_ShouldersNarrow" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyTorso_ShouldersNarrow</Data>
         </Slider>
         <Slider name="Torso_Small" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSTorso_Small" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSTorso_Small</Data>
+            <Data name="TBDBodyTorso_Small" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyTorso_Small</Data>
         </Slider>
         <Slider name="Waist_Height" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSWaist_Height" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSWaist_Height</Data>
+            <Data name="TBDBodyWaist_Height" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyWaist_Height</Data>
         </Slider>
         <Slider name="Waist_Narrow" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSWaist_Narrow" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSWaist_Narrow</Data>
+            <Data name="TBDBodyWaist_Narrow" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyWaist_Narrow</Data>
         </Slider>
         <Slider name="Waist_Smooth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSWaist_Smooth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSWaist_Smooth</Data>
+            <Data name="TBDBodyWaist_Smooth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyWaist_Smooth</Data>
         </Slider>
         <Slider name="Waist_Wide" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSWaist_Wide" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSWaist_Wide</Data>
+            <Data name="TBDBodyWaist_Wide" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyWaist_Wide</Data>
         </Slider>
         <Slider name="Breast_NippleWidth" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreast_NippleWidth" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreast_NippleWidth</Data>
+            <Data name="TBDBodyBreast_NippleWidth" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreast_NippleWidth</Data>
         </Slider>
         <Slider name="Breast_NippleLength" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBreast_NippleLength" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBreast_NippleLength</Data>
+            <Data name="TBDBodyBreast_NippleLength" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBreast_NippleLength</Data>
         </Slider>
         <Slider name="Arm_BicepsSize" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSArm_BicepsSize" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSArm_BicepsSize</Data>
+            <Data name="TBDBodyArm_BicepsSize" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyArm_BicepsSize</Data>
         </Slider>
         <Slider name="Arm_ForearmSize" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSArm_ForearmSize" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSArm_ForearmSize</Data>
+            <Data name="TBDBodyArm_ForearmSize" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyArm_ForearmSize</Data>
         </Slider>
         <Slider name="Arm_Thick" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSArm_Thick" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSArm_Thick</Data>
+            <Data name="TBDBodyArm_Thick" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyArm_Thick</Data>
         </Slider>
         <Slider name="Arm_TricepsSize" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSArm_TricepsSize" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSArm_TricepsSize</Data>
+            <Data name="TBDBodyArm_TricepsSize" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyArm_TricepsSize</Data>
         </Slider>
         <Slider name="Body_DelicateAlt" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_DelicateAlt" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_DelicateAlt</Data>
+            <Data name="TBDBodyBody_DelicateAlt" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_DelicateAlt</Data>
         </Slider>
         <Slider name="Body_Chubby" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_Chubby" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_Chubby</Data>
+            <Data name="TBDBodyBody_Chubby" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_Chubby</Data>
         </Slider>
         <Slider name="Cameltoe" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSCameltoe" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSCameltoe</Data>
+            <Data name="TBDBodyCameltoe" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyCameltoe</Data>
         </Slider>
         <Slider name="Torso_ShouldersSize" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSTorso_ShouldersSize" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSTorso_ShouldersSize</Data>
+            <Data name="TBDBodyTorso_ShouldersSize" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyTorso_ShouldersSize</Data>
         </Slider>
         <Slider name="Muscular_Legs" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSMuscular_Legs" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSMuscular_Legs</Data>
+            <Data name="TBDBodyMuscular_Legs" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyMuscular_Legs</Data>
         </Slider>
         <Slider name="Muscular_Butt" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSMuscular_Butt" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSMuscular_Butt</Data>
+            <Data name="TBDBodyMuscular_Butt" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyMuscular_Butt</Data>
         </Slider>
         <Slider name="Muscular_Torso" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSMuscular_Torso" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSMuscular_Torso</Data>
+            <Data name="TBDBodyMuscular_Torso" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyMuscular_Torso</Data>
         </Slider>
         <Slider name="Muscular_Arms" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSMuscular_Arms" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSMuscular_Arms</Data>
+            <Data name="TBDBodyMuscular_Arms" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyMuscular_Arms</Data>
         </Slider>
         <Slider name="Body_ChubbyLegs" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_ChubbyLegs" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_ChubbyLegs</Data>
+            <Data name="TBDBodyBody_ChubbyLegs" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_ChubbyLegs</Data>
         </Slider>
         <Slider name="Body_ChubbyTorso" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_ChubbyTorso" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_ChubbyTorso</Data>
+            <Data name="TBDBodyBody_ChubbyTorso" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_ChubbyTorso</Data>
         </Slider>
         <Slider name="Calves_Size" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSCalves_Size" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSCalves_Size</Data>
+            <Data name="TBDBodyCalves_Size" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyCalves_Size</Data>
         </Slider>
         <Slider name="PregnancyBelly" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSPregnancyBelly" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSPregnancyBelly</Data>
+            <Data name="TBDBodyPregnancyBelly" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyPregnancyBelly</Data>
         </Slider>
         <Slider name="Body_ChubbyArms" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBody_ChubbyArms" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBody_ChubbyArms</Data>
+            <Data name="TBDBodyBody_ChubbyArms" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBody_ChubbyArms</Data>
         </Slider>
         <Slider name="Thighs_Spread" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSThighs_Spread" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSThighs_Spread</Data>
+            <Data name="TBDBodyThighs_Spread" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyThighs_Spread</Data>
         </Slider>
         <Slider name="Butt_Crack" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSButt_Crack" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSButt_Crack</Data>
+            <Data name="TBDBodyButt_Crack" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyButt_Crack</Data>
         </Slider>
         <Slider name="Back_DimplesofVenus" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSBack_DimplesofVenus" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSBack_DimplesofVenus</Data>
+            <Data name="TBDBodyBack_DimplesofVenus" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBack_DimplesofVenus</Data>
         </Slider>
         <Slider name="Hips_Carved" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSHips_Carved" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSHips_Carved</Data>
-        </Slider>
-        <Slider name="SSBBW WGBelly" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSSSBBW WGBelly" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSSSBBW WGBelly</Data>
+            <Data name="TBDBodyHips_Carved" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyHips_Carved</Data>
         </Slider>
         <Slider name="StruggleSlider1" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSStruggleSlider1" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSStruggleSlider1</Data>
+            <Data name="TBDBodyStruggleSlider1" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyStruggleSlider1</Data>
         </Slider>
         <Slider name="StruggleSlider2" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSStruggleSlider2" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSStruggleSlider2</Data>
+            <Data name="TBDBodyStruggleSlider2" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyStruggleSlider2</Data>
         </Slider>
         <Slider name="StruggleSlider3" invert="false" small="0" big="0">
-            <Data name="TBDBody_YTSStruggleSlider3" target="TBDBody_YTS" local="true">DevourmentSE - TBD AllSliders.osd\TBDBody_YTSStruggleSlider3</Data>
+            <Data name="TBDBodyStruggleSlider3" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyStruggleSlider3</Data>
+        </Slider>
+        <Slider name="Vore prey belly" invert="false" small="0" big="0">
+            <Data name="TBDBodyVore prey belly" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyVore prey belly</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL1" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreStruggleL1" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreStruggleL1</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL2" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreStruggleL2" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreStruggleL2</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL3" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreStruggleL3" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreStruggleL3</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR1" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreStruggleR1" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreStruggleR1</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR2" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreStruggleR2" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreStruggleR2</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR3" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreStruggleR3" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreStruggleR3</Data>
+        </Slider>
+        <Slider name="BVoreL" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreL" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreL</Data>
+        </Slider>
+        <Slider name="BVoreR" invert="false" small="0" big="0">
+            <Data name="TBDBodyBVoreR" target="TBDBody" local="true">DevourmentSE - TBD AllSliders.osd\TBDBodyBVoreR</Data>
         </Slider>
     </SliderSet>
     <SliderSet name="DevourmentSE - 3BAv2">
