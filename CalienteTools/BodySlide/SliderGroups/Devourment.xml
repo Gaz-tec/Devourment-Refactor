@@ -55,12 +55,6 @@
         <Member name="DevourmentSE - DragonTundra"/>
         <Member name="DevourmentSE - Werewolf"/>
     </Group>
-    <Group name="Devourment Equipables">
-        <Member name="DevourmentSE - ClassicStruggleBelly"/>
-        <Member name="DevourmentSE - RefactorBellyF"/>
-        <Member name="DevourmentSE - RefactorBellyM"/>
-        <Member name="DevourmentSE - RefactorBellyTBD"/>
-    </Group>
     <Group name="Devourment Female">
         <Member name="DevourmentSE - 3BAv2"/>
         <Member name="DevourmentSE - CBBE"/>
