@@ -196,13 +196,15 @@ bool property VisualStruggles = true auto
 bool property ComplexStruggles = false auto
 bool property SkillGain = true auto
 bool property AttributeGain = true auto
+bool property DragonVoreAnimation = true auto
+bool property MammothVoreAnimation = true auto
 
 float property AcidDamageModifier = 1.0 auto
 float property BurpsRate = 16.0 auto
 float property GurglesRate = 8.0 auto
 float property NPCBonus = 1.0 Auto
 float property WeightGain = 0.0 auto
-float property ItemBurping = 0.0 auto
+float property ItemBurping = 0.20 auto
 float property cameraShake = 0.0 auto
 float property preyExperienceRate = 2.0 auto
 float property predExperienceRate = 1.0 auto
@@ -2272,7 +2274,6 @@ Removes a single dead content from the pred and places a scat pile or bones behi
 		
 		pile.setScale(Math.sqrt(GetVoreWeight(prey) / 100.0))
 		pile.setAngle(0.0, 0.0, Utility.RandomFloat(0.0,360.0))
-
 		
 		if prey != playerRef
 			prey.removeAllItems(pile, false, true)
@@ -6741,22 +6742,26 @@ bool Function saveSettings(String settingsFileName)
 
 	int data = JMap.object()
 
-	JMap.setInt(data, "CombatAcceleration", CombatAcceleration as int)
-	JMap.setInt(data, "scatTypeNPC", 		scatTypeNPC)
-	JMap.setInt(data, "scatTypeCreature", 	scatTypeCreature)
-	JMap.setInt(data, "scatTypeBolus", 		scatTypeBolus)
-	JMap.setInt(data, "screamSounds", 		screamSounds as int)
-	JMap.setInt(data, "killPlayer", 		killPlayer as int)
-	JMap.setInt(data, "killNPCs", 			killNPCs as int)
-	JMap.setInt(data, "killEssential", 		killEssential as int)
-	JMap.setInt(data, "playerPreference", 	playerPreference as int)
-	JMap.setInt(data, "entitlement", 		entitlement as int)
-	JMap.setInt(data, "bossesSuperPrey", 	bossesSuperPrey as int)
-	JMap.setInt(data, "whoStruggles", 		whoStruggles)
-	JMap.setInt(data, "multiPrey", 			multiPrey)
-	JMap.setInt(data, "EndoStruggling", 	EndoStruggling as int)
-	JMap.setInt(data, "VisualStruggles", 	VisualStruggles as int)
-	JMap.setInt(data, "ComplexStruggles", 	ComplexStruggles as int)
+	JMap.setInt(data, "CombatAcceleration", 	CombatAcceleration as int)
+	JMap.setInt(data, "scatTypeNPC", 			scatTypeNPC)
+	JMap.setInt(data, "scatTypeCreature", 		scatTypeCreature)
+	JMap.setInt(data, "scatTypeBolus", 			scatTypeBolus)
+	JMap.setInt(data, "screamSounds", 			screamSounds as int)
+	JMap.setInt(data, "killPlayer", 			killPlayer as int)
+	JMap.setInt(data, "killNPCs", 				killNPCs as int)
+	JMap.setInt(data, "killEssential", 			killEssential as int)
+	JMap.setInt(data, "playerPreference", 		playerPreference as int)
+	JMap.setInt(data, "entitlement", 			entitlement as int)
+	JMap.setInt(data, "bossesSuperPrey", 		bossesSuperPrey as int)
+	JMap.setInt(data, "whoStruggles", 			whoStruggles)
+	JMap.setInt(data, "multiPrey", 				multiPrey)
+	JMap.setInt(data, "EndoStruggling", 		EndoStruggling as int)
+	JMap.setInt(data, "VisualStruggles", 		VisualStruggles as int)
+	JMap.setInt(data, "ComplexStruggles", 		ComplexStruggles as int)
+	JMap.setInt(data, "SkillGain", 				SkillGain as int)
+	JMap.setInt(data, "AttributeGain", 			AttributeGain as int)
+	JMap.setInt(data, "DragonVoreAnimation", 	DragonVoreAnimation as int)
+	JMap.setInt(data, "MammothVoreAnimation", 	MammothVoreAnimation as int)
 	
 	JMap.setFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
 	JMap.setFlt(data, "StruggleDamage", 		StruggleDamage)
@@ -6813,23 +6818,27 @@ bool Function loadSettings(String settingsFileName)
 		return false
 	endIf
 
-	CombatAcceleration = 	JMap.getInt(data, "CombatAcceleration", 	CombatAcceleration as int) as bool
-	scatTypeNPC = 			JMap.getInt(data, "scatTypeNPC", 			scatTypeNPC)
-	scatTypeCreature = 		JMap.getInt(data, "scatTypeCreature", 		scatTypeCreature)
-	scatTypeBolus = 		JMap.getInt(data, "scatTypeBolus", 			scatTypeBolus)
-	killPlayer = 			JMap.getInt(data, "killPlayer", 			killPlayer as int) as bool
-	killNPCs = 				JMap.getInt(data, "killNPCs", 				killNPCs as int) as bool
-	killEssential = 		JMap.getInt(data, "killEssential", 			killEssential as int) as bool
-	playerPreference = 		JMap.getInt(data, "playerPreference", 		playerPreference as int)
-	screamSounds = 			JMap.getInt(data, "screamSounds", 			screamSounds as int) as bool
-	bossesSuperPrey = 		JMap.getInt(data, "bossesSuperPrey", 		bossesSuperPrey as int) as bool
-	entitlement = 			JMap.getInt(data, "entitlement", 			entitlement as int) as bool
-	whoStruggles =			JMap.getInt(data, "whoStruggles", 			whoStruggles)
-	multiPrey = 			JMap.getInt(data, "multiPrey", 				multiPrey)
-	EndoStruggling = 		JMap.getInt(data, "EndoStruggling", 		EndoStruggling as int) as bool
-	VisualStruggles = 		JMap.getInt(data, "VisualStruggles", 		VisualStruggles as int) as bool
-	ComplexStruggles = 		JMap.getInt(data, "ComplexStruggles", 		ComplexStruggles as int) as bool
-	
+	CombatAcceleration = 	JMap.getInt(data, "CombatAcceleration", 		CombatAcceleration as int) as bool
+	scatTypeNPC = 			JMap.getInt(data, "scatTypeNPC", 				scatTypeNPC)
+	scatTypeCreature = 		JMap.getInt(data, "scatTypeCreature", 			scatTypeCreature)
+	scatTypeBolus = 		JMap.getInt(data, "scatTypeBolus", 				scatTypeBolus)
+	killPlayer = 			JMap.getInt(data, "killPlayer", 				killPlayer as int) as bool
+	killNPCs = 				JMap.getInt(data, "killNPCs", 					killNPCs as int) as bool
+	killEssential = 		JMap.getInt(data, "killEssential", 				killEssential as int) as bool
+	playerPreference = 		JMap.getInt(data, "playerPreference", 			playerPreference as int)
+	screamSounds = 			JMap.getInt(data, "screamSounds", 				screamSounds as int) as bool
+	bossesSuperPrey = 		JMap.getInt(data, "bossesSuperPrey", 			bossesSuperPrey as int) as bool
+	entitlement = 			JMap.getInt(data, "entitlement", 				entitlement as int) as bool
+	whoStruggles =			JMap.getInt(data, "whoStruggles", 				whoStruggles)
+	multiPrey = 			JMap.getInt(data, "multiPrey", 					multiPrey)
+	EndoStruggling = 		JMap.getInt(data, "EndoStruggling", 			EndoStruggling as int) as bool
+	VisualStruggles = 		JMap.getInt(data, "VisualStruggles", 			VisualStruggles as int) as bool
+	ComplexStruggles = 		JMap.getInt(data, "ComplexStruggles", 			ComplexStruggles as int) as bool
+	SkillGain = 			JMap.getInt(data, "SkillGain", 					SkillGain as int) as bool
+	AttributeGain = 		JMap.getInt(data, "AttributeGain", 				AttributeGain as int) as bool
+	DragonVoreAnimation = 	JMap.getInt(data, "DragonVoreAnimation", 		DragonVoreAnimation as int) as bool
+	MammothVoreAnimation = 	JMap.getInt(data, "MammothVoreAnimation", 		MammothVoreAnimation as int) as bool
+
 	PredExperienceRate = 	JMap.getFlt(data, "PredExperienceRate", 	PredExperienceRate)
 	PreyExperienceRate = 	JMap.getFlt(data, "PreyExperienceRate", 	PreyExperienceRate)
 	StruggleDifficulty = 	JMap.getFlt(data, "StruggleDifficulty", 	StruggleDifficulty)

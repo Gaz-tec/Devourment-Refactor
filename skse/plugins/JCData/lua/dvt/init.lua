@@ -221,7 +221,7 @@ function dvt.BumpSliders(data, playerStruggle)
 
 	-- Partitioned scaling, for when locuses ARE in use.
 
-	if data.UseLocationalMorphs then
+	-- if data.UseLocationalMorphs then
 		dvt.PartitionBurden(data.target, data.UseEliminationLocus, data.targetScales)
 
 		for locus=1,6 do
@@ -245,7 +245,7 @@ function dvt.BumpSliders(data, playerStruggle)
 				end
 			end
 		end
-	end
+	-- end
 
 	-- DO BUMP SCALING --
 
@@ -281,12 +281,12 @@ function dvt.BumpSliders(data, playerStruggle)
 			dvt.UpdateThread(bump.C)
 			bump.total = bump.A.output + bump.B.output + bump.C.output
 
-			local newScale
-			if data.UseLocationalMorphs then
-				newScale = (bump.total or 0.0) * DB.Locus_Scales[locus], DB.Locus_Maxes[locus]
-			else
-				newScale = (bump.total or 0.0) * math.min(data.currentScale * DB.Locus_Scales[1], DB.Locus_Maxes[1])
-			end
+			local newScale = (bump.total or 0.0) * DB.Locus_Scales[locus], DB.Locus_Maxes[locus]
+			-- if data.UseLocationalMorphs then
+				-- newScale = (bump.total or 0.0) * DB.Locus_Scales[locus], DB.Locus_Maxes[locus]
+			-- else
+				-- newScale = (bump.total or 0.0) * math.min(data.currentScale * DB.Locus_Scales[1], DB.Locus_Maxes[1])
+			-- end
 
 			if data.output_bumps[i] == newScale or data.output_bumps[i] == -newScale then
 				data.output_bumps[i] = -newScale

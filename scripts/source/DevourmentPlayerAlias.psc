@@ -1218,9 +1218,10 @@ Function CheckDependencies()
 
 	String ErrorReport = "Devourment Refactor: You are missing the following dependencies: "
 	Bool Display = False
-	;if !CheckSKSE("EngineFixes", 1) ;this one
-	;	Debug.TraceAndBox("EngineFixes is not installed!")
-	;endIf
+	if !CheckSKSE("6.0.2")
+		ErrorReport  = ErrorReport + " EngineFixes"
+		Display = True
+	endIf
 	if JContainers.FeatureVersion() < 1 || JContainers.APIVersion() < 4 ;|| !CheckSKSE("JContainers64", 4)
 		ErrorReport  = ErrorReport + " JContainers"
 		Display = True
@@ -1241,28 +1242,30 @@ Function CheckDependencies()
 		ErrorReport = ErrorReport + " RaceMenu"
 		Display = True
 	endIf
-	;if !CheckSKSE("powerofthree's Papyrus Extender", 4)
-	;	ErrorReport  = ErrorReport + " po3 Papyrus Extender"
-	;	Display = True
-	;endIf
+	if !CheckSKSE("powerofthree's Papyrus Extender")
+		ErrorReport  = ErrorReport + " po3 Papyrus Extender"
+		Display = True
+	endIf
 	if XPMSELib.GetXPMSELibVersion() < 4.2
 		ErrorReport  = ErrorReport + " XPMSE"
 		Display = True
 	endIf
-	;if !CheckSKSE("powerofthree's Spell Perk Distributor", 1)
-	;	Debug.TraceAndBox("Spell Perk Item Distributor is not installed!")
-	;endIf
-	;if !JContainers.fileExistsAtPath("data\\NetScriptFramework\\Plugins\\CustomSkills.dll")
-	;	Debug.TraceAndBox("Custom Skills Framework is not installed. Without it, you wont be able to access the perk trees.")
-	;endIf
+	if !CheckSKSE("powerofthree's Spell Perk Item Distributor")
+		ErrorReport  = ErrorReport + " SpellPerkItemDistributor" 
+		Display = True
+	endIf
 	If Display
 		Debug.TraceAndBox(ErrorReport)
 	EndIf
 EndFunction
 
 
-bool Function CheckSKSE(String pluginSE, int version)	;This appears to have broken in the AE release. Do not use for now.
-	return SKSE.GetPluginVersion(pluginSE) >= version
+bool Function CheckSKSE(String pluginSE)
+	int skseVersion = 0
+	If SKSE.GetPluginVersion(pluginSE) >=0
+		skseVersion = SKSE.GetPluginVersion(pluginSE)
+	EndIf
+	return skseVersion
 endFunction
 
 

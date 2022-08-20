@@ -88,7 +88,7 @@ Actor Property target Auto Hidden
 String Property targetName Auto Hidden
 
 ; Variables.
-string[] equipList
+;string[] equipList
 
 bool resetBellies = false
 bool vomitActivated = false
@@ -119,10 +119,12 @@ event OnConfigInit()
 	Pages[5] = "$DVT_Page_Debugging"
 	Pages[6] = "$DVT_Page_Dependancies"
 
+	;/
 	equipList = new string[3]
 	equipList[0] = "$DVT_EquipNone"
 	equipList[1] = "$DVT_EquipMacross"	;"Macross is the one I made"
 	equipList[2] = "$DVT_EquipSkeptic" ;"Skepticmech is the old Gat one"
+	/;
 endEvent
 
 
@@ -724,19 +726,17 @@ event OnPageReset(string page)
 		
 	ElseIf page == Pages[4]
 
-		setCursorPosition(0)
-		setCursorFillMode(LEFT_TO_RIGHT)
+		;/
 		AddHeaderOption("Body Sliders vs Equipable Choice")
 		AddEmptyOption()
 		AddTextOptionST("ShowEquipableHelpState", "$DVT_EquipableBellyHelpButton", None)
 		addMenuOptionSt("equipBellyState", "$DVT_EquipableBelly", equipList[Morphs.EquippableBellyType])
-		AddEmptyOption()
-		AddEmptyOption()
+		/;
 
 		setCursorFillMode(TOP_TO_BOTTOM)
-		setCursorPosition(4)
+		setCursorPosition(0)
 		AddHeaderOption("Morphing Settings")
-		addToggleOptionSt("UseLocusMorphsState", "$DVT_LocusMorphs", Morphs.UseLocationalMorphs)
+		;addToggleOptionSt("UseLocusMorphsState", "$DVT_LocusMorphs", Morphs.UseLocationalMorphs)
 		addSliderOptionSt("MorphSpeedState", "$DVT_MorphSpeed", Morphs.MorphSpeed, "{2}x")
 		addToggleOptionSt("EliminationLocusState", "$DVT_UseEliminationLocus", Morphs.UseEliminationLocus)
 		addToggleOptionSt("struggleSlidersState", "$DVT_StruggleSliders", Morphs.useStruggleSliders)
@@ -747,14 +747,15 @@ event OnPageReset(string page)
 			addSliderOptionSt("BumpAmplitudeState", "$DVT_BumpAmplitude", Morphs.struggleAmplitude, "{2}x", OPTION_FLAG_DISABLED)
 		endIf
 		
+		;/
 		if !Morphs.UseLocationalMorphs
 			setCursorPosition(5)
 			addInputOptionSt("Slider_Locus0State", "$DVT_LocusSlider", Morphs.Locus_Sliders[0])
 			addSliderOptionSt("Scaling_Locus0State", "$DVT_LocusScale", Morphs.Locus_Scales[0], "{2}")
 			addEmptyOption()
 			addSliderOptionSt("Scaling_Locus0_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[0], "{2}")
-	
-		else
+			/;
+		;else
 			AddHeaderOption("Locus 0 - Stomach")
 			addInputOptionSt("Slider_Locus0State", "$DVT_LocusSlider", Morphs.Locus_Sliders[0])
 			addSliderOptionSt("Scaling_Locus0State", "$DVT_LocusScale", Morphs.Locus_Scales[0], "{2}")
@@ -773,7 +774,7 @@ event OnPageReset(string page)
 			addSliderOptionSt("Scaling_Locus2_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[2], "{2}", OPTION_FLAG_DISABLED)
 			addSliderOptionSt("Chance_Locus2", "$DVT_LocusChance", LocusChances[2], "{2}")
 
-			setCursorPosition(5)
+			setCursorPosition(1)
 
 			addToggleOptionSt("DualBreastModeState", "$DVT_UseDualBreastMode", Morphs.UseDualBreastMode)
 
@@ -800,7 +801,7 @@ event OnPageReset(string page)
 			addSliderOptionSt("Scaling_Locus5State", "$DVT_LocusScale", Morphs.Locus_Scales[5], "{2}")
 			addSliderOptionSt("Scaling_Locus5_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[5], "{2}")
 			addSliderOptionSt("Chance_Locus5", "$DVT_LocusChance", LocusChances[5], "{2}")
-		endIf
+		;endIf
 	ElseIf page == Pages[6]
 		SetCursorFillMode(LEFT_TO_RIGHT)
 
@@ -826,15 +827,15 @@ event OnPageReset(string page)
 		endIf
 		/;
 
-		;AddSKSEDetails("SSEEngineFixes", "EngineFixes plugin", "EngineFixes plugin")
-		AddSKSEDetails("JContainers", "JContainers", "JContainers64", JContainers.FeatureVersion(), JContainers.APIVersion())
-		AddSKSEDetails("PapyrusUtil", "papyrusutil plugin", "papyrusutil", PapyrusUtil.GetVersion(), PapyrusUtil.GetScriptVersion())
-		AddSKSEDetails("ConsoleUtil", "console plugin", "ConsoleUtilSSE", ConsoleUtil.GetVersion())
-		AddSKSEDetails("PO3 Papyrus Extender", "PapyrusExtender", "powerofthree's Papyrus Extender")
-		;AddSKSEDetails("PO3 SPID", "powerofthree's Spell Perk Distributor", "powerofthree's Spell Perk Distributor")
+		AddSKSEDetails("SSEEngineFixes", "6.0.2")
+		AddSKSEDetails("JContainers", "JContainers64", JContainers.FeatureVersion(), JContainers.APIVersion())
+		AddSKSEDetails("PapyrusUtil", "papyrusutil", PapyrusUtil.GetVersion(), PapyrusUtil.GetScriptVersion())
+		AddSKSEDetails("ConsoleUtil", "ConsoleUtilSSE", ConsoleUtil.GetVersion())
+		AddSKSEDetails("PO3 Papyrus Extender", "powerofthree's Papyrus Extender")
+		AddSKSEDetails("PO3 SPID", "powerofthree's Spell Perk Item Distributor")
 		;AddSKSEDetails("LibFire", "LibFire", "LibFire")
-		AddSKSEDetails("MCM Helper", "MCMHelper", "MCMHelper")
-		AddSKSEDetails("NIOverride", "NIOverride", "skee", NIOverride.GetScriptVersion())
+		AddSKSEDetails("MCM Helper", "MCMHelper")
+		AddSKSEDetails("NIOverride", "skee", NIOverride.GetScriptVersion())
 		AddQuestDetails("RaceMenu", "RaceMenu", RaceMenuBase.GetScriptVersionRelease())
 		AddQuestDetails("XPMSE", "XPMSEMCM", XPMSELib.GetXPMSELibVersion() as String)
 	EndIf
@@ -904,11 +905,13 @@ Event OnOptionSelect(int a_option)
 
 EndEvent
 
+;/
 state ShowEquipableHelpState
 	event OnSelectST()
     	ShowMessage("You can choose between using Sliders, or the Refactored / Classic equipable belly. Equipable bellies are compatible with almost all outfits and are an actual armor piece equipped onto predators, but look a bit worse than Sliders. Using Sliders requires you have any outfits you intend to wear converted over to a Devourment body in Bodyslide. Note that on AE, equipables are sometimes unreliable.")
     endEvent
 endState
+/;
 
 state MalePredatorsState
 	event OnDefaultST()
@@ -1307,7 +1310,7 @@ state Slider_Locus0State
 
 	event OnHighlightST()
 		SetInfoText("Slider/Node for Locus 0 (which is the belly by default). Recommendations:\n" + \
-		"'Vore Prey Belly' is a slider present in the MorphVore bodies and the equippable bellies.\n" + \
+		"'Vore Prey Belly' is a slider present in the Devourment bodies.\n" + \
 		"'PregnancyBelly' is a slider in CBBE, 3BA, and BHUNP; it's supported by many armors and outfits.")
 	endEvent
 endState
@@ -1360,7 +1363,7 @@ state Slider_Locus3State
 		if Morphs.UseDualBreastMode
 			SetInfoText(\
 			"Slider/Node for Locus 3 (which is the left breast by default). Recommendations:\n" + \
-			"'BVoreL' is the left breast vore slider from the MorphVore 3BAv2 body.\n" + \
+			"'BVoreL' is the left breast vore slider from the Devourment bodies.\n" + \
 			"'CME L PreBreast' is the left breast node from the XPMSE skeleton. It works with almost everything but it can interfere with physics.")
 		else
 			SetInfoText("Slider/Node for Locus 3 (which is the breasts by default).\n" + \
@@ -1390,7 +1393,7 @@ state Slider_Locus4State
 		if Morphs.UseDualBreastMode
 			SetInfoText(\
 			"Slider/Node for Locus 4 (which is the right breast by default). Recommendations:\n" + \
-			"'BVoreR' is the right breast vore slider from the MorphVore 3BAv2 body.\n" + \
+			"'BVoreR' is the right breast vore slider from the Devourment bodies.\n" + \
 			"'CME R PreBreast' is the left breast node from the XPMSE skeleton. It works with almost everything but it can interfere with physics.")
 		else
 		endIf
@@ -1416,7 +1419,7 @@ state Slider_Locus5State
 
 	event OnHighlightST()
 		SetInfoText("Slider/Node for Locus 5 (which is the scrotum by default). Recommendations:\n" + \
-		"'CVore' is the cockvore slider from the MorphVore male bodies.\n" + \
+		"'CVore' is the cockvore slider from the Devourment male bodies.\n" + \
 		"'NPC GenitalsScrotum [GenScrot]' is the scrotum node from the XPMSE skeleton. It works with almost everything.")
 	endEvent
 endState
@@ -1618,7 +1621,7 @@ state struggleSlidersState
 		setToggleOptionValueST(Morphs.useStruggleSliders)
 	endEvent
 	event OnHighlightST()
-		SetInfoText("Use the struggle sliders built into some MorphVore bodies and some equippable bellies. More Script-intensive but better looking and probably more stable.\nThe Gat, Vegan, and KongPow bellies don't support this but they have built-in struggle animations. The SkepticMech and Gaz Bellies support them, as well as the Gaz MorphVore body.")
+		SetInfoText("Use the struggle sliders built into Devourment bodies. More Script-intensive but better looking.")
 	endEvent
 endstate
 
@@ -1647,6 +1650,7 @@ state MorphSpeedState
 	endEvent
 endState
 
+;/
 state equipBellyState
 	event OnMenuOpenST()
 		SetMenuDialogStartIndex(Morphs.EquippableBellyType)
@@ -1676,7 +1680,9 @@ state equipBellyState
 		endIf
 	endEvent
 endstate
+/;
 
+;/
 state UseLocusMorphsState
 	event OnDefaultST()
 		Morphs.UseLocationalMorphs = false
@@ -1692,6 +1698,7 @@ state UseLocusMorphsState
 		SetInfoText("Use locational morphs (breasts, stomach, etc). The results are heavily dependent on the body you use and can be unpredictable. ")
 	endEvent
 endstate
+/;
 
 bool Function AddLogVersion(String label, String log, String linePattern, String subPattern)
 	int data = JLua.setStr("log", log, JLua.SetStr("p1", linePattern, JLua.SetStr("p2", subPattern)))
@@ -1729,13 +1736,11 @@ bool Function AddQuestDetails(String label, String name, String v1)
 	endIf
 EndFunction
 
-bool Function AddSKSEDetails(String label, String pluginLE, String pluginSE, String v1 = "", String v2 = "")
+bool Function AddSKSEDetails(String label, String pluginSE, String v1 = "", String v2 = "")
 	int skseVersion = 0
 	
 	if SKSE.GetPluginVersion(pluginSE) >= 0
 		skseVersion = SKSE.GetPluginVersion(pluginSE)
-	elseif SKSE.GetPluginVersion(pluginLE) >= 0
-		skseVersion = SKSE.GetPluginVersion(pluginLE)
 	else
 		addTextOption(label, "MISSING")
 		return false

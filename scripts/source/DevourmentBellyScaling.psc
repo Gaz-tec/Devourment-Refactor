@@ -25,9 +25,9 @@ int OUTPUT_BUMPS = 0
 String PROTOTYPE = "{ \"currentScale\" : 0.0, \"targetScale\" : 0.0, \"currentScales\" : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"targetScales\" : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"oddity\" : 0.9, \"amplitude\" : 0.5, \"minDuration\" : 15.0, \"maxDuration\" : 30.0, \"bumps\" : [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], \"output_scale\" : 0.0, \"output_body\" : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"output_bumps\" : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] }"
 
 
-bool UseMorphVore = true
+;bool UseMorphVore = true
 bool UseStruggleSliders = true
-bool UseLocationalMorphs = true
+;bool UseLocationalMorphs = true
 float UpdateTime = 0.05
 float playerStruggle = 0.0
 bool PlayerStruggleBumps
@@ -49,10 +49,13 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 	isFemale = Manager.IsFemale(target)
 	isNPC = target.HasKeyword(ActorTypeNPC)
 
-	UseMorphVore = Morphs.UseMorphVore
+	;UseMorphVore = Morphs.UseMorphVore
 	PlayerStruggleBumps = Manager.whoStruggles > 0 && Manager.VisualStruggles
 	UseStruggleSliders = Morphs.UseStruggleSliders && !Manager.PERFORMANCE
-	UseLocationalMorphs = Morphs.UseLocationalMorphs && IsNPC
+	;UseLocationalMorphs = Morphs.UseLocationalMorphs && IsNPC
+	;Gaz assertion: Non-oral voretypes should not be restricted in this way. 
+	;They should instead be restricted via entry points (i.e. spells)
+	;This way if someone wants to add a cock to a wolf and be CV'd, the system does not fight this possibility, they need only add the spell.
 
 	DATA = JValue.retain(JValue.objectFromPrototype(PROTOTYPE), PREFIX)
 	OUTPUT_BODY = JMap.GetObj(DATA, "output_body")
@@ -64,12 +67,12 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 		JMap.setFlt(DATA, "StruggleAmplitude", Morphs.StruggleAmplitude)
 	endIf
 
-	if UseLocationalMorphs
-		JMap.setInt(DATA, "UseLocationalMorphs", 1)
+	;if UseLocationalMorphs
+		;JMap.setInt(DATA, "UseLocationalMorphs", 1)
 		if Morphs.UseEliminationLocus
 			JMap.setInt(DATA, "UseEliminationLocus", 1)
 		endIf
-	endIf
+	;endIf
 
 	if Manager.PERFORMANCE
 		JMap.setFlt(DATA, "MorphSpeed", 1.0)
@@ -94,6 +97,7 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 		IsNode[sliderIndex] = target.HasNode(slider) || StringUtil.find(slider, "NPC ") >= 0
 	endWhile
 
+	;/
 	if target.HasKeyword(ActorTypeNPC)
 		int EquippableBellyType = Morphs.EquippableBellyType
 		if EquippableBellyType >= 0 && EquippableBellyType < Fullnesses.length
@@ -115,6 +119,7 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 			target.removeItem(FullnessTypes_All, 99, true)
 		endIf
 	endIf
+	/;
 
 	if Sliders.length < 1 || IsNode.length < 1 || !JValue.IsExists(DATA)
 		AssertExists(PREFIX, "OnEffectStart", "DATA", DATA)
@@ -189,7 +194,8 @@ Event OnUpdate()
 	
 	bool updateWeights = false
 
-	if UseMorphVore
+	;if UseMorphVore
+		;/
 		if !UseLocationalMorphs
 			if totalScale >= 0.0
 				if IsNode[0]
@@ -201,6 +207,7 @@ Event OnUpdate()
 				endIf
 			endIf
 		else
+		/;
 			int sliderIndex = Sliders.length
 			while sliderIndex
 				sliderIndex -= 1
@@ -215,11 +222,11 @@ Event OnUpdate()
 					endIf
 				endIf
 			endWhile
-		endIf
-	endIf
+		;endIf
+	;endIf
 	
 	if UseStruggleSliders
-		int sliderIndex = StruggleSliders.length
+		sliderIndex = StruggleSliders.length
 		while sliderIndex
 			sliderIndex -= 1
 			float scale = outputBumps[sliderIndex]
@@ -243,7 +250,7 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	DATA = JValue.release(DATA)
 	NIOverride.ClearBodyMorphKeys(target, PREFIX)
 
-	if UseMorphVore
+	;if UseMorphVore
 		int sliderIndex = Sliders.length
 		while sliderIndex
 			sliderIndex -= 1
@@ -252,7 +259,7 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 				NIOverride.UpdateNodeTransform(target, false, isFemale, Sliders[sliderIndex])
 			endIf
 		endWhile
-	endIf
+	;endIf
 	
 	NiOverride.UpdateModelWeight(target)
 	target.RemoveItem(FullnessTypes_All, 99, true)

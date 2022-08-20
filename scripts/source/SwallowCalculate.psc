@@ -340,7 +340,7 @@ Function PlayVoreAnimation_Actor()
 	endIf
 
 	if pred.hasKeywordString("ActorTypeDragon")
-		if pred.GetAnimationVariableInt("DevourmentDragonAnimationVersion") > 0
+		if pred.GetAnimationVariableInt("DevourmentDragonAnimationVersion") > 0 && Manager.DragonVoreAnimation
 			
 			pred.SetAllowFlying(false)
 			Debug.SendAnimationEvent(pred, "FlyStopDefault")
@@ -429,7 +429,7 @@ Function PlayVoreAnimation_Actor()
 			endIf
 		endif
 	elseif Game.GetForm(0x000131FF) == remapper.RemapRace(pred.GetLeveledActorBase().GetRace())	;If Mammoth
-		if pred.GetAnimationVariableInt("DevourmentMammothAnimationVersion") > 0
+		if pred.GetAnimationVariableInt("DevourmentMammothAnimationVersion") > 0 && Manager.MammothVoreAnimation
 
 			Debug.SendAnimationEvent(pred, "Reset")
 

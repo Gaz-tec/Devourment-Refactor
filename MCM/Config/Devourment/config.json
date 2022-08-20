@@ -795,7 +795,7 @@
 					  	"min": 0.0,
 					  	"max": 1.0,
 					  	"step": 0.05,
-						"defaultValue": 0.0,
+						"defaultValue": 0.20,
 					  	"formatString": "{2}"
 					}
 				},
@@ -949,6 +949,30 @@
 					}
 				},
 				{
+					"text": "$DVT_DragonAnimations",
+					"help": "$DVT_Help_DragonAnimations",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "DragonVoreAnimation",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_MammothAnimations",
+					"help": "$DVT_Help_MammothAnimations",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MammothVoreAnimation",
+						"defaultValue": true
+					}
+				},
+				{
 					"text": "$DVT_DrawnAnimations",
 					"help": "$DVT_Help_DrawnAnimations",
 					"type": "toggle",
@@ -993,7 +1017,7 @@
 						"defaultValue": 4.0,
 					  	"formatString": "{1}"
 					}
-				}							
+				}
 			]
 		},
 		{
