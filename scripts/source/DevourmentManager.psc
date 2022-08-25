@@ -186,7 +186,7 @@ bool property malePreds = false auto
 bool property notifications = true auto
 bool property screamSounds = true auto
 bool property shitItems = false auto
-bool property SwallowHeal = true auto
+bool property SwallowHeal = false auto
 bool property StomachStrip = true auto
 bool property UseHelpMessages = false auto
 bool property bossesSuperPrey = true auto
@@ -840,8 +840,8 @@ Event RegisterDigestion(Form f1, Form f2, bool endo, int locus)
 			endIf
 		endIf
 
-		UncacheVoreWeight(pred)
-		UncacheVoreWeight(prey)
+		;UncacheVoreWeight(pred)
+		;UncacheVoreWeight(prey)
 
 		GivePredXP_async(pred, Math.sqrt(prey.GetLevel()))
 		GivePreyXP_async(prey, Math.sqrt(pred.GetLevel()))
@@ -6528,7 +6528,7 @@ float Function GetVoreWeightRatio(Actor pred, Actor prey)
 	return ratio
 endFunction
 
-
+;/
 Function UncacheVoreWeight(Actor subject)
 	StorageUtil.UnsetFloatValue(subject, "dvtCachedWeight")
 EndFunction
@@ -6538,10 +6538,23 @@ Function CacheVoreWeight(Actor subject)
 	StorageUtil.UnsetFloatValue(subject, "dvtCachedWeight")
 	StorageUtil.SetFloatValue(subject, "dvtCachedWeight", GetVoreWeight(subject))
 EndFunction
-
+/;
 
 float Function GetCumulativeSize(Actor subject)
-	float scale = subject.GetScale()
+	String rootNode = "NPC Root [Root]"
+	Bool isFemale = IsFemale(subject)
+	String[] Keys = NiOverride.GetNodeTransformKeys(subject, false, isFemale, rootNode)
+	Int i = 0
+	float scale = 0.0
+	While i < Keys.Length
+		scale += NiOverride.GetNodeTransformScale(subject, false, isFemale, rootNode, Keys[i])
+		i += 1
+	EndWhile
+	if scale == 0.0
+		scale = 1.0
+	endif
+	scale = scale * subject.GetScale()
+	
 	if scale < 0.1
 		scale = 0.01
 	elseif scale > 10.0
@@ -6567,6 +6580,7 @@ float Function GetVoreWeight(Actor subject)
 		return -1.0
 	endIf
 
+	;/ Gaz: Removed Caching temporarily, as it doesn't factor in Predator scale changing rapidly.
 	; If the weight has already been determined and stored, use that value.
 	float cachedWeight = StorageUtil.GetFloatValue(subject, "dvtCachedWeight", -1.0)
 	if cachedWeight > 0.0
@@ -6575,6 +6589,7 @@ float Function GetVoreWeight(Actor subject)
 		endIf
 		return cachedWeight
 	endIf
+	/;
 	
 	; We go by Race, and PapyrusUtil conveniently makes Race editorIDs available.
 	String raceEDID = MiscUtil.GetActorRaceEditorID(subject)
