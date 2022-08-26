@@ -1,4 +1,4 @@
-Version V1
-AnimVar DevourmentDragonAnimationVersion INT32 101
+Version V2
+AnimVar DevourmentDragonAnimationVersion INT32 102
 
-b -a DragonVore_Dragon DevourmentDragon_Dragon.hkx
+b -a DevourmentDragon_DragonPredator DevourmentDragon_DragonPredator.hkx

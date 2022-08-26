@@ -1,4 +1,4 @@
-Version V1
-AnimVar DevourmentMammothAnimationVersion INT32 101
+Version V2
+AnimVar DevourmentMammothAnimationVersion INT32 102
 
-b -a MammothVore_Mammoth DevourmentMammoth_Mammoth.hkx
+b -a DevourmentMammoth_MammothPredator DevourmentMammoth_MammothPredator.hkx

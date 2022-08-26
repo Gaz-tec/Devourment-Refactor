@@ -1,5 +1,5 @@
-Version V6
-AnimVar DevourmentAnimationVersion INT32 106
+Version V7
+AnimVar DevourmentAnimationVersion INT32 107
 
 ' Format:
 '			<type> [-<option,option,...>] <AnimEvent> <AnimFile> [<AnimObject> ...]		(FNIS Animation)
@@ -53,14 +53,19 @@ AnimVar DevourmentAnimationVersion INT32 106
 ' AnimEvents and Animation File names have to be unique through all mods (even for files in different folders)
 ' so it's a good idea to use mod specific abbreviations for all your names
 
-b -a DevourA01 DevourA01.hkx
-b -a DevourA02 DevourA02.hkx
+b -a DevourmentSameSize_HumanPredator DevourmentSameSize_HumanPredator.hkx
+b -a DevourmentSameSize_HumanPrey DevourmentSameSize_HumanPrey.hkx
 
-b -a DragonVore_Human DevourmentDragon_Human.hkx
-b -a MammothVore_Human DevourmentMammoth_Human.hkx
+b -a DevourmentMacro_BeastPredator DevourmentMacro_BeastPredator.hkx
+b -a DevourmentMacro_BeastPrey DevourmentMacro_BeastPrey.hkx
+b -a DevourmentMacro_HumanPredator DevourmentMacro_HumanPredator.hkx
+b -a DevourmentMacro_HumanPrey DevourmentMacro_HumanPrey.hkx
 
-s -a,k LayDownBirth Animations\IdleLaydown_Enter.hkx
-+ -B1.4 Birth_S1 Birth_S1.hkx
-+ -a Birth_S2 Birth_S2.hkx
-+ Birth_S3 Birth_S3.hkx
-+ -a,k,B1.4 GetupBirth Animations\IdleLaydown_Exit.hkx
+b -a DevourmentDragon_HumanPrey DevourmentDragon_HumanPrey.hkx
+b -a DevourmentMammoth_HumanPrey DevourmentMammoth_HumanPrey.hkx
+
+s -a,k DevourmentUnbirth Animations\IdleLaydown_Enter.hkx
++ -B1.4 DevourmentUnbirthS1 DevourmentUnbirth_S1.hkx
++ -a DevourmentUnbirthS2 DevourmentUnbirth_S2.hkx
++ DevourmentUnbirthS3 DevourmentUnbirth_S3.hkx
++ -a,k,B1.4 DevourmentUnbirthGetUp Animations\IdleLaydown_Exit.hkx
