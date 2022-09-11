@@ -572,7 +572,7 @@ EndFunction
 
 event OnPageReset(string page)
 	parent.OnPageReset(page)
-	optionsMap = JValue_ReleaseAndRetain(optionsMap, JIntMap.Object(), PREFIX)
+	optionsMap = JValue_ReleaseAndRetain(optionsMap, JIntMap_Object(), PREFIX)
 	target = GetTarget()	;We use this so often we should just refresh it whenever.
 	targetName = Namer(target, true)
 
@@ -656,7 +656,7 @@ event OnPageReset(string page)
 				EndIf
 				double[1] = AddToggleOption(Name, Manager.HumanoidFemalePredatorToggles[i])	;OID
 				int oDouble = JArray_objectWithInts(double)
-				JIntMap.SetObj(optionsMap, double[1], oDouble)
+				JIntMap_SetObj(optionsMap, double[1], oDouble)
 				i += 1 
 			endWhile
 		EndIf
@@ -676,7 +676,7 @@ event OnPageReset(string page)
 				EndIf
 				double[1] = AddToggleOption(Name, Manager.HumanoidMalePredatorToggles[i])	;OID
 				int oDouble = JArray_objectWithInts(double)
-				JIntMap.SetObj(optionsMap, double[1], oDouble)
+				JIntMap_SetObj(optionsMap, double[1], oDouble)
 				i += 1 
 			endWhile
 		EndIf
@@ -694,7 +694,7 @@ event OnPageReset(string page)
 			whitelistDouble[0] = i + 300 ;Offset so we can differentiate this and creatures since same page.
 			whitelistDouble[1] = AddTextOption(Manager.PredatorWhitelist[i].GetLeveledActorBase().GetName(), "Remove?")	;OID
 			int owhitelistDouble = JArray_objectWithInts(whitelistDouble)
-			JIntMap.SetObj(optionsMap, whitelistDouble[1], owhitelistDouble)
+			JIntMap_SetObj(optionsMap, whitelistDouble[1], owhitelistDouble)
 			i += 1 
 		endWhile
 
@@ -718,7 +718,7 @@ event OnPageReset(string page)
 				endif
 				double[1] = AddToggleOption(Name, Manager.CreaturePredatorToggles[i])	;OID
 				int oDouble = JArray_objectWithInts(double)
-				JIntMap.SetObj(optionsMap, double[1], oDouble)
+				JIntMap_SetObj(optionsMap, double[1], oDouble)
 				i += 1
 			EndWhile
 		EndIf
@@ -843,7 +843,7 @@ endEvent
 
 
 Event OnPageSelect(string a_page)
-    optionsMap = JValue_ReleaseAndRetain(optionsMap, JIntMap.Object(), PREFIX)
+    optionsMap = JValue_ReleaseAndRetain(optionsMap, JIntMap_Object(), PREFIX)
 
 	if difficulty < 5
 		difficulty = checkDifficultyPreset()
@@ -855,13 +855,13 @@ Event OnOptionSelect(int a_option)
 
 	parent.OnOptionSelect(a_option)
 
-	if !AssertTrue(PREFIX, "OnOptionSelect", "JIntMap.hasKey(optionsMap, a_option)", JIntMap.hasKey(optionsMap, a_option))
+	if !AssertTrue(PREFIX, "OnOptionSelect", "JIntMap_hasKey(optionsMap, a_option)", JIntMap_hasKey(optionsMap, a_option))
 		return
 	endIf
 
 	If CurrentPage == Pages[2]
 		; Get the double.
-		int od = JIntMap.GetObj(optionsMap, a_option)
+		int od = JIntMap_GetObj(optionsMap, a_option)
 		if !AssertExists(PREFIX, "OnOptionSelect", "od", od)
 			return
 		endIf

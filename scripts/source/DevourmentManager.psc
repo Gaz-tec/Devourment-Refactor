@@ -531,7 +531,7 @@ EndFunction
 Function CreateDatabase()
 { Initialize the JContainers tables. }
 	DB = JValue_releaseAndretain(DB, JMap_object(), PREFIX)
-	JDB.setObj("dvt", DB)
+	JDB_setObj("dvt", DB)
 	JMap_setForm(DB, "playerRef", playerRef)
 	JMap_setForm(DB, "fakePlayer", fakePlayer)
 
@@ -6954,7 +6954,7 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "FemalePreds", 		FemalePreds as int)
 	JMap_setInt(data, "MalePreds", 			MalePreds as int)
 
-	JMap_SetObj(data, "CreaturePredatorToggles",	JArray_objectWithInts(CreaturePredatorToggles))
+	JMap_SetObj(data, "CreaturePredatorToggles",		JArray_objectWithInts(CreaturePredatorToggles))
 	JMap_SetObj(data, "HumanoidMalePredatorToggles",	JArray_objectWithInts(HumanoidMalePredatorToggles))
 	JMap_SetObj(data, "HumanoidFemalePredatorToggles",	JArray_objectWithInts(HumanoidFemalePredatorToggles))
 	JMap_setInt(data, "PlayerAlias.DefaultLocus", PlayerAlias.DefaultLocus)
