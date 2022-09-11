@@ -2,6 +2,7 @@ ScriptName DevourmentDialog extends Quest conditional
 { None of this is in use yet. }
 import Logging
 import DevourmentUtil
+import Devourment_JCDomain
 
 
 DevourmentManager property Manager auto
@@ -182,7 +183,7 @@ Bool function createDialogEvent()
 	int preyData = Manager.GetPreyData(prey)
 	bool endo = Manager.IsEndo(preyData)
 	
-	if prey && prey && JValue.isExists(preyData)
+	if prey && prey && JValue_isExists(preyData)
 		SendDialogEvent(pred, prey, endo)
 		return true
 	else

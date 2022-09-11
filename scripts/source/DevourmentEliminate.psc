@@ -3,6 +3,7 @@ ScriptName DevourmentEliminate extends ActiveMagicEffect
 Causes the target to vomit or defecate all of their undigested prey and items.
 }
 import Logging
+import Devourment_JCDomain
 
 
 DevourmentManager property Manager auto
@@ -44,7 +45,7 @@ Function Eliminate(Actor pred)
 			ObjectReference content = stomach[stomachIndex] as ObjectReference
 
 			if content
-				if JLua.evalLuaInt("return dvt.isExcretable(args)", Manager.GetPreyData(content), 0, false)
+				if JLua_evalLuaInt("return dvt.isExcretable(args)", Manager.GetPreyData(content), 0, false)
 					if Manager.IsDigested(Manager.GetPreyData(content))
 						eliminateList.AddEntryItem(Namer(content, true) + " (digested)")
 					else

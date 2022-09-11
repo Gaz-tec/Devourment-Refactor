@@ -1137,16 +1137,6 @@
 					}
 				},
 				{
-					"text": "$DVT_AltPerkMenu",
-					"help": "$DVT_Help_AltPerkMenu",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceType": "PropertyValueBool",
-						"propertyName": "AltPerkMenus",
-						"defaultValue": false
-					}
-				},
-				{
 					"text": "$DVT_PerformanceMode",
 					"help": "$DVT_Help_PerformanceMode",
 					"type": "toggle",

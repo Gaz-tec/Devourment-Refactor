@@ -3,6 +3,7 @@ scriptName DevourmentBellyScaling extends ActiveMagicEffect
 }
 import Logging
 import DevourmentUtil
+import Devourment_JCDomain
 
 
 DevourmentManager property Manager auto
@@ -57,31 +58,31 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 	;They should instead be restricted via entry points (i.e. spells)
 	;This way if someone wants to add a cock to a wolf and be CV'd, the system does not fight this possibility, they need only add the spell.
 
-	DATA = JValue.retain(JValue.objectFromPrototype(PROTOTYPE), PREFIX)
-	OUTPUT_BODY = JMap.GetObj(DATA, "output_body")
-	OUTPUT_BUMPS = JMap.GetObj(DATA, "output_bumps")
-	JMap.SetForm(DATA, "target", target)
+	DATA = JValue_retain(JValue_objectFromPrototype(PROTOTYPE), PREFIX)
+	OUTPUT_BODY = JMap_GetObj(DATA, "output_body")
+	OUTPUT_BUMPS = JMap_GetObj(DATA, "output_bumps")
+	JMap_SetForm(DATA, "target", target)
 
 	if UseStruggleSliders
-		JMap.setInt(DATA, "UseStruggleSliders", 1)
-		JMap.setFlt(DATA, "StruggleAmplitude", Morphs.StruggleAmplitude)
+		JMap_setInt(DATA, "UseStruggleSliders", 1)
+		JMap_setFlt(DATA, "StruggleAmplitude", Morphs.StruggleAmplitude)
 	endIf
 
 	;if UseLocationalMorphs
-		;JMap.setInt(DATA, "UseLocationalMorphs", 1)
+		;JMap_setInt(DATA, "UseLocationalMorphs", 1)
 		if Morphs.UseEliminationLocus
-			JMap.setInt(DATA, "UseEliminationLocus", 1)
+			JMap_setInt(DATA, "UseEliminationLocus", 1)
 		endIf
 	;endIf
 
 	if Manager.PERFORMANCE
-		JMap.setFlt(DATA, "MorphSpeed", 1.0)
+		JMap_setFlt(DATA, "MorphSpeed", 1.0)
 	else
-		JMap.setFlt(DATA, "MorphSpeed", Morphs.MorphSpeed)
+		JMap_setFlt(DATA, "MorphSpeed", Morphs.MorphSpeed)
 	endIf
 
 	if !isNPC
-		JMap.setFlt(DATA, "CreatureScaling", Morphs.CreatureScaling)
+		JMap_setFlt(DATA, "CreatureScaling", Morphs.CreatureScaling)
 	endIf
 	
 	Manager.CommitMorphsToDB()
@@ -121,7 +122,7 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 	endIf
 	/;
 
-	if Sliders.length < 1 || IsNode.length < 1 || !JValue.IsExists(DATA)
+	if Sliders.length < 1 || IsNode.length < 1 || !JValue_IsExists(DATA)
 		AssertExists(PREFIX, "OnEffectStart", "DATA", DATA)
 		AssertExists(PREFIX, "OnEffectStart", "OUTPUT_BODY", OUTPUT_BODY)
 		AssertExists(PREFIX, "OnEffectStart", "OUTPUT_BUMPS", OUTPUT_BUMPS)
@@ -159,9 +160,9 @@ EndEvent
 
 Event OnCombatStateChanged(Actor newTarget, int aeCombatState)
 	if aeCombatState > 1
-		JMap.SetInt(DATA, "squench", 1)
+		JMap_SetInt(DATA, "squench", 1)
 	else
-		JMap.removeKey(DATA, "squench")
+		JMap_removeKey(DATA, "squench")
 	endIf
 EndEvent
 
@@ -182,9 +183,9 @@ EndEvent
 
 
 Event OnUpdate()
-	float totalScale = JLua.evalLuaFlt("return dvt.BumpSliders(args, " + playerStruggle + ")", DATA, 0, 0.0)
-	float[] outputBody = JArray.asFloatArray(OUTPUT_BODY)
-	float[] outputBumps = JArray.asFloatArray(OUTPUT_BUMPS)
+	float totalScale = JLua_evalLuaFlt("return dvt.BumpSliders(args, " + playerStruggle + ")", DATA, 0, 0.0)
+	float[] outputBody = JArray_asFloatArray(OUTPUT_BODY)
+	float[] outputBumps = JArray_asFloatArray(OUTPUT_BUMPS)
 
 	if DEBUGGING 
 		Log2(PREFIX, "OnUpdate", totalScale, LuaS("DATA", DATA))
@@ -247,7 +248,7 @@ EndEvent
 
 
 Event OnEffectFinish(Actor akTarget, Actor akCaster)
-	DATA = JValue.release(DATA)
+	DATA = JValue_release(DATA)
 	NIOverride.ClearBodyMorphKeys(target, PREFIX)
 
 	;if UseMorphVore

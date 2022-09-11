@@ -1,5 +1,6 @@
 ScriptName DevourmentDigestItems extends ActiveMagicEffect
 import Logging
+import Devourment_JCDomain
 
 
 ;-- Properties --------------------------------------
@@ -43,8 +44,8 @@ EndEvent
 bool Function SelectItems(Actor caster, Form[] stomach)
 	UIListMenu menu = UIExtensions.GetMenu("UIListMenu") as UIListMenu
 
-	int entryMap = JValue.Retain(JIntMap.Object(), PREFIX)
-	int cache = JValue.Retain(JFormMap.Object(), PREFIX)
+	int entryMap = JValue_Retain(JIntMap_Object(), PREFIX)
+	int cache = JValue_Retain(JFormMap_Object(), PREFIX)
 
 	bool exit = false
 	while !exit
@@ -65,7 +66,7 @@ bool Function SelectItems(Actor caster, Form[] stomach)
 					bolusIndex -= 1
 					Form item = bolusContents[bolusIndex]
 					int count = bolus.GetItemCount(item)
-					int cacheval = JFormMap.GetInt(cache, item, -1)
+					int cacheval = JFormMap_GetInt(cache, item, -1)
 
 					if cacheval == 0
 						if DEBUGGING
@@ -76,11 +77,11 @@ bool Function SelectItems(Actor caster, Form[] stomach)
 						CreateEntry(item, bolus, count, entryMap, menu)
 
 					elseif BreakdownItems.find(item) < 0 && ;/GetValueRatio(item) <= ValueRatioLimit && /;item != Gold && Manager.IsStrippable(item)
-						JFormMap.setInt(cache, item, 1)
+						JFormMap_setInt(cache, item, 1)
 						CreateEntry(item, bolus, count, entryMap, menu)
 
 					else
-						JFormMap.setInt(cache, item, 0)
+						JFormMap_setInt(cache, item, 0)
 						if DEBUGGING
 							Log2(PREFIX, "OnEffectStart", "Indigestible: not strippable.", Namer(item))
 						endIf
@@ -91,15 +92,15 @@ bool Function SelectItems(Actor caster, Form[] stomach)
 
 		menu.OpenMenu()
 		int result = menu.GetResultInt()
-		int entryDescriptor = JIntMap.GetObj(entryMap, result)
+		int entryDescriptor = JIntMap_GetObj(entryMap, result)
 		
 		if result < 0 || result == ENTRY_EXIT
 			exit = true
 
-		elseif JValue.isExists(entryDescriptor)
-			DevourmentBolus bolus = JMap.getForm(entryDescriptor, "bolus") as DevourmentBolus
-			Form item = JMap.getForm(entryDescriptor, "item")
-			int count = JMap.getInt(entryDescriptor, "count", 1)
+		elseif JValue_isExists(entryDescriptor)
+			DevourmentBolus bolus = JMap_getForm(entryDescriptor, "bolus") as DevourmentBolus
+			Form item = JMap_getForm(entryDescriptor, "item")
+			int count = JMap_getInt(entryDescriptor, "count", 1)
 			bool digested = DigestItem(caster, bolus, item, count)
 			Utility.Wait(0.01)
 
@@ -109,19 +110,19 @@ bool Function SelectItems(Actor caster, Form[] stomach)
 		endIf
 	endWhile
 
-	entryMap = JValue.Release(entryMap)
-	cache = JValue.Release(cache)
+	entryMap = JValue_Release(entryMap)
+	cache = JValue_Release(cache)
 	return true
 EndFunction
 
 
 Function createEntry(Form item, DevourmentBolus bolus, int count, int entryMap, UIListMenu menu)
 	int ENTRY = menu.AddEntryItem(Namer(item, true) + " (" + count + ")")
-	int entryDescriptor = JMap.object()
-	JMap.setForm(entryDescriptor, "bolus", bolus)
-	JMap.setForm(entryDescriptor, "item", item)
-	JMap.setInt(entryDescriptor, "count", count)
-	JIntMap.setObj(entryMap, ENTRY, entryDescriptor)
+	int entryDescriptor = JMap_object()
+	JMap_setForm(entryDescriptor, "bolus", bolus)
+	JMap_setForm(entryDescriptor, "item", item)
+	JMap_setInt(entryDescriptor, "count", count)
+	JIntMap_setObj(entryMap, ENTRY, entryDescriptor)
 EndFunction
 
 

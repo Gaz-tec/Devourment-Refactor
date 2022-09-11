@@ -1,5 +1,6 @@
 Scriptname DevourmentRemap extends Quest
 import Logging
+import Devourment_JCDomain
 
 
 FormList property RemapFrom auto
@@ -23,7 +24,7 @@ EndFunction
 
 String Function RemapRaceName(Actor target)
 	String raceName = RemapRace(target.GetLeveledActorBase().getRace()).getName()
-	String remapName = JLua.evalLuaStr("return '...'..string.lower(args.name)", JLua.SetStr("name", raceName))
+	String remapName = JLua_evalLuaStr("return '...'..string.lower(args.name)", JLua_SetStr("name", raceName))
 	String statName = JSonUtil.GetStringValue(RaceRemaps, remapName, raceName)
 	Log4(PREFIX, "RemapRace", Namer(target), raceName, remapName, statName)
 	return statName

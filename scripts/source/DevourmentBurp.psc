@@ -13,16 +13,8 @@ bool property Oral auto
 
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
-	if Manager.Menu.GentleGas
-		int r = Utility.RandomInt()
-		if r < 5
-			ConsoleUtil.PrintMessage("Why so weak?")
-		elseif r < 10
-			ConsoleUtil.PrintMessage("So very weak...")
-		else
-			ConsoleUtil.PrintMessage("Weak!")
-		endIf
-
+	if DevourmentMCM.Instance().GentleGas
+		;
 	elseif akCaster.hasPerk(EpicGas)
 		if oral
 			;akCaster.PlayImpactEffect(FXDragonLandingImpactSet, "NPC Head [Head]", 0, 0, -1, 512)

@@ -48,6 +48,7 @@ LOCUS_COCK 		= 5
 ; * Re-add all the old depreciated toggles we sacrificed, their strings are at the bottom of the translation file.
 ; * Finish moving EVERYTHING over to the strings file, we still use some MCM text that is hard-coded.
 
+import Devourment_JCDomain
 import DevourmentUtil
 import Logging
 
@@ -256,9 +257,39 @@ float property minimumSwallowChance = 5.0 auto
 
 int DB = 0
 int predators = 0
+int preyMap = 0
+int bolusMap = 0
+int itemMap = 0
 int blocks = 0
 Form[] blockForms
 String[] blockCodes
+
+ObjectReference[] IndicesPrey	;Indices-matched arrays for Prey and Pred activity, linking the two.
+ObjectReference[] IndicesPred	;Even making this is obscene and ruins code purity but the assumptions we built this mod on have crumbled.
+
+Bool Function InsertPairSafeguard(ObjectReference akPred, ObjectReference akPrey)
+{In the event of catastrophic JContainers failure, can be used to re-marry Pred and Prey.
+Called by CreatePreyData, CreateItemData & CreateBolusData.}
+
+	int index = IndicesPrey.find(none)
+	If index == IndicesPred.find(none) && index > -1
+		IndicesPrey[index] = akPrey
+		IndicesPred[index] = akPred
+		Return True
+	else
+		Return False
+	endIf
+
+EndFunction
+
+Bool Function RemovePairSafeguard(int iIndex)
+{Removes IndicesPred-Prey based on Index.}
+	
+	IndicesPrey[iIndex] = None
+	IndicesPred[iIndex] = None
+	Return True
+	
+EndFunction
 
 String property RaceWeights = "..\\devourment\\raceWeights.json" autoreadonly
 String property RaceRemaps = "..\\devourment\\raceRemaps.json" autoreadonly
@@ -329,8 +360,12 @@ EndFunction
 Event OnInit()
 	createDatabase()
 	
-	if firstRun && JContainers.fileExistsAtPath(Menu.SettingsFileName)
-		LoadSettings(Menu.SettingsFileName)
+	if firstRun
+		If JContainers.fileExistsAtPath(Menu.SettingsFileName)
+			LoadSettings(Menu.SettingsFileName)
+		EndIf
+		IndicesPrey = PapyrusUtil.ObjRefArray(256)
+		IndicesPred = PapyrusUtil.ObjRefArray(256)
 	endIf
 
 	firstRun = false
@@ -406,12 +441,7 @@ script. Instead it's called from DevourmentPlayerAlias.
 	endIf
 	/;
 	
-	; Make sure that the devourment database exists.
-	; If it doesn't, then recreate it and display an error message.
-	if !assertExists(PREFIX, "LoadGameChecks", "DB", DB)
-		Debug.MessageBox("The Devourment database was corrupted or deleted.\nRecreating it now.")
-		createDatabase()
-	endIf
+	JCFormIntegrityCheck()
 
 	FrostFallInstalled = Game.IsPluginInstalled("Frostfall.esp")
 	Log1(PREFIX, "LoadGameChecks", "Frostfall: " + FrostFallInstalled)
@@ -442,21 +472,80 @@ script. Instead it's called from DevourmentPlayerAlias.
 	RegisterForModEvent("Devourment_Entitlement", "Entitlement")
 	RegisterForModEvent("Devourment_WeightGain", "WeightGain")
 	RegisterForModEvent("Devourment_OutfitRestore", "OutfitRestore")
-	
+
 	RegisterForSingleUpdate(UpdateInterval)
+EndFunction
+
+
+Function JCFormIntegrityCheck()
+{ Analyze our FormMaps and atttempt repairs if integrity has been lost. }
+
+	; Make sure that the devourment database exists.
+	; If it doesn't, then recreate it and display an error message.
+	if !assertExists(PREFIX, "JCFormIntegrityCheck", "DB", DB) || JMap_GetForm(DB, "playerRef") == None	;If even the playerRef is gone, we must assume a catastrophic failure has occurred.
+		Debug.MessageBox("The Devourment database was corrupted or deleted.\nRecreating it now.")
+		createDatabase()
+		Int iIndex = 0	;Papyrus limits script-initialized arrays to 128 elements long. 
+		;This unfortunately puts me in the position where in order to maintain a larger array, I must use PapyrusUtil to create it. 
+		;As far as I understand, this means .Length is not a viable method of telling if it is filled.
+		While IndicesPrey[iIndex] == None && iIndex < 256	;Iterate up the array searching for a Pred-Prey indices association.
+			iIndex += 1
+		EndWhile
+		If IndicesPrey[iIndex] != None ;In this instance, we do not try to recreate prey and pred data objects. We are only trying to preserve the users' game, so will send Prey back to their Editor locations.
+			LogAndBox(PREFIX, "JCFormIntegrityCheck", "Database safeguards triggered. Devourment will now try to reset all Prey back to their spawn location, to make sure we did not damage your save.", 2)
+			ResetDevourment()	;The resulting callstack will cleanse the Indices arrays.
+		EndIf
+	else
+		;Assertions for this logic: 
+		; * To get here, we must have proved that the DB itself is still alive and that the PlayerRef JMap form is filled.
+		; * PreyMap is intact, but Prey and Pred JMap Forms may have been damaged, likely through load-order changes causing FF address range shuffling.
+		; * PreyData objects still exist and no other failures have been encountered, so mod can resume function if Prey and Pred Forms are realigned.
+		If JFormMap_Count(preyMap) > 0	;If the PreyMap is populated, evidently *something* must still be there. 
+			Form[] keyArray = JFormMap_allKeysPArray(preyMap)	;Since we use Prey forms as JFormMap Keys, this should return accurate Prey references.
+			int i = 0
+			while i < keyArray.Length
+				int preyData = JFormMap_GetObj(preyMap, keyArray[i])
+				If preyData
+					;LogAndBox(PREFIX, "JCFormIntegrityCheck", "Keys: " +keyArray, 2)
+					If JMap_getForm(preyData, "prey") as ObjectReference == None	;The Prey Form reference in PreyData is stored in a JMap and as such is not resilient to address shuffling, so may not resolve. 
+						LogAndBox(PREFIX, "JCFormIntegrityCheck", "PreyMap has faulty Form data. Repairing. JFormMap Prey: " +keyArray[i]+ " PreyData Prey: " +JMap_getForm(preyData, "prey") as Actor, 2)
+						If IndicesPrey.Find(keyArray[i] as ObjectReference)	;If we have this Prey logged, *something* must have eaten it.
+							JMap_setForm(preyData, "prey", keyArray[i])	;Correct the JMap prey reference by setting it to our known currently-accurate reference for this Prey.
+						EndIf
+					EndIf
+					If JMap_getForm(preyData, "pred") as ObjectReference == None	;Evaluate Pred seperately, just in-case one failed but not the other.
+						Form Pred = IndicesPred[IndicesPrey.Find(keyArray[i] as ObjectReference)]
+						If Pred
+							JMap_setForm(preyData, "pred", Pred)
+						EndIf
+					EndIf
+				EndIf
+				i += 1
+			endWhile
+		EndIf
+	EndIf
+
 EndFunction
 
 
 Function CreateDatabase()
 { Initialize the JContainers tables. }
-	DB = JValue.releaseAndretain(predators, JMap.object(), PREFIX)
+	DB = JValue_releaseAndretain(DB, JMap_object(), PREFIX)
 	JDB.setObj("dvt", DB)
-	predators = JFormMap.object()
-	blocks = JFormMap.Object()
-	JMap.setObj(DB, "predators", predators)
-	JMap.setObj(DB, "blocks", blocks)
-	JMap.setForm(DB, "playerRef", playerRef)
-	JMap.setForm(DB, "fakePlayer", fakePlayer)
+	JMap_setForm(DB, "playerRef", playerRef)
+	JMap_setForm(DB, "fakePlayer", fakePlayer)
+
+	predators = JValue_retain(JFormMap_Object(), PREFIX)
+	preyMap = JValue_retain(JFormMap_Object(), PREFIX)
+	bolusMap = JValue_retain(JFormMap_Object(), PREFIX)
+	itemMap = JValue_retain(JFormMap_Object(), PREFIX)
+	blocks = JValue_retain(JFormMap_Object(), PREFIX)
+
+	JMap_setObj(DB, "predators", predators)
+	JMap_setObj(DB, "preyMap", preyMap)
+	JMap_setObj(DB, "bolusMap", bolusMap)
+	JMap_setObj(DB, "itemMap", itemMap)
+	JMap_setObj(DB, "blocks", blocks)
 	
 	if DEBUGGING
 		Log3(PREFIX, "CreateDatabase", "Database created.", DB, predators)
@@ -465,9 +554,9 @@ EndFunction
 
 
 Function CommitMorphsToDB()
-	JMap.setObj(DB, "Locus_Scales", JArray.objectWithFloats(Menu.Morphs.Locus_Scales))
-	JMap.setObj(DB, "Locus_Maxes", JArray.objectWithFloats(Menu.Morphs.Locus_Maxes))
-	JMap.setObj(DB, "Locus_Sliders", JArray.objectWithStrings(Menu.Morphs.Locus_Sliders))
+	JMap_setObj(DB, "Locus_Scales", JArray_objectWithFloats(Menu.Morphs.Locus_Scales))
+	JMap_setObj(DB, "Locus_Maxes", JArray_objectWithFloats(Menu.Morphs.Locus_Maxes))
+	JMap_setObj(DB, "Locus_Sliders", JArray_objectWithStrings(Menu.Morphs.Locus_Sliders))
 EndFunction
 
 
@@ -549,14 +638,13 @@ Function ProcessUpdate(float dt)
 { Processes updates for the entire Devourment system. }
 
 	if DEBUGGING
-		LogForms(PREFIX, "ProcessUpdate", "predators", JArray.asFormArray(JFormMap.allKeys(predators)))
+		LogForms(PREFIX, "ProcessUpdate", "predators", JArray_asFormArray(JFormMap_allKeys(predators)))
 	endIf
 
 	; Loop through the list of predators. 
 	; Skip any that are currently blocked.
-	;
 	Actor purge = none
-	Actor pred = JFormMap.nextKey(predators) as Actor
+	Actor pred = JFormMap_nextKey(predators) as Actor
 	while pred
 		if !IsBlocked(pred)
 			; The return flag from processPredator() tells us whether the predator still needs
@@ -569,7 +657,7 @@ Function ProcessUpdate(float dt)
 		elseif DEBUGGING
 			Log2(PREFIX, "ProcessUpdate", "Pred is blocked.", Namer(pred))
 		endIf
-		pred = JFormMap.nextKey(predators, pred) as Actor
+		pred = JFormMap_nextKey(predators, pred) as Actor
 	endWhile
 	
 	if purge
@@ -578,7 +666,7 @@ Function ProcessUpdate(float dt)
 	endIf
 
 	; If there are no predators active, stop the main loop.
-	if !JValue.count(predators)
+	if !JValue_count(predators)
 		gotostate("")
 	endIf
 	
@@ -601,7 +689,7 @@ Return value is a flag indicating whether the predator is still active.
 
 	; Get the predData object, which identifies the pred and contains the stomach list.
 	; This is needed by Tick function.
-	int predData = JFormMap.getObj(predators, pred)
+	int predData = JFormMap_getObj(predators, pred)
 
 	float potency1 = 1.0 ; The rate multiplier for acid damage.
 	float potency2 = 1.0 ; The rate multiplier for digestion.
@@ -620,7 +708,7 @@ Return value is a flag indicating whether the predator is still active.
 	endIf
 
 	String tickCommand = "return dvt.Tick(args, " + dt + ", " + potency1 + ", " + potency2 + ")"
-	int timeout = JLua.EvalLuaInt(tickCommand, predData, 0, false)
+	int timeout = JLua_EvalLuaInt(tickCommand, predData, 0, false)
 	
 	; The Tick function already did some of the processing. This next loop does the rest.
 	bool vomitted = false
@@ -633,14 +721,14 @@ Return value is a flag indicating whether the predator is still active.
 	; Loop through the stomach contents and process each one.
 	; The vomitted flag will track whether the pred has vomitted y
 
-	ObjectReference content = JFormMap.nextKey(stomach) as ObjectReference
+	ObjectReference content = JFormMap_nextKey(stomach) as ObjectReference
 	while content
 		if DEBUGGING
 			Log1(PREFIX, "ProcessPredator", Namer(content))
 		endIf
-		int preyData = JFormMap.getObj(stomach, content)
+		int preyData = JFormMap_getObj(stomach, content)
 		vomitted = ProcessContent(pred, content, preyData, vomitted, dt)
-		content = JFormMap.nextKey(stomach, content) as ObjectReference
+		content = JFormMap_nextKey(stomach, content) as ObjectReference
 	endWhile
 
 	BurdenUpdate(pred)
@@ -650,11 +738,11 @@ Return value is a flag indicating whether the predator is still active.
 	; If they do, then make sure that they do have the spell marker.
 	if pred != playerRef
 		if pred.HasSpell(StatusSpells[2]) 
-			if JLua.evalLuaInt("return dvt.countFollowers(args.pred)", JLua.setForm("pred", pred)) == 0
+			if JLua_evalLuaInt("return dvt.countFollowers(args.pred)", JLua_setForm("pred", pred)) == 0
 				pred.removeSpell(StatusSpells[2])
 			endIf
 		else
-			if JLua.evalLuaInt("return dvt.countFollowers(args.pred)", JLua.setForm("pred", pred)) > 0
+			if JLua_evalLuaInt("return dvt.countFollowers(args.pred)", JLua_setForm("pred", pred)) > 0
 				pred.addSpell(StatusSpells[2])
 			endIf
 		endIf
@@ -679,7 +767,7 @@ EndFunction
 
 bool Function ProcessContent(Actor pred, ObjectReference content, int preyData, bool vomitted, float dt)
 { Processes updates for a single stomach content. }
-	int stateCode = JLua.evalLuaInt("return dvt.GetStateCode(args)", preyData)
+	int stateCode = JLua_evalLuaInt("return dvt.GetStateCode(args)", preyData)
 
 	if DEBUGGING
 		Log5(PREFIX, "ProcessContent", Namer(pred), Namer(content), vomitted, dt, statecode)
@@ -907,8 +995,8 @@ bool Function RegisterFakeDigestion(Actor pred, float size)
 		relativeSize = size / GetVoreWeight(pred)
 	endIf
 
-	int transport = JLua.setFlt("time", GetDigestionTime(pred, none), JLua.setFlt("size", relativeSize, JLua.setForm("pred", pred)))
-	JLua.evalLuaInt("dvt.AddFakeToStomach(args.pred, args.time, args.size, 0.5)", transport)
+	int transport = JLua_setFlt("time", GetDigestionTime(pred, none), JLua_setFlt("size", relativeSize, JLua_setForm("pred", pred)))
+	JLua_evalLuaInt("dvt.AddFakeToStomach(args.pred, args.time, args.size, 0.5)", transport)
 	UpdateSounds_async(pred)
 	
 	if GetState() != "Running"
@@ -971,15 +1059,15 @@ Function SwitchLethalAll(Actor pred, bool toggle)
 	endIf
 
 	int stomach = GetStomach(pred)
-	if !JValue.IsExists(stomach)
+	if !JValue_IsExists(stomach)
 		return
 	endIf
 
 	bool blocked = RegisterBlock("SwitchLethalAll", pred)
 
-	ObjectReference content = JFormMap.nextKey(stomach) as ObjectReference
+	ObjectReference content = JFormMap_nextKey(stomach) as ObjectReference
 	while content
-		int preyData = JFormMap.getObj(stomach, content)
+		int preyData = JFormMap_getObj(stomach, content)
 		Actor prey = content as Actor
 		if prey && IsAlive(preyData)
 			if IsVore(preyData) && !toggle
@@ -1004,7 +1092,7 @@ Function SwitchLethalAll(Actor pred, bool toggle)
 			endIf			
 		endIf
 
-		content = JFormMap.nextKey(stomach, content) as ObjectReference
+		content = JFormMap_nextKey(stomach, content) as ObjectReference
 	endWhile
 	
 	UpdateSounds_async(pred)
@@ -1105,11 +1193,11 @@ Function EndoDigestion(Actor pred, Actor prey, int preyData, float dt)
 	endIf
 
 	; Used for struggle animations.
-	JMap.setFlt(preyData, "health", prey.GetActorValuePercentage("Health"))
+	JMap_setFlt(preyData, "health", prey.GetActorValuePercentage("Health"))
 	
-	float timerMax = JMap.getFlt(preyData, "timerMax")
+	float timerMax = JMap_getFlt(preyData, "timerMax")
 	if timerMax > 0.0
-		float timer = JMap.getFlt(preyData, "timer")
+		float timer = JMap_getFlt(preyData, "timer")
 		if timer <= 0.0 && EndoTimeout && CanEscapeEndo(preyData)
 			if DEBUGGING
 				Log4(PREFIX, "EndoDigestion", preyData, Namer(pred), Namer(prey), "HoldingTime expired, calling RegisterVomit.")
@@ -1141,9 +1229,9 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 		return
 	endIf
 	
-	float damage = JValue.solveFlt(preyData, ".flux.damage")
-	float times = JValue.solveFlt(preyData, ".flux.times")
-	float timer = JMap.getFlt(preyData, "timer")
+	float damage = JValue_solveFlt(preyData, ".flux.damage")
+	float times = JValue_solveFlt(preyData, ".flux.times")
+	float timer = JMap_getFlt(preyData, "timer")
 
 	if times > 100.0 / struggleDifficulty
 		times = 100.0 / struggleDifficulty
@@ -1189,7 +1277,7 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 	sendLiveDigestionEvent(pred, prey, damage, healthPercentage)
 
 	; Used for struggle animations.
-	JMap.setFlt(preyData, "health", healthPercentage)
+	JMap_setFlt(preyData, "health", healthPercentage)
 
 	if pred == playerRef
 		updateHealthMeter(prey, 100.0 * healthPercentage)
@@ -1711,7 +1799,7 @@ Event ProduceVomit(Form f1, Form f2, int preyData)
 	
 	if doAnimations
 		if locus == 2 && FNISDetected && !inCombat ; unbirth
-			Debug.SendAnimationEvent(apex, "LayDownBirth");
+			Debug.SendAnimationEvent(apex, "DevourmentUnbirth");
 			Utility.Wait(3.6)
 			;Debug.SendAnimationEvent(apex, "Birth_S1");
 		elseif locus == 3
@@ -1741,7 +1829,7 @@ Event ProduceVomit(Form f1, Form f2, int preyData)
 
 	if doAnimations
 		if locus == 2 && FNISDetected && !inCombat ; unbirth
-			Debug.SendAnimationEvent(apex, "GetupBirth");
+			Debug.SendAnimationEvent(apex, "DevourmentUnbirthGetUp");
 			Utility.Wait(3.5)
 			apex.PlayIdle(IdleStop)
 		elseif locus == 3  ; schlong
@@ -2721,7 +2809,7 @@ The unrestricted skips the "IsStrippable" check.
 	endIf
 
 	; If there is a very recent bolus, stick this item into it rather than creating a new one.
-	DevourmentBolus recentBolus = JLua.evalLuaForm("return dvt.GetRecentBolus(args.pred)", JLua.setForm("pred", pred)) as DevourmentBolus
+	DevourmentBolus recentBolus = JLua_evalLuaForm("return dvt.GetRecentBolus(args.pred)", JLua_setForm("pred", pred)) as DevourmentBolus
 	if recentBolus
 		Log1(PREFIX, "DigestItem", "Found recent bolus")
 		recentBolus.AddItem(item, count)
@@ -2739,7 +2827,7 @@ The unrestricted skips the "IsStrippable" check.
 
 		if owner
 			int preyData = GetPreyData(owner)
-			if JValue.IsExists(preyData)
+			if JValue_IsExists(preyData)
 				locus = GetLocus(preyData)
 			endIf
 		endIf
@@ -3053,7 +3141,7 @@ Function NPCStruggle(Actor pred, Actor prey, int preyData, float times, bool suc
 
 	; Chance in the struggle bar.
 	float increment = times * struggleDifficulty
-	float damage = times * JMap.GetFlt(preyData, "struggleDamage")
+	float damage = times * JMap_GetFlt(preyData, "struggleDamage")
 	
 	if constricted
 		increment *= 0.2
@@ -3140,7 +3228,7 @@ Event DisableEscape(Form f1)
 	endIf
 
 	int preyData = GetPreyData(f1 as ObjectReference)
-	if JValue.isExists(preyData)
+	if JValue_isExists(preyData)
 		SetNoEscape(preyData)
 	else
 		; If the prey is still in the process of being swallowed, store the flag for later.
@@ -3157,7 +3245,7 @@ Event VoreConsent(Form f1)
 	endIf
 
 	int preyData = GetPreyData(f1 as ObjectReference)
-	if JValue.isExists(preyData)
+	if JValue_isExists(preyData)
 		SetConsented(preyData)
 	else
 		; If the prey is still in the process of being swallowed, store the flag for later.
@@ -4094,7 +4182,7 @@ appropriate pred/prey pair (since we can only process one vomit at a time).
 
 	int preyData = GetPreyData(content)
 
-	if !(apex && pred && content && JValue.isExists(preyData))
+	if !(apex && pred && content && JValue_isExists(preyData))
 		assertExists(PREFIX, "getNextVomit", "preyData", preyData)
 		assertNotNone(PREFIX, "getNextVomit", "content", content)
 		assertNotNone(PREFIX, "getNextVomit", "apex", apex)
@@ -4167,7 +4255,7 @@ Event UpdateSounds(Form f1)
 
 	BurdenUpdate(pred)
 	
-	if JMap.hasKey(fullness, "male")
+	if JMap_hasKey(fullness, "male")
 		if !pred.hasSpell(SoundsOfDigestion[0])
 			pred.addSpell(SoundsOfDigestion[0], false)
 		endif
@@ -4177,7 +4265,7 @@ Event UpdateSounds(Form f1)
 		endif
 	endIf
 	
-	if JMap.hasKey(fullness, "female") 
+	if JMap_hasKey(fullness, "female") 
 		if !pred.hasSpell(SoundsOfDigestion[1])
 			pred.addSpell(SoundsOfDigestion[1], false)
 		endif
@@ -4187,7 +4275,7 @@ Event UpdateSounds(Form f1)
 		endif
 	endIf
 	
-	if JMap.hasKey(fullness, "other")
+	if JMap_hasKey(fullness, "other")
 		if !pred.hasSpell(SoundsOfDigestion[2])
 			pred.addSpell(SoundsOfDigestion[2], false)
 		endif
@@ -4253,28 +4341,28 @@ EndFunction
 
 Function AdjustPreyData()
 	Log0(PREFIX, "AdjustPreyData")
-	Actor pred = JFormMap.nextKey(predators) as Actor
+	Actor pred = JFormMap_nextKey(predators) as Actor
 	while pred
 		int stomach = GetStomach(pred)
-		ObjectReference content = JFormMap.nextKey(stomach) as ObjectReference
+		ObjectReference content = JFormMap_nextKey(stomach) as ObjectReference
 		while content
-			int preyData = JFormMap.getObj(stomach, content)
+			int preyData = JFormMap_getObj(stomach, content)
 			float remaining = GetDigestionRemaining(preyData)
 
 			if IsVore(preyData) && content as Actor
-				JMap.SetFlt(preyData, "dps", getAcidDamage(pred, content as Actor))
-				JMap.SetFlt(preyData, "struggleDamage", getStruggleDamage(pred, content as Actor))
-				JMap.SetFlt(preyData, "timerMax", getHoldingTime(pred))
+				JMap_SetFlt(preyData, "dps", getAcidDamage(pred, content as Actor))
+				JMap_SetFlt(preyData, "struggleDamage", getStruggleDamage(pred, content as Actor))
+				JMap_SetFlt(preyData, "timerMax", getHoldingTime(pred))
 				SetDigestionRemaining(preyData, remaining)
 
 			elseif IsDigesting(preyData)
-				JMap.SetFlt(preyData, "timerMax", GetDigestionTime(pred, content))
+				JMap_SetFlt(preyData, "timerMax", GetDigestionTime(pred, content))
 				SetDigestionRemaining(preyData, remaining)
 			endIf
 
-			content = JFormMap.nextKey(stomach, content) as ObjectReference
+			content = JFormMap_nextKey(stomach, content) as ObjectReference
 		endWhile
-		pred = JFormMap.nextKey(predators, pred) as Actor
+		pred = JFormMap_nextKey(predators, pred) as Actor
 	endWhile
 EndFunction
 
@@ -4282,7 +4370,7 @@ EndFunction
 Function ResetBellies()
 {Reapplies bellies to all predators. }
 	Log0(PREFIX, "ResetBellies")
-	Form[] ActorArray = JArray.asFormArray(JFormMap.allKeys(predators))
+	Form[] ActorArray = JArray_asFormArray(JFormMap_allKeys(predators))
 	LogForms(PREFIX, "ResetBellies", "Predators to Reset", ActorArray)
 	int index = 0
 	while index < ActorArray.length
@@ -4319,10 +4407,19 @@ Function ResetDevourment()
 		index -= 1
 		ResetPred(preds[index])
 	endWhile
+
+	While index < IndicesPred.Length
+		index += 1
+		If IndicesPred[index] != None
+			ResetPred(IndicesPred[index] as Actor)
+		EndIf
+	EndWhile
 	
 	blockForms = Utility.CreateFormArray(256)
 	blockCodes = Utility.CreateStringArray(256)
-	JFormMap.Clear(blocks)
+	IndicesPrey = PapyrusUtil.ObjRefArray(256)
+	IndicesPred = PapyrusUtil.ObjRefArray(256)
+	JFormMap_Clear(blocks)
 
 	UnassignAllPreyMeters()
 
@@ -4345,7 +4442,14 @@ Function ResetPred(Actor pred)
 			ResetPrey(stomach[index] as ObjectReference)
 			RemoveFromStomach(pred, stomach[index] as ObjectReference)
 		endWhile
-	endIf
+	Else
+		Int iIndex = IndicesPred.Find(pred)
+		While iIndex	
+			ResetPrey(IndicesPred[iIndex], abSendToEditor = true)
+			RemovePairSafeguard(iIndex)
+			iIndex = IndicesPred.Find(pred)
+		EndWhile
+	EnDiF
 
 	RemovePredator(pred)
 	ResetActor(pred, playerRef)
@@ -4361,20 +4465,25 @@ Function ResetPreyMCM(string a_input)	;MCM Helper hack.
 EndFunction
 
 
-Function ResetPrey(ObjectReference prey)
-	Log1(PREFIX, "ResetPrey", Namer(prey))
-	ObjectReference place = FindApex(prey)
-	if !place
-		place = playerRef
-	endIf
-	
-	if prey as DevourmentBolus
-		ReappearBolusAt(prey as DevourmentBolus, place, true, lateral = 40.0, vertical = 40.0)
-	elseif prey as Actor
-		ResetActor(prey as Actor, place)
-	else
-		ReappearItemAt(prey, place, true, lateral = 40.0)
-	endIf
+Function ResetPrey(ObjectReference prey, bool abSendToEditor = False)
+	Log2(PREFIX, "ResetPrey", Namer(prey), abSendToEditor)
+	If abSendToEditor
+		prey.MoveToMyEditorLocation()
+	Else
+		ObjectReference place = FindApex(prey)
+		if !place
+			place = playerRef
+		endIf
+		
+		if prey as DevourmentBolus
+			ReappearBolusAt(prey as DevourmentBolus, place, true, lateral = 40.0, vertical = 40.0)
+		elseif prey as Actor
+			ResetActor(prey as Actor, place)
+		else
+			ReappearItemAt(prey, place, true, lateral = 40.0)
+		endIf
+	EndIf
+
 EndFunction
 
 
@@ -4450,7 +4559,7 @@ endFunction
 Function ExportDatabase(String filename)
 { Exports the JContainers devourment database to a json file. }
 	Log1(PREFIX, "ExportDatabase", filename)
-	JValue.writeToFile(DB, fileName)
+	JValue_writeToFile(DB, fileName)
 	StorageUtil.debug_SaveFile()
 	Log1(PREFIX, "ExportDatabase", LuaS("DB", DB))
 endFunction
@@ -4504,7 +4613,7 @@ EndFunction
 
 bool Function relativelySafe(Actor target)
 { Indicates that the target is not taking regular damage from any Devourment source. }
-	return JLua.evalLuaInt("return dvt.RelativelySafe(args.t)", JLua.setForm("t", target))
+	return JLua_evalLuaInt("return dvt.RelativelySafe(args.t)", JLua_setForm("t", target))
 endFunction
 
 
@@ -4592,7 +4701,7 @@ EndFunction
 
 
 float Function GetFullness(Actor pred, float offset = 0.0)
-	float burden = JLua.evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua.setForm("pred", pred))
+	float burden = JLua_evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua_setForm("pred", pred))
 	return (burden + offset) / GetCapacity(pred)
 EndFunction
 
@@ -5039,7 +5148,7 @@ Function VOMIT_CLEAR()
 			Actor pred = GetPredFor(content)
 			if pred
 				int preyData = GetPreyData(content)
-				if JValue.isExists(preyData)
+				if JValue_isExists(preyData)
 					ManualVomit(pred, content, preyData, forced=true)
 				endIf
 				UnRegisterBlock("VOMIT_LOCK", pred)
@@ -5092,7 +5201,7 @@ bool function RegisterBlock(String code, Actor person)
 		BlockForms[index] = person
 		BlockCodes[index] = code
 
-		JFormMap.SetStr(blocks, person, code)
+		JFormMap_SetStr(blocks, person, code)
 
 		if DEBUGGING
 			Log3(PREFIX, "RegisterBlock", "Blocked", code, Namer(person))
@@ -5117,8 +5226,8 @@ bool function RegisterBlocks(String code, Actor person1, Actor person2)
 		BlockForms[index2] = person2
 		BlockCodes[index2] = code
 
-		JFormMap.SetStr(blocks, person1, code)
-		JFormMap.SetStr(blocks, person2, code)
+		JFormMap_SetStr(blocks, person1, code)
+		JFormMap_SetStr(blocks, person2, code)
 
 		if DEBUGGING
 			Log4(PREFIX, "RegisterBlock", "Blocked", code, Namer(person1), Namer(person2))
@@ -5136,7 +5245,7 @@ function UnregisterBlock(String code, Actor person)
 		BlockForms[index] = none
 		BlockCodes[index] = ""
 
-		JFormMap.RemoveKey(blocks, person)
+		JFormMap_RemoveKey(blocks, person)
 
 		if DEBUGGING
 			assertStringsEqual(PREFIX, "UnregisterBlock", code, prior)
@@ -5158,8 +5267,8 @@ function UnregisterBlocks(String code, Actor person1, Actor person2)
 		BlockForms[index1] = none
 		BlockCodes[index1] = ""
 
-		JFormMap.RemoveKey(blocks, person1)
-		JFormMap.RemoveKey(blocks, person2)
+		JFormMap_RemoveKey(blocks, person1)
+		JFormMap_RemoveKey(blocks, person2)
 
 		if DEBUGGING
 			assertStringsEqual(PREFIX, "UnregisterBlocks", code, prior)
@@ -5239,27 +5348,27 @@ EndFunction
 
 
 bool Function isPred(Actor target)
-	return JFormMap.hasKey(predators, target)
+	return JFormMap_hasKey(predators, target)
 EndFunction
 
 
 bool Function VerifyPred(Actor pred)
 { Finds the predData for a given Actor. If it does not exist, it will be created. }
-	int predData = JFormMap.getObj(predators, pred)
+	int predData = JFormMap_getObj(predators, pred)
 
-	if !JValue.isExists(predData)
-		predData = JMap.object()
-		JFormMap.setObj(predators, pred, predData)
-		JMap.setObj(predData, "stomach", JFormMap.object())
+	if !JValue_isExists(predData)
+		predData = JMap_object()
+		JFormMap_setObj(predators, pred, predData)
+		JMap_setObj(predData, "stomach", JFormMap_object())
 
 		if pred.hasKeyword(ActorTypeNPC)
-			JMap.setStr(predData, "npc", "npc")
+			JMap_setStr(predData, "npc", "npc")
 		elseif pred.hasKeyword(ActorTypeCreature)
-			JMap.setStr(predData, "creature", "creature")
+			JMap_setStr(predData, "creature", "creature")
 		endIf
 		
 		int sex = pred.getLeveledActorBase().getSex()
-		JMap.setInt(predData, "sex", sex)
+		JMap_setInt(predData, "sex", sex)
 		StorageUtil.SetIntValue(pred, "sex", sex)
 	endIf
 
@@ -5285,7 +5394,7 @@ Function RemovePredator(Actor pred)
 	if DEBUGGING
 		Log1(PREFIX, "RemovePredator", Namer(pred))
 	endIf
-	JFormMap.removeKey(predators, pred)
+	JFormMap_removeKey(predators, pred)
 	pred.RemoveSpell(DevourmentSlow)
 	pred.RemoveItem(FullnessTypes_All, 99, true)
 	StopVoreSounds(pred)
@@ -5297,7 +5406,7 @@ EndFunction
 
 
 int Function GetStomach(Actor pred)
-	return JLua.evalLuaObj("return dvt.GetStomach(args.pred)", JLua.setForm("pred", pred))
+	return JLua_evalLuaObj("return dvt.GetStomach(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5310,7 +5419,7 @@ if DEBUGGING
 		LogJ(PREFIX, "AddToStomach", preyData, pred, content)
 	endIf
 	
-	JLua.evalLuaInt("dvt.AddToStomach(args)", preyData, 0, false)
+	JLua_evalLuaInt("dvt.AddToStomach(args)", preyData, 0, false)
 EndFunction
 
 
@@ -5327,15 +5436,21 @@ Function RemoveFromStomach(Actor pred, ObjectReference content, int preyData = 0
 	endIf
 
 	assertExists(PREFIX, "RemoveFromStomach", "preyData", preyData)
-	JLua.evalLuaInt("dvt.RemoveFromStomach(args)", preyData, 0, false)
+	JLua_evalLuaInt("dvt.RemoveFromStomach(args)", preyData, 0, false)
+	RemovePairSafeguard(IndicesPrey.Find(content))
 
 	if content as Actor
 		Actor prey = content as Actor
+		JFormMap_removeKey(preyMap, content as Form)
 		UnassignPreyMeters(prey)
 
 		if prey.HasPerk(Menu.Cordyceps) && pred.HasSpell(CordycepsFrenzy)
 			pred.RemoveSpell(CordycepsFrenzy)
 		endIf
+	elseif content as DevourmentBolus
+		JFormMap_removeKey(bolusMap, content as Form)
+	else
+		JFormMap_removeKey(itemMap, content as Form)
 	endIf
 EndFunction
 
@@ -5347,8 +5462,8 @@ Function TransferStomach(Actor oldPred, Actor newPred)
 		Log2(PREFIX, "TransferStomach", Namer(oldPred), Namer(newPred))
 	endIf
 	
-	int transport = JLua.setForm("oldPred", oldPred, JLua.setForm("newPred", newPred))
-	int playerTransferred = JLua.evalLuaInt("return dvt.TransferStomach(args.oldPred, args.newPred)", transport)
+	int transport = JLua_setForm("oldPred", oldPred, JLua_setForm("newPred", newPred))
+	int playerTransferred = JLua_evalLuaInt("return dvt.TransferStomach(args.oldPred, args.newPred)", transport)
 	
 	if oldPred == playerRef
 		UnassignAllPreyMeters()
@@ -5387,7 +5502,7 @@ Function ReplacePrey(Actor pred, Actor oldPrey, Actor newPrey)
 		Log3(PREFIX, "ReplacePrey", Namer(pred), Namer(oldPrey), Namer(newPrey))
 	endIf
 	
-	JLua.evalLuaInt("return dvt.ReplacePrey(args.pred, args.oldPrey, args.newPrey)", JLua.setForm("pred", pred, JLua.setForm("oldPrey", oldPrey, JLua.setForm("newPrey", newPrey))))
+	JLua_evalLuaInt("return dvt.ReplacePrey(args.pred, args.oldPrey, args.newPrey)", JLua_setForm("pred", pred, JLua_setForm("oldPrey", oldPrey, JLua_setForm("newPrey", newPrey))))
 
 	if pred == playerRef
 		UnassignPreyMeters(oldPrey)
@@ -5434,7 +5549,7 @@ Actor Function FindATalker()
 		return talkers[resultIndex]
 	endIf
 		
-	;return JLua.evalLuaForm("return dvt.FindATalker()", 0) as Actor
+	;return JLua_evalLuaForm("return dvt.FindATalker()", 0) as Actor
 EndFunction
 
 
@@ -5470,7 +5585,7 @@ EndFunction
 
 
 Function BurdenUpdate(Actor subject)
-	float burden = JLua.evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua.setForm("pred", subject))
+	float burden = JLua_evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua_setForm("pred", subject))
 	float capacity = GetCapacity(playerRef)
 
 	; Controls the slowdown effect and stomach scaling.
@@ -5497,7 +5612,7 @@ EndFunction
 
 
 float Function GetBurden(Actor pred)
-	float burden = JLua.evalLuaFlt("return dvt.GetBurden(args.pred)", JLua.setForm("pred", pred))
+	float burden = JLua_evalLuaFlt("return dvt.GetBurden(args.pred)", JLua_setForm("pred", pred))
 	if DEBUGGING
 		Log2(PREFIX, "GetBurden", Namer(pred), burden)
 	endIf
@@ -5511,7 +5626,7 @@ bool Function has(Form pred, Form prey)
 		assertNotNone(PREFIX, "has", "pred", pred)
 		assertNotNone(PREFIX, "has", "prey", prey)
 	endIf
-	return JLua.evalLuaInt("return dvt.has(args.pred, args.prey)", JLua.setForm("pred", pred, JLua.setForm("prey", prey)))
+	return JLua_evalLuaInt("return dvt.has(args.pred, args.prey)", JLua_setForm("pred", pred, JLua_setForm("prey", prey)))
 EndFunction
 
 
@@ -5520,7 +5635,7 @@ bool Function hasLivePrey(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "hasLivePrey", "pred", pred)
 	endIf
-	return 0 < JLua.evalLuaInt("return dvt.countLivePrey(args.pred)", JLua.setForm("pred", pred))
+	return 0 < JLua_evalLuaInt("return dvt.countLivePrey(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5529,7 +5644,7 @@ bool Function hasAnyPrey(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "hasAnyPrey", "pred", pred)
 	endIf
-	return 0 < JLua.evalLuaInt("return dvt.countPrey(args.pred)", JLua.setForm("pred", pred))
+	return 0 < JLua_evalLuaInt("return dvt.countPrey(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5538,7 +5653,7 @@ bool Function hasUndigested(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "hasUndigested", "pred", pred)
 	endIf
-	return 0 < JLua.evalLuaInt("return dvt.countUndigested(args.pred)", JLua.setForm("pred", pred))
+	return 0 < JLua_evalLuaInt("return dvt.countUndigested(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5547,7 +5662,7 @@ bool Function hasDigested(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "hasDigested", "pred", pred)
 	endIf
-	return 0 < JLua.evalLuaInt("return dvt.countDigested(args.pred)", JLua.setForm("pred", pred))
+	return 0 < JLua_evalLuaInt("return dvt.countDigested(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5556,7 +5671,7 @@ bool Function hasExcretable(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "hasExcretable", "pred", pred)
 	endIf
-	return 0 < JLua.evalLuaInt("return dvt.countExcretable(args.pred)", JLua.setForm("pred", pred))
+	return 0 < JLua_evalLuaInt("return dvt.countExcretable(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5565,7 +5680,7 @@ int Function getPreyCount(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "getPreyCount", "pred", pred)
 	endIf
-	return JLua.evalLuaInt("return dvt.countPrey(args.pred)", JLua.setForm("pred", pred))
+	return JLua_evalLuaInt("return dvt.countPrey(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5574,7 +5689,7 @@ int Function getStomachCount(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "getStomachCount", "pred", pred)
 	endIf
-	return JLua.evalLuaInt("return dvt.countAll(args.pred)", JLua.setForm("pred", pred))
+	return JLua_evalLuaInt("return dvt.countAll(args.pred)", JLua_setForm("pred", pred))
 EndFunction
 
 
@@ -5583,7 +5698,7 @@ int Function GetFullnessDescriptor(Actor pred)
 	if DEBUGGING
 		assertNotNone(PREFIX, "GetFullness", "pred", pred)
 	endIf	
-	return JLua.evalLuaObj("return dvt.GetFullness(args.pred)", JLua.setForm("pred", pred))
+	return JLua_evalLuaObj("return dvt.GetFullness(args.pred)", JLua_setForm("pred", pred))
 endFunction
 
 
@@ -5594,8 +5709,8 @@ Function RegisterVomit(ObjectReference content)
 	endIf
 	
 	int preyData = GetPreyData(content)
-	if JValue.isExists(preyData)
-		JLua.evalLuaInt("return dvt.registerVomit(args)", preyData, 0, false)
+	if JValue_isExists(preyData)
+		JLua_evalLuaInt("return dvt.registerVomit(args)", preyData, 0, false)
 		ProduceVomit_async(GetPred(preyData), content, preyData)
 	endIf
 EndFunction
@@ -5608,9 +5723,9 @@ Function RegisterVomitAll(Actor pred, bool forced = false)
 	endIf	
 
 	if forced 
-		JLua.evalLuaInt("return dvt.registerVomitAll(args.pred, true)", JLua.setForm("pred", pred))
+		JLua_evalLuaInt("return dvt.registerVomitAll(args.pred, true)", JLua_setForm("pred", pred))
 	else
-		JLua.evalLuaInt("return dvt.registerVomitAll(args.pred)", JLua.setForm("pred", pred))
+		JLua_evalLuaInt("return dvt.registerVomitAll(args.pred)", JLua_setForm("pred", pred))
 	endIf
 EndFunction
 
@@ -5680,18 +5795,18 @@ int Function GetPreyData(ObjectReference prey)
 	if DEBUGGING
 		assertNotNone(PREFIX, "GetPreyData", "prey", prey)
 	endIf
-	return JLua.evalLuaObj("return dvt.GetPreyData(args.prey)", JLua.setForm("prey", prey))
+	return JLua_evalLuaObj("return dvt.GetPreyData(args.prey)", JLua_setForm("prey", prey))
 EndFunction
 
 
 bool Function IsPrey(ObjectReference target)
-	return JValue.isExists(GetPreyData(target))
+	return JFormMap_hasKey(preyMap, target)
 EndFunction
 
 
 ObjectReference Function GetContent(int preyData)
 { Finds the bolus or prey for a preyData. }
-	return JLua.evalLuaForm("return args.bolus or args.prey", preyData, none, false) as ObjectReference
+	return JLua_evalLuaForm("return args.bolus or args.prey", preyData, none, false) as ObjectReference
 EndFunction
 
 
@@ -5703,7 +5818,7 @@ EndFunction
 
 Actor Function GetPred(int preyData)
 { Finds the predator for a preyData. }
-	return JMap.getForm(preyData, "pred") as Actor
+	return JMap_getForm(preyData, "pred") as Actor
 EndFunction
 
 
@@ -5712,48 +5827,48 @@ Actor Function FindApex(ObjectReference prey)
 Finds the apex predator for a foodchain containing the specified prey.
 If the specified prey has no preds and they are an Actor, the prey will be returned.
 }
-	return JLua.evalLuaForm("return dvt.getApex(args.prey)", JLua.setForm("prey", prey), prey) as Actor
+	return JLua_evalLuaForm("return dvt.getApex(args.prey)", JLua_setForm("prey", prey), prey) as Actor
 EndFunction
 
 
 float Function GetStruggle(int preyData)
 { Returns prey's struggle level. }
-	return JMap.getFlt(preyData, "struggle")
+	return JMap_getFlt(preyData, "struggle")
 EndFunction
 
 
 float Function AdjustStruggle(int preyData, float delta)
 { Adjusts the prey's struggle level. }
-	float struggle = delta + JMap.getFlt(preyData, "struggle")
-	JMap.setFlt(preyData, "struggle", struggle)
+	float struggle = delta + JMap_getFlt(preyData, "struggle")
+	JMap_setFlt(preyData, "struggle", struggle)
 	return struggle
 EndFunction
 
 
 Function OverrideTimer(int preyData, float timer, float timerMax)
 { Completely overrides the current timer. This is useful for adding a timer to endo. }
-	JMap.setFlt(preyData, "timer", timer)
-	JMap.setFlt(preyData, "timerMax", timerMax)
+	JMap_setFlt(preyData, "timer", timer)
+	JMap_setFlt(preyData, "timerMax", timerMax)
 EndFunction
 
 
 float Function GetTimer(int preyData)
 { Returns prey's timer. }
-	return JMap.getFlt(preyData, "timer")
+	return JMap_getFlt(preyData, "timer")
 EndFunction
 
 
 float Function AdjustTimer(int preyData, float delta)
 { Adjusts the prey's timer. }
-	float timer = delta + JMap.getFlt(preyData, "timer")
-	JMap.setFlt(preyData, "timer", timer)
+	float timer = delta + JMap_getFlt(preyData, "timer")
+	JMap_setFlt(preyData, "timer", timer)
 	return timer
 EndFunction
 
 
 float Function GetDPS(int preyData)
 { Returns prey's acid damage per second. }
-	return JMap.getFlt(preyData, "dps")
+	return JMap_getFlt(preyData, "dps")
 EndFunction
 
 
@@ -5771,87 +5886,87 @@ EndFunction
 
 float Function GetDigestionRemaining(int preyData)
 { Returns the fraction remaining of the prey until digestion is complete. }
-	return JLua.evalLuaFlt("return dvt.GetRemainingTime(args)", preyData, 0.0, false)
+	return JLua_evalLuaFlt("return dvt.GetRemainingTime(args)", preyData, 0.0, false)
 EndFunction
 
 
 float Function SetDigestionRemaining(int preyData, float percent)
 { Returns the fraction remaining of the prey until digestion is complete. }
-	return JLua.evalLuaFlt("return dvt.SetRemainingTime(args, " + percent + ")", preyData, 0.0, false)
+	return JLua_evalLuaFlt("return dvt.SetRemainingTime(args, " + percent + ")", preyData, 0.0, false)
 EndFunction
 
 
 Function SetVore(int preyData)
-	JLua.evalLuaInt("dvt.SetVore(args)", preyData, 0, false)
+	JLua_evalLuaInt("dvt.SetVore(args)", preyData, 0, false)
 EndFunction
 
 
 Function SetEndo(int preyData, bool timeout)
-	JLua.evalLuaInt("dvt.SetEndo(args)", preyData, 0, false)
+	JLua_evalLuaInt("dvt.SetEndo(args)", preyData, 0, false)
 	if timeout
-		JMap.setFlt(preyData, "timer", 60.0)
-		JMap.setFlt(preyData, "timerMax", 60.0)
+		JMap_setFlt(preyData, "timer", 60.0)
+		JMap_setFlt(preyData, "timerMax", 60.0)
 	endIf
 	if EndoStruggling
-		JMap.setInt(preyData, "ForceStruggling", 1)
+		JMap_setInt(preyData, "ForceStruggling", 1)
 	endIf
 EndFunction
 
 
 Function SetReforming(int preyData)
-	JLua.evalLuaInt("dvt.SetReforming(args)", preyData)
+	JLua_evalLuaInt("dvt.SetReforming(args)", preyData)
 EndFunction
 
 
 Function SetDigesting(int preyData, float timerMax)
-	JLua.evalLuaInt("dvt.SetDigesting(args)", preyData, 0, false)
-	JMap.setFlt(preyData, "timer", timerMax)
-	JMap.setFlt(preyData, "timerMax", timerMax)
+	JLua_evalLuaInt("dvt.SetDigesting(args)", preyData, 0, false)
+	JMap_setFlt(preyData, "timer", timerMax)
+	JMap_setFlt(preyData, "timerMax", timerMax)
 EndFunction
 
 
 Function SetDigested(int preyData)
-	JLua.evalLuaInt("dvt.SetDigested(args)", preyData, 0, false)
+	JLua_evalLuaInt("dvt.SetDigested(args)", preyData, 0, false)
 EndFunction
 
 
 bool Function isEndo(int preyData)
-	return JMap.hasKey(preyData, "endo")
+	return JMap_hasKey(preyData, "endo")
 EndFunction
 
 
 bool Function isVore(int preyData)
-	return JMap.hasKey(preyData, "vore")
+	return JMap_hasKey(preyData, "vore")
 EndFunction
 
 
 bool Function isAlive(int preyData)
-	return JMap.hasKey(preyData, "alive")
+	return JMap_hasKey(preyData, "alive")
 EndFunction
 
 
 bool Function isUndigested(int preyData)
-	return JLua.evalLuaInt("return dvt.isPrey(args) and (args.alive or args.bolus)", preyData, 0, false)
+	return JLua_evalLuaInt("return dvt.isPrey(args) and (args.alive or args.bolus)", preyData, 0, false)
 EndFunction
 
 
 bool Function IsReforming(int preyData)
-	return JMap.HasKey(preyData, "reforming")
+	return JMap_HasKey(preyData, "reforming")
 EndFunction
 
 
 bool Function isDigesting(int preyData)
-	return JMap.hasKey(preyData, "digesting")
+	return JMap_hasKey(preyData, "digesting")
 EndFunction
 
 
 bool Function isDigested(int preyData)
-	return JMap.hasKey(preyData, "digested")
+	return JMap_hasKey(preyData, "digested")
 EndFunction
 
 
 int Function GetLocus(int preyData)
-	return JMap.getInt(preyData, "locus")
+	return JMap_getInt(preyData, "locus")
 EndFunction
 
 
@@ -5861,30 +5976,30 @@ EndFunction
 
 
 bool Function isVomit(int preyData)
-	return JMap.hasKey(preyData, "vomit")
+	return JMap_hasKey(preyData, "vomit")
 EndFunction
 
 
 bool Function isCorpse(int preyData)
-	return JMap.HasKey(preyData, "corpse")
+	return JMap_HasKey(preyData, "corpse")
 EndFunction
 
 
 bool Function isNoEscape(int preyData)
-	return JMap.hasKey(preyData, "noEscape")
+	return JMap_hasKey(preyData, "noEscape")
 EndFunction
 
 
 Function setNoEscape(int preyData, bool toggle = true)
 	if toggle
-		JMap.SetInt(preyData, "noEscape", 1)
+		JMap_SetInt(preyData, "noEscape", 1)
 
 		if GetContent(preyData) == playerRef
 			PlayerAlias.StopPlayerStruggle()
 		endIf
 
 	else
-		JMap.RemoveKey(preyData, "noEscape")
+		JMap_RemoveKey(preyData, "noEscape")
 
 		if GetContent(preyData) == playerRef
 			PlayerAlias.StartPlayerStruggle()
@@ -5894,19 +6009,19 @@ EndFunction
 
 
 bool Function isSurrendered(int preyData)
-	return JMap.hasKey(preyData, "surrendered")
+	return JMap_hasKey(preyData, "surrendered")
 EndFunction
 
 
 Function setSurrendered(int preyData, bool toggle = true)
 	if toggle
-		JMap.SetInt(preyData, "surrendered", 1)
+		JMap_SetInt(preyData, "surrendered", 1)
 
 		if GetContent(preyData) == playerRef
 			PlayerAlias.StopPlayerStruggle()
 		endIf
 	else
-		JMap.RemoveKey(preyData, "surrendered")
+		JMap_RemoveKey(preyData, "surrendered")
 
 		if GetContent(preyData) == playerRef
 			PlayerAlias.StartPlayerStruggle()
@@ -5916,19 +6031,19 @@ EndFunction
 
 
 bool Function isConsented(int preyData)
-	return JMap.hasKey(preyData, "consented")
+	return JMap_hasKey(preyData, "consented")
 EndFunction
 
 
 Function setConsented(int preyData, bool toggle = true)
 	if toggle
-		JMap.SetInt(preyData, "consented", 1)
+		JMap_SetInt(preyData, "consented", 1)
 
 		if GetContent(preyData) == playerRef
 			PlayerAlias.StopPlayerStruggle()
 		endIf
 	else
-		JMap.RemoveKey(preyData, "consented")
+		JMap_RemoveKey(preyData, "consented")
 
 		if GetContent(preyData) == playerRef
 			PlayerAlias.StartPlayerStruggle()
@@ -5938,12 +6053,12 @@ EndFunction
 
 
 bool Function canEscapeVore(int preyData)
-	return JLua.evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
+	return JLua_evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
 EndFunction
 
 
 bool Function canEscapeEndo(int preyData)
-	return JLua.evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
+	return JLua_evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
 EndFunction
 
 
@@ -5977,26 +6092,35 @@ int Function CreatePreyData(Actor pred, Actor prey, bool endo, bool dead, int lo
 	float preyWeight = GetVoreWeight(prey)
 	float predWeight = GetVoreWeight(pred)
 	
-	int preyData = JMap.object()
-	JMap.setForm(preyData, "pred", pred)
-	JMap.setForm(preyData, "prey", prey)
-	JMap.setInt(preyData, "locus", locus)
-	JMap.setFlt(preyData, "weight", preyWeight / predWeight)
+	int preyData = JMap_object()
+
+	; *** IMPORTANT ***
+	; Since the first thing we do with new preyData objects is put them in our preyMap JFormMap, *that* is where they're stored in memory.
+	; As such, when preyData is appended to something, database entries created will reference the preyMap memory location.
+	; If you have to append further data to the end of a preyData object, please reach out to have this function revised.
+	; *****************
+	JFormMap_SetObj(preyMap, prey, preyData)	;So preyMap with Prey as key returns our preyData.
+	InsertPairSafeguard(pred as ObjectReference, prey as ObjectReference)
+
+	JMap_setForm(preyData, "pred", pred)
+	JMap_setForm(preyData, "prey", prey)
+	JMap_setInt(preyData, "locus", locus)
+	JMap_setFlt(preyData, "weight", preyWeight / predWeight)
 
 	int sex = prey.getLeveledActorBase().getSex()
-	JMap.setInt(preyData, "sex", sex)
+	JMap_setInt(preyData, "sex", sex)
 	StorageUtil.SetIntValue(prey, "sex", sex)
 
-	JMap.SetFlt(preyData, "dps", getAcidDamage(pred, prey))
-	JMap.SetFlt(preyData, "struggleDamage", getStruggleDamage(pred, prey))
-	JMap.SetObj(preyData, "flux", JMap.object())
+	JMap_SetFlt(preyData, "dps", getAcidDamage(pred, prey))
+	JMap_SetFlt(preyData, "struggleDamage", getStruggleDamage(pred, prey))
+	JMap_SetObj(preyData, "flux", JMap_object())
 
 	if prey.hasKeyword(ActorTypeNPC)
-		JLua.evalLuaInt("dvt.SetNPC(args)", preyData, 0, false)
+		JLua_evalLuaInt("dvt.SetNPC(args)", preyData, 0, false)
 	endIf
 	
 	if AreFriends(playerRef, prey)
-		JMap.SetInt(preyData, "isfollower", 1)
+		JMap_SetInt(preyData, "isfollower", 1)
 		if !pred.HasSpell(StatusSpells[2])
 			pred.AddSpell(StatusSpells[2], false)
 		endIf
@@ -6004,7 +6128,7 @@ int Function CreatePreyData(Actor pred, Actor prey, bool endo, bool dead, int lo
 
 	if dead
 		SetDigesting(preyData, GetDigestionTime(pred, prey))
-		JLua.evalLuaInt("dvt.SetCorpse(args)", preyData, 0, false)
+		JLua_evalLuaInt("dvt.SetCorpse(args)", preyData, 0, false)
 	else
 		if prey.hasMagicEffectWithKeyword(KeywordSurrender)
 			SetSurrendered(preyData)
@@ -6018,7 +6142,7 @@ int Function CreatePreyData(Actor pred, Actor prey, bool endo, bool dead, int lo
 			SetNoEscape(preyData)
 		endIf
 		
-		JMap.SetFlt(preyData, "timerMax", getHoldingTime(pred))
+		JMap_SetFlt(preyData, "timerMax", getHoldingTime(pred))
 		
 		if endo
 			SetEndo(preyData, prey != playerRef && pred != playerRef)
@@ -6047,11 +6171,20 @@ int Function CreateItemData(Actor pred, ObjectReference item, int locus)
 		item.SetWeight(itemWeight)
 	endIf
 
-	int itemData = JMap.object()
-	JMap.setForm(itemData, "pred", pred)
-	JMap.setForm(itemData, "bolus", item)
-	JMap.setInt(itemData, "locus", locus)
-	JMap.setFlt(itemData, "weight", itemWeight / predWeight)
+	int itemData = JMap_object()
+
+	; *** IMPORTANT ***
+	; Since the first thing we do with new itemData objects is put them in our itemMap JFormMap, *that* is where they're stored in memory.
+	; As such, when itemData is appended to something, database entries created will reference the itemMap memory location.
+	; If you have to append further data to the end of a itemData object, please reach out to have this function revised.
+	; *****************
+	JFormMap_SetObj(itemMap, item, itemData)	;So itemMap with Item as key returns our itemData.
+	InsertPairSafeguard(pred as ObjectReference, item)	;Imperfect for this use-case but should work well enough for our purposes.
+
+	JMap_setForm(itemData, "pred", pred)
+	JMap_setForm(itemData, "bolus", item)
+	JMap_setInt(itemData, "locus", locus)
+	JMap_setFlt(itemData, "weight", itemWeight / predWeight)
 	
 	if locus == 1
 		SetDigested(itemData)
@@ -6076,14 +6209,23 @@ int Function CreateBolusData(Actor pred, DevourmentBolus bolus, int locus)
 	float predWeight = GetVoreWeight(pred)
 	float bolusWeight = bolus.getWeight()
 
-	int bolusData = JMap.object()
-	JMap.setForm(bolusData, "pred", pred)
-	JMap.setForm(bolusData, "bolus", bolus)
-	JMap.setInt(bolusData, "locus", locus)
-	JMap.setFlt(bolusData, "weight", bolusWeight / predWeight)
+	int bolusData = JMap_object()
+
+	; *** IMPORTANT ***
+	; Since the first thing we do with new bolusData objects is put them in our bolusMap JFormMap, *that* is where they're stored in memory.
+	; As such, when bolusData is appended to something, database entries created will reference the bolusMap memory location.
+	; If you have to append further data to the end of a bolusData object, please reach out to have this function revised.
+	; *****************
+	JFormMap_SetObj(bolusMap, bolus as Form, bolusData)	;So bolusMap with Bolus as key returns our bolusData.
+	InsertPairSafeguard(pred as ObjectReference, bolus as ObjectReference)
+
+	JMap_setForm(bolusData, "pred", pred)
+	JMap_setForm(bolusData, "bolus", bolus)
+	JMap_setInt(bolusData, "locus", locus)
+	JMap_setFlt(bolusData, "weight", bolusWeight / predWeight)
 
 	if bolus.owner != none
-		JMap.setForm(bolusData, "owner", bolus.owner)
+		JMap_setForm(bolusData, "owner", bolus.owner)
 	endIf
 
 	if locus == 1
@@ -6112,7 +6254,7 @@ Function UpdateBolusData(Actor pred, DevourmentBolus bolus)
 	
 	float predWeight = GetVoreWeight(pred)
 	float bolusWeight = bolus.getWeight()
-	JMap.setFlt(bolusData, "weight", bolusWeight / predWeight)
+	JMap_setFlt(bolusData, "weight", bolusWeight / predWeight)
 endFunction
 
 
@@ -6123,7 +6265,7 @@ endFunction
 
 
 Actor[] Function getPredatorArray()
-	Form[] arr = JArray.asFormArray(JFormMap.allKeys(predators))
+	Form[] arr = JArray_asFormArray(JFormMap_allKeys(predators))
 	Actor[] ActorArray = createActorArray(arr.length)
 	
 	int index = 0
@@ -6137,9 +6279,9 @@ EndFunction
 
 
 Form[] Function GetStomachArray(Actor pred)
-	int stomachObject = JFormMap.allKeys(GetStomach(pred))
-	if JValue.IsExists(stomachObject)
-		return JArray.asFormArray(stomachObject)
+	int stomachObject = JFormMap_allKeys(GetStomach(pred))
+	if JValue_IsExists(stomachObject)
+		return JArray_asFormArray(stomachObject)
 	else
 		return Utility.CreateFormArray(0)
 	endIf
@@ -6755,72 +6897,72 @@ EndFunction
 bool Function saveSettings(String settingsFileName)
 	Log1(PREFIX, "saveSettings", settingsFileName)
 
-	int data = JMap.object()
+	int data = JMap_object()
 
-	JMap.setInt(data, "CombatAcceleration", 	CombatAcceleration as int)
-	JMap.setInt(data, "scatTypeNPC", 			scatTypeNPC)
-	JMap.setInt(data, "scatTypeCreature", 		scatTypeCreature)
-	JMap.setInt(data, "scatTypeBolus", 			scatTypeBolus)
-	JMap.setInt(data, "screamSounds", 			screamSounds as int)
-	JMap.setInt(data, "killPlayer", 			killPlayer as int)
-	JMap.setInt(data, "killNPCs", 				killNPCs as int)
-	JMap.setInt(data, "killEssential", 			killEssential as int)
-	JMap.setInt(data, "playerPreference", 		playerPreference as int)
-	JMap.setInt(data, "entitlement", 			entitlement as int)
-	JMap.setInt(data, "bossesSuperPrey", 		bossesSuperPrey as int)
-	JMap.setInt(data, "whoStruggles", 			whoStruggles)
-	JMap.setInt(data, "multiPrey", 				multiPrey)
-	JMap.setInt(data, "EndoStruggling", 		EndoStruggling as int)
-	JMap.setInt(data, "VisualStruggles", 		VisualStruggles as int)
-	JMap.setInt(data, "ComplexStruggles", 		ComplexStruggles as int)
-	JMap.setInt(data, "SkillGain", 				SkillGain as int)
-	JMap.setInt(data, "AttributeGain", 			AttributeGain as int)
-	JMap.setInt(data, "DragonVoreAnimation", 	DragonVoreAnimation as int)
-	JMap.setInt(data, "MammothVoreAnimation", 	MammothVoreAnimation as int)
+	JMap_setInt(data, "CombatAcceleration", 	CombatAcceleration as int)
+	JMap_setInt(data, "scatTypeNPC", 			scatTypeNPC)
+	JMap_setInt(data, "scatTypeCreature", 		scatTypeCreature)
+	JMap_setInt(data, "scatTypeBolus", 			scatTypeBolus)
+	JMap_setInt(data, "screamSounds", 			screamSounds as int)
+	JMap_setInt(data, "killPlayer", 			killPlayer as int)
+	JMap_setInt(data, "killNPCs", 				killNPCs as int)
+	JMap_setInt(data, "killEssential", 			killEssential as int)
+	JMap_setInt(data, "playerPreference", 		playerPreference as int)
+	JMap_setInt(data, "entitlement", 			entitlement as int)
+	JMap_setInt(data, "bossesSuperPrey", 		bossesSuperPrey as int)
+	JMap_setInt(data, "whoStruggles", 			whoStruggles)
+	JMap_setInt(data, "multiPrey", 				multiPrey)
+	JMap_setInt(data, "EndoStruggling", 		EndoStruggling as int)
+	JMap_setInt(data, "VisualStruggles", 		VisualStruggles as int)
+	JMap_setInt(data, "ComplexStruggles", 		ComplexStruggles as int)
+	JMap_setInt(data, "SkillGain", 				SkillGain as int)
+	JMap_setInt(data, "AttributeGain", 			AttributeGain as int)
+	JMap_setInt(data, "DragonVoreAnimation", 	DragonVoreAnimation as int)
+	JMap_setInt(data, "MammothVoreAnimation", 	MammothVoreAnimation as int)
 	
-	JMap.setFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
-	JMap.setFlt(data, "StruggleDamage", 		StruggleDamage)
-	JMap.setFlt(data, "LiveMultiplier", 		LiveMultiplier)
-	JMap.setFlt(data, "DigestionTime", 			DigestionTime)
-	JMap.setFlt(data, "MinimumSwallowChance", 	MinimumSwallowChance)
-	JMap.setFlt(data, "NPCBonus", 				NPCBonus)
-	JMap.setFlt(data, "CombatChanceScale", 		CombatChanceScale)
-	JMap.setFlt(data, "AcidDamageModifier", 	AcidDamageModifier)
-	JMap.setFlt(data, "BurpsRate", 				BurpsRate)
-	JMap.setFlt(data, "GurglesRate", 			GurglesRate)
-	JMap.setFlt(data, "CameraShake", 			CameraShake)
-	JMap.setFlt(data, "Cooldown_Creature", 		Cooldown_Creature)
-	JMap.setFlt(data, "Cooldown_NPC", 			Cooldown_NPC)
+	JMap_setFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
+	JMap_setFlt(data, "StruggleDamage", 		StruggleDamage)
+	JMap_setFlt(data, "LiveMultiplier", 		LiveMultiplier)
+	JMap_setFlt(data, "DigestionTime", 			DigestionTime)
+	JMap_setFlt(data, "MinimumSwallowChance", 	MinimumSwallowChance)
+	JMap_setFlt(data, "NPCBonus", 				NPCBonus)
+	JMap_setFlt(data, "CombatChanceScale", 		CombatChanceScale)
+	JMap_setFlt(data, "AcidDamageModifier", 	AcidDamageModifier)
+	JMap_setFlt(data, "BurpsRate", 				BurpsRate)
+	JMap_setFlt(data, "GurglesRate", 			GurglesRate)
+	JMap_setFlt(data, "CameraShake", 			CameraShake)
+	JMap_setFlt(data, "Cooldown_Creature", 		Cooldown_Creature)
+	JMap_setFlt(data, "Cooldown_NPC", 			Cooldown_NPC)
 
-	JMap.setInt(data, "AutoNoms", 				AutoNoms)
-	JMap.setInt(data, "ShitItems", 				ShitItems as int)
-	JMap.setInt(data, "VoreTimeout", 			VoreTimeout as int)
-	JMap.setInt(data, "EndoTimeout", 			EndoTimeout as int)
-	JMap.setInt(data, "StomachStrip", 			StomachStrip as int)
-	JMap.setInt(data, "DrawnAnimations", 		DrawnAnimations as int)
-	JMap.setInt(data, "CrouchScat", 			CrouchScat as int)
-	JMap.setFlt(data, "WeightGain",				WeightGain)
-	JMap.setFlt(data, "ItemBurping",			ItemBurping)
+	JMap_setInt(data, "AutoNoms", 				AutoNoms)
+	JMap_setInt(data, "ShitItems", 				ShitItems as int)
+	JMap_setInt(data, "VoreTimeout", 			VoreTimeout as int)
+	JMap_setInt(data, "EndoTimeout", 			EndoTimeout as int)
+	JMap_setInt(data, "StomachStrip", 			StomachStrip as int)
+	JMap_setInt(data, "DrawnAnimations", 		DrawnAnimations as int)
+	JMap_setInt(data, "CrouchScat", 			CrouchScat as int)
+	JMap_setFlt(data, "WeightGain",				WeightGain)
+	JMap_setFlt(data, "ItemBurping",			ItemBurping)
 	
-	JMap.setInt(data, "endoAnyone", 			endoAnyone as int)
-	JMap.setInt(data, "VomitStyle", 			VomitStyle)
-	JMap.setInt(data, "UseHelpMessages", 		UseHelpMessages as int)
-	JMap.setInt(data, "Notifications", 			Notifications as int)
-	JMap.setInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int)
+	JMap_setInt(data, "endoAnyone", 			endoAnyone as int)
+	JMap_setInt(data, "VomitStyle", 			VomitStyle)
+	JMap_setInt(data, "UseHelpMessages", 		UseHelpMessages as int)
+	JMap_setInt(data, "Notifications", 			Notifications as int)
+	JMap_setInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int)
 
-	JMap.setInt(data, "CreaturePreds", 		CreaturePreds as int)
-	JMap.setInt(data, "FemalePreds", 		FemalePreds as int)
-	JMap.setInt(data, "MalePreds", 			MalePreds as int)
+	JMap_setInt(data, "CreaturePreds", 		CreaturePreds as int)
+	JMap_setInt(data, "FemalePreds", 		FemalePreds as int)
+	JMap_setInt(data, "MalePreds", 			MalePreds as int)
 
-	JMap.SetObj(data, "CreaturePredatorToggles",	JArray.objectWithInts(CreaturePredatorToggles))
-	JMap.SetObj(data, "HumanoidMalePredatorToggles",	JArray.objectWithInts(HumanoidMalePredatorToggles))
-	JMap.SetObj(data, "HumanoidFemalePredatorToggles",	JArray.objectWithInts(HumanoidFemalePredatorToggles))
-	JMap.setInt(data, "PlayerAlias.DefaultLocus", PlayerAlias.DefaultLocus)
+	JMap_SetObj(data, "CreaturePredatorToggles",	JArray_objectWithInts(CreaturePredatorToggles))
+	JMap_SetObj(data, "HumanoidMalePredatorToggles",	JArray_objectWithInts(HumanoidMalePredatorToggles))
+	JMap_SetObj(data, "HumanoidFemalePredatorToggles",	JArray_objectWithInts(HumanoidFemalePredatorToggles))
+	JMap_setInt(data, "PlayerAlias.DefaultLocus", PlayerAlias.DefaultLocus)
 	
 	SkullHandler.SaveSettings(data)
 	Menu.Morphs.SaveSettings(data)
 
-	JValue.writeToFile(data, SettingsFileName)
+	JValue_writeToFile(data, SettingsFileName)
 	return JContainers.fileExistsAtPath(SettingsFileName)
 EndFunction
 
@@ -6828,72 +6970,72 @@ EndFunction
 bool Function loadSettings(String settingsFileName)
 	Log1(PREFIX, "loadSettings", settingsFileName)
 
-	int data = JValue.readFromFile(SettingsFileName)
-	if !JValue.isExists(data)
+	int data = JValue_readFromFile(SettingsFileName)
+	if !JValue_isExists(data)
 		return false
 	endIf
 
-	CombatAcceleration = 	JMap.getInt(data, "CombatAcceleration", 		CombatAcceleration as int) as bool
-	scatTypeNPC = 			JMap.getInt(data, "scatTypeNPC", 				scatTypeNPC)
-	scatTypeCreature = 		JMap.getInt(data, "scatTypeCreature", 			scatTypeCreature)
-	scatTypeBolus = 		JMap.getInt(data, "scatTypeBolus", 				scatTypeBolus)
-	killPlayer = 			JMap.getInt(data, "killPlayer", 				killPlayer as int) as bool
-	killNPCs = 				JMap.getInt(data, "killNPCs", 					killNPCs as int) as bool
-	killEssential = 		JMap.getInt(data, "killEssential", 				killEssential as int) as bool
-	playerPreference = 		JMap.getInt(data, "playerPreference", 			playerPreference as int)
-	screamSounds = 			JMap.getInt(data, "screamSounds", 				screamSounds as int) as bool
-	bossesSuperPrey = 		JMap.getInt(data, "bossesSuperPrey", 			bossesSuperPrey as int) as bool
-	entitlement = 			JMap.getInt(data, "entitlement", 				entitlement as int) as bool
-	whoStruggles =			JMap.getInt(data, "whoStruggles", 				whoStruggles)
-	multiPrey = 			JMap.getInt(data, "multiPrey", 					multiPrey)
-	EndoStruggling = 		JMap.getInt(data, "EndoStruggling", 			EndoStruggling as int) as bool
-	VisualStruggles = 		JMap.getInt(data, "VisualStruggles", 			VisualStruggles as int) as bool
-	ComplexStruggles = 		JMap.getInt(data, "ComplexStruggles", 			ComplexStruggles as int) as bool
-	SkillGain = 			JMap.getInt(data, "SkillGain", 					SkillGain as int) as bool
-	AttributeGain = 		JMap.getInt(data, "AttributeGain", 				AttributeGain as int) as bool
-	DragonVoreAnimation = 	JMap.getInt(data, "DragonVoreAnimation", 		DragonVoreAnimation as int) as bool
-	MammothVoreAnimation = 	JMap.getInt(data, "MammothVoreAnimation", 		MammothVoreAnimation as int) as bool
+	CombatAcceleration = 	JMap_getInt(data, "CombatAcceleration", 		CombatAcceleration as int) as bool
+	scatTypeNPC = 			JMap_getInt(data, "scatTypeNPC", 				scatTypeNPC)
+	scatTypeCreature = 		JMap_getInt(data, "scatTypeCreature", 			scatTypeCreature)
+	scatTypeBolus = 		JMap_getInt(data, "scatTypeBolus", 				scatTypeBolus)
+	killPlayer = 			JMap_getInt(data, "killPlayer", 				killPlayer as int) as bool
+	killNPCs = 				JMap_getInt(data, "killNPCs", 					killNPCs as int) as bool
+	killEssential = 		JMap_getInt(data, "killEssential", 				killEssential as int) as bool
+	playerPreference = 		JMap_getInt(data, "playerPreference", 			playerPreference as int)
+	screamSounds = 			JMap_getInt(data, "screamSounds", 				screamSounds as int) as bool
+	bossesSuperPrey = 		JMap_getInt(data, "bossesSuperPrey", 			bossesSuperPrey as int) as bool
+	entitlement = 			JMap_getInt(data, "entitlement", 				entitlement as int) as bool
+	whoStruggles =			JMap_getInt(data, "whoStruggles", 				whoStruggles)
+	multiPrey = 			JMap_getInt(data, "multiPrey", 					multiPrey)
+	EndoStruggling = 		JMap_getInt(data, "EndoStruggling", 			EndoStruggling as int) as bool
+	VisualStruggles = 		JMap_getInt(data, "VisualStruggles", 			VisualStruggles as int) as bool
+	ComplexStruggles = 		JMap_getInt(data, "ComplexStruggles", 			ComplexStruggles as int) as bool
+	SkillGain = 			JMap_getInt(data, "SkillGain", 					SkillGain as int) as bool
+	AttributeGain = 		JMap_getInt(data, "AttributeGain", 				AttributeGain as int) as bool
+	DragonVoreAnimation = 	JMap_getInt(data, "DragonVoreAnimation", 		DragonVoreAnimation as int) as bool
+	MammothVoreAnimation = 	JMap_getInt(data, "MammothVoreAnimation", 		MammothVoreAnimation as int) as bool
 
-	PredExperienceRate = 	JMap.getFlt(data, "PredExperienceRate", 	PredExperienceRate)
-	PreyExperienceRate = 	JMap.getFlt(data, "PreyExperienceRate", 	PreyExperienceRate)
-	StruggleDifficulty = 	JMap.getFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
-	StruggleDamage = 		JMap.getFlt(data, "StruggleDamage", 		StruggleDamage)
-	liveMultiplier = 		JMap.getFlt(data, "liveMultiplier", 		liveMultiplier)
-	DigestionTime = 		JMap.getFlt(data, "DigestionTime", 			DigestionTime)
-	MinimumSwallowChance = 	JMap.getFlt(data, "MinimumSwallowChance", 	MinimumSwallowChance)
-	NPCBonus = 				JMap.getFlt(data, "NPCBonus", 				NPCBonus)
-	CombatChanceScale = 	JMap.getFlt(data, "CombatChanceScale", 		CombatChanceScale)
-	AcidDamageModifier = 	JMap.getFlt(data, "AcidDamageModifier", 	AcidDamageModifier)
-	BurpsRate = 			JMap.getFlt(data, "BurpsRate", 				BurpsRate)
-	GurglesRate = 			JMap.getFlt(data, "GurglesRate", 			GurglesRate)
-	cameraShake = 			JMap.getFlt(data, "cameraShake", 			cameraShake)
-	Cooldown_Creature = 	JMap.getFlt(data, "Cooldown_Creature", 		Cooldown_Creature)
-	Cooldown_NPC = 			JMap.getFlt(data, "Cooldown_NPC", 			Cooldown_NPC)
+	PredExperienceRate = 	JMap_getFlt(data, "PredExperienceRate", 	PredExperienceRate)
+	PreyExperienceRate = 	JMap_getFlt(data, "PreyExperienceRate", 	PreyExperienceRate)
+	StruggleDifficulty = 	JMap_getFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
+	StruggleDamage = 		JMap_getFlt(data, "StruggleDamage", 		StruggleDamage)
+	liveMultiplier = 		JMap_getFlt(data, "liveMultiplier", 		liveMultiplier)
+	DigestionTime = 		JMap_getFlt(data, "DigestionTime", 			DigestionTime)
+	MinimumSwallowChance = 	JMap_getFlt(data, "MinimumSwallowChance", 	MinimumSwallowChance)
+	NPCBonus = 				JMap_getFlt(data, "NPCBonus", 				NPCBonus)
+	CombatChanceScale = 	JMap_getFlt(data, "CombatChanceScale", 		CombatChanceScale)
+	AcidDamageModifier = 	JMap_getFlt(data, "AcidDamageModifier", 	AcidDamageModifier)
+	BurpsRate = 			JMap_getFlt(data, "BurpsRate", 				BurpsRate)
+	GurglesRate = 			JMap_getFlt(data, "GurglesRate", 			GurglesRate)
+	cameraShake = 			JMap_getFlt(data, "cameraShake", 			cameraShake)
+	Cooldown_Creature = 	JMap_getFlt(data, "Cooldown_Creature", 		Cooldown_Creature)
+	Cooldown_NPC = 			JMap_getFlt(data, "Cooldown_NPC", 			Cooldown_NPC)
 
-	AutoNoms = 				JMap.getInt(data, "AutoNoms", 				AutoNoms)
-	ShitItems = 			JMap.getInt(data, "ShitItems", 				ShitItems as int) as bool
-	VoreTimeout = 			JMap.getInt(data, "VoreTimeout", 			VoreTimeout as int) as bool
-	EndoTimeout = 			JMap.getInt(data, "EndoTimeout", 			EndoTimeout as int) as bool
-	StomachStrip = 			JMap.getInt(data, "StomachStrip", 			StomachStrip as int) as bool
-	drawnAnimations = 		JMap.getInt(data, "drawnAnimations", 		drawnAnimations as int) as bool
-	crouchScat = 			JMap.getInt(data, "crouchScat", 			crouchScat as int) as bool
-	WeightGain = 			JMap.getFlt(data, "WeightGain", 			WeightGain)
-	ItemBurping = 			JMap.getFlt(data, "ItemBurping", 			ItemBurping)
+	AutoNoms = 				JMap_getInt(data, "AutoNoms", 				AutoNoms)
+	ShitItems = 			JMap_getInt(data, "ShitItems", 				ShitItems as int) as bool
+	VoreTimeout = 			JMap_getInt(data, "VoreTimeout", 			VoreTimeout as int) as bool
+	EndoTimeout = 			JMap_getInt(data, "EndoTimeout", 			EndoTimeout as int) as bool
+	StomachStrip = 			JMap_getInt(data, "StomachStrip", 			StomachStrip as int) as bool
+	drawnAnimations = 		JMap_getInt(data, "drawnAnimations", 		drawnAnimations as int) as bool
+	crouchScat = 			JMap_getInt(data, "crouchScat", 			crouchScat as int) as bool
+	WeightGain = 			JMap_getFlt(data, "WeightGain", 			WeightGain)
+	ItemBurping = 			JMap_getFlt(data, "ItemBurping", 			ItemBurping)
 
-	endoAnyone = 			JMap.getInt(data, "endoAnyone", 			endoAnyone as int) as bool
-	VomitStyle = 			JMap.getInt(data, "VomitStyle", 			VomitStyle)
-	useHelpMessages = 		JMap.getInt(data, "useHelpMessages", 		useHelpMessages as int) as bool
-	notifications = 		JMap.getInt(data, "notifications", 			notifications as int) as bool
-	SwallowHeal = 			JMap.getInt(data, "SwallowHeal", 			SwallowHeal as int) as bool
-	creaturePreds = 		JMap.getInt(data, "creaturePreds", 			creaturePreds as int) as bool
-	femalePreds = 			JMap.getInt(data, "femalePreds", 			femalePreds as int) as bool
-	malePreds = 			JMap.getInt(data, "malePreds", 				malePreds as int) as bool
+	endoAnyone = 			JMap_getInt(data, "endoAnyone", 			endoAnyone as int) as bool
+	VomitStyle = 			JMap_getInt(data, "VomitStyle", 			VomitStyle)
+	useHelpMessages = 		JMap_getInt(data, "useHelpMessages", 		useHelpMessages as int) as bool
+	notifications = 		JMap_getInt(data, "notifications", 			notifications as int) as bool
+	SwallowHeal = 			JMap_getInt(data, "SwallowHeal", 			SwallowHeal as int) as bool
+	creaturePreds = 		JMap_getInt(data, "creaturePreds", 			creaturePreds as int) as bool
+	femalePreds = 			JMap_getInt(data, "femalePreds", 			femalePreds as int) as bool
+	malePreds = 			JMap_getInt(data, "malePreds", 				malePreds as int) as bool
 	
-	CreaturePredatorToggles =	JArray.asIntArray(JMap.getObj(data, "CreaturePredatorToggles", JArray.ObjectWithInts(CreaturePredatorToggles)))
-	HumanoidMalePredatorToggles =	JArray.asIntArray(JMap.getObj(data, "HumanoidMalePredatorToggles", JArray.ObjectWithInts(HumanoidMalePredatorToggles)))
-	HumanoidFemalePredatorToggles =	JArray.asIntArray(JMap.getObj(data, "HumanoidFemalePredatorToggles", JArray.ObjectWithInts(HumanoidFemalePredatorToggles)))
-	PlayerAlias.DefaultLocus = JMap.getInt(data, "DefaultLocus", PlayerAlias.DefaultLocus)
-	Menu.AltPerkMenus = 	JMap.getInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int) as bool
+	CreaturePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "CreaturePredatorToggles", JArray_ObjectWithInts(CreaturePredatorToggles)))
+	HumanoidMalePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "HumanoidMalePredatorToggles", JArray_ObjectWithInts(HumanoidMalePredatorToggles)))
+	HumanoidFemalePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "HumanoidFemalePredatorToggles", JArray_ObjectWithInts(HumanoidFemalePredatorToggles)))
+	PlayerAlias.DefaultLocus = JMap_getInt(data, "DefaultLocus", PlayerAlias.DefaultLocus)
+	Menu.AltPerkMenus = 	JMap_getInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int) as bool
 	Menu.RecalculateLocusCumulative()
 	
 	SkullHandler.LoadSettings(data)

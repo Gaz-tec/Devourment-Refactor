@@ -2,6 +2,7 @@ ScriptName DevourmentPlayerAlias extends SKI_PlayerLoadGameAlias
 {}
 import Logging
 import DevourmentUtil
+import Devourment_JCDomain
 
 
 DevourmentManager property Manager auto
@@ -134,7 +135,7 @@ Event OnPlayerCameraState(int oldState, int newState)
 		Log2(PREFIX, "OnPlayerCameraState", "oldState=" + oldState, "newState=" + newState)
 	endIf
 
-	if JValue.isExists(preyData)
+	if JValue_isExists(preyData)
 		if newState == 0
 			setCameraTarget(PlayerRef)
 		else
@@ -268,7 +269,7 @@ EndFunction
 
 Event OnKeyUp(int keyCode, float holdTime)
 	if keyCode == TOGGLE_POV
-		;/if JValue.isExists(preyData)
+		;/if jvalue_isExists(preyData)
 			if Game.GetCameraState() != 0
 				setCameraTarget(PlayerRef)
 				Game.ForceFirstPerson()
@@ -345,7 +346,7 @@ bool Function TryCrosshairVore(Spell swallowSpell)
 	elseif targeted as Actor
 		swallowSpell.cast(PlayerRef, targeted)
 		return true
-	elseif DevourMCM.LooseItemVore && !playerRef.IsInCombat() && !playerRef.IsRunning()
+	elseif !playerRef.IsInCombat() && !playerRef.IsRunning()
 		Manager.LooseItemVore(PlayerRef, targeted)
 		return true
 	else 
@@ -1216,7 +1217,7 @@ EndFunction
 
 Function CheckDependencies()
 
-	String ErrorReport = "Devourment Refactor: You are missing the following dependencies: "
+	String ErrorReport = "You are missing the following dependencies: "
 	Bool Display = False
 	if !CheckSKSE("6.0.2")
 		ErrorReport  = ErrorReport + " EngineFixes"
@@ -1255,7 +1256,7 @@ Function CheckDependencies()
 		Display = True
 	endIf
 	If Display
-		Debug.TraceAndBox(ErrorReport)
+		LogAndBox(PREFIX, "CheckDependencies", ErrorReport, 2)
 	EndIf
 EndFunction
 

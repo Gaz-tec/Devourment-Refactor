@@ -3,7 +3,7 @@ ScriptName Logging
 A collection of global functions for logging and assertions.
 }
 
-
+import Devourment_JCDomain
 
 ;=================================================
 ; Assertion functions.
@@ -330,7 +330,7 @@ Assertion-logger for a JLua isExists test.
 * name should be the name of the JLua object variable.
 * obj should be the JLua object whose existence is being tested.
 }
-	if JValue.isExists(obj)
+	if JValue_isExists(obj)
 		return true
 	endIf
 	
@@ -349,7 +349,7 @@ Assertion-logger for a JContainer to have a key.
 * k should be the string key.
 * obj should be a JMap.
 }
-	if JMap.hasKey(obj, k)
+	if JMap_hasKey(obj, k)
 		return true
 	endIf
 	
@@ -669,9 +669,9 @@ EndFunction
 String Function LuaS(String name, int luaObj) global
 { Pretty-prints a JLua object as a string. }
 	if name == ""
-		return "(" + luaObj + ") =" + JLua.evalLuaStr("return logging.tableToString(args)", luaObj, "NIL", false)
+		return "(" + luaObj + ") =" + JLua_evalLuaStr("return logging.tableToString(args)", luaObj, "NIL", false)
 	else
-		return name + "(" + luaObj + ") =" + JLua.evalLuaStr("return logging.tableToString(args)", luaObj, "NIL", false)
+		return name + "(" + luaObj + ") =" + JLua_evalLuaStr("return logging.tableToString(args)", luaObj, "NIL", false)
 	endIf
 EndFunction
 
@@ -1055,7 +1055,7 @@ String Function Hex32(int val) global
 Formats an integer as an 8 digit hexadecimal string.
 Uses the JContainers Lua interface.
 }
-	return JLua.evalLuaStr("return string.format(\"%08x\", " + val + ")", 0)
+	return JLua_evalLuaStr("return string.format(\"%08x\", " + val + ")", 0)
 EndFunction
 
 
@@ -1064,7 +1064,7 @@ int Function Int32(String hex) global
 Formats an integer as an 8 digit hexadecimal string.
 Uses the JContainers Lua interface.
 }
-	return JLua.evalLuaInt("return tonumber('0x" + hex + "') or 0", 0)
+	return JLua_evalLuaInt("return tonumber('0x" + hex + "') or 0", 0)
 EndFunction
 
 

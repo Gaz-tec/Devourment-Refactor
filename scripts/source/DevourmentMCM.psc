@@ -19,6 +19,7 @@ SKI_ConfigBase with the old SkyUI version.
 
 import DevourmentUtil
 import Logging
+import Devourment_JCDomain
 
 ; Plugin-defined Properties.
 Actor Property PlayerRef Auto
@@ -67,17 +68,15 @@ Spell Property Power_EatThis auto
 
 ; Script-defined Properties.
 int property VERSION = 200 auto Hidden
-bool property EnableHungryBones = true auto Hidden
-bool property EnableCordyceps = true auto Hidden 
-bool property LooseItemVore = true auto Hidden
-bool property AutoRebirth = true auto Hidden
-bool property AltPerkMenus = false auto Hidden
-bool property SLAccidents = false auto Hidden
+bool property EnableHungryBones = true auto Hidden	;Makes it so Skeletons defecated start resurrected as Skeletons.
+bool property EnableCordyceps = true auto Hidden 	;Partially control actor movements / attacks if they swallow you.
+bool property AutoRebirth = false auto Hidden	;Makes it so prey that are unbirthed are automatically reformed when absorbed.
+bool property AltPerkMenus = true auto Hidden	;Uses QuickMenu for perk selection rather than Custom Skills.
 bool property DontAddPowers = false auto conditional Hidden
 bool property UnrestrictedItemVore = false auto Hidden
-bool property GentleGas = false auto Hidden
-bool property CounterVoreEnabled = true auto Hidden
-bool property DigestToInventory = false auto Hidden
+bool property GentleGas = false auto Hidden	;Makes it so that gas powers do not cause items around to be knocked down.
+bool property CounterVoreEnabled = true auto Hidden	;Toggles on and off the Counter-Vore perk that makes it so the Player gets a free vore attempt on predators.
+bool property DigestToInventory = false auto Hidden	;Items broken down with the DigestItems power are deposited straight into inventory rather than a new Bolus.
 String property ExportFilename = "data\\skse\\plugins\\devourment\\db_export.json" autoreadonly Hidden
 String property SettingsFileName = "data\\skse\\plugins\\devourment\\settings.json" autoreadonly Hidden
 String property PredPerkFile = "data\\skse\\plugins\\devourment\\PredPerkData.json" autoreadonly Hidden
@@ -222,10 +221,10 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 	float skill
 	
 	if pred
-		perkMap = JValue.readFromFile(PredPerkFile)
+		perkMap = JValue_readFromFile(PredPerkFile)
 		skill = Manager.GetPredSkill(subject)
 	else
-		perkMap = JValue.readFromFile(PreyPerkFile)
+		perkMap = JValue_readFromFile(PreyPerkFile)
 		skill = Manager.GetPreySkill(subject)
 	endIf
 	
@@ -233,7 +232,7 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 		return false
 	endIf
 	
-	JValue.retain(perkMap, PREFIX)
+	JValue_retain(perkMap, PREFIX)
 	UIListMenu menu = UIExtensions.GetMenu("UIListMenu") as UIListMenu
 
 	bool exit = false
@@ -243,20 +242,20 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 		int perkIndex = 0
 
 		menu.ResetMenu()
-		String[] names = JArray.asStringArray(JArray.Sort(JMap.allKeys(perkMap)))
+		String[] names = JArray_asStringArray(JArray_Sort(JMap_allKeys(perkMap)))
 		int[] entries = Utility.createIntArray(names.length)
 
 		int index = 0
 		
 		while index < names.length
 			String name = names[index]
-			int perkEntry = JMap.GetObj(perkMap, name)
+			int perkEntry = JMap_GetObj(perkMap, name)
 			if AssertExists(PREFIX, "ShowPerkSubMenu", name, perkEntry)
 				
-				float requiredSkill = JMap.GetFlt(perkEntry, "Skill")
-				Perk requiredPerk = JMap.GetForm(perkEntry, "Req") as Perk
-				Perk thePerk = JMap.GetForm(perkEntry, "Perk") as Perk
-				String description = JMap.GetStr(perkEntry, "Description")
+				float requiredSkill = JMap_GetFlt(perkEntry, "Skill")
+				Perk requiredPerk = JMap_GetForm(perkEntry, "Req") as Perk
+				Perk thePerk = JMap_GetForm(perkEntry, "Perk") as Perk
+				String description = JMap_GetStr(perkEntry, "Description")
 				
 				if skill >= requiredSkill && thePerk != none && !subject.HasPerk(thePerk) && (requiredPerk == none || subject.HasPerk(requiredPerk))
 					perkList[perkIndex] = thePerk
@@ -301,7 +300,7 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 		endIf
 	endWhile
 	
-	JValue.release(perkMap)
+	JValue_release(perkMap)
 	return true
 EndFunction
 
@@ -573,7 +572,7 @@ EndFunction
 
 event OnPageReset(string page)
 	parent.OnPageReset(page)
-	optionsMap = JValue.ReleaseAndRetain(optionsMap, JIntMap.Object(), PREFIX)
+	optionsMap = JValue_ReleaseAndRetain(optionsMap, JIntMap.Object(), PREFIX)
 	target = GetTarget()	;We use this so often we should just refresh it whenever.
 	targetName = Namer(target, true)
 
@@ -656,7 +655,7 @@ event OnPageReset(string page)
 					Name = "Snow Elf"
 				EndIf
 				double[1] = AddToggleOption(Name, Manager.HumanoidFemalePredatorToggles[i])	;OID
-				int oDouble = JArray.objectWithInts(double)
+				int oDouble = JArray_objectWithInts(double)
 				JIntMap.SetObj(optionsMap, double[1], oDouble)
 				i += 1 
 			endWhile
@@ -676,7 +675,7 @@ event OnPageReset(string page)
 					Name = "Snow Elf"
 				EndIf
 				double[1] = AddToggleOption(Name, Manager.HumanoidMalePredatorToggles[i])	;OID
-				int oDouble = JArray.objectWithInts(double)
+				int oDouble = JArray_objectWithInts(double)
 				JIntMap.SetObj(optionsMap, double[1], oDouble)
 				i += 1 
 			endWhile
@@ -694,7 +693,7 @@ event OnPageReset(string page)
 			Int[] whitelistDouble = new Int[2]
 			whitelistDouble[0] = i + 300 ;Offset so we can differentiate this and creatures since same page.
 			whitelistDouble[1] = AddTextOption(Manager.PredatorWhitelist[i].GetLeveledActorBase().GetName(), "Remove?")	;OID
-			int owhitelistDouble = JArray.objectWithInts(whitelistDouble)
+			int owhitelistDouble = JArray_objectWithInts(whitelistDouble)
 			JIntMap.SetObj(optionsMap, whitelistDouble[1], owhitelistDouble)
 			i += 1 
 		endWhile
@@ -718,7 +717,7 @@ event OnPageReset(string page)
 					Name = "Lurker"
 				endif
 				double[1] = AddToggleOption(Name, Manager.CreaturePredatorToggles[i])	;OID
-				int oDouble = JArray.objectWithInts(double)
+				int oDouble = JArray_objectWithInts(double)
 				JIntMap.SetObj(optionsMap, double[1], oDouble)
 				i += 1
 			EndWhile
@@ -844,7 +843,7 @@ endEvent
 
 
 Event OnPageSelect(string a_page)
-    optionsMap = JValue.ReleaseAndRetain(optionsMap, JIntMap.Object(), PREFIX)
+    optionsMap = JValue_ReleaseAndRetain(optionsMap, JIntMap.Object(), PREFIX)
 
 	if difficulty < 5
 		difficulty = checkDifficultyPreset()
@@ -867,7 +866,7 @@ Event OnOptionSelect(int a_option)
 			return
 		endIf
 
-		int[] double = JArray.asIntArray(od)
+		int[] double = JArray_asIntArray(od)
 		int index = double[0]
 
 		If index > 899
@@ -1701,8 +1700,8 @@ endstate
 /;
 
 bool Function AddLogVersion(String label, String log, String linePattern, String subPattern)
-	int data = JLua.setStr("log", log, JLua.SetStr("p1", linePattern, JLua.SetStr("p2", subPattern)))
-	String result = JLua.evalLuaStr("return args.log:match(args.p1):match(args.p2)", data)
+	int data = JLua_setStr("log", log, JLua_SetStr("p1", linePattern, JLua_SetStr("p2", subPattern)))
+	String result = JLua_evalLuaStr("return args.log:match(args.p1):match(args.p2)", data)
 	
 	if result != "" 
 		addTextOption(label, result)
@@ -1714,8 +1713,8 @@ bool Function AddLogVersion(String label, String log, String linePattern, String
 EndFunction
 
 bool Function AddLogCheck(String label, String log, String linePattern)
-	int data = JLua.setStr("log", log, JLua.SetStr("p1", linePattern))
-	String result = JLua.evalLuaStr("return args.log:match(args.p1)", data)
+	int data = JLua_setStr("log", log, JLua_SetStr("p1", linePattern))
+	String result = JLua_evalLuaStr("return args.log:match(args.p1)", data)
 	
 	if result != "" 
 		addTextOption(label, "Found")
@@ -1829,7 +1828,6 @@ Function DisplayQuickSettings()
 	int ENTRY_PERK_PREY = menu.AddEntryItem("Prey Perks", ENTRY_PERKS)
 
 	int ENTRY_TOGGLES = menu.AddEntryItem("Toggles", entryHasChildren = true)
-	int ENTRY_LOOSE = menu.AddEntryItem(ToggleString("Loose item vore", LooseItemVore), ENTRY_TOGGLES)
 	int ENTRY_REBIRTH = menu.AddEntryItem(ToggleString("Automatic rebirth", AutoRebirth), ENTRY_TOGGLES)
 	int ENTRY_CROUCH = menu.AddEntryItem(ToggleString("Crouch Scat", Manager.CrouchScat), ENTRY_TOGGLES)
 	int ENTRY_ESCAPE = menu.AddEntryItem(ToggleString("Anal Escape", Manager.AnalEscape), ENTRY_TOGGLES)
@@ -1848,11 +1846,6 @@ Function DisplayQuickSettings()
 	int ENTRY_CORDYCEPS = -100
 	if PlayerRef.HasPerk(Cordyceps)
 		ENTRY_CORDYCEPS = menu.AddEntryItem(ToggleString("Cordyceps", EnableCordyceps), ENTRY_TOGGLES)
-	endIf
-	
-	int ENTRY_SLACCIDENTS = -100
-	if DevourmentSexlab.instance().SLA != none
-		ENTRY_SLACCIDENTS = menu.AddEntryItem(ToggleString("SLAccidents", SLAccidents), ENTRY_TOGGLES)
 	endIf
 
 	int ENTRY_COUNTER = -100
@@ -1913,10 +1906,6 @@ Function DisplayQuickSettings()
 		elseif ENTRY_LOCI.find(result) >= 0
 			PlayerAlias.DefaultLocus = ENTRY_LOCI.find(result)
 			menu.SetPropertyIndexString("entryName", ENTRY_LOCUS, "Default Locus: " + GetLocusName(PlayerAlias.DefaultLocus))
-
-		elseif result == ENTRY_LOOSE
-			LooseItemVore = !LooseItemVore
-			menu.SetPropertyIndexString("entryName", ENTRY_LOOSE, ToggleString("Loose item vore", LooseItemVore))
 	
 		elseif result == ENTRY_REBIRTH
 			AutoRebirth = !AutoRebirth
@@ -1941,10 +1930,6 @@ Function DisplayQuickSettings()
 		elseif result == ENTRY_HUNGRYBONES
 			EnableHungryBones = !EnableHungryBones
 			menu.SetPropertyIndexString("entryName", ENTRY_HUNGRYBONES, ToggleString("Hungry Bones", EnableHungryBones))
-
-		elseif result == ENTRY_SLACCIDENTS
-			SLAccidents = !SLAccidents
-			menu.SetPropertyIndexString("entryName", ENTRY_SLACCIDENTS, ToggleString("SLAccidents", SLAccidents))
 
 		elseif result == ENTRY_COUNTER
 			CounterVoreEnabled = !CounterVoreEnabled

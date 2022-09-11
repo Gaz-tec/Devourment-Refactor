@@ -1,5 +1,6 @@
 ScriptName DevourmentSkullHandler extends Quest
 import Logging
+import Devourment_JCDomain
 
 
 DevourmentManager property Manager auto
@@ -213,24 +214,24 @@ EndFunction
 
 
 Function LoadSettings(int data)
-	SkullsForDragons = 		JMap.getInt(data, "SkullsForDragons", 	SkullsForDragons as int) as bool
-	SkullsForUnique = 		JMap.getInt(data, "SkullsForUnique", 	SkullsForUnique as int) as bool
-	SkullsForEssential =	JMap.getInt(data, "SkullsForEssential",	SkullsForEssential as int) as bool
-	SkullsForEveryone = 	JMap.getInt(data, "SkullsForEveryone",	SkullsForEveryone as int) as bool
-	SkullsSeparate = 		JMap.getInt(data, "SkullsSeparate",		SkullsSeparate as int) as bool
-	SoulsSeparate = 		JMap.getInt(data, "SoulsSeparate",		SoulsSeparate)
-	NamedSouls = 			JMap.getInt(data, "NamedSouls",			NamedSouls as int) as bool
+	SkullsForDragons = 		JMap_getInt(data, "SkullsForDragons", 	SkullsForDragons as int) as bool
+	SkullsForUnique = 		JMap_getInt(data, "SkullsForUnique", 	SkullsForUnique as int) as bool
+	SkullsForEssential =	JMap_getInt(data, "SkullsForEssential",	SkullsForEssential as int) as bool
+	SkullsForEveryone = 	JMap_getInt(data, "SkullsForEveryone",	SkullsForEveryone as int) as bool
+	SkullsSeparate = 		JMap_getInt(data, "SkullsSeparate",		SkullsSeparate as int) as bool
+	SoulsSeparate = 		JMap_getInt(data, "SoulsSeparate",		SoulsSeparate)
+	NamedSouls = 			JMap_getInt(data, "NamedSouls",			NamedSouls as int) as bool
 EndFunction
 
 
 Function SaveSettings(int data)
-	JMap.setInt(data, "SkullsForDragons", 	SkullsForDragons as int)
-	JMap.setInt(data, "SkullsForUnique",	SkullsForUnique as int)
-	JMap.setInt(data, "SkullsForEssential",	SkullsForEssential as int)
-	JMap.setInt(data, "SkullsForEveryone",	SkullsForEveryone as int)
-	JMap.setInt(data, "SkullsSeparate",		SkullsSeparate as int)
-	JMap.setInt(data, "SoulsSeparate",		SoulsSeparate)
-	JMap.setInt(data, "NamedSouls",			NamedSouls as int)
+	JMap_setInt(data, "SkullsForDragons", 	SkullsForDragons as int)
+	JMap_setInt(data, "SkullsForUnique",	SkullsForUnique as int)
+	JMap_setInt(data, "SkullsForEssential",	SkullsForEssential as int)
+	JMap_setInt(data, "SkullsForEveryone",	SkullsForEveryone as int)
+	JMap_setInt(data, "SkullsSeparate",		SkullsSeparate as int)
+	JMap_setInt(data, "SoulsSeparate",		SoulsSeparate)
+	JMap_setInt(data, "NamedSouls",			NamedSouls as int)
 EndFunction
 
 
