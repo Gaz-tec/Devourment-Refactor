@@ -109,14 +109,15 @@ endFunction
 
 
 event OnConfigInit()
-	Pages = new string[7]
+	Pages = new string[8]
 	Pages[0] = "$DVT_Page_StatsSkills"
 	Pages[1] = "$DVT_Page_General"
-	Pages[2] = "$DVT_Page_WhoCanPred"
-	Pages[3] = "$DVT_Page_VisualSoundMisc"
-	Pages[4] = "$DVT_Page_LocusMorphs"
-	Pages[5] = "$DVT_Page_Debugging"
-	Pages[6] = "$DVT_Page_Dependancies"
+	Pages[2] = "$DVT_Page_Whitelist"
+	Pages[3] = "$DVT_Page_WhoCanPred"
+	Pages[4] = "$DVT_Page_VisualSoundMisc"
+	Pages[5] = "$DVT_Page_LocusMorphs"
+	Pages[6] = "$DVT_Page_Debugging"
+	Pages[7] = "$DVT_Page_Dependancies"
 
 	;/
 	equipList = new string[3]
@@ -582,7 +583,7 @@ event OnPageReset(string page)
 	;	UnloadCustomContent()
 	;endIf
 
-	If page == Pages[0]
+	If page == "$DVT_Page_StatsSkills"
 		int perkPoints = Manager.GetPerkPoints(target)
 		int predSkill = Manager.GetPredSkill(target) as int
 		int preySkill = Manager.GetPreySkill(target) as int
@@ -640,7 +641,41 @@ event OnPageReset(string page)
 
 		addTextOption("Others digested: ", Manager.GetVictimType(target, "other"))
 
-	ElseIf page == Pages[2]
+	ElseIf page == "$DVT_Page_Whitelist"
+
+		addHeaderOption("Predator Whitelist")
+
+		Int iLength = Manager.PredatorWhitelist.Length
+
+		Int i = 1	;No need to give the player option to remove themselves.
+		AddTextOption(PlayerRef.GetLeveledActorBase().GetName(), "")
+		
+		Int[] whitelistDouble = new Int[2]
+
+		while i < iLength
+			whitelistDouble[0] = i + 300 ;Offset so we can differentiate this and creatures since same page.
+			whitelistDouble[1] = AddTextOption(Manager.PredatorWhitelist[i].GetLeveledActorBase().GetName(), "Remove?")	;OID
+			int owhitelistDouble = JArray_objectWithInts(whitelistDouble)
+			JIntMap_SetObj(optionsMap, whitelistDouble[1], owhitelistDouble)
+			i += 1 
+		endWhile
+
+		setCursorPosition(1)
+
+		i = 0
+		iLength = Manager.PredatorBlacklist.Length
+		addHeaderOption("Predator Blacklist")
+
+		while i < iLength
+			whitelistDouble[0] = i
+			whitelistDouble[1] = AddTextOption(Manager.PredatorBlacklist[i].GetLeveledActorBase().GetName(), "Remove?")	;OID
+			int owhitelistDouble = JArray_objectWithInts(whitelistDouble)
+			JIntMap_SetObj(optionsMap, whitelistDouble[1], owhitelistDouble)
+			i += 1 
+		endWhile
+
+
+	ElseIf page == "$DVT_Page_WhoCanPred"
 
 		addHeaderOption("Female Predator Toggles")
 		Int i = 0
@@ -681,23 +716,6 @@ event OnPageReset(string page)
 			endWhile
 		EndIf
 
-		AddEmptyOption()
-		addHeaderOption("Predator Whitelist")
-
-		iLength = Manager.PredatorWhitelist.Length
-
-		i = 1	;No need to give the player option to remove themselves.
-		AddTextOption(PlayerRef.GetLeveledActorBase().GetName(), "")
-		
-		while i < iLength
-			Int[] whitelistDouble = new Int[2]
-			whitelistDouble[0] = i + 300 ;Offset so we can differentiate this and creatures since same page.
-			whitelistDouble[1] = AddTextOption(Manager.PredatorWhitelist[i].GetLeveledActorBase().GetName(), "Remove?")	;OID
-			int owhitelistDouble = JArray_objectWithInts(whitelistDouble)
-			JIntMap_SetObj(optionsMap, whitelistDouble[1], owhitelistDouble)
-			i += 1 
-		endWhile
-
 		setCursorPosition(1)
 
 		addHeaderOption("Creature Predator Toggles")
@@ -723,7 +741,7 @@ event OnPageReset(string page)
 			EndWhile
 		EndIf
 		
-	ElseIf page == Pages[4]
+	ElseIf page == "$DVT_Page_LocusMorphs"
 
 		;/
 		AddHeaderOption("Body Sliders vs Equipable Choice")
@@ -801,7 +819,7 @@ event OnPageReset(string page)
 			addSliderOptionSt("Scaling_Locus5_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[5], "{2}")
 			addSliderOptionSt("Chance_Locus5", "$DVT_LocusChance", LocusChances[5], "{2}")
 		;endIf
-	ElseIf page == Pages[6]
+	ElseIf page == "$DVT_Page_Dependancies"
 		SetCursorFillMode(LEFT_TO_RIGHT)
 
 		if SKSE.GetVersion()
@@ -859,7 +877,24 @@ Event OnOptionSelect(int a_option)
 		return
 	endIf
 
-	If CurrentPage == Pages[2]
+	If CurrentPage == "$DVT_Page_Whitelist"
+		; Get the double.
+		int od = JIntMap_GetObj(optionsMap, a_option)
+		if !AssertExists(PREFIX, "OnOptionSelect", "od", od)
+			return
+		endIf
+
+		int[] double = JArray_asIntArray(od)
+		int index = double[0]
+
+		if index > 299
+			Manager.PredatorWhitelist = PapyrusUtil.RemoveActor(Manager.PredatorWhitelist, Manager.PredatorWhitelist[index - 300])
+			ForcePageReset()
+		else
+			Manager.PredatorBlacklist = PapyrusUtil.RemoveActor(Manager.PredatorBlacklist, Manager.PredatorBlacklist[index])
+			ForcePageReset()
+		endif
+	ElseIf CurrentPage == "$DVT_Page_WhoCanPred"
 		; Get the double.
 		int od = JIntMap_GetObj(optionsMap, a_option)
 		if !AssertExists(PREFIX, "OnOptionSelect", "od", od)
@@ -887,9 +922,6 @@ Event OnOptionSelect(int a_option)
 				EndIf
 				SetToggleOptionValue(double[1], Manager.HumanoidMalePredatorToggles[index - 600] as Bool, false)
 			EndIf
-		elseif index > 299
-			Manager.PredatorWhitelist = PapyrusUtil.RemoveActor(Manager.PredatorWhitelist, Manager.PredatorWhitelist[index - 300])
-			ForcePageReset()
 		else 
 			If a_option == double[1]
 				If Manager.CreaturePredatorToggles[index] == 0

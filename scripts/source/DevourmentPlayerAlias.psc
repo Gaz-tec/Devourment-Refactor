@@ -519,6 +519,7 @@ This state means that the player is inside a hostile predator.
 
 		StopPlayerStruggle()
 		Game.SetInCharGen(false, false, false)
+		PO3_SKSEFunctions.ResetActorDetection(playerRef)
 	EndEvent
 
 

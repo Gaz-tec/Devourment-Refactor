@@ -78,6 +78,8 @@ DevourmentSkullHandler property SkullHandler auto
 Explosion property BoneExplosion auto
 Faction property PlayerFaction auto
 FormList property FullnessTypes_All auto
+Actor[] property PredatorBlacklist auto
+{ Predators inside this can never Vore, no matter other settings. }
 Actor[] property PredatorWhitelist auto
 { Predators inside this can always Vore, no matter other settings. Contains Player by default. }
 ;/
@@ -266,6 +268,8 @@ String[] blockCodes
 
 ObjectReference[] IndicesPrey	;Indices-matched arrays for Prey and Pred activity, linking the two.
 ObjectReference[] IndicesPred	;Even making this is obscene and ruins code purity but the assumptions we built this mod on have crumbled.
+; Note, I am aware I could have used PapyrusUtil Push functions to build this array and cut down on memory usage.
+; Given that I plan to have every single vore logged here however, that would create performance penalties too steep for me to agree with.
 
 Bool Function InsertPairSafeguard(ObjectReference akPred, ObjectReference akPrey)
 {In the event of catastrophic JContainers failure, can be used to re-marry Pred and Prey.
@@ -874,6 +878,8 @@ Event RegisterDigestion(Form f1, Form f2, bool endo, int locus)
 
 			pred.stopCombat()
 			pred.setAlert(false)
+			;"Prevent this actor from being detected by other NPCs (actor is hidden)." - https://github.com/powerof3/PapyrusExtenderSSE/wiki/Detection
+			PO3_SKSEFunctions.PreventActorDetection(prey)
 			pred.evaluatePackage()
 		endIf
 
@@ -4509,14 +4515,21 @@ EndFunction
 
 
 Function WhitelistPredator()
+{ Adds selected Actor to White/Blacklist. Called via MCM Helper MCM\Config\Devourment\keybinds.JSON }
 	ObjectReference targeted = Game.GetCurrentCrossHairRef()
 	If targeted as Actor
-		WhitelistNameAlias.ForceRefTo(targeted)
-		Int Choice = MenuWhitelist.Show()
-		If Choice == 0
-			PredatorWhitelist = PapyrusUtil.PushActor(PredatorWhitelist, targeted as Actor)
+		If PredatorWhitelist.find(targeted as Actor) >= 0 || PredatorBlacklist.find(targeted as Actor) >= 0
+			Debug.Messagebox(Namer(targeted, true) + " is already part of a Blacklist / Whitelist.")
+		Else
+			WhitelistNameAlias.ForceRefTo(targeted)
+			Int Choice = MenuWhitelist.Show()
+			If Choice == 0
+				PredatorWhitelist = PapyrusUtil.PushActor(PredatorWhitelist, targeted as Actor)
+			ElseIf Choice == 1
+				PredatorBlacklist = PapyrusUtil.PushActor(PredatorBlacklist, targeted as Actor)
+			EndIf
+			WhitelistNameAlias.Clear()
 		EndIf
-		WhitelistNameAlias.Clear()
 	EndIf
 EndFunction
 
@@ -4817,7 +4830,7 @@ EndFunction
 
 
 bool Function validPredator(Actor target)
-	If target == None || target.isChild()
+	If target == None || target.isChild() || PredatorBlacklist.find(target) >= 0
 		return false
 	ElseIf PredatorWhitelist.find(target) >= 0
 		return true

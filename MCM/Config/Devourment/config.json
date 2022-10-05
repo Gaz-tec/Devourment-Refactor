@@ -573,6 +573,12 @@
 			]
 		},
 		{
+			"pageDisplayName": "$DVT_Page_Whitelist",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]
+		},
+		{
 			"pageDisplayName": "$DVT_Page_WhoCanPred",
 			"cursorFillMode": "topToBottom",
 			"content": [
