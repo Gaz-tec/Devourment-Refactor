@@ -96,8 +96,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		return
 	endIf
 		
-	Manager.CacheVoreWeight(pred)
-	Manager.CacheVoreWeight(prey)
+	;Manager.CacheVoreWeight(pred)
+	;Manager.CacheVoreWeight(prey)
 
 	if pred == PlayerRef && !DEBUGGING && !Manager.HasRoomForPrey(pred, prey) && !Scripted
 		Manager.HelpAgnosticMessage(Message_Capacity, "DVT_FULL", 3.0, 0.1)
@@ -375,8 +375,8 @@ Function PlayVoreAnimation_Actor()
 
 			utility.wait(0.35)
 				
-			Debug.SendAnimationEvent(pred, "DragonVore_Dragon")
-			Debug.SendAnimationEvent(prey, "DragonVore_Human")
+			Debug.SendAnimationEvent(pred, "DevourmentDragon_DragonPredator")
+			Debug.SendAnimationEvent(prey, "DevourmentDragon_HumanPrey")
 
 			Utility.Wait(4.1)
 			pred.SetAllowFlying(true)
@@ -396,7 +396,28 @@ Function PlayVoreAnimation_Actor()
 				Debug.SendAnimationEvent(pred, "IdleCannibalFeedStanding")
 			 
 			elseif Manager.GetVoreWeightRatio(pred, prey) > 0.25 ; Giant Vore
-				Debug.SendAnimationEvent(pred, "IdlePickup_Ground")
+				;Beast races have different mouth alignments and tails, so must be different.
+				Bool IsPredBeastRace = pred.hasKeywordString("IsBeastRace")
+				Bool IsPreyBeastRace = prey.hasKeywordString("IsBeastRace")
+				String PredAnim = "DevourmentMacro_HumanPredator"
+				String PreyAnim = "DevourmentMacro_HumanPrey"
+				If IsPredBeastRace
+					PredAnim = "DevourmentMacro_BeastPredator"
+				EndIf
+				If IsPreyBeastRace
+					PreyAnim = "DevourmentMacro_BeastPrey"
+				EndIf
+				;If Manager.MacroVoreAnimation
+				pred.SplineTranslateTo(prey.GetPositionX(), prey.GetPositionY(), prey.GetPositionZ(), 0.0, 0.0, prey.GetAngleZ()+180.0, 1.0, 1000.0)
+				prey.SplineTranslateTo(prey.GetPositionX(), prey.GetPositionY(), prey.GetPositionZ(), 0.0, 0.0, prey.GetAngleZ()+180.0, 1.0, 1000.0)
+				Utility.Wait(0.02)
+				Debug.SendAnimationEvent(pred, PredAnim)
+				Debug.SendAnimationEvent(prey, PreyAnim)
+				Utility.Wait(0.3)
+				;TODO MOUTH OPEN & CLOSE, TIMINGS
+				;Else
+					;Debug.SendAnimationEvent(pred, "IdlePickup_Ground")
+				;EndIf
 
 			elseif endo
 				if locus == 1 ; AnalVore (endo)
@@ -414,7 +435,7 @@ Function PlayVoreAnimation_Actor()
 				endIf
 			else
 				if locus == 0 ; OralVore
-						Debug.SendAnimationEvent(pred, "DevourA01")
+						Debug.SendAnimationEvent(pred, "DevourmentSameSize_HumanPredator")
 						;Debug.SendAnimationEvent(prey, "DevourA02")
 						Debug.SendAnimationEvent(prey, "IdleCowerEnter")
 				elseif locus == 1 ; AnalVore
@@ -459,8 +480,8 @@ Function PlayVoreAnimation_Actor()
 
 			utility.wait(0.35)
 				
-			Debug.SendAnimationEvent(pred, "MammothVore_Mammoth")
-			Debug.SendAnimationEvent(prey, "MammothVore_Human")
+			Debug.SendAnimationEvent(pred, "DevourmentMammoth_MammothPredator")
+			Debug.SendAnimationEvent(prey, "DevourmentMammoth_HumanPrey")
 
 			Utility.Wait(4.0)
 		endif
