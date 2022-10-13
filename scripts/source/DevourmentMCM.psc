@@ -1205,7 +1205,7 @@ state Scaling_Locus1_MaxState
 		SetSliderDialogStartValue(Morphs.Locus_Maxes[1])
 		SetSliderDialogDefaultValue(25.0)
 		SetSliderDialogRange(0.0, 250.0)
-		SetSliderDialogInterval(0.5)
+		SetSliderDialogInterval(0.1)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
@@ -1230,7 +1230,7 @@ state Scaling_Locus3_MaxState
 		SetSliderDialogStartValue(Morphs.Locus_Maxes[3])
 		SetSliderDialogDefaultValue(10.0)
 		SetSliderDialogRange(0.0, 100.0)
-		SetSliderDialogInterval(0.2)
+		SetSliderDialogInterval(0.1)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
@@ -1259,7 +1259,7 @@ state Scaling_Locus4_MaxState
 		SetSliderDialogStartValue(Morphs.Locus_Maxes[4])
 		SetSliderDialogDefaultValue(10.0)
 		SetSliderDialogRange(0.0, 100.0)
-		SetSliderDialogInterval(0.2)
+		SetSliderDialogInterval(0.1)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
@@ -1284,7 +1284,7 @@ state Scaling_Locus5_MaxState
 		SetSliderDialogStartValue(Morphs.Locus_Maxes[5])
 		SetSliderDialogDefaultValue(20.0)
 		SetSliderDialogRange(0.0, 250.0)
-		SetSliderDialogInterval(0.5)
+		SetSliderDialogInterval(0.1)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
