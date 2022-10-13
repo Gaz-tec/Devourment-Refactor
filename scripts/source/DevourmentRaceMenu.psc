@@ -27,8 +27,14 @@ string Property SLIDER_STRUGGLE_BREASTR3 = "BVoreStruggleR3" AutoReadOnly
 string Property SLIDER_EXTRA_A = "Giant belly (coldsteelj)" AutoReadOnly
 string Property SLIDER_EXTRA_B = "SSBBW2 body" AutoReadOnly
 string Property SLIDER_EXTRA_C = "SSBBW3 body" AutoReadOnly
-string Property SLIDER_EXTRA_D = "SSBBW WGBelly" AutoReadOnly
-string Property SLIDER_EXTRA_E = "SSBBW Ultkir body" AutoReadOnly
+string Property SLIDER_EXTRA_D = "SSBBW_Muscled" AutoReadOnly
+string Property SLIDER_EXTRA_E = "SSBBW WGBelly" AutoReadOnly
+string Property SLIDER_EXTRA_F = "SSBBW Ultkir body" AutoReadOnly
+string Property SLIDER_EXTRA_G = "SSBBW Butt growth" AutoReadOnly
+string Property SLIDER_EXTRA_H = "SSBBW2 Boobs Growth" AutoReadOnly
+string Property SLIDER_EXTRA_I = "Giant belly up" AutoReadOnly
+string Property SLIDER_EXTRA_J = "SSBBW WGBelly" AutoReadOnly
+string Property SLIDER_EXTRA_K = "FatBelly" AutoReadOnly
 
 
 ;Callbacks Table
@@ -51,6 +57,12 @@ string Property CALLBACK_EXTRA_B = "CALLBACK_EXTRA_B" AutoReadOnly
 string Property CALLBACK_EXTRA_C = "CALLBACK_EXTRA_C" AutoReadOnly
 string Property CALLBACK_EXTRA_D = "CALLBACK_EXTRA_D" AutoReadOnly
 string Property CALLBACK_EXTRA_E = "CALLBACK_EXTRA_E" AutoReadOnly
+string Property CALLBACK_EXTRA_F = "CALLBACK_EXTRA_F" AutoReadOnly
+string Property CALLBACK_EXTRA_G = "CALLBACK_EXTRA_G" AutoReadOnly
+string Property CALLBACK_EXTRA_H = "CALLBACK_EXTRA_H" AutoReadOnly
+string Property CALLBACK_EXTRA_I = "CALLBACK_EXTRA_I" AutoReadOnly
+string Property CALLBACK_EXTRA_J = "CALLBACK_EXTRA_J" AutoReadOnly
+string Property CALLBACK_EXTRA_K = "CALLBACK_EXTRA_K" AutoReadOnly
 
 string Property CATEGORY_VORE = "DevourmentVoreCategory" AutoReadOnly
 
@@ -91,6 +103,12 @@ Event OnSliderRequest(Actor target, ActorBase targetBase, Race actorRace, bool i
 	AddSliderEx(SLIDER_EXTRA_C, CATEGORY_VORE, CALLBACK_EXTRA_C, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_C, "Devourment.esp"))
 	AddSliderEx(SLIDER_EXTRA_D, CATEGORY_VORE, CALLBACK_EXTRA_D, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_D, "Devourment.esp"))
 	AddSliderEx(SLIDER_EXTRA_E, CATEGORY_VORE, CALLBACK_EXTRA_E, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_E, "Devourment.esp"))
+	AddSliderEx(SLIDER_EXTRA_F, CATEGORY_VORE, CALLBACK_EXTRA_F, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_F, "Devourment.esp"))
+	AddSliderEx(SLIDER_EXTRA_G, CATEGORY_VORE, CALLBACK_EXTRA_G, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_G, "Devourment.esp"))
+	AddSliderEx(SLIDER_EXTRA_H, CATEGORY_VORE, CALLBACK_EXTRA_H, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_H, "Devourment.esp"))
+	AddSliderEx(SLIDER_EXTRA_I, CATEGORY_VORE, CALLBACK_EXTRA_I, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_I, "Devourment.esp"))
+	AddSliderEx(SLIDER_EXTRA_J, CATEGORY_VORE, CALLBACK_EXTRA_J, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_J, "Devourment.esp"))
+	AddSliderEx(SLIDER_EXTRA_K, CATEGORY_VORE, CALLBACK_EXTRA_K, SCALE_MIN, SCALE_MAX, SCALE_STEPPING, NiOverride.GetBodyMorph(target, SLIDER_EXTRA_K, "Devourment.esp"))
 EndEvent
 
 
@@ -131,6 +149,18 @@ Event OnSliderChanged(string callback, float value)
 		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_D, "Devourment.esp", value)
 	ElseIf callback == CALLBACK_EXTRA_E
 		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_E, "Devourment.esp", value)
+	ElseIf callback == CALLBACK_EXTRA_F
+		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_F, "Devourment.esp", value)
+	ElseIf callback == CALLBACK_EXTRA_G
+		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_G, "Devourment.esp", value)
+	ElseIf callback == CALLBACK_EXTRA_H
+		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_H, "Devourment.esp", value)
+	ElseIf callback == CALLBACK_EXTRA_I
+		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_I, "Devourment.esp", value)
+	ElseIf callback == CALLBACK_EXTRA_J
+		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_J, "Devourment.esp", value)
+	ElseIf callback == CALLBACK_EXTRA_K
+		NiOverride.SetBodyMorph(_targetActor, SLIDER_EXTRA_K, "Devourment.esp", value)
 	Endif
 	NiOverride.UpdateModelWeight(_targetActor)
 EndEvent

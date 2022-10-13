@@ -33,7 +33,7 @@ float UpdateTime = 0.05
 float playerStruggle = 0.0
 bool PlayerStruggleBumps
 
-
+Float[] lastOutputBody
 String[] Sliders
 String[] StruggleSliders
 bool[] isNode
@@ -88,6 +88,7 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 	Manager.CommitMorphsToDB()
 
 	Sliders = Morphs.Locus_Sliders
+	lastOutputBody = Utility.CreateFloatArray(Sliders.Length)	;Create here, so Papyrus does not try to query elements that don't exist.
 	StruggleSliders = Morphs.StruggleSliders
 	IsNode = Utility.CreateBoolArray(Sliders.length)
 
@@ -213,7 +214,7 @@ Event OnUpdate()
 			while sliderIndex
 				sliderIndex -= 1
 				float scale = outputBody[sliderIndex]
-				if scale >= 0.0
+				if scale >= 0.0 && lastOutputBody[sliderIndex] != scale
 					if IsNode[sliderIndex]
 						NIOverride.AddNodeTransformScale(target, false, isFemale, Sliders[sliderIndex], PREFIX, 1.0 + scale)
 						NIOverride.UpdateNodeTransform(target, false, isFemale, Sliders[sliderIndex])
@@ -241,6 +242,7 @@ Event OnUpdate()
 	if updateWeights
 		NiOverride.UpdateModelWeight(target)
 		RegisterForSingleUpdate(UpdateTime)
+		lastOutputBody = outputBody
 	else
 		RegisterForSingleUpdate(1.0)
 	endIf

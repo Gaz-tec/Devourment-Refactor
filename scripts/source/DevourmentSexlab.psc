@@ -91,28 +91,30 @@ Event SexlabAnimationEnding(int tid, bool HasPlayer)
 	if thread && thread.positions.length >= 2
 		String[] tags = thread.Animation.GetTags()
 		Actor pred = thread.positions[1]
-		Actor prey = thread.positions[0]
-		
-		Log1(PREFIX, "SexlabAnimationEnding", "Checking tags")
-		
-		if tags.find("OralVore") >= 0
-			Log1(PREFIX, "SexlabAnimationEnding", "OralVore found.")
-			Manager.RegisterDigestion(pred, prey, true, 0)
-		elseif tags.find("AnalVore") >= 0
-			Log1(PREFIX, "SexlabAnimationEnding", "AnalVore found.")
-			Manager.RegisterDigestion(pred, prey, true, 1)
-		elseif tags.find("UnBirth") >= 0
-			Log1(PREFIX, "SexlabAnimationEnding", "Unbirth found.")
-			Manager.RegisterDigestion(pred, prey, true, 2)
-		elseif tags.find("CockVore") >= 0
-			Log1(PREFIX, "SexlabAnimationEnding", "CockVore found.")
-			Manager.RegisterDigestion(pred, prey, true, 4)
-		elseif tags.find("Vore") >= 0
-			Log1(PREFIX, "SexlabAnimationEnding", "Vore found.")
-			Manager.RegisterDigestion(pred, prey, true, 0)
-		;elseif thread.positions.find(Manager.PlayerRef) >= 0 && Utility.RandomInt(100) < 10
-		;	Log1(PREFIX, "SexlabAnimationEnding", "Accidental Digestion")
-		;	Manager.SwitchLethalAll(Manager.PlayerRef, true)
+		If pred != None
+			Actor prey = thread.positions[0]
+			
+			Log1(PREFIX, "SexlabAnimationEnding", "Checking tags")
+			
+			if tags.find("OralVore") >= 0
+				Log1(PREFIX, "SexlabAnimationEnding", "OralVore found.")
+				Manager.RegisterDigestion(pred, prey, true, 0)
+			elseif tags.find("AnalVore") >= 0
+				Log1(PREFIX, "SexlabAnimationEnding", "AnalVore found.")
+				Manager.RegisterDigestion(pred, prey, true, 1)
+			elseif tags.find("UnBirth") >= 0
+				Log1(PREFIX, "SexlabAnimationEnding", "Unbirth found.")
+				Manager.RegisterDigestion(pred, prey, true, 2)
+			elseif tags.find("CockVore") >= 0
+				Log1(PREFIX, "SexlabAnimationEnding", "CockVore found.")
+				Manager.RegisterDigestion(pred, prey, true, 4)
+			elseif tags.find("Vore") >= 0
+				Log1(PREFIX, "SexlabAnimationEnding", "Vore found.")
+				Manager.RegisterDigestion(pred, prey, true, 0)
+			;elseif thread.positions.find(Manager.PlayerRef) >= 0 && Utility.RandomInt(100) < 10
+			;	Log1(PREFIX, "SexlabAnimationEnding", "Accidental Digestion")
+			;	Manager.SwitchLethalAll(Manager.PlayerRef, true)
+			endIf
 		endIf
 	endIf
 EndEvent
