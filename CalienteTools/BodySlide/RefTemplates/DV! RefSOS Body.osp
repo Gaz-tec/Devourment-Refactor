@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DV! RefSOS Body">
+        <DataFolder>DV! RefSOS Body</DataFolder>
+        <SourceFile>DV! RefSOS Body.nif</SourceFile>
+        <OutputPath>meshes\actors\character\character assets</OutputPath>
+        <OutputFile GenWeights="true">malebody</OutputFile>
+        <Shape target="DV Ref SOS Body" DataFolder="DevourmentSE - Male">DV Ref SOS Body</Shape>
+        <Slider name="Arms" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyArms" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyArms</Data>
+        </Slider>
+        <Slider name="Back" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBack" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBack</Data>
+        </Slider>
+        <Slider name="BackArch" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBackArch" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBackArch</Data>
+        </Slider>
+        <Slider name="Belly" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBelly" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBelly</Data>
+        </Slider>
+        <Slider name="BigBelly" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBigBelly" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBigBelly</Data>
+        </Slider>
+        <Slider name="BigButt" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBigButt" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBigButt</Data>
+        </Slider>
+        <Slider name="BigTorso" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBigTorso" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBigTorso</Data>
+        </Slider>
+        <Slider name="Breasts" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBreasts" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBreasts</Data>
+        </Slider>
+        <Slider name="BreastTopSlope" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBreastTopSlope" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBreastTopSlope</Data>
+        </Slider>
+        <Slider name="BreastWidth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBreastWidth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBreastWidth</Data>
+        </Slider>
+        <Slider name="Butt" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyButt" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyButt</Data>
+        </Slider>
+        <Slider name="ButtCrack" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyButtCrack" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyButtCrack</Data>
+        </Slider>
+        <Slider name="ButtShape2" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyButtShape2" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyButtShape2</Data>
+        </Slider>
+        <Slider name="ButtSmall" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyButtSmall" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyButtSmall</Data>
+        </Slider>
+        <Slider name="CalfSize" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyCalfSize" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyCalfSize</Data>
+        </Slider>
+        <Slider name="CalfSmooth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyCalfSmooth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyCalfSmooth</Data>
+        </Slider>
+        <Slider name="ChestDepth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyChestDepth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyChestDepth</Data>
+        </Slider>
+        <Slider name="ChestWidth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyChestWidth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyChestWidth</Data>
+        </Slider>
+        <Slider name="ChubbyArms" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyChubbyArms" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyChubbyArms</Data>
+        </Slider>
+        <Slider name="ChubbyButt" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyChubbyButt" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyChubbyButt</Data>
+        </Slider>
+        <Slider name="ChubbyLegs" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyChubbyLegs" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyChubbyLegs</Data>
+        </Slider>
+        <Slider name="ChubbyWaist" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyChubbyWaist" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyChubbyWaist</Data>
+        </Slider>
+        <Slider name="ForearmSize" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyForearmSize" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyForearmSize</Data>
+        </Slider>
+        <Slider name="HipBone" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyHipBone" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyHipBone</Data>
+        </Slider>
+        <Slider name="HipForward" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyHipForward" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyHipForward</Data>
+        </Slider>
+        <Slider name="Hips" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyHips" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyHips</Data>
+        </Slider>
+        <Slider name="HipUpperWidth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyHipUpperWidth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyHipUpperWidth</Data>
+        </Slider>
+        <Slider name="KneeHeight" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyKneeHeight" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyKneeHeight</Data>
+        </Slider>
+        <Slider name="KneeShape" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyKneeShape" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyKneeShape</Data>
+        </Slider>
+        <Slider name="LegShapeClassic" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyLegShapeClassic" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyLegShapeClassic</Data>
+        </Slider>
+        <Slider name="LegsThin" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyLegsThin" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyLegsThin</Data>
+        </Slider>
+        <Slider name="MuscleAbs" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyMuscleAbs" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyMuscleAbs</Data>
+        </Slider>
+        <Slider name="MuscleArms" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyMuscleArms" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyMuscleArms</Data>
+        </Slider>
+        <Slider name="MuscleButt" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyMuscleButt" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyMuscleButt</Data>
+        </Slider>
+        <Slider name="MuscleLegs" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyMuscleLegs" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyMuscleLegs</Data>
+        </Slider>
+        <Slider name="MusclePecs" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyMusclePecs" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyMusclePecs</Data>
+        </Slider>
+        <Slider name="NipBGone" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyNipBGone" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyNipBGone</Data>
+        </Slider>
+        <Slider name="NippleDistance" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyNippleDistance" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyNippleDistance</Data>
+        </Slider>
+        <Slider name="NippleDown" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyNippleDown" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyNippleDown</Data>
+        </Slider>
+        <Slider name="NippleLength" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyNippleLength" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyNippleLength</Data>
+        </Slider>
+        <Slider name="NipplePerkiness" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyNipplePerkiness" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyNipplePerkiness</Data>
+        </Slider>
+        <Slider name="NippleSize" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyNippleSize" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyNippleSize</Data>
+        </Slider>
+        <Slider name="NippleUp" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyNippleUp" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyNippleUp</Data>
+        </Slider>
+        <Slider name="PregnancyBelly" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyPregnancyBelly" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyPregnancyBelly</Data>
+        </Slider>
+        <Slider name="RibsProminance" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyRibsProminance" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyRibsProminance</Data>
+        </Slider>
+        <Slider name="RoundAss" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyRoundAss" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyRoundAss</Data>
+        </Slider>
+        <Slider name="ShoulderSmooth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyShoulderSmooth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyShoulderSmooth</Data>
+        </Slider>
+        <Slider name="ShoulderTweak" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyShoulderTweak" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyShoulderTweak</Data>
+        </Slider>
+        <Slider name="ShoulderWidth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyShoulderWidth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyShoulderWidth</Data>
+        </Slider>
+        <Slider name="SlimThighs" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySlimThighs" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySlimThighs</Data>
+        </Slider>
+        <Slider name="SternumDepth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySternumDepth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySternumDepth</Data>
+        </Slider>
+        <Slider name="SternumHeight" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySternumHeight" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySternumHeight</Data>
+        </Slider>
+        <Slider name="Thighs" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyThighs" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyThighs</Data>
+        </Slider>
+        <Slider name="TummyTuck" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyTummyTuck" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyTummyTuck</Data>
+        </Slider>
+        <Slider name="Waist" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyWaist" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyWaist</Data>
+        </Slider>
+        <Slider name="WideWaistLine" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyWideWaistLine" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyWideWaistLine</Data>
+        </Slider>
+        <Slider name="Vore prey belly" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyVore prey belly" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyStruggleSlider1" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyStruggleSlider2" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyStruggleSlider3" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyStruggleSlider3</Data>
+        </Slider>
+        <Slider name="BubbleButt" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBubbleButt" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBubbleButt</Data>
+        </Slider>
+        <Slider name="FatBelly" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyFatBelly" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyFatBelly</Data>
+        </Slider>
+        <Slider name="BreastSideShape" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyBreastSideShape" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyBreastSideShape</Data>
+        </Slider>
+        <Slider name="ButtDimples" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyButtDimples" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyButtDimples</Data>
+        </Slider>
+        <Slider name="ButtUnderFold" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyButtUnderFold" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyButtUnderFold</Data>
+        </Slider>
+        <Slider name="HipCarved" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyHipCarved" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyHipCarved</Data>
+        </Slider>
+        <Slider name="SSBBW2 body" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW2 body" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW2 body</Data>
+        </Slider>
+        <Slider name="Giant belly (coldsteelj)" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyGiant belly (coldsteelj)" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyGiant belly (coldsteelj)</Data>
+        </Slider>
+        <Slider name="SSBBW_Muscled" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW_Muscled" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW_Muscled</Data>
+        </Slider>
+        <Slider name="SSBBW WGBelly" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW WGBelly" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW WGBelly</Data>
+        </Slider>
+        <Slider name="SSBBW UltKir body" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW UltKir body" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW UltKir body</Data>
+        </Slider>
+        <Slider name="SSBBW butt growth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW butt growth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW butt growth</Data>
+        </Slider>
+        <Slider name="SSBBW2 boobs growth" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW2 boobs growth" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW2 boobs growth</Data>
+        </Slider>
+        <Slider name="SSBBW3 body" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW3 body" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW3 body</Data>
+        </Slider>
+        <Slider name="Giant belly up" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyGiant belly up" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyGiant belly up</Data>
+        </Slider>
+        <Slider name="SSBBW3 Belly Sic1" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodySSBBW3 Belly Sic1" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodySSBBW3 Belly Sic1</Data>
+        </Slider>
+        <Slider name="MuscleBack" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyMuscleBack" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyMuscleBack</Data>
+        </Slider>
+        <Slider name="weight-seams" invert="false" small="0" big="100" hidden="true">
+            <Data name="DV Ref SOS Bodyweight-seams" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS Bodyweight-seams</Data>
+        </Slider>
+        <Slider name="Vanilla Weight" invert="false" small="0" big="100">
+            <Data name="DV Ref SOS BodyVanilla Weight" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyVanilla Weight</Data>
+        </Slider>
+        <Slider name="Femme" invert="false" small="0" big="0">
+            <Data name="DV Ref SOS BodyFemme" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyFemme</Data>
+        </Slider>
+        <Slider name="AnkleSize" invert="false" small="0" big="100">
+            <Data name="DV Ref SOS BodyAnkleSize" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyAnkleSize</Data>
+        </Slider>
+        <Slider name="WristSize" invert="false" small="0" big="100">
+            <Data name="DV Ref SOS BodyWristSize" target="DV Ref SOS Body" local="true">DV! RefSOS Body.osd\DV Ref SOS BodyWristSize</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>

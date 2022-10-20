@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DV! Ref3BA Feet">
+        <DataFolder>DV! Ref3BA Feet</DataFolder>
+        <SourceFile>DV! Ref3BA Feet.nif</SourceFile>
+        <OutputPath>meshes\actors\character\character assets</OutputPath>
+        <OutputFile GenWeights="true">femalefeet</OutputFile>
+        <Shape target="DV Ref CBBE Feet" DataFolder="DV CBBE! Feet">DV Ref CBBE Feet</Shape>
+        <Slider name="AnkleSize" invert="false" small="100" big="0">
+            <Data name="DV Ref CBBE FeetAnkleSize" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetAnkleSize</Data>
+        </Slider>
+        <Slider name="FeetFeminine" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetFeetFeminine" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetFeetFeminine</Data>
+        </Slider>
+        <Slider name="7B Lower" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Feet7B Lower" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE Feet7B Lower</Data>
+        </Slider>
+        <Slider name="VanillaSSEHi" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetVanillaSSEHi" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetVanillaSSEHi</Data>
+        </Slider>
+        <Slider name="VanillaSSELo" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetVanillaSSELo" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetVanillaSSELo</Data>
+        </Slider>
+        <Slider name="OldBaseShape" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetOldBaseShape" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetOldBaseShape</Data>
+        </Slider>
+        <Slider name="SSBBW2 body" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetSSBBW2 body" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetSSBBW2 body</Data>
+        </Slider>
+        <Slider name="SSBBW_Muscled" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetSSBBW_Muscled" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetSSBBW_Muscled</Data>
+        </Slider>
+        <Slider name="SSBBW UltKir body" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetSSBBW UltKir body" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetSSBBW UltKir body</Data>
+        </Slider>
+        <Slider name="SSBBW butt growth" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetSSBBW butt growth" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetSSBBW butt growth</Data>
+        </Slider>
+        <Slider name="SSBBW3 body" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE FeetSSBBW3 body" target="DV Ref CBBE Feet" local="true">DV! Ref3BA Feet.osd\DV Ref CBBE FeetSSBBW3 body</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>

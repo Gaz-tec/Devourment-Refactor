@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DV! RefSOS Hands">
+        <DataFolder>DV! RefSOS Hands</DataFolder>
+        <SourceFile>DV! RefSOS Hands.nif</SourceFile>
+        <OutputPath>meshes\actors\character\character assets</OutputPath>
+        <OutputFile GenWeights="true">malehands</OutputFile>
+        <Shape target="DV Ref SOS Hands" DataFolder="DevourmentSE - Male Hands">DV Ref SOS Hands</Shape>
+        <Slider name="WristSize" invert="false" small="0" big="100">
+            <Data name="DV Ref SOS HandsWristSize" target="DV Ref SOS Hands" local="true">DV! RefSOS Hands.osd\DV Ref SOS HandsWristSize</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>

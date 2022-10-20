@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DV! Ref3BA UniBoob">
+        <DataFolder>DV! Ref3BA UniBoob</DataFolder>
+        <SourceFile>DV! Ref3BA UniBoob.nif</SourceFile>
+        <OutputPath>meshes\armor\New Outfit</OutputPath>
+        <OutputFile GenWeights="true">New Outfit</OutputFile>
+        <Shape target="UniBoob" DataFolder="DevourmentSE - Female">UniBoob</Shape>
+        <Slider name="AnkleSize" invert="false" small="100" big="0" hidden="true">
+            <Data name="UniBoobAnkleSize" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobAnkleSize</Data>
+        </Slider>
+        <Slider name="AppleCheeks" invert="false" small="0" big="0">
+            <Data name="UniBoobAppleCheeks" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobAppleCheeks</Data>
+        </Slider>
+        <Slider name="Arms" invert="false" small="0" big="0">
+            <Data name="UniBoobArms" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobArms</Data>
+        </Slider>
+        <Slider name="Back" invert="false" small="0" big="0">
+            <Data name="UniBoobBack" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBack</Data>
+        </Slider>
+        <Slider name="BackArch" invert="false" small="0" big="0">
+            <Data name="UniBoobBackArch" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBackArch</Data>
+        </Slider>
+        <Slider name="Belly" invert="false" small="0" big="0">
+            <Data name="UniBoobBelly" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBelly</Data>
+        </Slider>
+        <Slider name="BigBelly" invert="false" small="0" big="0">
+            <Data name="UniBoobBigBelly" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBigBelly</Data>
+        </Slider>
+        <Slider name="BigButt" invert="false" small="0" big="0">
+            <Data name="UniBoobBigButt" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBigButt</Data>
+        </Slider>
+        <Slider name="BigTorso" invert="false" small="0" big="0">
+            <Data name="UniBoobBigTorso" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBigTorso</Data>
+        </Slider>
+        <Slider name="BreastCenter" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastCenter" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastCenter</Data>
+        </Slider>
+        <Slider name="BreastCenterBig" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastCenterBig" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastCenterBig</Data>
+        </Slider>
+        <Slider name="BreastCleavage" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastCleavage" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastCleavage</Data>
+        </Slider>
+        <Slider name="BreastFlatness2" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastFlatness2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastFlatness2</Data>
+        </Slider>
+        <Slider name="BreastFlatness" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastFlatness" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastFlatness</Data>
+        </Slider>
+        <Slider name="BreastGravity2" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastGravity2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastGravity2</Data>
+        </Slider>
+        <Slider name="BreastHeight" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastHeight" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastHeight</Data>
+        </Slider>
+        <Slider name="BreastPerkiness" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastPerkiness" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastPerkiness</Data>
+        </Slider>
+        <Slider name="Breasts" invert="false" small="0" big="0">
+            <Data name="UniBoobBreasts" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreasts</Data>
+        </Slider>
+        <Slider name="BreastsFantasy" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsFantasy" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsFantasy</Data>
+        </Slider>
+        <Slider name="BreastsGone" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsGone" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsGone</Data>
+        </Slider>
+        <Slider name="BreastsNewSH" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsNewSH" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsNewSH</Data>
+        </Slider>
+        <Slider name="BreastsSmall" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsSmall" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsSmall</Data>
+        </Slider>
+        <Slider name="BreastsSmall2" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsSmall2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsSmall2</Data>
+        </Slider>
+        <Slider name="BreastsTogether" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsTogether" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsTogether</Data>
+        </Slider>
+        <Slider name="BreastTopSlope" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastTopSlope" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastTopSlope</Data>
+        </Slider>
+        <Slider name="BreastWidth" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastWidth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastWidth</Data>
+        </Slider>
+        <Slider name="Butt" invert="false" small="0" big="0">
+            <Data name="UniBoobButt" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButt</Data>
+        </Slider>
+        <Slider name="ButtClassic" invert="false" small="0" big="0">
+            <Data name="UniBoobButtClassic" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtClassic</Data>
+        </Slider>
+        <Slider name="ButtCrack" invert="false" small="0" big="0">
+            <Data name="UniBoobButtCrack" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtCrack</Data>
+        </Slider>
+        <Slider name="ButtShape2" invert="false" small="0" big="0">
+            <Data name="UniBoobButtShape2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtShape2</Data>
+        </Slider>
+        <Slider name="ButtSmall" invert="false" small="0" big="0">
+            <Data name="UniBoobButtSmall" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtSmall</Data>
+        </Slider>
+        <Slider name="CalfSize" invert="false" small="0" big="0">
+            <Data name="UniBoobCalfSize" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobCalfSize</Data>
+        </Slider>
+        <Slider name="CalfSmooth" invert="false" small="0" big="0">
+            <Data name="UniBoobCalfSmooth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobCalfSmooth</Data>
+        </Slider>
+        <Slider name="ChestDepth" invert="false" small="0" big="0">
+            <Data name="UniBoobChestDepth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobChestDepth</Data>
+        </Slider>
+        <Slider name="ChestWidth" invert="false" small="0" big="0">
+            <Data name="UniBoobChestWidth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobChestWidth</Data>
+        </Slider>
+        <Slider name="ChubbyArms" invert="false" small="0" big="0">
+            <Data name="UniBoobChubbyArms" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobChubbyArms</Data>
+        </Slider>
+        <Slider name="ChubbyButt" invert="false" small="0" big="0">
+            <Data name="UniBoobChubbyButt" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobChubbyButt</Data>
+        </Slider>
+        <Slider name="ChubbyLegs" invert="false" small="0" big="0">
+            <Data name="UniBoobChubbyLegs" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobChubbyLegs</Data>
+        </Slider>
+        <Slider name="ChubbyWaist" invert="false" small="0" big="0">
+            <Data name="UniBoobChubbyWaist" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobChubbyWaist</Data>
+        </Slider>
+        <Slider name="CrotchBack" invert="false" small="0" big="0">
+            <Data name="UniBoobCrotchBack" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobCrotchBack</Data>
+        </Slider>
+        <Slider name="DoubleMelon" invert="false" small="0" big="0">
+            <Data name="UniBoobDoubleMelon" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobDoubleMelon</Data>
+        </Slider>
+        <Slider name="ForearmSize" invert="false" small="0" big="0">
+            <Data name="UniBoobForearmSize" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobForearmSize</Data>
+        </Slider>
+        <Slider name="Groin" invert="false" small="0" big="0">
+            <Data name="UniBoobGroin" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobGroin</Data>
+        </Slider>
+        <Slider name="HipBone" invert="false" small="0" big="0">
+            <Data name="UniBoobHipBone" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobHipBone</Data>
+        </Slider>
+        <Slider name="HipForward" invert="false" small="0" big="0">
+            <Data name="UniBoobHipForward" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobHipForward</Data>
+        </Slider>
+        <Slider name="Hips" invert="false" small="0" big="0">
+            <Data name="UniBoobHips" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobHips</Data>
+        </Slider>
+        <Slider name="HipUpperWidth" invert="false" small="0" big="0">
+            <Data name="UniBoobHipUpperWidth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobHipUpperWidth</Data>
+        </Slider>
+        <Slider name="KneeHeight" invert="false" small="0" big="0">
+            <Data name="UniBoobKneeHeight" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobKneeHeight</Data>
+        </Slider>
+        <Slider name="KneeShape" invert="false" small="0" big="0">
+            <Data name="UniBoobKneeShape" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobKneeShape</Data>
+        </Slider>
+        <Slider name="LegShapeClassic" invert="false" small="0" big="0">
+            <Data name="UniBoobLegShapeClassic" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLegShapeClassic</Data>
+        </Slider>
+        <Slider name="LegsThin" invert="false" small="0" big="0">
+            <Data name="UniBoobLegsThin" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLegsThin</Data>
+        </Slider>
+        <Slider name="MuscleAbs" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleAbs" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleAbs</Data>
+        </Slider>
+        <Slider name="MuscleArms" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleArms" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleArms</Data>
+        </Slider>
+        <Slider name="MuscleButt" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleButt" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleButt</Data>
+        </Slider>
+        <Slider name="MuscleLegs" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleLegs" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleLegs</Data>
+        </Slider>
+        <Slider name="MusclePecs" invert="false" small="0" big="0">
+            <Data name="UniBoobMusclePecs" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMusclePecs</Data>
+        </Slider>
+        <Slider name="NeckSeam" invert="false" small="100" big="0" hidden="true">
+            <Data name="UniBoobNeckSeam" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNeckSeam</Data>
+        </Slider>
+        <Slider name="NipBGone" invert="false" small="0" big="0">
+            <Data name="UniBoobNipBGone" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNipBGone</Data>
+        </Slider>
+        <Slider name="NippleDistance" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleDistance" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleDistance</Data>
+        </Slider>
+        <Slider name="NippleDown" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleDown" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleDown</Data>
+        </Slider>
+        <Slider name="NippleLength" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleLength" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleLength</Data>
+        </Slider>
+        <Slider name="NippleManga" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleManga" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleManga</Data>
+        </Slider>
+        <Slider name="NipplePerkiness" invert="false" small="0" big="0">
+            <Data name="UniBoobNipplePerkiness" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNipplePerkiness</Data>
+        </Slider>
+        <Slider name="NipplePerkManga" invert="false" small="0" big="0">
+            <Data name="UniBoobNipplePerkManga" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNipplePerkManga</Data>
+        </Slider>
+        <Slider name="NippleSize" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleSize" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleSize</Data>
+        </Slider>
+        <Slider name="NippleTip" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleTip" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleTip</Data>
+        </Slider>
+        <Slider name="NippleTipManga" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleTipManga" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleTipManga</Data>
+        </Slider>
+        <Slider name="NippleUp" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleUp" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleUp</Data>
+        </Slider>
+        <Slider name="PregnancyBelly" invert="false" small="0" big="0">
+            <Data name="UniBoobPregnancyBelly" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobPregnancyBelly</Data>
+        </Slider>
+        <Slider name="PushUp" invert="false" small="0" big="0">
+            <Data name="UniBoobPushUp" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobPushUp</Data>
+        </Slider>
+        <Slider name="RibsProminance" invert="false" small="0" big="0">
+            <Data name="UniBoobRibsProminance" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobRibsProminance</Data>
+        </Slider>
+        <Slider name="RoundAss" invert="false" small="0" big="0">
+            <Data name="UniBoobRoundAss" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobRoundAss</Data>
+        </Slider>
+        <Slider name="ShoulderSmooth" invert="false" small="0" big="0">
+            <Data name="UniBoobShoulderSmooth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobShoulderSmooth</Data>
+        </Slider>
+        <Slider name="ShoulderTweak" invert="false" small="0" big="0">
+            <Data name="UniBoobShoulderTweak" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobShoulderTweak</Data>
+        </Slider>
+        <Slider name="ShoulderWidth" invert="false" small="0" big="0">
+            <Data name="UniBoobShoulderWidth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobShoulderWidth</Data>
+        </Slider>
+        <Slider name="SlimThighs" invert="false" small="0" big="0">
+            <Data name="UniBoobSlimThighs" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSlimThighs</Data>
+        </Slider>
+        <Slider name="SternumDepth" invert="false" small="0" big="0">
+            <Data name="UniBoobSternumDepth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSternumDepth</Data>
+        </Slider>
+        <Slider name="SternumHeight" invert="false" small="0" big="0">
+            <Data name="UniBoobSternumHeight" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSternumHeight</Data>
+        </Slider>
+        <Slider name="Thighs" invert="false" small="0" big="0">
+            <Data name="UniBoobThighs" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobThighs</Data>
+        </Slider>
+        <Slider name="TummyTuck" invert="false" small="0" big="0">
+            <Data name="UniBoobTummyTuck" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobTummyTuck</Data>
+        </Slider>
+        <Slider name="Waist" invert="false" small="0" big="0">
+            <Data name="UniBoobWaist" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobWaist</Data>
+        </Slider>
+        <Slider name="WaistHeight" invert="false" small="0" big="0">
+            <Data name="UniBoobWaistHeight" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobWaistHeight</Data>
+        </Slider>
+        <Slider name="WideWaistLine" invert="false" small="0" big="0">
+            <Data name="UniBoobWideWaistLine" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobWideWaistLine</Data>
+        </Slider>
+        <Slider name="WristSize" invert="false" small="100" big="0" hidden="true">
+            <Data name="UniBoobWristSize" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobWristSize</Data>
+        </Slider>
+        <Slider name="7B Lower" invert="false" small="0" big="0">
+            <Data name="UniBoob7B Lower" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoob7B Lower</Data>
+        </Slider>
+        <Slider name="7B Upper" invert="false" small="0" big="0">
+            <Data name="UniBoob7B Upper" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoob7B Upper</Data>
+        </Slider>
+        <Slider name="VanillaSSEHi" invert="false" small="0" big="0">
+            <Data name="UniBoobVanillaSSEHi" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobVanillaSSEHi</Data>
+        </Slider>
+        <Slider name="VanillaSSELo" invert="false" small="0" big="0">
+            <Data name="UniBoobVanillaSSELo" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobVanillaSSELo</Data>
+        </Slider>
+        <Slider name="OldBaseShape" invert="false" small="0" big="0">
+            <Data name="UniBoobOldBaseShape" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobOldBaseShape</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" small="0" big="0">
+            <Data name="UniBoobStruggleSlider1" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" small="0" big="0">
+            <Data name="UniBoobStruggleSlider2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" small="0" big="0">
+            <Data name="UniBoobStruggleSlider3" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobStruggleSlider3</Data>
+        </Slider>
+        <Slider name="BubbleButt" invert="false" small="0" big="0">
+            <Data name="UniBoobBubbleButt" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBubbleButt</Data>
+        </Slider>
+        <Slider name="FatBelly" invert="false" small="0" big="0">
+            <Data name="UniBoobFatBelly" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobFatBelly</Data>
+        </Slider>
+        <Slider name="BreastsNewSHSymmetry" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsNewSHSymmetry" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsNewSHSymmetry</Data>
+        </Slider>
+        <Slider name="BreastSideShape" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastSideShape" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastSideShape</Data>
+        </Slider>
+        <Slider name="BreastUnderDepth" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastUnderDepth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastUnderDepth</Data>
+        </Slider>
+        <Slider name="ButtDimples" invert="false" small="0" big="0">
+            <Data name="UniBoobButtDimples" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtDimples</Data>
+        </Slider>
+        <Slider name="ButtUnderFold" invert="false" small="0" big="0">
+            <Data name="UniBoobButtUnderFold" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtUnderFold</Data>
+        </Slider>
+        <Slider name="HipCarved" invert="false" small="0" big="0">
+            <Data name="UniBoobHipCarved" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobHipCarved</Data>
+        </Slider>
+        <Slider name="NavelEven" invert="false" small="0" big="0">
+            <Data name="UniBoobNavelEven" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNavelEven</Data>
+        </Slider>
+        <Slider name="NippleDip" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleDip" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleDip</Data>
+        </Slider>
+        <Slider name="Innieoutie" invert="false" small="0" big="0">
+            <Data name="UniBoobInnieoutie" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobInnieoutie</Data>
+        </Slider>
+        <Slider name="LabiaTightUp" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaTightUp" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaTightUp</Data>
+        </Slider>
+        <Slider name="Labiapuffyness" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiapuffyness" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiapuffyness</Data>
+        </Slider>
+        <Slider name="Cutepuffyness" invert="false" small="0" big="0">
+            <Data name="UniBoobCutepuffyness" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobCutepuffyness</Data>
+        </Slider>
+        <Slider name="CBPC" invert="false" small="0" big="0">
+            <Data name="UniBoobCBPC" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobCBPC</Data>
+        </Slider>
+        <Slider name="CrotchGap" invert="false" small="0" big="0">
+            <Data name="UniBoobCrotchGap" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobCrotchGap</Data>
+        </Slider>
+        <Slider name="Giant belly (coldsteelj)" invert="false" small="0" big="0">
+            <Data name="UniBoobGiant belly (coldsteelj)" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobGiant belly (coldsteelj)</Data>
+        </Slider>
+        <Slider name="SSBBW_Muscled" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW_Muscled" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW_Muscled</Data>
+        </Slider>
+        <Slider name="SSBBW WGBelly" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW WGBelly" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW WGBelly</Data>
+        </Slider>
+        <Slider name="SSBBW butt growth" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW butt growth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW butt growth</Data>
+        </Slider>
+        <Slider name="SSBBW2 boobs growth" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW2 boobs growth" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW2 boobs growth</Data>
+        </Slider>
+        <Slider name="Giant belly up" invert="false" small="0" big="0">
+            <Data name="UniBoobGiant belly up" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobGiant belly up</Data>
+        </Slider>
+        <Slider name="SSBBW3 Belly Sic1" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW3 Belly Sic1" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW3 Belly Sic1</Data>
+        </Slider>
+        <Slider name="Labiaprotrude" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaprotrude" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaprotrude</Data>
+        </Slider>
+        <Slider name="Labiaprotrude2" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaprotrude2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaprotrude2</Data>
+        </Slider>
+        <Slider name="Labiaspread" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaspread" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaspread</Data>
+        </Slider>
+        <Slider name="VaginaHole" invert="false" small="0" big="0">
+            <Data name="UniBoobVaginaHole" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobVaginaHole</Data>
+        </Slider>
+        <Slider name="Clit" invert="false" small="0" big="0">
+            <Data name="UniBoobClit" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobClit</Data>
+        </Slider>
+        <Slider name="ArmpitShape_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobArmpitShape_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobArmpitShape_v2</Data>
+        </Slider>
+        <Slider name="AreolaPull_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobAreolaPull_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobAreolaPull_v2</Data>
+        </Slider>
+        <Slider name="BackValley_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBackValley_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBackValley_v2</Data>
+        </Slider>
+        <Slider name="BackWing_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBackWing_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBackWing_v2</Data>
+        </Slider>
+        <Slider name="BellyFrontUpFat_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBellyFrontUpFat_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBellyFrontUpFat_v2</Data>
+        </Slider>
+        <Slider name="BellyFrontDownFat_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBellyFrontDownFat_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBellyFrontDownFat_v2</Data>
+        </Slider>
+        <Slider name="BellySideUpFat_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBellySideUpFat_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBellySideUpFat_v2</Data>
+        </Slider>
+        <Slider name="BellySideDownFat_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBellySideDownFat_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBellySideDownFat_v2</Data>
+        </Slider>
+        <Slider name="BellyUnder_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBellyUnder_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBellyUnder_v2</Data>
+        </Slider>
+        <Slider name="BreastsConverage_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsConverage_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsConverage_v2</Data>
+        </Slider>
+        <Slider name="BreastsPressed_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobBreastsPressed_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBreastsPressed_v2</Data>
+        </Slider>
+        <Slider name="ButtSaggy_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobButtSaggy_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtSaggy_v2</Data>
+        </Slider>
+        <Slider name="ButtPressed_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobButtPressed_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtPressed_v2</Data>
+        </Slider>
+        <Slider name="ButtNarrow_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobButtNarrow_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobButtNarrow_v2</Data>
+        </Slider>
+        <Slider name="CalfFBThicc_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobCalfFBThicc_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobCalfFBThicc_v2</Data>
+        </Slider>
+        <Slider name="Clavicle_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobClavicle_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobClavicle_v2</Data>
+        </Slider>
+        <Slider name="HipNarrow_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobHipNarrow_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobHipNarrow_v2</Data>
+        </Slider>
+        <Slider name="KneeTogether_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobKneeTogether_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobKneeTogether_v2</Data>
+        </Slider>
+        <Slider name="MuscleBack_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleBack_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleBack_v2</Data>
+        </Slider>
+        <Slider name="MuscleMoreAbs_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleMoreAbs_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleMoreAbs_v2</Data>
+        </Slider>
+        <Slider name="MuscleMoreArms_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleMoreArms_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleMoreArms_v2</Data>
+        </Slider>
+        <Slider name="MuscleMoreLegs_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobMuscleMoreLegs_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobMuscleMoreLegs_v2</Data>
+        </Slider>
+        <Slider name="NippleCrease_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleCrease_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleCrease_v2</Data>
+        </Slider>
+        <Slider name="NipplePuffy_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNipplePuffy_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNipplePuffy_v2</Data>
+        </Slider>
+        <Slider name="NippleShy_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleShy_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleShy_v2</Data>
+        </Slider>
+        <Slider name="NippleThicc_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleThicc_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleThicc_v2</Data>
+        </Slider>
+        <Slider name="NippleInvert_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleInvert_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleInvert_v2</Data>
+        </Slider>
+        <Slider name="NippleSquash1_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleSquash1_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleSquash1_v2</Data>
+        </Slider>
+        <Slider name="NippleSquash2_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleSquash2_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleSquash2_v2</Data>
+        </Slider>
+        <Slider name="NippleBump_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleBump_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleBump_v2</Data>
+        </Slider>
+        <Slider name="NippleCrumpled_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleCrumpled_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleCrumpled_v2</Data>
+        </Slider>
+        <Slider name="NippleTube_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobNippleTube_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobNippleTube_v2</Data>
+        </Slider>
+        <Slider name="RibsMore_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobRibsMore_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobRibsMore_v2</Data>
+        </Slider>
+        <Slider name="ThighOutsideThicc_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobThighOutsideThicc_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobThighOutsideThicc_v2</Data>
+        </Slider>
+        <Slider name="ThighInsideThicc_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobThighInsideThicc_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobThighInsideThicc_v2</Data>
+        </Slider>
+        <Slider name="ThighFBThicc_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobThighFBThicc_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobThighFBThicc_v2</Data>
+        </Slider>
+        <Slider name="LegSpread_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobLegSpread_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLegSpread_v2</Data>
+        </Slider>
+        <Slider name="UNPHip_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobUNPHip_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobUNPHip_v2</Data>
+        </Slider>
+        <Slider name="7BLeg_v2" invert="false" small="0" big="0">
+            <Data name="UniBoob7BLeg_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoob7BLeg_v2</Data>
+        </Slider>
+        <Slider name="LabiaMorePuffyness_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaMorePuffyness_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaMorePuffyness_v2</Data>
+        </Slider>
+        <Slider name="LabiaCrumpled_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaCrumpled_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaCrumpled_v2</Data>
+        </Slider>
+        <Slider name="LabiaNeat_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaNeat_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaNeat_v2</Data>
+        </Slider>
+        <Slider name="LabiaBulgogi_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobLabiaBulgogi_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobLabiaBulgogi_v2</Data>
+        </Slider>
+        <Slider name="ClitSwell_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobClitSwell_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobClitSwell_v2</Data>
+        </Slider>
+        <Slider name="AnalLoose_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobAnalLoose_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobAnalLoose_v2</Data>
+        </Slider>
+        <Slider name="AnalPosition_v2" invert="false" small="0" big="0">
+            <Data name="UniBoobAnalPosition_v2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobAnalPosition_v2</Data>
+        </Slider>
+        <Slider name="Vore prey belly" invert="false" small="0" big="0">
+            <Data name="UniBoobVore prey belly" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobVore prey belly</Data>
+        </Slider>
+        <Slider name="BVoreL" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreL" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreL</Data>
+        </Slider>
+        <Slider name="BVoreR" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreR" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreR</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL1" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreStruggleL1" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreStruggleL1</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL2" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreStruggleL2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreStruggleL2</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL3" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreStruggleL3" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreStruggleL3</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR1" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreStruggleR1" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreStruggleR1</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR2" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreStruggleR2" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreStruggleR2</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR3" invert="false" small="0" big="0">
+            <Data name="UniBoobBVoreStruggleR3" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobBVoreStruggleR3</Data>
+        </Slider>
+        <Slider name="SSBBW2 body" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW2 body" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW2 body</Data>
+        </Slider>
+        <Slider name="SSBBW UltKir body" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW UltKir body" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW UltKir body</Data>
+        </Slider>
+        <Slider name="SSBBW3 body" invert="false" small="0" big="0">
+            <Data name="UniBoobSSBBW3 body" target="UniBoob" local="true">DV! Ref3BA UniBoob.osd\UniBoobSSBBW3 body</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>

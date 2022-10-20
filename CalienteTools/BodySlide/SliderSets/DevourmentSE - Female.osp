@@ -685,359 +685,6 @@
         <Shape target="3BA_Anus" DataFolder="SE 3BBB Amazing">3BA_Anus</Shape>
         <Shape target="3BA_Vagina" DataFolder="SE 3BBB Amazing">3BA_Vagina</Shape>
         <Shape target="3BAv2">3BAv2</Shape>
-        <Slider name="AnkleSize" invert="false" small="100" big="0">
-            <Data name="3BAv2AnkleSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AnkleSize</Data>
-        </Slider>
-        <Slider name="AppleCheeks" invert="false" small="0" big="0">
-            <Data name="3BA_AnusAppleCheeks" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusAppleCheeks</Data>
-            <Data name="3BAv2AppleCheeks" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AppleCheeks</Data>
-            <Data name="3BA_VaginaAppleCheeks" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaAppleCheeks</Data>
-        </Slider>
-        <Slider name="Arms" invert="false" small="0" big="0">
-            <Data name="3BAv2Arms" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Arms</Data>
-        </Slider>
-        <Slider name="Back" invert="false" small="0" big="0">
-            <Data name="3BAv2Back" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Back</Data>
-        </Slider>
-        <Slider name="BackArch" invert="false" small="0" big="0">
-            <Data name="3BAv2BackArch" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BackArch</Data>
-        </Slider>
-        <Slider name="Belly" invert="false" small="0" big="0">
-            <Data name="3BAv2Belly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Belly</Data>
-        </Slider>
-        <Slider name="BigBelly" invert="false" small="0" big="0">
-            <Data name="3BAv2BigBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BigBelly</Data>
-            <Data name="3BA_VaginaBigBelly" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaBigBelly</Data>
-        </Slider>
-        <Slider name="BigButt" invert="false" small="0" big="0">
-            <Data name="3BA_AnusBigButt" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusBigButt</Data>
-            <Data name="3BAv2BigButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BigButt</Data>
-            <Data name="3BA_VaginaBigButt" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaBigButt</Data>
-        </Slider>
-        <Slider name="BigTorso" invert="false" small="0" big="0">
-            <Data name="3BAv2BigTorso" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BigTorso</Data>
-        </Slider>
-        <Slider name="BreastCenter" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastCenter" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastCenter</Data>
-        </Slider>
-        <Slider name="BreastCenterBig" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastCenterBig" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastCenterBig</Data>
-        </Slider>
-        <Slider name="BreastCleavage" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastCleavage" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastCleavage</Data>
-        </Slider>
-        <Slider name="BreastFlatness2" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastFlatness2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastFlatness2</Data>
-        </Slider>
-        <Slider name="BreastFlatness" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastFlatness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastFlatness</Data>
-        </Slider>
-        <Slider name="BreastGravity2" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastGravity2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastGravity2</Data>
-        </Slider>
-        <Slider name="BreastHeight" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastHeight</Data>
-        </Slider>
-        <Slider name="BreastPerkiness" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastPerkiness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastPerkiness</Data>
-        </Slider>
-        <Slider name="Breasts" invert="false" small="0" big="0">
-            <Data name="3BAv2Breasts" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Breasts</Data>
-        </Slider>
-        <Slider name="BreastsFantasy" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastsFantasy" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsFantasy</Data>
-        </Slider>
-        <Slider name="BreastsGone" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastsGone" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsGone</Data>
-        </Slider>
-        <Slider name="BreastsNewSH" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastsNewSH" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsNewSH</Data>
-        </Slider>
-        <Slider name="BreastsSmall" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastsSmall" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsSmall</Data>
-        </Slider>
-        <Slider name="BreastsSmall2" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastsSmall2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsSmall2</Data>
-        </Slider>
-        <Slider name="BreastsTogether" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastsTogether" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsTogether</Data>
-        </Slider>
-        <Slider name="BreastTopSlope" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastTopSlope" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastTopSlope</Data>
-        </Slider>
-        <Slider name="BreastWidth" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastWidth</Data>
-        </Slider>
-        <Slider name="Butt" invert="false" small="0" big="0">
-            <Data name="3BA_AnusButt" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusButt</Data>
-            <Data name="3BAv2Butt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Butt</Data>
-            <Data name="3BA_VaginaButt" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaButt</Data>
-        </Slider>
-        <Slider name="ButtClassic" invert="false" small="0" big="0">
-            <Data name="3BA_AnusButtClassic" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusButtClassic</Data>
-            <Data name="3BAv2ButtClassic" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtClassic</Data>
-            <Data name="3BA_VaginaButtClassic" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaButtClassic</Data>
-        </Slider>
-        <Slider name="ButtCrack" invert="false" small="0" big="0">
-            <Data name="3BA_AnusButtCrack" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusButtCrack</Data>
-            <Data name="3BAv2ButtCrack" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtCrack</Data>
-            <Data name="3BA_VaginaButtCrack" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaButtCrack</Data>
-        </Slider>
-        <Slider name="ButtShape2" invert="false" small="0" big="0">
-            <Data name="3BA_AnusButtShape2" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusButtShape2</Data>
-            <Data name="3BAv2ButtShape2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtShape2</Data>
-            <Data name="3BA_VaginaButtShape2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaButtShape2</Data>
-        </Slider>
-        <Slider name="ButtSmall" invert="false" small="0" big="0">
-            <Data name="3BA_AnusButtSmall" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusButtSmall</Data>
-            <Data name="3BAv2ButtSmall" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtSmall</Data>
-            <Data name="3BA_VaginaButtSmall" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaButtSmall</Data>
-        </Slider>
-        <Slider name="CalfSize" invert="false" small="0" big="0">
-            <Data name="3BAv2CalfSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CalfSize</Data>
-        </Slider>
-        <Slider name="CalfSmooth" invert="false" small="0" big="0">
-            <Data name="3BAv2CalfSmooth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CalfSmooth</Data>
-        </Slider>
-        <Slider name="ChestDepth" invert="false" small="0" big="0">
-            <Data name="3BAv2ChestDepth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChestDepth</Data>
-        </Slider>
-        <Slider name="ChestWidth" invert="false" small="0" big="0">
-            <Data name="3BAv2ChestWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChestWidth</Data>
-        </Slider>
-        <Slider name="ChubbyArms" invert="false" small="0" big="0">
-            <Data name="3BAv2ChubbyArms" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyArms</Data>
-        </Slider>
-        <Slider name="ChubbyButt" invert="false" small="0" big="0">
-            <Data name="3BA_AnusChubbyButt" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusChubbyButt</Data>
-            <Data name="3BAv2ChubbyButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyButt</Data>
-            <Data name="3BA_VaginaChubbyButt" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaChubbyButt</Data>
-        </Slider>
-        <Slider name="ChubbyLegs" invert="false" small="0" big="0">
-            <Data name="3BA_AnusChubbyLegs" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusChubbyLegs</Data>
-            <Data name="3BAv2ChubbyLegs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyLegs</Data>
-            <Data name="3BA_VaginaChubbyLegs" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaChubbyLegs</Data>
-        </Slider>
-        <Slider name="ChubbyWaist" invert="false" small="0" big="0">
-            <Data name="3BA_AnusChubbyWaist" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusChubbyWaist</Data>
-            <Data name="3BAv2ChubbyWaist" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyWaist</Data>
-            <Data name="3BA_VaginaChubbyWaist" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaChubbyWaist</Data>
-        </Slider>
-        <Slider name="CrotchBack" invert="false" small="0" big="0">
-            <Data name="3BA_AnusCrotchBack" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusCrotchBack</Data>
-            <Data name="3BAv2CrotchBack" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CrotchBack</Data>
-            <Data name="3BA_VaginaCrotchBack" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaCrotchBack</Data>
-        </Slider>
-        <Slider name="DoubleMelon" invert="false" small="0" big="0">
-            <Data name="3BAv2DoubleMelon" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2DoubleMelon</Data>
-        </Slider>
-        <Slider name="ForearmSize" invert="false" small="0" big="0">
-            <Data name="3BAv2ForearmSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ForearmSize</Data>
-        </Slider>
-        <Slider name="Groin" invert="false" small="0" big="0">
-            <Data name="3BA_AnusGroin" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusGroin</Data>
-            <Data name="3BAv2Groin" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Groin</Data>
-            <Data name="3BA_VaginaGroin" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaGroin</Data>
-        </Slider>
-        <Slider name="HipBone" invert="false" small="0" big="0">
-            <Data name="3BAv2HipBone" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipBone</Data>
-            <Data name="3BA_VaginaHipBone" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaHipBone</Data>
-        </Slider>
-        <Slider name="HipForward" invert="false" small="0" big="0">
-            <Data name="3BA_AnusHipForward" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusHipForward</Data>
-            <Data name="3BAv2HipForward" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipForward</Data>
-            <Data name="3BA_VaginaHipForward" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaHipForward</Data>
-        </Slider>
-        <Slider name="Hips" invert="false" small="0" big="0">
-            <Data name="3BA_AnusHips" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusHips</Data>
-            <Data name="3BAv2Hips" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Hips</Data>
-            <Data name="3BA_VaginaHips" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaHips</Data>
-        </Slider>
-        <Slider name="HipUpperWidth" invert="false" small="0" big="0">
-            <Data name="3BAv2HipUpperWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipUpperWidth</Data>
-        </Slider>
-        <Slider name="KneeHeight" invert="false" small="0" big="0">
-            <Data name="3BAv2KneeHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2KneeHeight</Data>
-        </Slider>
-        <Slider name="KneeShape" invert="false" small="0" big="0">
-            <Data name="3BAv2KneeShape" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2KneeShape</Data>
-        </Slider>
-        <Slider name="LegShapeClassic" invert="false" small="0" big="0">
-            <Data name="3BAv2LegShapeClassic" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LegShapeClassic</Data>
-        </Slider>
-        <Slider name="LegsThin" invert="false" small="0" big="0">
-            <Data name="3BAv2LegsThin" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LegsThin</Data>
-        </Slider>
-        <Slider name="MuscleAbs" invert="false" small="0" big="0">
-            <Data name="3BAv2MuscleAbs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleAbs</Data>
-        </Slider>
-        <Slider name="MuscleArms" invert="false" small="0" big="0">
-            <Data name="3BAv2MuscleArms" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleArms</Data>
-        </Slider>
-        <Slider name="MuscleButt" invert="false" small="0" big="0">
-            <Data name="3BAv2MuscleButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleButt</Data>
-        </Slider>
-        <Slider name="MuscleLegs" invert="false" small="0" big="0">
-            <Data name="3BA_AnusMuscleLegs" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusMuscleLegs</Data>
-            <Data name="3BAv2MuscleLegs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleLegs</Data>
-            <Data name="3BA_VaginaMuscleLegs" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaMuscleLegs</Data>
-        </Slider>
-        <Slider name="MusclePecs" invert="false" small="0" big="0">
-            <Data name="3BAv2MusclePecs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MusclePecs</Data>
-        </Slider>
-        <Slider name="NeckSeam" invert="false" small="100" big="0" hidden="true">
-            <Data name="3BAv2NeckSeam" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NeckSeam</Data>
-        </Slider>
-        <Slider name="NipBGone" invert="false" small="0" big="0">
-            <Data name="3BAv2NipBGone" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NipBGone</Data>
-        </Slider>
-        <Slider name="NippleDistance" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleDistance" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleDistance</Data>
-        </Slider>
-        <Slider name="NippleDown" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleDown" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleDown</Data>
-        </Slider>
-        <Slider name="NippleLength" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleLength" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleLength</Data>
-        </Slider>
-        <Slider name="NippleManga" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleManga" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleManga</Data>
-        </Slider>
-        <Slider name="NipplePerkiness" invert="false" small="0" big="0">
-            <Data name="3BAv2NipplePerkiness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NipplePerkiness</Data>
-        </Slider>
-        <Slider name="NipplePerkManga" invert="false" small="0" big="0">
-            <Data name="3BAv2NipplePerkManga" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NipplePerkManga</Data>
-        </Slider>
-        <Slider name="NippleSize" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleSize</Data>
-        </Slider>
-        <Slider name="NippleTip" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleTip" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleTip</Data>
-        </Slider>
-        <Slider name="NippleTipManga" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleTipManga" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleTipManga</Data>
-        </Slider>
-        <Slider name="NippleUp" invert="false" small="0" big="0">
-            <Data name="3BAv2NippleUp" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleUp</Data>
-        </Slider>
-        <Slider name="PregnancyBelly" invert="false" small="0" big="0">
-            <Data name="3BAv2PregnancyBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2PregnancyBelly</Data>
-            <Data name="3BA_VaginaPregnancyBelly" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaPregnancyBelly</Data>
-        </Slider>
-        <Slider name="PushUp" invert="false" small="0" big="0">
-            <Data name="3BAv2PushUp" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2PushUp</Data>
-        </Slider>
-        <Slider name="RibsProminance" invert="false" small="0" big="0">
-            <Data name="3BAv2RibsProminance" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2RibsProminance</Data>
-        </Slider>
-        <Slider name="RoundAss" invert="false" small="0" big="0">
-            <Data name="3BA_AnusRoundAss" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusRoundAss</Data>
-            <Data name="3BAv2RoundAss" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2RoundAss</Data>
-            <Data name="3BA_VaginaRoundAss" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaRoundAss</Data>
-        </Slider>
-        <Slider name="ShoulderSmooth" invert="false" small="0" big="0">
-            <Data name="3BAv2ShoulderSmooth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ShoulderSmooth</Data>
-        </Slider>
-        <Slider name="ShoulderTweak" invert="false" small="0" big="0">
-            <Data name="3BAv2ShoulderTweak" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ShoulderTweak</Data>
-        </Slider>
-        <Slider name="ShoulderWidth" invert="false" small="0" big="0">
-            <Data name="3BAv2ShoulderWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ShoulderWidth</Data>
-        </Slider>
-        <Slider name="SlimThighs" invert="false" small="0" big="0">
-            <Data name="3BA_AnusSlimThighs" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusSlimThighs</Data>
-            <Data name="3BAv2SlimThighs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SlimThighs</Data>
-            <Data name="3BA_VaginaSlimThighs" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSlimThighs</Data>
-        </Slider>
-        <Slider name="SternumDepth" invert="false" small="0" big="0">
-            <Data name="3BAv2SternumDepth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SternumDepth</Data>
-        </Slider>
-        <Slider name="SternumHeight" invert="false" small="0" big="0">
-            <Data name="3BAv2SternumHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SternumHeight</Data>
-        </Slider>
-        <Slider name="Thighs" invert="false" small="0" big="0">
-            <Data name="3BA_AnusThighs" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusThighs</Data>
-            <Data name="3BAv2Thighs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Thighs</Data>
-            <Data name="3BA_VaginaThighs" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaThighs</Data>
-        </Slider>
-        <Slider name="TummyTuck" invert="false" small="0" big="0">
-            <Data name="3BAv2TummyTuck" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2TummyTuck</Data>
-            <Data name="3BA_VaginaTummyTuck" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaTummyTuck</Data>
-        </Slider>
-        <Slider name="Waist" invert="false" small="0" big="0">
-            <Data name="3BAv2Waist" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Waist</Data>
-        </Slider>
-        <Slider name="WaistHeight" invert="false" small="0" big="0">
-            <Data name="3BA_AnusWaistHeight" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusWaistHeight</Data>
-            <Data name="3BAv2WaistHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2WaistHeight</Data>
-            <Data name="3BA_VaginaWaistHeight" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaWaistHeight</Data>
-        </Slider>
-        <Slider name="WideWaistLine" invert="false" small="0" big="0">
-            <Data name="3BAv2WideWaistLine" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2WideWaistLine</Data>
-        </Slider>
-        <Slider name="WristSize" invert="false" small="100" big="0">
-            <Data name="3BAv2WristSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2WristSize</Data>
-        </Slider>
-        <Slider name="7B Lower" invert="false" small="0" big="0">
-            <Data name="3BA_Anus7B Lower" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_Anus7B Lower</Data>
-            <Data name="3BAv27B Lower" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv27B Lower</Data>
-            <Data name="3BA_Vagina7B Lower" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_Vagina7B Lower</Data>
-        </Slider>
-        <Slider name="7B Upper" invert="false" small="0" big="0">
-            <Data name="3BAv27B Upper" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv27B Upper</Data>
-        </Slider>
-        <Slider name="VanillaSSEHi" invert="false" small="0" big="0">
-            <Data name="3BA_AnusVanillaSSEHi" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusVanillaSSEHi</Data>
-            <Data name="3BAv2VanillaSSEHi" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2VanillaSSEHi</Data>
-            <Data name="3BA_VaginaVanillaSSEHi" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaVanillaSSEHi</Data>
-        </Slider>
-        <Slider name="VanillaSSELo" invert="false" small="0" big="0">
-            <Data name="3BA_AnusVanillaSSELo" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusVanillaSSELo</Data>
-            <Data name="3BAv2VanillaSSELo" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2VanillaSSELo</Data>
-            <Data name="3BA_VaginaVanillaSSELo" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaVanillaSSELo</Data>
-        </Slider>
-        <Slider name="OldBaseShape" invert="false" small="0" big="0">
-            <Data name="3BA_AnusOldBaseShape" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusOldBaseShape</Data>
-            <Data name="3BAv2OldBaseShape" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2OldBaseShape</Data>
-            <Data name="3BA_VaginaOldBaseShape" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaOldBaseShape</Data>
-        </Slider>
-        <Slider name="StruggleSlider1" invert="false" small="0" big="0">
-            <Data name="3BAv2StruggleSlider1" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2StruggleSlider1</Data>
-        </Slider>
-        <Slider name="StruggleSlider2" invert="false" small="0" big="0">
-            <Data name="3BAv2StruggleSlider2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2StruggleSlider2</Data>
-        </Slider>
-        <Slider name="StruggleSlider3" invert="false" small="0" big="0">
-            <Data name="3BAv2StruggleSlider3" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2StruggleSlider3</Data>
-        </Slider>
-        <Slider name="BubbleButt" invert="false" small="0" big="0">
-            <Data name="3BA_AnusBubbleButt" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusBubbleButt</Data>
-            <Data name="3BAv2BubbleButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BubbleButt</Data>
-            <Data name="3BA_VaginaBubbleButt" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaBubbleButt</Data>
-        </Slider>
-        <Slider name="FatBelly" invert="false" small="0" big="0">
-            <Data name="3BAv2FatBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2FatBelly</Data>
-        </Slider>
-        <Slider name="BreastsNewSHSymmetry" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastsNewSHSymmetry" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsNewSHSymmetry</Data>
-        </Slider>
-        <Slider name="BreastSideShape" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastSideShape" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastSideShape</Data>
-        </Slider>
-        <Slider name="BreastUnderDepth" invert="false" small="0" big="0">
-            <Data name="3BAv2BreastUnderDepth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastUnderDepth</Data>
-        </Slider>
-        <Slider name="ButtDimples" invert="false" small="0" big="0">
-            <Data name="3BAv2ButtDimples" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtDimples</Data>
-        </Slider>
-        <Slider name="ButtUnderFold" invert="false" small="0" big="0">
-            <Data name="3BAv2ButtUnderFold" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtUnderFold</Data>
-            <Data name="3BA_VaginaButtUnderFold" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaButtUnderFold</Data>
-        </Slider>
-        <Slider name="HipCarved" invert="false" small="0" big="0">
-            <Data name="3BAv2HipCarved" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipCarved</Data>
-        </Slider>
         <Slider name="NavelEven" invert="false" small="0" big="0">
             <Data name="3BAv2NavelEven" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NavelEven</Data>
         </Slider>
@@ -1045,97 +692,97 @@
             <Data name="3BAv2NippleDip" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleDip</Data>
         </Slider>
         <Slider name="Innieoutie" invert="false" small="0" big="0">
-            <Data name="3BAv2Innieoutie" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Innieoutie</Data>
             <Data name="3BA_VaginaInnieoutie" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaInnieoutie</Data>
+            <Data name="3BAv2Innieoutie" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Innieoutie</Data>
         </Slider>
         <Slider name="LabiaTightUp" invert="false" small="0" big="0">
-            <Data name="3BAv2LabiaTightUp" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaTightUp</Data>
             <Data name="3BA_VaginaLabiaTightUp" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaTightUp</Data>
+            <Data name="3BAv2LabiaTightUp" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaTightUp</Data>
         </Slider>
         <Slider name="Labiapuffyness" invert="false" small="0" big="0">
-            <Data name="3BAv2Labiapuffyness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiapuffyness</Data>
             <Data name="3BA_VaginaLabiapuffyness" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiapuffyness</Data>
+            <Data name="3BAv2Labiapuffyness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiapuffyness</Data>
         </Slider>
         <Slider name="Cutepuffyness" invert="false" small="0" big="0">
-            <Data name="3BAv2Cutepuffyness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Cutepuffyness</Data>
             <Data name="3BA_VaginaCutepuffyness" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaCutepuffyness</Data>
+            <Data name="3BAv2Cutepuffyness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Cutepuffyness</Data>
         </Slider>
         <Slider name="CBPC" invert="false" small="0" big="0">
-            <Data name="3BAv2CBPC" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CBPC</Data>
             <Data name="3BA_VaginaCBPC" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaCBPC</Data>
+            <Data name="3BAv2CBPC" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CBPC</Data>
         </Slider>
         <Slider name="CrotchGap" invert="false" small="0" big="0">
-            <Data name="3BAv2CrotchGap" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CrotchGap</Data>
             <Data name="3BA_VaginaCrotchGap" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaCrotchGap</Data>
+            <Data name="3BAv2CrotchGap" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CrotchGap</Data>
         </Slider>
         <Slider name="SSBBW2 body" invert="false" small="0" big="0">
             <Data name="3BA_AnusSSBBW2 body" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusSSBBW2 body</Data>
-            <Data name="3BAv2SSBBW2 body" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW2 body</Data>
             <Data name="3BA_VaginaSSBBW2 body" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSSBBW2 body</Data>
+            <Data name="3BAv2SSBBW2 body" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW2 body</Data>
         </Slider>
         <Slider name="Giant belly (coldsteelj)" invert="false" small="0" big="0">
             <Data name="3BAv2Giant belly (coldsteelj)" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Giant belly (coldsteelj)</Data>
         </Slider>
         <Slider name="SSBBW_Muscled" invert="false" small="0" big="0">
             <Data name="3BA_AnusSSBBW_Muscled" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusSSBBW_Muscled</Data>
-            <Data name="3BAv2SSBBW_Muscled" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW_Muscled</Data>
             <Data name="3BA_VaginaSSBBW_Muscled" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSSBBW_Muscled</Data>
+            <Data name="3BAv2SSBBW_Muscled" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW_Muscled</Data>
         </Slider>
         <Slider name="SSBBW WGBelly" invert="false" small="0" big="0">
-            <Data name="3BAv2SSBBW WGBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW WGBelly</Data>
             <Data name="3BA_VaginaSSBBW WGBelly" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSSBBW WGBelly</Data>
+            <Data name="3BAv2SSBBW WGBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW WGBelly</Data>
         </Slider>
         <Slider name="SSBBW UltKir body" invert="false" small="0" big="0">
             <Data name="3BA_AnusSSBBW UltKir body" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusSSBBW UltKir body</Data>
-            <Data name="3BAv2SSBBW UltKir body" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW UltKir body</Data>
             <Data name="3BA_VaginaSSBBW UltKir body" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSSBBW UltKir body</Data>
+            <Data name="3BAv2SSBBW UltKir body" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW UltKir body</Data>
         </Slider>
         <Slider name="SSBBW butt growth" invert="false" small="0" big="0">
             <Data name="3BA_AnusSSBBW butt growth" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusSSBBW butt growth</Data>
-            <Data name="3BAv2SSBBW butt growth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW butt growth</Data>
             <Data name="3BA_VaginaSSBBW butt growth" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSSBBW butt growth</Data>
+            <Data name="3BAv2SSBBW butt growth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW butt growth</Data>
         </Slider>
         <Slider name="SSBBW2 boobs growth" invert="false" small="0" big="0">
             <Data name="3BAv2SSBBW2 boobs growth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW2 boobs growth</Data>
         </Slider>
         <Slider name="SSBBW3 body" invert="false" small="0" big="0">
             <Data name="3BA_AnusSSBBW3 body" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusSSBBW3 body</Data>
-            <Data name="3BAv2SSBBW3 body" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW3 body</Data>
             <Data name="3BA_VaginaSSBBW3 body" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSSBBW3 body</Data>
+            <Data name="3BAv2SSBBW3 body" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW3 body</Data>
         </Slider>
         <Slider name="Giant belly up" invert="false" small="0" big="0">
-            <Data name="3BAv2Giant belly up" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Giant belly up</Data>
             <Data name="3BA_VaginaGiant belly up" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaGiant belly up</Data>
+            <Data name="3BAv2Giant belly up" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Giant belly up</Data>
         </Slider>
         <Slider name="SSBBW3 Belly Sic1" invert="false" small="0" big="0">
-            <Data name="3BAv2SSBBW3 Belly Sic1" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW3 Belly Sic1</Data>
             <Data name="3BA_VaginaSSBBW3 Belly Sic1" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaSSBBW3 Belly Sic1</Data>
+            <Data name="3BAv2SSBBW3 Belly Sic1" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SSBBW3 Belly Sic1</Data>
         </Slider>
         <Slider name="Labiaprotrude" invert="false" small="0" big="0">
-            <Data name="3BAv2Labiaprotrude" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiaprotrude</Data>
             <Data name="3BA_VaginaLabiaprotrude" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaprotrude</Data>
+            <Data name="3BAv2Labiaprotrude" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiaprotrude</Data>
         </Slider>
         <Slider name="Labiaprotrude2" invert="false" small="0" big="0">
-            <Data name="3BAv2Labiaprotrude2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiaprotrude2</Data>
             <Data name="3BA_VaginaLabiaprotrude2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaprotrude2</Data>
+            <Data name="3BAv2Labiaprotrude2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiaprotrude2</Data>
         </Slider>
         <Slider name="Labiaprotrudeback" invert="false" small="0" big="0">
             <Data name="3BA_VaginaLabiaprotrudeback" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaprotrudeback</Data>
         </Slider>
         <Slider name="Labiaspread" invert="false" small="0" big="0">
-            <Data name="3BAv2Labiaspread" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiaspread</Data>
             <Data name="3BA_VaginaLabiaspread" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaspread</Data>
+            <Data name="3BAv2Labiaspread" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Labiaspread</Data>
         </Slider>
         <Slider name="Vaginasize" invert="false" small="0" big="0">
             <Data name="3BA_VaginaVaginasize" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaVaginasize</Data>
         </Slider>
         <Slider name="VaginaHole" invert="false" small="0" big="0">
-            <Data name="3BAv2VaginaHole" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2VaginaHole</Data>
             <Data name="3BA_VaginaVaginaHole" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaVaginaHole</Data>
+            <Data name="3BAv2VaginaHole" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2VaginaHole</Data>
         </Slider>
         <Slider name="Clit" invert="false" small="0" big="0">
-            <Data name="3BAv2Clit" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Clit</Data>
             <Data name="3BA_VaginaClit" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaClit</Data>
+            <Data name="3BAv2Clit" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Clit</Data>
         </Slider>
         <Slider name="ArmpitShape_v2" invert="false" small="0" big="0">
             <Data name="3BAv2ArmpitShape_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ArmpitShape_v2</Data>
@@ -1162,8 +809,8 @@
             <Data name="3BAv2BellySideDownFat_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BellySideDownFat_v2</Data>
         </Slider>
         <Slider name="BellyUnder_v2" invert="false" small="0" big="0">
-            <Data name="3BAv2BellyUnder_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BellyUnder_v2</Data>
             <Data name="3BA_VaginaBellyUnder_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaBellyUnder_v2</Data>
+            <Data name="3BAv2BellyUnder_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BellyUnder_v2</Data>
         </Slider>
         <Slider name="BreastsConverage_v2" invert="false" small="0" big="0">
             <Data name="3BAv2BreastsConverage_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsConverage_v2</Data>
@@ -1177,8 +824,8 @@
         </Slider>
         <Slider name="ButtPressed_v2" invert="false" small="0" big="0">
             <Data name="3BA_AnusButtPressed_v2" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusButtPressed_v2</Data>
-            <Data name="3BAv2ButtPressed_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtPressed_v2</Data>
             <Data name="3BA_VaginaButtPressed_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaButtPressed_v2</Data>
+            <Data name="3BAv2ButtPressed_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtPressed_v2</Data>
         </Slider>
         <Slider name="ButtNarrow_v2" invert="false" small="0" big="0">
             <Data name="3BAv2ButtNarrow_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtNarrow_v2</Data>
@@ -1244,8 +891,8 @@
             <Data name="3BAv2ThighOutsideThicc_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ThighOutsideThicc_v2</Data>
         </Slider>
         <Slider name="ThighInsideThicc_v2" invert="false" small="0" big="0">
-            <Data name="3BAv2ThighInsideThicc_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ThighInsideThicc_v2</Data>
             <Data name="3BA_VaginaThighInsideThicc_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaThighInsideThicc_v2</Data>
+            <Data name="3BAv2ThighInsideThicc_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ThighInsideThicc_v2</Data>
         </Slider>
         <Slider name="ThighFBThicc_v2" invert="false" small="0" big="0">
             <Data name="3BAv2ThighFBThicc_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ThighFBThicc_v2</Data>
@@ -1260,34 +907,34 @@
             <Data name="3BAv27BLeg_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv27BLeg_v2</Data>
         </Slider>
         <Slider name="LabiaMorePuffyness_v2" invert="false" small="0" big="0">
-            <Data name="3BAv2LabiaMorePuffyness_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaMorePuffyness_v2</Data>
             <Data name="3BA_VaginaLabiaMorePuffyness_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaMorePuffyness_v2</Data>
+            <Data name="3BAv2LabiaMorePuffyness_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaMorePuffyness_v2</Data>
         </Slider>
         <Slider name="LabiaCrumpled_v2" invert="false" small="0" big="0">
-            <Data name="3BAv2LabiaCrumpled_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaCrumpled_v2</Data>
             <Data name="3BA_VaginaLabiaCrumpled_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaCrumpled_v2</Data>
+            <Data name="3BAv2LabiaCrumpled_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaCrumpled_v2</Data>
         </Slider>
         <Slider name="LabiaNeat_v2" invert="false" small="0" big="0">
-            <Data name="3BAv2LabiaNeat_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaNeat_v2</Data>
             <Data name="3BA_VaginaLabiaNeat_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaNeat_v2</Data>
+            <Data name="3BAv2LabiaNeat_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaNeat_v2</Data>
         </Slider>
         <Slider name="LabiaBulgogi_v2" invert="false" small="0" big="0">
-            <Data name="3BAv2LabiaBulgogi_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaBulgogi_v2</Data>
             <Data name="3BA_VaginaLabiaBulgogi_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaLabiaBulgogi_v2</Data>
+            <Data name="3BAv2LabiaBulgogi_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LabiaBulgogi_v2</Data>
         </Slider>
         <Slider name="ClitSwell_v2" invert="false" small="0" big="0">
-            <Data name="3BAv2ClitSwell_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ClitSwell_v2</Data>
             <Data name="3BA_VaginaClitSwell_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaClitSwell_v2</Data>
+            <Data name="3BAv2ClitSwell_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ClitSwell_v2</Data>
         </Slider>
         <Slider name="AnalLoose_v2" invert="false" small="0" big="0">
             <Data name="3BA_AnusAnalLoose_v2" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusAnalLoose_v2</Data>
-            <Data name="3BAv2AnalLoose_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AnalLoose_v2</Data>
             <Data name="3BA_VaginaAnalLoose_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaAnalLoose_v2</Data>
+            <Data name="3BAv2AnalLoose_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AnalLoose_v2</Data>
         </Slider>
         <Slider name="AnalPosition_v2" invert="false" small="0" big="0">
             <Data name="3BA_AnusAnalPosition_v2" target="3BA_Anus" local="true">DevourmentSE - 3BAv2.osd\3BA_AnusAnalPosition_v2</Data>
-            <Data name="3BAv2AnalPosition_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AnalPosition_v2</Data>
             <Data name="3BA_VaginaAnalPosition_v2" target="3BA_Vagina" local="true">DevourmentSE - 3BAv2.osd\3BA_VaginaAnalPosition_v2</Data>
+            <Data name="3BAv2AnalPosition_v2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AnalPosition_v2</Data>
         </Slider>
         <Slider name="Vore prey belly" invert="false" small="0" big="0">
             <Data name="3BAv2Vore prey belly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Vore prey belly</Data>
@@ -1315,6 +962,306 @@
         </Slider>
         <Slider name="BVoreStruggleR3" invert="false" small="0" big="0">
             <Data name="3BAv2BVoreStruggleR3" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BVoreStruggleR3</Data>
+        </Slider>
+        <Slider name="AnkleSize" invert="false" small="100" big="0" hidden="true">
+            <Data name="3BAv2AnkleSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AnkleSize</Data>
+        </Slider>
+        <Slider name="AppleCheeks" invert="false" small="0" big="0">
+            <Data name="3BAv2AppleCheeks" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2AppleCheeks</Data>
+        </Slider>
+        <Slider name="Arms" invert="false" small="0" big="0">
+            <Data name="3BAv2Arms" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Arms</Data>
+        </Slider>
+        <Slider name="Back" invert="false" small="0" big="0">
+            <Data name="3BAv2Back" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Back</Data>
+        </Slider>
+        <Slider name="BackArch" invert="false" small="0" big="0">
+            <Data name="3BAv2BackArch" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BackArch</Data>
+        </Slider>
+        <Slider name="Belly" invert="false" small="0" big="0">
+            <Data name="3BAv2Belly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Belly</Data>
+        </Slider>
+        <Slider name="BigBelly" invert="false" small="0" big="0">
+            <Data name="3BAv2BigBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BigBelly</Data>
+        </Slider>
+        <Slider name="BigButt" invert="false" small="0" big="0">
+            <Data name="3BAv2BigButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BigButt</Data>
+        </Slider>
+        <Slider name="BigTorso" invert="false" small="0" big="0">
+            <Data name="3BAv2BigTorso" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BigTorso</Data>
+        </Slider>
+        <Slider name="BreastCenter" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastCenter" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastCenter</Data>
+        </Slider>
+        <Slider name="BreastCenterBig" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastCenterBig" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastCenterBig</Data>
+        </Slider>
+        <Slider name="BreastCleavage" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastCleavage" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastCleavage</Data>
+        </Slider>
+        <Slider name="BreastFlatness2" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastFlatness2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastFlatness2</Data>
+        </Slider>
+        <Slider name="BreastFlatness" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastFlatness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastFlatness</Data>
+        </Slider>
+        <Slider name="BreastGravity2" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastGravity2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastGravity2</Data>
+        </Slider>
+        <Slider name="BreastHeight" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastHeight</Data>
+        </Slider>
+        <Slider name="BreastPerkiness" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastPerkiness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastPerkiness</Data>
+        </Slider>
+        <Slider name="Breasts" invert="false" small="0" big="0">
+            <Data name="3BAv2Breasts" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Breasts</Data>
+        </Slider>
+        <Slider name="BreastsFantasy" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastsFantasy" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsFantasy</Data>
+        </Slider>
+        <Slider name="BreastsGone" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastsGone" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsGone</Data>
+        </Slider>
+        <Slider name="BreastsNewSH" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastsNewSH" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsNewSH</Data>
+        </Slider>
+        <Slider name="BreastsSmall" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastsSmall" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsSmall</Data>
+        </Slider>
+        <Slider name="BreastsSmall2" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastsSmall2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsSmall2</Data>
+        </Slider>
+        <Slider name="BreastsTogether" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastsTogether" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsTogether</Data>
+        </Slider>
+        <Slider name="BreastTopSlope" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastTopSlope" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastTopSlope</Data>
+        </Slider>
+        <Slider name="BreastWidth" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastWidth</Data>
+        </Slider>
+        <Slider name="Butt" invert="false" small="0" big="0">
+            <Data name="3BAv2Butt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Butt</Data>
+        </Slider>
+        <Slider name="ButtClassic" invert="false" small="0" big="0">
+            <Data name="3BAv2ButtClassic" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtClassic</Data>
+        </Slider>
+        <Slider name="ButtCrack" invert="false" small="0" big="0">
+            <Data name="3BAv2ButtCrack" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtCrack</Data>
+        </Slider>
+        <Slider name="ButtShape2" invert="false" small="0" big="0">
+            <Data name="3BAv2ButtShape2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtShape2</Data>
+        </Slider>
+        <Slider name="ButtSmall" invert="false" small="0" big="0">
+            <Data name="3BAv2ButtSmall" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtSmall</Data>
+        </Slider>
+        <Slider name="CalfSize" invert="false" small="0" big="0">
+            <Data name="3BAv2CalfSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CalfSize</Data>
+        </Slider>
+        <Slider name="CalfSmooth" invert="false" small="0" big="0">
+            <Data name="3BAv2CalfSmooth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CalfSmooth</Data>
+        </Slider>
+        <Slider name="ChestDepth" invert="false" small="0" big="0">
+            <Data name="3BAv2ChestDepth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChestDepth</Data>
+        </Slider>
+        <Slider name="ChestWidth" invert="false" small="0" big="0">
+            <Data name="3BAv2ChestWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChestWidth</Data>
+        </Slider>
+        <Slider name="ChubbyArms" invert="false" small="0" big="0">
+            <Data name="3BAv2ChubbyArms" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyArms</Data>
+        </Slider>
+        <Slider name="ChubbyButt" invert="false" small="0" big="0">
+            <Data name="3BAv2ChubbyButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyButt</Data>
+        </Slider>
+        <Slider name="ChubbyLegs" invert="false" small="0" big="0">
+            <Data name="3BAv2ChubbyLegs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyLegs</Data>
+        </Slider>
+        <Slider name="ChubbyWaist" invert="false" small="0" big="0">
+            <Data name="3BAv2ChubbyWaist" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ChubbyWaist</Data>
+        </Slider>
+        <Slider name="CrotchBack" invert="false" small="0" big="0">
+            <Data name="3BAv2CrotchBack" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2CrotchBack</Data>
+        </Slider>
+        <Slider name="DoubleMelon" invert="false" small="0" big="0">
+            <Data name="3BAv2DoubleMelon" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2DoubleMelon</Data>
+        </Slider>
+        <Slider name="ForearmSize" invert="false" small="0" big="0">
+            <Data name="3BAv2ForearmSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ForearmSize</Data>
+        </Slider>
+        <Slider name="Groin" invert="false" small="0" big="0">
+            <Data name="3BAv2Groin" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Groin</Data>
+        </Slider>
+        <Slider name="HipBone" invert="false" small="0" big="0">
+            <Data name="3BAv2HipBone" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipBone</Data>
+        </Slider>
+        <Slider name="HipForward" invert="false" small="0" big="0">
+            <Data name="3BAv2HipForward" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipForward</Data>
+        </Slider>
+        <Slider name="Hips" invert="false" small="0" big="0">
+            <Data name="3BAv2Hips" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Hips</Data>
+        </Slider>
+        <Slider name="HipUpperWidth" invert="false" small="0" big="0">
+            <Data name="3BAv2HipUpperWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipUpperWidth</Data>
+        </Slider>
+        <Slider name="KneeHeight" invert="false" small="0" big="0">
+            <Data name="3BAv2KneeHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2KneeHeight</Data>
+        </Slider>
+        <Slider name="KneeShape" invert="false" small="0" big="0">
+            <Data name="3BAv2KneeShape" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2KneeShape</Data>
+        </Slider>
+        <Slider name="LegShapeClassic" invert="false" small="0" big="0">
+            <Data name="3BAv2LegShapeClassic" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LegShapeClassic</Data>
+        </Slider>
+        <Slider name="LegsThin" invert="false" small="0" big="0">
+            <Data name="3BAv2LegsThin" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2LegsThin</Data>
+        </Slider>
+        <Slider name="MuscleAbs" invert="false" small="0" big="0">
+            <Data name="3BAv2MuscleAbs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleAbs</Data>
+        </Slider>
+        <Slider name="MuscleArms" invert="false" small="0" big="0">
+            <Data name="3BAv2MuscleArms" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleArms</Data>
+        </Slider>
+        <Slider name="MuscleButt" invert="false" small="0" big="0">
+            <Data name="3BAv2MuscleButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleButt</Data>
+        </Slider>
+        <Slider name="MuscleLegs" invert="false" small="0" big="0">
+            <Data name="3BAv2MuscleLegs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MuscleLegs</Data>
+        </Slider>
+        <Slider name="MusclePecs" invert="false" small="0" big="0">
+            <Data name="3BAv2MusclePecs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2MusclePecs</Data>
+        </Slider>
+        <Slider name="NeckSeam" invert="false" small="100" big="0" hidden="true">
+            <Data name="3BAv2NeckSeam" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NeckSeam</Data>
+        </Slider>
+        <Slider name="NipBGone" invert="false" small="0" big="0">
+            <Data name="3BAv2NipBGone" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NipBGone</Data>
+        </Slider>
+        <Slider name="NippleDistance" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleDistance" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleDistance</Data>
+        </Slider>
+        <Slider name="NippleDown" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleDown" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleDown</Data>
+        </Slider>
+        <Slider name="NippleLength" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleLength" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleLength</Data>
+        </Slider>
+        <Slider name="NippleManga" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleManga" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleManga</Data>
+        </Slider>
+        <Slider name="NipplePerkiness" invert="false" small="0" big="0">
+            <Data name="3BAv2NipplePerkiness" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NipplePerkiness</Data>
+        </Slider>
+        <Slider name="NipplePerkManga" invert="false" small="0" big="0">
+            <Data name="3BAv2NipplePerkManga" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NipplePerkManga</Data>
+        </Slider>
+        <Slider name="NippleSize" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleSize</Data>
+        </Slider>
+        <Slider name="NippleTip" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleTip" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleTip</Data>
+        </Slider>
+        <Slider name="NippleTipManga" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleTipManga" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleTipManga</Data>
+        </Slider>
+        <Slider name="NippleUp" invert="false" small="0" big="0">
+            <Data name="3BAv2NippleUp" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2NippleUp</Data>
+        </Slider>
+        <Slider name="PregnancyBelly" invert="false" small="0" big="0">
+            <Data name="3BAv2PregnancyBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2PregnancyBelly</Data>
+        </Slider>
+        <Slider name="PushUp" invert="false" small="0" big="0">
+            <Data name="3BAv2PushUp" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2PushUp</Data>
+        </Slider>
+        <Slider name="RibsProminance" invert="false" small="0" big="0">
+            <Data name="3BAv2RibsProminance" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2RibsProminance</Data>
+        </Slider>
+        <Slider name="RoundAss" invert="false" small="0" big="0">
+            <Data name="3BAv2RoundAss" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2RoundAss</Data>
+        </Slider>
+        <Slider name="ShoulderSmooth" invert="false" small="0" big="0">
+            <Data name="3BAv2ShoulderSmooth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ShoulderSmooth</Data>
+        </Slider>
+        <Slider name="ShoulderTweak" invert="false" small="0" big="0">
+            <Data name="3BAv2ShoulderTweak" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ShoulderTweak</Data>
+        </Slider>
+        <Slider name="ShoulderWidth" invert="false" small="0" big="0">
+            <Data name="3BAv2ShoulderWidth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ShoulderWidth</Data>
+        </Slider>
+        <Slider name="SlimThighs" invert="false" small="0" big="0">
+            <Data name="3BAv2SlimThighs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SlimThighs</Data>
+        </Slider>
+        <Slider name="SternumDepth" invert="false" small="0" big="0">
+            <Data name="3BAv2SternumDepth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SternumDepth</Data>
+        </Slider>
+        <Slider name="SternumHeight" invert="false" small="0" big="0">
+            <Data name="3BAv2SternumHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2SternumHeight</Data>
+        </Slider>
+        <Slider name="Thighs" invert="false" small="0" big="0">
+            <Data name="3BAv2Thighs" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Thighs</Data>
+        </Slider>
+        <Slider name="TummyTuck" invert="false" small="0" big="0">
+            <Data name="3BAv2TummyTuck" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2TummyTuck</Data>
+        </Slider>
+        <Slider name="Waist" invert="false" small="0" big="0">
+            <Data name="3BAv2Waist" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2Waist</Data>
+        </Slider>
+        <Slider name="WaistHeight" invert="false" small="0" big="0">
+            <Data name="3BAv2WaistHeight" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2WaistHeight</Data>
+        </Slider>
+        <Slider name="WideWaistLine" invert="false" small="0" big="0">
+            <Data name="3BAv2WideWaistLine" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2WideWaistLine</Data>
+        </Slider>
+        <Slider name="WristSize" invert="false" small="100" big="0" hidden="true">
+            <Data name="3BAv2WristSize" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2WristSize</Data>
+        </Slider>
+        <Slider name="7B Lower" invert="false" small="0" big="0">
+            <Data name="3BAv27B Lower" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv27B Lower</Data>
+        </Slider>
+        <Slider name="7B Upper" invert="false" small="0" big="0">
+            <Data name="3BAv27B Upper" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv27B Upper</Data>
+        </Slider>
+        <Slider name="VanillaSSEHi" invert="false" small="0" big="0">
+            <Data name="3BAv2VanillaSSEHi" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2VanillaSSEHi</Data>
+        </Slider>
+        <Slider name="VanillaSSELo" invert="false" small="0" big="0">
+            <Data name="3BAv2VanillaSSELo" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2VanillaSSELo</Data>
+        </Slider>
+        <Slider name="OldBaseShape" invert="false" small="0" big="0">
+            <Data name="3BAv2OldBaseShape" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2OldBaseShape</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" small="0" big="0">
+            <Data name="3BAv2StruggleSlider1" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" small="0" big="0">
+            <Data name="3BAv2StruggleSlider2" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" small="0" big="0">
+            <Data name="3BAv2StruggleSlider3" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2StruggleSlider3</Data>
+        </Slider>
+        <Slider name="BubbleButt" invert="false" small="0" big="0">
+            <Data name="3BAv2BubbleButt" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BubbleButt</Data>
+        </Slider>
+        <Slider name="FatBelly" invert="false" small="0" big="0">
+            <Data name="3BAv2FatBelly" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2FatBelly</Data>
+        </Slider>
+        <Slider name="BreastsNewSHSymmetry" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastsNewSHSymmetry" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastsNewSHSymmetry</Data>
+        </Slider>
+        <Slider name="BreastSideShape" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastSideShape" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastSideShape</Data>
+        </Slider>
+        <Slider name="BreastUnderDepth" invert="false" small="0" big="0">
+            <Data name="3BAv2BreastUnderDepth" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2BreastUnderDepth</Data>
+        </Slider>
+        <Slider name="ButtDimples" invert="false" small="0" big="0">
+            <Data name="3BAv2ButtDimples" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtDimples</Data>
+        </Slider>
+        <Slider name="ButtUnderFold" invert="false" small="0" big="0">
+            <Data name="3BAv2ButtUnderFold" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2ButtUnderFold</Data>
+        </Slider>
+        <Slider name="HipCarved" invert="false" small="0" big="0">
+            <Data name="3BAv2HipCarved" target="3BAv2" local="true">DevourmentSE - 3BAv2.osd\3BAv2HipCarved</Data>
         </Slider>
     </SliderSet>
 </SliderSetInfo>

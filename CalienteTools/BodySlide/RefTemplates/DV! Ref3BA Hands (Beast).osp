@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DV! Ref3BA Hands (Beast)">
+        <DataFolder>DV! Ref3BA Hands (Beast)</DataFolder>
+        <SourceFile>DV! Ref3BA Hands (Beast).nif</SourceFile>
+        <OutputPath>meshes\actors\character\character assets</OutputPath>
+        <OutputFile GenWeights="true">femalehandsargonian</OutputFile>
+        <Shape target="DV Ref CBBE Hands (Beast)" DataFolder="DV CBBE! Claws">DV Ref CBBE Hands (Beast)</Shape>
+        <Slider name="WristSize" invert="false" small="100" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)WristSize" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)WristSize</Data>
+        </Slider>
+        <Slider name="MuscleArms" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)MuscleArms" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)MuscleArms</Data>
+        </Slider>
+        <Slider name="ShoulderWidth" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)ShoulderWidth" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)ShoulderWidth</Data>
+        </Slider>
+        <Slider name="7B Upper" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)7B Upper" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)7B Upper</Data>
+        </Slider>
+        <Slider name="VanillaSSEHi" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)VanillaSSEHi" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)VanillaSSEHi</Data>
+        </Slider>
+        <Slider name="VanillaSSELo" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)VanillaSSELo" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)VanillaSSELo</Data>
+        </Slider>
+        <Slider name="SSBBW2 body" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)SSBBW2 body" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)SSBBW2 body</Data>
+        </Slider>
+        <Slider name="SSBBW UltKir body" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)SSBBW UltKir body" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)SSBBW UltKir body</Data>
+        </Slider>
+        <Slider name="SSBBW3 body" invert="false" small="0" big="0">
+            <Data name="DV Ref CBBE Hands (Beast)SSBBW3 body" target="DV Ref CBBE Hands (Beast)" local="true">DV! Ref3BA Hands (Beast).osd\DV Ref CBBE Hands (Beast)SSBBW3 body</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>

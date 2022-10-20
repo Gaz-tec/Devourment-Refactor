@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DV! Ref3BA Nude">
+        <DataFolder>DV! Ref3BA Nude</DataFolder>
+        <SourceFile>DV! Ref3BA Nude.nif</SourceFile>
+        <OutputPath>meshes\armor\New Outfit</OutputPath>
+        <OutputFile GenWeights="true">New Outfit</OutputFile>
+        <Shape target="3BA Ref" DataFolder="DevourmentSE - Female">3BA Ref</Shape>
+        <Shape target="3BA_Anus" DataFolder="Aa FUSION Testo 2">3BA_Anus</Shape>
+        <Shape target="3BA_Vagina" DataFolder="Aa FUSION Testo 3">3BA_Vagina</Shape>
+        <Slider name="AnkleSize" invert="false" small="100" big="0" hidden="true">
+            <Data name="3BA RefAnkleSize" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefAnkleSize</Data>
+        </Slider>
+        <Slider name="AppleCheeks" invert="false" small="0" big="0">
+            <Data name="3BA RefAppleCheeks" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefAppleCheeks</Data>
+            <Data name="3BA_AnusAppleCheeks" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusAppleCheeks</Data>
+            <Data name="3BA_VaginaAppleCheeks" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaAppleCheeks</Data>
+        </Slider>
+        <Slider name="Arms" invert="false" small="0" big="0">
+            <Data name="3BA RefArms" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefArms</Data>
+        </Slider>
+        <Slider name="Back" invert="false" small="0" big="0">
+            <Data name="3BA RefBack" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBack</Data>
+        </Slider>
+        <Slider name="BackArch" invert="false" small="0" big="0">
+            <Data name="3BA RefBackArch" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBackArch</Data>
+        </Slider>
+        <Slider name="Belly" invert="false" small="0" big="0">
+            <Data name="3BA RefBelly" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBelly</Data>
+        </Slider>
+        <Slider name="BigBelly" invert="false" small="0" big="0">
+            <Data name="3BA RefBigBelly" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBigBelly</Data>
+            <Data name="3BA_VaginaBigBelly" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaBigBelly</Data>
+        </Slider>
+        <Slider name="BigButt" invert="false" small="0" big="0">
+            <Data name="3BA RefBigButt" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBigButt</Data>
+            <Data name="3BA_AnusBigButt" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusBigButt</Data>
+            <Data name="3BA_VaginaBigButt" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaBigButt</Data>
+        </Slider>
+        <Slider name="BigTorso" invert="false" small="0" big="0">
+            <Data name="3BA RefBigTorso" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBigTorso</Data>
+        </Slider>
+        <Slider name="BreastCenter" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastCenter" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastCenter</Data>
+        </Slider>
+        <Slider name="BreastCenterBig" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastCenterBig" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastCenterBig</Data>
+        </Slider>
+        <Slider name="BreastCleavage" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastCleavage" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastCleavage</Data>
+        </Slider>
+        <Slider name="BreastFlatness2" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastFlatness2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastFlatness2</Data>
+        </Slider>
+        <Slider name="BreastFlatness" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastFlatness" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastFlatness</Data>
+        </Slider>
+        <Slider name="BreastGravity2" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastGravity2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastGravity2</Data>
+        </Slider>
+        <Slider name="BreastHeight" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastHeight" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastHeight</Data>
+        </Slider>
+        <Slider name="BreastPerkiness" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastPerkiness" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastPerkiness</Data>
+        </Slider>
+        <Slider name="Breasts" invert="false" small="0" big="0">
+            <Data name="3BA RefBreasts" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreasts</Data>
+        </Slider>
+        <Slider name="BreastsFantasy" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsFantasy" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsFantasy</Data>
+        </Slider>
+        <Slider name="BreastsGone" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsGone" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsGone</Data>
+        </Slider>
+        <Slider name="BreastsNewSH" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsNewSH" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsNewSH</Data>
+        </Slider>
+        <Slider name="BreastsSmall" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsSmall" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsSmall</Data>
+        </Slider>
+        <Slider name="BreastsSmall2" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsSmall2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsSmall2</Data>
+        </Slider>
+        <Slider name="BreastsTogether" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsTogether" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsTogether</Data>
+        </Slider>
+        <Slider name="BreastTopSlope" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastTopSlope" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastTopSlope</Data>
+        </Slider>
+        <Slider name="BreastWidth" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastWidth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastWidth</Data>
+        </Slider>
+        <Slider name="Butt" invert="false" small="0" big="0">
+            <Data name="3BA RefButt" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButt</Data>
+            <Data name="3BA_AnusButt" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusButt</Data>
+            <Data name="3BA_VaginaButt" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaButt</Data>
+        </Slider>
+        <Slider name="ButtClassic" invert="false" small="0" big="0">
+            <Data name="3BA RefButtClassic" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtClassic</Data>
+            <Data name="3BA_AnusButtClassic" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusButtClassic</Data>
+            <Data name="3BA_VaginaButtClassic" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaButtClassic</Data>
+        </Slider>
+        <Slider name="ButtCrack" invert="false" small="0" big="0">
+            <Data name="3BA RefButtCrack" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtCrack</Data>
+            <Data name="3BA_AnusButtCrack" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusButtCrack</Data>
+            <Data name="3BA_VaginaButtCrack" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaButtCrack</Data>
+        </Slider>
+        <Slider name="ButtShape2" invert="false" small="0" big="0">
+            <Data name="3BA RefButtShape2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtShape2</Data>
+            <Data name="3BA_AnusButtShape2" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusButtShape2</Data>
+            <Data name="3BA_VaginaButtShape2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaButtShape2</Data>
+        </Slider>
+        <Slider name="ButtSmall" invert="false" small="0" big="0">
+            <Data name="3BA RefButtSmall" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtSmall</Data>
+            <Data name="3BA_AnusButtSmall" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusButtSmall</Data>
+            <Data name="3BA_VaginaButtSmall" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaButtSmall</Data>
+        </Slider>
+        <Slider name="CalfSize" invert="false" small="0" big="0">
+            <Data name="3BA RefCalfSize" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefCalfSize</Data>
+        </Slider>
+        <Slider name="CalfSmooth" invert="false" small="0" big="0">
+            <Data name="3BA RefCalfSmooth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefCalfSmooth</Data>
+        </Slider>
+        <Slider name="ChestDepth" invert="false" small="0" big="0">
+            <Data name="3BA RefChestDepth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefChestDepth</Data>
+        </Slider>
+        <Slider name="ChestWidth" invert="false" small="0" big="0">
+            <Data name="3BA RefChestWidth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefChestWidth</Data>
+        </Slider>
+        <Slider name="ChubbyArms" invert="false" small="0" big="0">
+            <Data name="3BA RefChubbyArms" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefChubbyArms</Data>
+        </Slider>
+        <Slider name="ChubbyButt" invert="false" small="0" big="0">
+            <Data name="3BA RefChubbyButt" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefChubbyButt</Data>
+            <Data name="3BA_AnusChubbyButt" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusChubbyButt</Data>
+            <Data name="3BA_VaginaChubbyButt" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaChubbyButt</Data>
+        </Slider>
+        <Slider name="ChubbyLegs" invert="false" small="0" big="0">
+            <Data name="3BA RefChubbyLegs" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefChubbyLegs</Data>
+            <Data name="3BA_AnusChubbyLegs" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusChubbyLegs</Data>
+            <Data name="3BA_VaginaChubbyLegs" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaChubbyLegs</Data>
+        </Slider>
+        <Slider name="ChubbyWaist" invert="false" small="0" big="0">
+            <Data name="3BA RefChubbyWaist" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefChubbyWaist</Data>
+            <Data name="3BA_AnusChubbyWaist" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusChubbyWaist</Data>
+            <Data name="3BA_VaginaChubbyWaist" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaChubbyWaist</Data>
+        </Slider>
+        <Slider name="CrotchBack" invert="false" small="0" big="0">
+            <Data name="3BA RefCrotchBack" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefCrotchBack</Data>
+            <Data name="3BA_AnusCrotchBack" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusCrotchBack</Data>
+            <Data name="3BA_VaginaCrotchBack" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaCrotchBack</Data>
+        </Slider>
+        <Slider name="DoubleMelon" invert="false" small="0" big="0">
+            <Data name="3BA RefDoubleMelon" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefDoubleMelon</Data>
+        </Slider>
+        <Slider name="ForearmSize" invert="false" small="0" big="0">
+            <Data name="3BA RefForearmSize" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefForearmSize</Data>
+        </Slider>
+        <Slider name="Groin" invert="false" small="0" big="0">
+            <Data name="3BA RefGroin" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefGroin</Data>
+            <Data name="3BA_AnusGroin" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusGroin</Data>
+            <Data name="3BA_VaginaGroin" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaGroin</Data>
+        </Slider>
+        <Slider name="HipBone" invert="false" small="0" big="0">
+            <Data name="3BA RefHipBone" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefHipBone</Data>
+            <Data name="3BA_VaginaHipBone" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaHipBone</Data>
+        </Slider>
+        <Slider name="HipForward" invert="false" small="0" big="0">
+            <Data name="3BA RefHipForward" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefHipForward</Data>
+            <Data name="3BA_AnusHipForward" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusHipForward</Data>
+            <Data name="3BA_VaginaHipForward" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaHipForward</Data>
+        </Slider>
+        <Slider name="Hips" invert="false" small="0" big="0">
+            <Data name="3BA RefHips" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefHips</Data>
+            <Data name="3BA_AnusHips" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusHips</Data>
+            <Data name="3BA_VaginaHips" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaHips</Data>
+        </Slider>
+        <Slider name="HipUpperWidth" invert="false" small="0" big="0">
+            <Data name="3BA RefHipUpperWidth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefHipUpperWidth</Data>
+        </Slider>
+        <Slider name="KneeHeight" invert="false" small="0" big="0">
+            <Data name="3BA RefKneeHeight" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefKneeHeight</Data>
+        </Slider>
+        <Slider name="KneeShape" invert="false" small="0" big="0">
+            <Data name="3BA RefKneeShape" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefKneeShape</Data>
+        </Slider>
+        <Slider name="LegShapeClassic" invert="false" small="0" big="0">
+            <Data name="3BA RefLegShapeClassic" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLegShapeClassic</Data>
+        </Slider>
+        <Slider name="LegsThin" invert="false" small="0" big="0">
+            <Data name="3BA RefLegsThin" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLegsThin</Data>
+        </Slider>
+        <Slider name="MuscleAbs" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleAbs" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleAbs</Data>
+        </Slider>
+        <Slider name="MuscleArms" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleArms" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleArms</Data>
+        </Slider>
+        <Slider name="MuscleButt" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleButt" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleButt</Data>
+        </Slider>
+        <Slider name="MuscleLegs" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleLegs" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleLegs</Data>
+            <Data name="3BA_AnusMuscleLegs" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusMuscleLegs</Data>
+            <Data name="3BA_VaginaMuscleLegs" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaMuscleLegs</Data>
+        </Slider>
+        <Slider name="MusclePecs" invert="false" small="0" big="0">
+            <Data name="3BA RefMusclePecs" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMusclePecs</Data>
+        </Slider>
+        <Slider name="NeckSeam" invert="false" small="100" big="0" hidden="true">
+            <Data name="3BA RefNeckSeam" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNeckSeam</Data>
+        </Slider>
+        <Slider name="NipBGone" invert="false" small="0" big="0">
+            <Data name="3BA RefNipBGone" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNipBGone</Data>
+        </Slider>
+        <Slider name="NippleDistance" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleDistance" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleDistance</Data>
+        </Slider>
+        <Slider name="NippleDown" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleDown" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleDown</Data>
+        </Slider>
+        <Slider name="NippleLength" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleLength" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleLength</Data>
+        </Slider>
+        <Slider name="NippleManga" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleManga" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleManga</Data>
+        </Slider>
+        <Slider name="NipplePerkiness" invert="false" small="0" big="0">
+            <Data name="3BA RefNipplePerkiness" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNipplePerkiness</Data>
+        </Slider>
+        <Slider name="NipplePerkManga" invert="false" small="0" big="0">
+            <Data name="3BA RefNipplePerkManga" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNipplePerkManga</Data>
+        </Slider>
+        <Slider name="NippleSize" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleSize" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleSize</Data>
+        </Slider>
+        <Slider name="NippleTip" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleTip" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleTip</Data>
+        </Slider>
+        <Slider name="NippleTipManga" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleTipManga" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleTipManga</Data>
+        </Slider>
+        <Slider name="NippleUp" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleUp" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleUp</Data>
+        </Slider>
+        <Slider name="PregnancyBelly" invert="false" small="0" big="0">
+            <Data name="3BA RefPregnancyBelly" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefPregnancyBelly</Data>
+            <Data name="3BA_VaginaPregnancyBelly" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaPregnancyBelly</Data>
+        </Slider>
+        <Slider name="PushUp" invert="false" small="0" big="0">
+            <Data name="3BA RefPushUp" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefPushUp</Data>
+        </Slider>
+        <Slider name="RibsProminance" invert="false" small="0" big="0">
+            <Data name="3BA RefRibsProminance" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefRibsProminance</Data>
+        </Slider>
+        <Slider name="RoundAss" invert="false" small="0" big="0">
+            <Data name="3BA RefRoundAss" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefRoundAss</Data>
+            <Data name="3BA_AnusRoundAss" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusRoundAss</Data>
+            <Data name="3BA_VaginaRoundAss" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaRoundAss</Data>
+        </Slider>
+        <Slider name="ShoulderSmooth" invert="false" small="0" big="0">
+            <Data name="3BA RefShoulderSmooth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefShoulderSmooth</Data>
+        </Slider>
+        <Slider name="ShoulderTweak" invert="false" small="0" big="0">
+            <Data name="3BA RefShoulderTweak" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefShoulderTweak</Data>
+        </Slider>
+        <Slider name="ShoulderWidth" invert="false" small="0" big="0">
+            <Data name="3BA RefShoulderWidth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefShoulderWidth</Data>
+        </Slider>
+        <Slider name="SlimThighs" invert="false" small="0" big="0">
+            <Data name="3BA RefSlimThighs" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSlimThighs</Data>
+            <Data name="3BA_AnusSlimThighs" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusSlimThighs</Data>
+            <Data name="3BA_VaginaSlimThighs" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSlimThighs</Data>
+        </Slider>
+        <Slider name="SternumDepth" invert="false" small="0" big="0">
+            <Data name="3BA RefSternumDepth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSternumDepth</Data>
+        </Slider>
+        <Slider name="SternumHeight" invert="false" small="0" big="0">
+            <Data name="3BA RefSternumHeight" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSternumHeight</Data>
+        </Slider>
+        <Slider name="Thighs" invert="false" small="0" big="0">
+            <Data name="3BA RefThighs" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefThighs</Data>
+            <Data name="3BA_AnusThighs" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusThighs</Data>
+            <Data name="3BA_VaginaThighs" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaThighs</Data>
+        </Slider>
+        <Slider name="TummyTuck" invert="false" small="0" big="0">
+            <Data name="3BA RefTummyTuck" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefTummyTuck</Data>
+            <Data name="3BA_VaginaTummyTuck" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaTummyTuck</Data>
+        </Slider>
+        <Slider name="Waist" invert="false" small="0" big="0">
+            <Data name="3BA RefWaist" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefWaist</Data>
+        </Slider>
+        <Slider name="WaistHeight" invert="false" small="0" big="0">
+            <Data name="3BA RefWaistHeight" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefWaistHeight</Data>
+            <Data name="3BA_AnusWaistHeight" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusWaistHeight</Data>
+            <Data name="3BA_VaginaWaistHeight" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaWaistHeight</Data>
+        </Slider>
+        <Slider name="WideWaistLine" invert="false" small="0" big="0">
+            <Data name="3BA RefWideWaistLine" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefWideWaistLine</Data>
+        </Slider>
+        <Slider name="WristSize" invert="false" small="100" big="0" hidden="true">
+            <Data name="3BA RefWristSize" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefWristSize</Data>
+        </Slider>
+        <Slider name="7B Lower" invert="false" small="0" big="0">
+            <Data name="3BA Ref7B Lower" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA Ref7B Lower</Data>
+            <Data name="3BA_Anus7B Lower" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_Anus7B Lower</Data>
+            <Data name="3BA_Vagina7B Lower" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_Vagina7B Lower</Data>
+        </Slider>
+        <Slider name="7B Upper" invert="false" small="0" big="0">
+            <Data name="3BA Ref7B Upper" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA Ref7B Upper</Data>
+        </Slider>
+        <Slider name="VanillaSSEHi" invert="false" small="0" big="0">
+            <Data name="3BA RefVanillaSSEHi" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefVanillaSSEHi</Data>
+            <Data name="3BA_AnusVanillaSSEHi" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusVanillaSSEHi</Data>
+            <Data name="3BA_VaginaVanillaSSEHi" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaVanillaSSEHi</Data>
+        </Slider>
+        <Slider name="VanillaSSELo" invert="false" small="0" big="0">
+            <Data name="3BA RefVanillaSSELo" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefVanillaSSELo</Data>
+            <Data name="3BA_AnusVanillaSSELo" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusVanillaSSELo</Data>
+            <Data name="3BA_VaginaVanillaSSELo" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaVanillaSSELo</Data>
+        </Slider>
+        <Slider name="OldBaseShape" invert="false" small="0" big="0">
+            <Data name="3BA RefOldBaseShape" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefOldBaseShape</Data>
+            <Data name="3BA_AnusOldBaseShape" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusOldBaseShape</Data>
+            <Data name="3BA_VaginaOldBaseShape" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaOldBaseShape</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" small="0" big="0">
+            <Data name="3BA RefStruggleSlider1" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" small="0" big="0">
+            <Data name="3BA RefStruggleSlider2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" small="0" big="0">
+            <Data name="3BA RefStruggleSlider3" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefStruggleSlider3</Data>
+        </Slider>
+        <Slider name="BubbleButt" invert="false" small="0" big="0">
+            <Data name="3BA RefBubbleButt" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBubbleButt</Data>
+            <Data name="3BA_AnusBubbleButt" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusBubbleButt</Data>
+            <Data name="3BA_VaginaBubbleButt" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaBubbleButt</Data>
+        </Slider>
+        <Slider name="FatBelly" invert="false" small="0" big="0">
+            <Data name="3BA RefFatBelly" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefFatBelly</Data>
+        </Slider>
+        <Slider name="BreastsNewSHSymmetry" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsNewSHSymmetry" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsNewSHSymmetry</Data>
+        </Slider>
+        <Slider name="BreastSideShape" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastSideShape" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastSideShape</Data>
+        </Slider>
+        <Slider name="BreastUnderDepth" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastUnderDepth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastUnderDepth</Data>
+        </Slider>
+        <Slider name="ButtDimples" invert="false" small="0" big="0">
+            <Data name="3BA RefButtDimples" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtDimples</Data>
+        </Slider>
+        <Slider name="ButtUnderFold" invert="false" small="0" big="0">
+            <Data name="3BA RefButtUnderFold" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtUnderFold</Data>
+            <Data name="3BA_VaginaButtUnderFold" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaButtUnderFold</Data>
+        </Slider>
+        <Slider name="HipCarved" invert="false" small="0" big="0">
+            <Data name="3BA RefHipCarved" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefHipCarved</Data>
+        </Slider>
+        <Slider name="NavelEven" invert="false" small="0" big="0">
+            <Data name="3BA RefNavelEven" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNavelEven</Data>
+        </Slider>
+        <Slider name="NippleDip" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleDip" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleDip</Data>
+        </Slider>
+        <Slider name="Innieoutie" invert="false" small="0" big="0">
+            <Data name="3BA RefInnieoutie" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefInnieoutie</Data>
+            <Data name="3BA_VaginaInnieoutie" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaInnieoutie</Data>
+        </Slider>
+        <Slider name="LabiaTightUp" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaTightUp" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaTightUp</Data>
+            <Data name="3BA_VaginaLabiaTightUp" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaTightUp</Data>
+        </Slider>
+        <Slider name="Labiapuffyness" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiapuffyness" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiapuffyness</Data>
+            <Data name="3BA_VaginaLabiapuffyness" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiapuffyness</Data>
+        </Slider>
+        <Slider name="Cutepuffyness" invert="false" small="0" big="0">
+            <Data name="3BA RefCutepuffyness" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefCutepuffyness</Data>
+            <Data name="3BA_VaginaCutepuffyness" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaCutepuffyness</Data>
+        </Slider>
+        <Slider name="CBPC" invert="false" small="0" big="0">
+            <Data name="3BA RefCBPC" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefCBPC</Data>
+            <Data name="3BA_VaginaCBPC" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaCBPC</Data>
+        </Slider>
+        <Slider name="CrotchGap" invert="false" small="0" big="0">
+            <Data name="3BA RefCrotchGap" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefCrotchGap</Data>
+            <Data name="3BA_VaginaCrotchGap" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaCrotchGap</Data>
+        </Slider>
+        <Slider name="SSBBW2 body" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW2 body" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW2 body</Data>
+            <Data name="3BA_AnusSSBBW2 body" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusSSBBW2 body</Data>
+            <Data name="3BA_VaginaSSBBW2 body" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSSBBW2 body</Data>
+        </Slider>
+        <Slider name="Giant belly (coldsteelj)" invert="false" small="0" big="0">
+            <Data name="3BA RefGiant belly (coldsteelj)" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefGiant belly (coldsteelj)</Data>
+        </Slider>
+        <Slider name="SSBBW_Muscled" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW_Muscled" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW_Muscled</Data>
+            <Data name="3BA_AnusSSBBW_Muscled" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusSSBBW_Muscled</Data>
+            <Data name="3BA_VaginaSSBBW_Muscled" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSSBBW_Muscled</Data>
+        </Slider>
+        <Slider name="SSBBW WGBelly" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW WGBelly" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW WGBelly</Data>
+            <Data name="3BA_VaginaSSBBW WGBelly" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSSBBW WGBelly</Data>
+        </Slider>
+        <Slider name="SSBBW UltKir body" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW UltKir body" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW UltKir body</Data>
+            <Data name="3BA_AnusSSBBW UltKir body" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusSSBBW UltKir body</Data>
+            <Data name="3BA_VaginaSSBBW UltKir body" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSSBBW UltKir body</Data>
+        </Slider>
+        <Slider name="SSBBW butt growth" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW butt growth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW butt growth</Data>
+            <Data name="3BA_AnusSSBBW butt growth" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusSSBBW butt growth</Data>
+            <Data name="3BA_VaginaSSBBW butt growth" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSSBBW butt growth</Data>
+        </Slider>
+        <Slider name="SSBBW2 boobs growth" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW2 boobs growth" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW2 boobs growth</Data>
+        </Slider>
+        <Slider name="SSBBW3 body" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW3 body" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW3 body</Data>
+            <Data name="3BA_AnusSSBBW3 body" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusSSBBW3 body</Data>
+            <Data name="3BA_VaginaSSBBW3 body" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSSBBW3 body</Data>
+        </Slider>
+        <Slider name="Giant belly up" invert="false" small="0" big="0">
+            <Data name="3BA RefGiant belly up" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefGiant belly up</Data>
+            <Data name="3BA_VaginaGiant belly up" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaGiant belly up</Data>
+        </Slider>
+        <Slider name="SSBBW3 Belly Sic1" invert="false" small="0" big="0">
+            <Data name="3BA RefSSBBW3 Belly Sic1" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefSSBBW3 Belly Sic1</Data>
+            <Data name="3BA_VaginaSSBBW3 Belly Sic1" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaSSBBW3 Belly Sic1</Data>
+        </Slider>
+        <Slider name="Labiaprotrude" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaprotrude" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaprotrude</Data>
+            <Data name="3BA_VaginaLabiaprotrude" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaprotrude</Data>
+        </Slider>
+        <Slider name="Labiaprotrude2" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaprotrude2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaprotrude2</Data>
+            <Data name="3BA_VaginaLabiaprotrude2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaprotrude2</Data>
+        </Slider>
+        <Slider name="Labiaspread" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaspread" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaspread</Data>
+            <Data name="3BA_VaginaLabiaspread" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaspread</Data>
+        </Slider>
+        <Slider name="VaginaHole" invert="false" small="0" big="0">
+            <Data name="3BA RefVaginaHole" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefVaginaHole</Data>
+            <Data name="3BA_VaginaVaginaHole" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaVaginaHole</Data>
+        </Slider>
+        <Slider name="Clit" invert="false" small="0" big="0">
+            <Data name="3BA RefClit" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefClit</Data>
+            <Data name="3BA_VaginaClit" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaClit</Data>
+        </Slider>
+        <Slider name="ArmpitShape_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefArmpitShape_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefArmpitShape_v2</Data>
+        </Slider>
+        <Slider name="AreolaPull_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefAreolaPull_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefAreolaPull_v2</Data>
+        </Slider>
+        <Slider name="BackValley_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBackValley_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBackValley_v2</Data>
+        </Slider>
+        <Slider name="BackWing_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBackWing_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBackWing_v2</Data>
+        </Slider>
+        <Slider name="BellyFrontUpFat_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBellyFrontUpFat_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBellyFrontUpFat_v2</Data>
+        </Slider>
+        <Slider name="BellyFrontDownFat_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBellyFrontDownFat_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBellyFrontDownFat_v2</Data>
+        </Slider>
+        <Slider name="BellySideUpFat_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBellySideUpFat_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBellySideUpFat_v2</Data>
+        </Slider>
+        <Slider name="BellySideDownFat_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBellySideDownFat_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBellySideDownFat_v2</Data>
+        </Slider>
+        <Slider name="BellyUnder_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBellyUnder_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBellyUnder_v2</Data>
+            <Data name="3BA_VaginaBellyUnder_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaBellyUnder_v2</Data>
+        </Slider>
+        <Slider name="BreastsConverage_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsConverage_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsConverage_v2</Data>
+        </Slider>
+        <Slider name="BreastsPressed_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefBreastsPressed_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBreastsPressed_v2</Data>
+        </Slider>
+        <Slider name="ButtSaggy_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefButtSaggy_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtSaggy_v2</Data>
+            <Data name="3BA_AnusButtSaggy_v2" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusButtSaggy_v2</Data>
+        </Slider>
+        <Slider name="ButtPressed_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefButtPressed_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtPressed_v2</Data>
+            <Data name="3BA_AnusButtPressed_v2" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusButtPressed_v2</Data>
+            <Data name="3BA_VaginaButtPressed_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaButtPressed_v2</Data>
+        </Slider>
+        <Slider name="ButtNarrow_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefButtNarrow_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefButtNarrow_v2</Data>
+        </Slider>
+        <Slider name="CalfFBThicc_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefCalfFBThicc_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefCalfFBThicc_v2</Data>
+        </Slider>
+        <Slider name="Clavicle_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefClavicle_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefClavicle_v2</Data>
+        </Slider>
+        <Slider name="HipNarrow_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefHipNarrow_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefHipNarrow_v2</Data>
+        </Slider>
+        <Slider name="KneeTogether_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefKneeTogether_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefKneeTogether_v2</Data>
+        </Slider>
+        <Slider name="MuscleBack_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleBack_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleBack_v2</Data>
+        </Slider>
+        <Slider name="MuscleMoreAbs_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleMoreAbs_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleMoreAbs_v2</Data>
+        </Slider>
+        <Slider name="MuscleMoreArms_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleMoreArms_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleMoreArms_v2</Data>
+        </Slider>
+        <Slider name="MuscleMoreLegs_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefMuscleMoreLegs_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefMuscleMoreLegs_v2</Data>
+        </Slider>
+        <Slider name="NippleCrease_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleCrease_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleCrease_v2</Data>
+        </Slider>
+        <Slider name="NipplePuffy_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNipplePuffy_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNipplePuffy_v2</Data>
+        </Slider>
+        <Slider name="NippleShy_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleShy_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleShy_v2</Data>
+        </Slider>
+        <Slider name="NippleThicc_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleThicc_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleThicc_v2</Data>
+        </Slider>
+        <Slider name="NippleInvert_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleInvert_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleInvert_v2</Data>
+        </Slider>
+        <Slider name="NippleSquash1_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleSquash1_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleSquash1_v2</Data>
+        </Slider>
+        <Slider name="NippleSquash2_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleSquash2_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleSquash2_v2</Data>
+        </Slider>
+        <Slider name="NippleBump_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleBump_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleBump_v2</Data>
+        </Slider>
+        <Slider name="NippleCrumpled_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleCrumpled_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleCrumpled_v2</Data>
+        </Slider>
+        <Slider name="NippleTube_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefNippleTube_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefNippleTube_v2</Data>
+        </Slider>
+        <Slider name="RibsMore_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefRibsMore_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefRibsMore_v2</Data>
+        </Slider>
+        <Slider name="ThighOutsideThicc_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefThighOutsideThicc_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefThighOutsideThicc_v2</Data>
+        </Slider>
+        <Slider name="ThighInsideThicc_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefThighInsideThicc_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefThighInsideThicc_v2</Data>
+            <Data name="3BA_VaginaThighInsideThicc_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaThighInsideThicc_v2</Data>
+        </Slider>
+        <Slider name="ThighFBThicc_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefThighFBThicc_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefThighFBThicc_v2</Data>
+        </Slider>
+        <Slider name="LegSpread_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefLegSpread_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLegSpread_v2</Data>
+        </Slider>
+        <Slider name="UNPHip_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefUNPHip_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefUNPHip_v2</Data>
+        </Slider>
+        <Slider name="7BLeg_v2" invert="false" small="0" big="0">
+            <Data name="3BA Ref7BLeg_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA Ref7BLeg_v2</Data>
+        </Slider>
+        <Slider name="LabiaMorePuffyness_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaMorePuffyness_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaMorePuffyness_v2</Data>
+            <Data name="3BA_VaginaLabiaMorePuffyness_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaMorePuffyness_v2</Data>
+        </Slider>
+        <Slider name="LabiaCrumpled_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaCrumpled_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaCrumpled_v2</Data>
+            <Data name="3BA_VaginaLabiaCrumpled_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaCrumpled_v2</Data>
+        </Slider>
+        <Slider name="LabiaNeat_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaNeat_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaNeat_v2</Data>
+            <Data name="3BA_VaginaLabiaNeat_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaNeat_v2</Data>
+        </Slider>
+        <Slider name="LabiaBulgogi_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefLabiaBulgogi_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefLabiaBulgogi_v2</Data>
+            <Data name="3BA_VaginaLabiaBulgogi_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaBulgogi_v2</Data>
+        </Slider>
+        <Slider name="ClitSwell_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefClitSwell_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefClitSwell_v2</Data>
+            <Data name="3BA_VaginaClitSwell_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaClitSwell_v2</Data>
+        </Slider>
+        <Slider name="AnalLoose_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefAnalLoose_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefAnalLoose_v2</Data>
+            <Data name="3BA_AnusAnalLoose_v2" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusAnalLoose_v2</Data>
+            <Data name="3BA_VaginaAnalLoose_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaAnalLoose_v2</Data>
+        </Slider>
+        <Slider name="AnalPosition_v2" invert="false" small="0" big="0">
+            <Data name="3BA RefAnalPosition_v2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefAnalPosition_v2</Data>
+            <Data name="3BA_AnusAnalPosition_v2" target="3BA_Anus" local="true">DV! Ref3BA Nude.osd\3BA_AnusAnalPosition_v2</Data>
+            <Data name="3BA_VaginaAnalPosition_v2" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaAnalPosition_v2</Data>
+        </Slider>
+        <Slider name="Vore prey belly" invert="false" small="0" big="0">
+            <Data name="3BA RefVore prey belly" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefVore prey belly</Data>
+        </Slider>
+        <Slider name="BVoreL" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreL" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreL</Data>
+        </Slider>
+        <Slider name="BVoreR" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreR" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreR</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL1" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreStruggleL1" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreStruggleL1</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL2" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreStruggleL2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreStruggleL2</Data>
+        </Slider>
+        <Slider name="BVoreStruggleL3" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreStruggleL3" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreStruggleL3</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR1" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreStruggleR1" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreStruggleR1</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR2" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreStruggleR2" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreStruggleR2</Data>
+        </Slider>
+        <Slider name="BVoreStruggleR3" invert="false" small="0" big="0">
+            <Data name="3BA RefBVoreStruggleR3" target="3BA Ref" local="true">DV! Ref3BA Nude.osd\3BA RefBVoreStruggleR3</Data>
+        </Slider>
+        <Slider name="Labiaprotrudeback" invert="false" small="0" big="0">
+            <Data name="3BA_VaginaLabiaprotrudeback" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaLabiaprotrudeback</Data>
+        </Slider>
+        <Slider name="Vaginasize" invert="false" small="0" big="0">
+            <Data name="3BA_VaginaVaginasize" target="3BA_Vagina" local="true">DV! Ref3BA Nude.osd\3BA_VaginaVaginasize</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>
