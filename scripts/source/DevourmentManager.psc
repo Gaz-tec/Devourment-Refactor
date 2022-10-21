@@ -58,7 +58,8 @@ import Logging
 
 bool property PERFORMANCE = false auto
 
-
+bool property CCSurvivalInstalled = false auto conditional
+{ Used by GetVMQuestVariable on PlayerAlias spells to test for Survival without explicit links. }
 Actor property FakePlayer auto
 Actor property PlayerRef Auto
 ActorBase[] property RemainsBones auto
@@ -322,7 +323,6 @@ bool property FNISDetected
 	endFunction
 endproperty 
 bool _FNISDetected = false
-
 bool FrostFallInstalled = false
 
 

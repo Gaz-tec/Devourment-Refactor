@@ -1020,6 +1020,9 @@ This does most of the work of doing all the things that need to happen when the 
 	endIf
 
 	CCSurvColdQuest = Quest.GetQuest("Survival_NeedColdQuest")
+	If CCSurvColdQuest
+		Manager.CCSurvivalInstalled = true
+	endIf
 
 	if !playerRef.HasPerk(PlayerAbilities)
 		playerRef.AddPerk(PlayerAbilities)
