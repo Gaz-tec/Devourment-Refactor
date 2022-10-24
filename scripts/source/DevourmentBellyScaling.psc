@@ -218,6 +218,7 @@ Event OnUpdate()
 					if IsNode[sliderIndex]
 						NIOverride.AddNodeTransformScale(target, false, isFemale, Sliders[sliderIndex], PREFIX, 1.0 + scale)
 						NIOverride.UpdateNodeTransform(target, false, isFemale, Sliders[sliderIndex])
+						lastOutputBody = outputBody
 					else
 						NIOverride.SetBodyMorph(target, Sliders[sliderIndex], PREFIX, scale)
 						updateWeights = true

@@ -220,7 +220,7 @@ Function Bribe(Actor pTarget)
 	FavorDialogueScript generic = Quest.GetQuest("DialogueFavorGeneric") as FavorDialogueScript
 
 	Generic.SkillUseMultiplier = Generic.SpeechSkillMult.value
-	Generic.SkillUseBribe = Generic.SkillUseMultiplier * playerRef.GetAv("Speechcraft")
+	Generic.SkillUseBribe = Generic.SkillUseMultiplier * playerRef.GetActorValue("Speechcraft")
 	Debug.trace(self + "Current Skill uses given: " + Generic.SkillUseBribe + " times the Skill Use Multiplier")
 	
 	int bribeAmount = pTarget.GetBribeAmount() * 50

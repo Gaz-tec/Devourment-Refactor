@@ -252,7 +252,7 @@ EndFunction
 
 
 bool Function isWeakened(Actor prey)
-	if prey.getAVPercentage("Health") <= 0.50 
+	if prey.GetActorValuePercentage("Health") <= 0.50 
 		if DEBUGGING
 			Log2(PREFIX, "isWeakened", Namer(prey), "Health is below 50%")
 		endIf

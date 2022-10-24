@@ -4148,7 +4148,7 @@ bool Function BurpItem(Actor pred)
 	
 	Form[] items = content.GetContainerForms()
 	int itemIndex = Utility.RandomInt(0, items.length - 1)
-	Form item = items[itemIndex] as Form
+	Form item = items[itemIndex]
 	
 	if item == none
 		return false
@@ -5365,8 +5365,9 @@ bool Function isPred(Actor target)
 EndFunction
 
 
-bool Function VerifyPred(Actor pred)
+bool Function VerifyPred(Actor akPred)
 { Finds the predData for a given Actor. If it does not exist, it will be created. }
+	Form pred = akPred as Form	;An optimization to prevent constant casting. 
 	int predData = JFormMap_getObj(predators, pred)
 
 	if !JValue_isExists(predData)
@@ -5380,14 +5381,14 @@ bool Function VerifyPred(Actor pred)
 			JMap_setStr(predData, "creature", "creature")
 		endIf
 		
-		int sex = pred.getLeveledActorBase().getSex()
+		int sex = akPred.getLeveledActorBase().getSex()
 		JMap_setInt(predData, "sex", sex)
 		StorageUtil.SetIntValue(pred, "sex", sex)
 	endIf
 
 	; Give the pred the slowdown effect if they don't yet have it.
-	if !pred.hasSpell(DevourmentSlow)
-		pred.addSpell(DevourmentSlow, false)
+	if !akPred.hasSpell(DevourmentSlow)
+		akPred.addSpell(DevourmentSlow, false)
 	endIf
 
 	if pred == PlayerRef
