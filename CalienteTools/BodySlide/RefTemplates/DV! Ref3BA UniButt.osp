@@ -540,5 +540,8 @@
         <Slider name="SSBBW3 body" invert="false" small="0" big="0">
             <Data name="UniButtSSBBW3 body" target="UniButt" local="true">DV! Ref3BA UniButt.osd\UniButtSSBBW3 body</Data>
         </Slider>
+        <Slider name="Labiaprotrudeback" invert="false" small="0" big="0">
+            <Data name="UniButtLabiaprotrudeback" target="UniButt" local="true">DV! Ref3BA UniButt.osd\UniButtLabiaprotrudeback</Data>
+        </Slider>
     </SliderSet>
 </SliderSetInfo>

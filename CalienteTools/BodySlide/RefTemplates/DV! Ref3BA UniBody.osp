@@ -5,7 +5,7 @@
         <SourceFile>DV! Ref3BA UniBody.nif</SourceFile>
         <OutputPath>meshes\armor\New Outfit</OutputPath>
         <OutputFile GenWeights="true">New Outfit</OutputFile>
-        <Shape target="UniBody" DataFolder="DevourmentSE - Female">UniBody</Shape>
+        <Shape target="UniBody" DataFolder="Aa Dual Ref Converter">UniBody</Shape>
         <Slider name="AnkleSize" invert="false" small="100" big="0" hidden="true">
             <Data name="UniBodyAnkleSize" target="UniBody" local="true">DV! Ref3BA UniBody.osd\UniBodyAnkleSize</Data>
         </Slider>
