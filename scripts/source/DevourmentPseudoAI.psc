@@ -200,12 +200,13 @@ bool Function DoANom(Actor prey)
 	elseif !Manager.validPredator(pred)
 		return false
 
+		;/
 	elseif !isWeakened(prey)
 		if DEBUGGING
 			Log2(PREFIX, "DoANom", "Prey not weakened.", Namer(prey))
 		endIf
 		return false
-
+		/;
 	elseif !doBleedoutVore && prey.IsBleedingOut()
 		if DEBUGGING
 			Log1(PREFIX, "DoANom", "Bleeding out and BleedoutVore is disabled.")
@@ -250,6 +251,9 @@ bool Function DoANom(Actor prey)
 	endIf
 EndFunction
 
+;/
+Ordinarily, NPCs are only allowed to make Swallow rolls against targets that are below 50% hp, or targets they are higher level than. 
+I understand why this was written this way, but it causes a lot of uncertainty with users and would be better as roll-bias the user can set in MCM explicitly.
 
 bool Function isWeakened(Actor prey)
 	if prey.GetActorValuePercentage("Health") <= 0.50 
@@ -266,6 +270,7 @@ bool Function isWeakened(Actor prey)
 		return false
 	endIf
 EndFunction
+/;
 
 
 bool Function PlayerCheck(Actor target)
