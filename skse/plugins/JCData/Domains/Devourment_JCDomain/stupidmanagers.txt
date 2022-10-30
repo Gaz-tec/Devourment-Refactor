@@ -1,0 +1,1 @@
+Blank text file so mod managers won't think this folder is empty and skip it.
