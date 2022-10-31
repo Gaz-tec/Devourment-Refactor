@@ -1027,7 +1027,7 @@
 			]
 		},
 		{
-			"pageDisplayName": "$DVT_LocusMorphs",
+			"pageDisplayName": "$DVT_Page_LocusMorphs",
 			"cursorFillMode": "topToBottom",
 			"content": [
 			]	
