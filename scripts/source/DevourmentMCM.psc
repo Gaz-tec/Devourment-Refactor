@@ -67,7 +67,7 @@ Spell Property Power_EatThis auto
 
 
 ; Script-defined Properties.
-int property VERSION = 200 auto Hidden
+int property VERSION = 210 auto Hidden
 bool property EnableHungryBones = true auto Hidden	;Makes it so Skeletons defecated start resurrected as Skeletons.
 bool property EnableCordyceps = true auto Hidden 	;Partially control actor movements / attacks if they swallow you.
 bool property AutoRebirth = false auto Hidden	;Makes it so prey that are unbirthed are automatically reformed when absorbed.
@@ -104,7 +104,7 @@ int optionsMap
 
 
 int function GetVersion()
-	return 200
+	return 210
 endFunction
 
 
