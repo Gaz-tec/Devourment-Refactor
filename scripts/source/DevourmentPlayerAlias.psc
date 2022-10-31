@@ -1223,10 +1223,12 @@ Function CheckDependencies()
 
 	String ErrorReport = "You are missing the following dependencies: "
 	Bool Display = False
+	;/ 	MUST FIX!
 	if !CheckSKSE("6.0.2")
 		ErrorReport  = ErrorReport + " EngineFixes"
 		Display = True
 	endIf
+	/;
 	if JContainers.FeatureVersion() < 1 || JContainers.APIVersion() < 4 ;|| !CheckSKSE("JContainers64", 4)
 		ErrorReport  = ErrorReport + " JContainers"
 		Display = True
@@ -1255,10 +1257,12 @@ Function CheckDependencies()
 		ErrorReport  = ErrorReport + " XPMSE"
 		Display = True
 	endIf
+	;/ MUST FIX!
 	if !CheckSKSE("powerofthree's Spell Perk Item Distributor")
 		ErrorReport  = ErrorReport + " SpellPerkItemDistributor" 
 		Display = True
 	endIf
+	/;
 	If Display
 		LogAndBox(PREFIX, "CheckDependencies", ErrorReport, 2)
 	EndIf

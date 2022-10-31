@@ -1,4 +1,4 @@
-Scriptname SwallowCalculate extends ActiveMagicEffect
+Scriptname SwallowCalculate extends DevourmentAnimatedSpell
 {
 This is the script that is called for all vore operations.
 It calculates the odds of success, disables the player's controls
@@ -10,8 +10,8 @@ import DevourmentUtil
 import Logging
 
 
-Actor property playerRef auto
-DevourmentManager Property Manager Auto
+;Actor property playerRef auto
+;DevourmentManager Property Manager Auto
 DevourmentPlayerAlias property playerAlias auto
 EffectShader Property SwallowShader	 Auto
 Keyword Property BeingSwallowed Auto
@@ -22,11 +22,11 @@ Message Property Message_Trust Auto
 Perk property SilentSwallow auto
 Sound[] Property SwallowSounds Auto
 Spell Property SwallowPreventSpell Auto
-int property Locus = -1 auto
-bool Property Scripted = false Auto
-bool Property Reversed = false Auto
-bool Property Endo = false Auto
-String property animationFinisher = "" auto
+;int property Locus = -1 auto
+Bool Property Scripted = false Auto
+Bool Property Reversed = false Auto
+;bool Property Endo = false Auto
+;String property animationFinisher = "" auto
 
 
 String PREFIX = "SwallowCalculate"
@@ -34,8 +34,8 @@ float updateInterval = 0.10
 
 
 bool DEBUGGING = false
-Actor prey
-Actor pred
+;Actor prey
+;Actor pred
 bool weaponDrawn
 bool deadPrey
 int timer = 0
@@ -175,19 +175,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 endEvent
 
 
-Function RegisterAnimationFinisher(String animName, float delay)
-	animationFinisher = animName
-	RegisterForSingleUpdate(delay)
-EndFunction
-
-
-Event OnUpdate()
-	if animationFinisher != ""
-		Debug.SendAnimationEvent(pred, animationFinisher)
-	endIf
-EndEvent
-
-
 Function DoSwallow()
 	if Reversed
 		If pred == PlayerRef
@@ -233,10 +220,10 @@ Function DoSwallow()
 			if Manager.drawnAnimations
 				pred.sheatheWeapon()
 				Utility.wait(0.3)
-				PlayVoreAnimation_Actor()
+				DoAnimatedVore()
 			endIf
 		else
-			PlayVoreAnimation_Actor()
+			DoAnimatedVore()
 		endif
 	endIf
 	
@@ -274,10 +261,6 @@ Function DoSwallow()
 
 		SwallowShader.stop(prey)
 		Manager.RegisterDigestion(pred, prey, endo, locus)
-
-		if animationFinisher != ""
-			Debug.SendAnimationEvent(pred, animationFinisher)
-		endIf
 		
 		if weaponDrawn && !endo && pred == playerRef && !pred.hasKeyword(BeingSwallowed)
 			pred.drawWeapon()
@@ -324,174 +307,6 @@ int Function RandomLocus()
 	endWhile
 
 	return 0
-EndFunction
-
-
-Function PlayVoreAnimation_Actor()
-	{ Attempts to play an appropriate vore animation.  }
-	int FNISDetected = Manager.FNISDetected as Int
-	DevourmentRemap remapper = (Manager as Quest) as DevourmentRemap
-	bool complexAnimation = FNISDetected > 0 && (pred != playerRef || Game.GetCameraState() > 0)
-
-	if DEBUGGING
-		Log5(PREFIX, "PlayVoreAnimation_Actor", FNISDetected, complexAnimation, Namer(pred), Namer(prey), Manager.GetVoreWeightRatio(pred, prey))
-		assertNotNone(PREFIX, "PlayVoreAnimation_Actor", "pred", pred)
-		assertNotNone(PREFIX, "PlayVoreAnimation_Actor", "prey", prey)
-	endIf
-
-	if pred.hasKeywordString("ActorTypeDragon")
-		if pred.GetAnimationVariableInt("DevourmentDragonAnimationVersion") > 0 && Manager.DragonVoreAnimation
-			
-			pred.SetAllowFlying(false)
-			Debug.SendAnimationEvent(pred, "FlyStopDefault")
-			Utility.Wait(0.1)
-
-			Debug.SendAnimationEvent(pred, "Reset")
-
-			ObjectReference PredMarker = Prey.PlaceAtMe(Manager.AnimationMarker, 1, false, false)
-			PredMarker.SetAngle(Prey.GetAngleX()+180.0, Prey.GetAngleY()+180.0, Prey.GetAngleZ()+180.0)
-			PredMarker.SetPosition(Prey.GetPositionX(), Prey.GetPositionY(), Prey.GetPositionZ())
-
-			ObjectReference PreyMarker = PredMarker.PlaceAtMe(Manager.AnimationMarker, 1, false, false)
-			PreyMarker.SetAngle(PredMarker.GetAngleX(), PredMarker.GetAngleY(), PredMarker.GetAngleZ())
-			PreyMarker.SetPosition(PredMarker.GetPositionX()+5.5, PredMarker.GetPositionY()+5.5, PredMarker.GetPositionZ()+5.55)
-			
-			pred.MoveTo(PredMarker)
-			pred.SetVehicle(PredMarker)
-			pred.TranslateTo(PredMarker.GetPositionX(), PredMarker.GetPositionY(), PredMarker.GetPositionZ(), PredMarker.GetAngleX(), PredMarker.GetAngleY(), PredMarker.GetAngleZ()+0.01, 500.0, 0.0001)
-
-			prey.MoveTo(PreyMarker)
-			prey.SetVehicle(PreyMarker)
-			prey.TranslateTo(PreyMarker.GetPositionX(), PreyMarker.GetPositionY(), PreyMarker.GetPositionZ(), PreyMarker.GetAngleX(), PreyMarker.GetAngleY(), PreyMarker.GetAngleZ()+0.01, 500.0, 0.0001)
-
-			pred.SetDontMove(True)		;Prevent NPCs from being pushed around by contact. Don't use on Player, locks camera.
-
-			if prey == PlayerRef
-				Game.ForceThirdPerson()
-				;Game.SetPlayerAIDriven() Test this out sometime!
-			Else
-				prey.SetDontMove(True)
-			EndIf
-
-			utility.wait(0.35)
-				
-			Debug.SendAnimationEvent(pred, "DevourmentDragon_DragonPredator")
-			Debug.SendAnimationEvent(prey, "DevourmentDragon_HumanPrey")
-
-			Utility.Wait(4.1)
-			pred.SetAllowFlying(true)
-		endif
-
-	elseif pred.hasKeywordString("ActorTypeNPC")
-
-		if !complexAnimation
-			Debug.SendAnimationEvent(pred, "IdleHug")
-			Debug.SendAnimationEvent(prey, "IdleCowerEnter")
-
-		else
-			if prey.isDead() ; Corpse Vore
-				Debug.SendAnimationEvent(pred, "IdleCannibalFeedCrouching")
-		
-			elseif prey.GetSleepState() > 2 ; Sleeping Vore
-				Debug.SendAnimationEvent(pred, "IdleCannibalFeedStanding")
-			 
-			elseif Manager.GetVoreWeightRatio(pred, prey) > 0.25 ; Giant Vore
-				;Beast races have different mouth alignments and tails, so must be different.
-				Bool IsPredBeastRace = pred.hasKeywordString("IsBeastRace")
-				Bool IsPreyBeastRace = prey.hasKeywordString("IsBeastRace")
-				String PredAnim = "DevourmentMacro_HumanPredator"
-				String PreyAnim = "DevourmentMacro_HumanPrey"
-				If IsPredBeastRace
-					PredAnim = "DevourmentMacro_BeastPredator"
-				EndIf
-				If IsPreyBeastRace
-					PreyAnim = "DevourmentMacro_BeastPrey"
-				EndIf
-				;If Manager.MacroVoreAnimation
-				pred.SplineTranslateTo(prey.GetPositionX(), prey.GetPositionY(), prey.GetPositionZ(), 0.0, 0.0, prey.GetAngleZ()+180.0, 1.0, 1000.0)
-				prey.SplineTranslateTo(prey.GetPositionX(), prey.GetPositionY(), prey.GetPositionZ(), 0.0, 0.0, prey.GetAngleZ()+180.0, 1.0, 1000.0)
-				Utility.Wait(0.02)
-				Debug.SendAnimationEvent(pred, PredAnim)
-				Debug.SendAnimationEvent(prey, PreyAnim)
-				Utility.Wait(0.3)
-				;TODO MOUTH OPEN & CLOSE, TIMINGS
-				;Else
-					;Debug.SendAnimationEvent(pred, "IdlePickup_Ground")
-				;EndIf
-
-			elseif endo
-				if locus == 1 ; AnalVore (endo)
-					Debug.SendAnimationEvent(pred, "IdleChairFrontEnter")
-					Debug.SendAnimationEvent(prey, "IdleCowerEnter")
-					Utility.Wait(0.5)
-					RegisterAnimationFinisher("IdleChairFrontQuickExit", 0.5)
-				elseif locus == 5 ; CockVore (endo)
-					Debug.SendAnimationEvent(pred, "AP_IdleStand_A2_S3")
-					Debug.SendAnimationEvent(prey, "AP_KneelBlowjob_A1_S1")
-					pred.SplineTranslateTo(prey.GetPositionX(), prey.GetPositionY(), prey.GetPositionZ(), 0.0, 0.0, prey.GetAngleZ()+180.0, 1.0, 100.0)
-					prey.SplineTranslateTo(prey.GetPositionX(), prey.GetPositionY(), prey.GetPositionZ(), 0.0, 0.0, prey.GetAngleZ()+180.0, 1.0, 100.0)
-				else
-					pred.PlayIdleWithTarget(Manager.IdleVore, prey)
-				endIf
-			else
-				if locus == 0 ; OralVore
-						Debug.SendAnimationEvent(pred, "DevourmentSameSize_HumanPredator")
-						;Debug.SendAnimationEvent(prey, "DevourA02")
-						Debug.SendAnimationEvent(prey, "IdleCowerEnter")
-				elseif locus == 1 ; AnalVore
-					Debug.SendAnimationEvent(pred, "IdleChairFrontEnter")
-					Debug.SendAnimationEvent(prey, "IdleCowerEnter")
-					Utility.Wait(1.0)
-					RegisterAnimationFinisher("IdleChairFrontQuickExit", 0.5)
-				else
-					Debug.SendAnimationEvent(pred, "IdleHug")
-					Debug.SendAnimationEvent(prey, "IdleCowerEnter")
-				endIf
-			endIf
-		endif
-	elseif Game.GetForm(0x000131FF) == remapper.RemapRace(pred.GetLeveledActorBase().GetRace())	;If Mammoth
-		if pred.GetAnimationVariableInt("DevourmentMammothAnimationVersion") > 0 && Manager.MammothVoreAnimation
-
-			Debug.SendAnimationEvent(pred, "Reset")
-
-			ObjectReference PredMarker = Prey.PlaceAtMe(Manager.AnimationMarker, 1, false, false)
-			PredMarker.SetAngle(Prey.GetAngleX()+180.0, Prey.GetAngleY()+180.0, Prey.GetAngleZ()+180.0)
-			PredMarker.SetPosition(Prey.GetPositionX(), Prey.GetPositionY(), Prey.GetPositionZ())
-
-			ObjectReference PreyMarker = PredMarker.PlaceAtMe(Manager.AnimationMarker, 1, false, false)
-			PreyMarker.SetAngle(PredMarker.GetAngleX(), PredMarker.GetAngleY(), PredMarker.GetAngleZ())
-			PreyMarker.SetPosition(PredMarker.GetPositionX()+0.0, PredMarker.GetPositionY()+0.0, PredMarker.GetPositionZ()+0.0)
-			
-			pred.MoveTo(PredMarker)
-			pred.SetVehicle(PredMarker)
-			pred.TranslateTo(PredMarker.GetPositionX(), PredMarker.GetPositionY(), PredMarker.GetPositionZ(), PredMarker.GetAngleX(), PredMarker.GetAngleY(), PredMarker.GetAngleZ()+0.01, 500.0, 0.0001)
-
-			prey.MoveTo(PreyMarker)
-			prey.SetVehicle(PreyMarker)
-			prey.TranslateTo(PreyMarker.GetPositionX(), PreyMarker.GetPositionY(), PreyMarker.GetPositionZ(), PreyMarker.GetAngleX(), PreyMarker.GetAngleY(), PreyMarker.GetAngleZ()+0.01, 500.0, 0.0001)
-
-			pred.SetDontMove(True)		;Prevent NPCs from being pushed around by contact. Don't use on Player, locks camera.
-
-			if prey == PlayerRef
-				Game.ForceThirdPerson()
-			Else
-				prey.SetDontMove(True)
-			EndIf
-
-			utility.wait(0.35)
-				
-			Debug.SendAnimationEvent(pred, "DevourmentMammoth_MammothPredator")
-			Debug.SendAnimationEvent(prey, "DevourmentMammoth_HumanPrey")
-
-			Utility.Wait(4.0)
-		endif
-
-
-	endIf
-
-	pred.SetVehicle(None)
-	prey.SetVehicle(None)
-
 EndFunction
 
 

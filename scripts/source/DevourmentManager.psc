@@ -202,6 +202,7 @@ bool property SkillGain = true auto
 bool property AttributeGain = true auto
 bool property DragonVoreAnimation = true auto
 bool property MammothVoreAnimation = true auto
+bool property LongVoreAnimations = false auto
 
 float property AcidDamageModifier = 1.0 auto
 float property BurpsRate = 16.0 auto
@@ -492,7 +493,7 @@ Function JCFormIntegrityCheck()
 		Int iIndex = 0	;Papyrus limits script-initialized arrays to 128 elements long. 
 		;This unfortunately puts me in the position where in order to maintain a larger array, I must use PapyrusUtil to create it. 
 		;As far as I understand, this means .Length is not a viable method of telling if it is filled.
-		While IndicesPrey[iIndex] == None && iIndex < 256	;Iterate up the array searching for a Pred-Prey indices association.
+		While IndicesPrey[iIndex] == None && iIndex < 255	;Iterate up the array searching for a Pred-Prey indices association.
 			iIndex += 1
 		EndWhile
 		If IndicesPrey[iIndex] != None ;In this instance, we do not try to recreate prey and pred data objects. We are only trying to preserve the users' game, so will send Prey back to their Editor locations.
@@ -6933,6 +6934,7 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "AttributeGain", 			AttributeGain as int)
 	JMap_setInt(data, "DragonVoreAnimation", 	DragonVoreAnimation as int)
 	JMap_setInt(data, "MammothVoreAnimation", 	MammothVoreAnimation as int)
+	JMap_setInt(data, "LongVoreAnimations", 	LongVoreAnimations as int)
 	
 	JMap_setFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
 	JMap_setFlt(data, "StruggleDamage", 		StruggleDamage)
@@ -7009,7 +7011,8 @@ bool Function loadSettings(String settingsFileName)
 	AttributeGain = 		JMap_getInt(data, "AttributeGain", 				AttributeGain as int) as bool
 	DragonVoreAnimation = 	JMap_getInt(data, "DragonVoreAnimation", 		DragonVoreAnimation as int) as bool
 	MammothVoreAnimation = 	JMap_getInt(data, "MammothVoreAnimation", 		MammothVoreAnimation as int) as bool
-
+	LongVoreAnimations = 	JMap_getInt(data, "LongVoreAnimations", 		LongVoreAnimations as int) as bool
+	
 	PredExperienceRate = 	JMap_getFlt(data, "PredExperienceRate", 	PredExperienceRate)
 	PreyExperienceRate = 	JMap_getFlt(data, "PreyExperienceRate", 	PreyExperienceRate)
 	StruggleDifficulty = 	JMap_getFlt(data, "StruggleDifficulty", 	StruggleDifficulty)

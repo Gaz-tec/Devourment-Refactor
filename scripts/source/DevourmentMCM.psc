@@ -844,12 +844,12 @@ event OnPageReset(string page)
 		endIf
 		/;
 
-		AddSKSEDetails("SSEEngineFixes", "6.0.2")
+		;AddSKSEDetails("SSEEngineFixes", "6.0.2")
 		AddSKSEDetails("JContainers", "JContainers64", JContainers.FeatureVersion(), JContainers.APIVersion())
 		AddSKSEDetails("PapyrusUtil", "papyrusutil", PapyrusUtil.GetVersion(), PapyrusUtil.GetScriptVersion())
 		AddSKSEDetails("ConsoleUtil", "ConsoleUtilSSE", ConsoleUtil.GetVersion())
 		AddSKSEDetails("PO3 Papyrus Extender", "powerofthree's Papyrus Extender")
-		AddSKSEDetails("PO3 SPID", "powerofthree's Spell Perk Item Distributor")
+		;AddSKSEDetails("PO3 SPID", "powerofthree's Spell Perk Item Distributor")
 		;AddSKSEDetails("LibFire", "LibFire", "LibFire")
 		AddSKSEDetails("MCM Helper", "MCMHelper")
 		AddSKSEDetails("NIOverride", "skee", NIOverride.GetScriptVersion())
