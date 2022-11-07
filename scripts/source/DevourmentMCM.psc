@@ -109,15 +109,16 @@ endFunction
 
 
 event OnConfigInit()
-	Pages = new string[8]
+	Pages = new string[9]
 	Pages[0] = "$DVT_Page_StatsSkills"
 	Pages[1] = "$DVT_Page_General"
 	Pages[2] = "$DVT_Page_Whitelist"
 	Pages[3] = "$DVT_Page_WhoCanPred"
 	Pages[4] = "$DVT_Page_VisualSoundMisc"
 	Pages[5] = "$DVT_Page_LocusMorphs"
-	Pages[6] = "$DVT_Page_Debugging"
-	Pages[7] = "$DVT_Page_Dependancies"
+	Pages[6] = "$DVT_Page_RaceWeights"
+	Pages[7] = "$DVT_Page_Debugging"
+	Pages[8] = "$DVT_Page_Dependancies"
 
 	;/
 	equipList = new string[3]
@@ -609,7 +610,14 @@ event OnPageReset(string page)
 		;addToggleOptionSt("PredPerksState", "$DVT_ShowPredPerks", false)
 		;addToggleOptionSt("PreyPerksState", "$DVT_ShowPreyPerks", false)
 		
-		addTextOptionSt("CapacityInfoState",  "Devourment Capacity:   ", Manager.GetCapacity(target))
+		String raceEDID = MiscUtil.GetActorRaceEditorID(PlayerRef)
+		Int CapacityActual
+		if JSonUtil.HasIntValue(Manager.RaceWeights, raceEDID)
+
+			CapacityActual = JSonUtil.GetIntValue(Manager.RaceWeights, raceEDID, 100)
+		endif
+		
+		addTextOptionSt("CapacityInfoState",  "Devourment Capacity:   ", Manager.GetCapacity(target) * CapacityActual)
 
 		addTextOption("Swallow skill: ", swallowSkill)
 		addTextOption("Swallow resistance: ", swallowResistance)
@@ -819,6 +827,22 @@ event OnPageReset(string page)
 			addSliderOptionSt("Scaling_Locus5_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[5], "{2}")
 			addSliderOptionSt("Chance_Locus5", "$DVT_LocusChance", LocusChances[5], "{2}")
 		;endIf
+	ElseIf page == "$DVT_Page_RaceWeights"
+
+		AddTextOptionST("ShowHelpState", "Show Page Help", None)
+		setCursorFillMode(LEFT_TO_RIGHT)
+		setCursorPosition(2)
+		int iCounter = 0
+		String RaceWeights = Manager.RaceWeights
+		String[] RaceNames = JsonUtil.StringListToArray(RaceWeights, "DevourmentRaceWeight")
+		int iLength = RaceNames.Length
+		while iCounter < iLength
+			Int oid = AddInputOption(RaceNames[iCounter], JsonUtil.GetIntValue(RaceWeights, RaceNames[iCounter], 20))
+			JIntMap_setStr(optionsMap, oid, RaceNames[iCounter])
+			iCounter += 1
+		endWhile
+		JSonUtil.save(RaceWeights)	;Save, in case GetIntValue had to fill in a blank.
+
 	ElseIf page == "$DVT_Page_Dependancies"
 		SetCursorFillMode(LEFT_TO_RIGHT)
 
@@ -936,6 +960,7 @@ Event OnOptionSelect(int a_option)
 
 EndEvent
 
+
 ;/
 state ShowEquipableHelpState
 	event OnSelectST()
@@ -943,6 +968,51 @@ state ShowEquipableHelpState
     endEvent
 endState
 /;
+
+
+event OnOptionInputOpen(int oid)
+{ Handles AddInputOption default text when opened for editing. }
+	
+	parent.OnOptionInputOpen(oid)
+
+	If CurrentPage == "$DVT_Page_RaceWeights"
+		string RaceName = JIntMap_getStr(optionsMap, oid)
+		SetInputDialogStartText(JsonUtil.GetIntValue(Manager.RaceWeights, RaceName, 20))
+	EndIf
+	
+endEvent
+
+
+event OnOptionInputAccept(int oid, string a_input)
+{ Handles saving text users input into AddInputOption options. }
+
+	parent.OnOptionInputAccept(oid, a_input)
+
+	If CurrentPage == "$DVT_Page_RaceWeights"
+		If a_input as Int
+			Int iInput = a_input as Int
+			if iInput > 0
+				string RaceName = JIntMap_getStr(optionsMap, oid)
+				SetInputOptionValue(oid, a_input)
+				JsonUtil.SetIntValue(Manager.RaceWeights, RaceName, iInput)
+				JSonUtil.save(Manager.RaceWeights)
+			else
+				debug.messagebox("Input must be a positive!")
+			endIf
+		EndIf		
+	EndIf
+
+endEvent
+
+
+state ShowHelpState
+
+	event OnSelectST()
+        ShowMessage("This page lists all Race-weight values contained in Devourments' RaceWeights file. This value determines how much space they take up in a stomach, as well as influencing Swallow chances. ")
+    endEvent
+	
+endState
+
 
 state MalePredatorsState
 	event OnDefaultST()

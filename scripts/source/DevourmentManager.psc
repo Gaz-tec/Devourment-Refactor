@@ -6376,7 +6376,7 @@ EndFunction
 
 
 float Function GetCapacity(Actor target)
-{ Gets the stomach capacity of the target, which is their pred skill divided by ten. }
+{ Gets the stomach capacity of the target, which is their pred skill divided by twelve. }
 ;/
 	if MicroMode
 		float capacity = StorageUtil.GetFloatValue(target, "voreCapacity", -1.0)
@@ -6391,7 +6391,7 @@ float Function GetCapacity(Actor target)
 		endIf
 	else
 		/;
-		return 1.0 + GetPredSkill(target) / 12.0
+		return (1.0 + GetPredSkill(target) / 12.0) * GetCumulativeSize(target)
 	;endIf
 endFunction
 	
@@ -6751,32 +6751,32 @@ float Function GetVoreWeight(Actor subject)
 	; We go by Race, and PapyrusUtil conveniently makes Race editorIDs available.
 	String raceEDID = MiscUtil.GetActorRaceEditorID(subject)
 	
-	if JSonUtil.HasFloatValue(RaceWeights, raceEDID)
+	if JSonUtil.HasIntValue(RaceWeights, raceEDID)
 		; RaceWeight points to a JSON file mapping the editorIDs of races to weights.
 		; The default weight for a humanoid sized Actor is 100.
-		float raceWeight = JSonUtil.GetFloatValue(RaceWeights, raceEDID, 100.0)
+		Int raceWeight = JSonUtil.GetIntValue(RaceWeights, raceEDID, 100)
 
 		if DEBUGGING
 			Log3(PREFIX, "GetVoreWeight", Namer(subject), raceWeight, GetCumulativeSize(subject))
 		endIf
-		return raceWeight * GetCumulativeSize(subject)
+		return (raceWeight as Float) * GetCumulativeSize(subject)
 
 	else
 		; The race wasn't found in the JSON file, this will display a message box to allow the user to select a weight.
 		; Then store the weight in the JSON file for next time.
-		float raceWeight = GetPreyWeightMenu(subject)
-		JSonUtil.SetFloatValue(RaceWeights, raceEDID, raceWeight)
+		Int raceWeight = GetPreyWeightMenu(subject)
+		JSonUtil.SetIntValue(RaceWeights, raceEDID, raceWeight)
 		JSonUtil.save(RaceWeights)
-		
+
 		if DEBUGGING
 			Log3(PREFIX, "GetVoreWeight", Namer(subject), raceWeight, GetCumulativeSize(subject))
 		endIf
-		return raceWeight * GetCumulativeSize(subject)
+		return (raceWeight as Float) * GetCumulativeSize(subject)
 	endIf	
 EndFunction
 
 
-float Function GetPreyWeightMenu(Actor subject)
+Int Function GetPreyWeightMenu(Actor subject)
 	PreyNameAlias.ForceRefTo(subject)
 	PreyWeightEdit.SetValue(100.0)
 	UpdateCurrentInstanceGlobal(PreyWeightEdit)
@@ -6804,7 +6804,7 @@ float Function GetPreyWeightMenu(Actor subject)
 	endWhile
 	
 	PreyNameAlias.clear()
-	return PreyWeightEdit.GetValue()
+	return (PreyWeightEdit.GetValue() as Int)
 EndFunction
 
 

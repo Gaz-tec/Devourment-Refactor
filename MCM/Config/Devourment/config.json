@@ -1033,6 +1033,12 @@
 			]	
 		},
 		{
+			"pageDisplayName": "$DVT_Page_RaceWeights",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]	
+		},
+		{
 			"pageDisplayName": "$DVT_Page_Debugging",
 			"cursorFillMode": "topToBottom",
 			"content": [
