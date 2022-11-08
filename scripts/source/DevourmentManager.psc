@@ -1829,6 +1829,9 @@ Event ProduceVomit(Form f1, Form f2, int preyData)
 	if content as Actor
 		Actor prey = content as Actor
 		If !prey.isDead()
+			If prey == PlayerRef
+				PO3_SKSEFunctions.ResetActorDetection(playerRef)
+			EndIf
 			sendEscapeEvent(pred, prey, IsEndo(preyData))
 		endIf
 		Notification2(Message_Vomited, apex, prey)
@@ -3847,6 +3850,7 @@ function reactivatePrey(Actor prey)
 		playerRef.setPlayerControls(true)
 		Game.SetPlayerAIDriven(false)
 		playerRef.EnableAI(true)
+		PO3_SKSEFunctions.ResetActorDetection(playerRef)
 	else
 		prey.setRestrained(false)
 	endIf

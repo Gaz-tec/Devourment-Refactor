@@ -611,7 +611,7 @@ event OnPageReset(string page)
 		;addToggleOptionSt("PreyPerksState", "$DVT_ShowPreyPerks", false)
 		
 		String raceEDID = MiscUtil.GetActorRaceEditorID(PlayerRef)
-		Int CapacityActual
+		Int CapacityActual = 1
 		if JSonUtil.HasIntValue(Manager.RaceWeights, raceEDID)
 
 			CapacityActual = JSonUtil.GetIntValue(Manager.RaceWeights, raceEDID, 100)
