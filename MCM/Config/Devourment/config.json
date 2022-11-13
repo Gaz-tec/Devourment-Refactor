@@ -4,7 +4,10 @@
 	"minMcmVersion": 9,
 	"pluginRequirements": ["MCMHelper.esp", "Devourment.esp"],
 	"cursorFillMode": "topToBottom",
-	"customContent": {"source": "Devourment/Title.dds"},
+	"customContent": {
+		"source": "Devourment/Title.dds",
+		"y": 126
+	},
 	"pages": [
 		{
 			"pageDisplayName": "$DVT_Page_StatsSkills",
@@ -78,106 +81,6 @@
 					"type": "keymap",
 					"help": "$DVT_Help_WhitelistKey",
 					"ignoreConflicts": false
-				},
-				{
-					"text": "$DVT_Header_Skulls",
-					"type": "header"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"text": "$DVT_SkullsSeparate",
-					"help": "$DVT_Help_SkullsSeparate",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|CF7", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentSkullHandler",
-						"propertyName": "SkullsSeparate",
-						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_SkullsEveryone",
-					"help": "$DVT_Help_SkullsEveryone",
-					"type": "toggle",
-					"groupControl": 6,
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|CF7", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentSkullHandler",
-						"propertyName": "SkullsForEveryone",
-						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_SkullsUnique",
-					"help": "$DVT_Help_SkullsUnique",
-					"type": "toggle",
-					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|CF7", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentSkullHandler",
-						"propertyName": "SkullsForUnique",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_SkullsEssential",
-					"help": "$DVT_Help_SkullsEssential",
-					"type": "toggle",
-					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|CF7", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentSkullHandler",
-						"propertyName": "SkullsForEssential",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_SkullsUnleveled",
-					"help": "$DVT_Help_SkullsUnleveled",
-					"type": "toggle",
-					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|CF7", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentSkullHandler",
-						"propertyName": "SkullsForUnleveled",
-						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_SkullsDragons",
-					"help": "$DVT_Help_SkullsDragons",
-					"type": "toggle",
-					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|CF7", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentSkullHandler",
-						"propertyName": "SkullsForDragons",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_NamedSouls",
-					"help": "$DVT_Help_NamedSouls",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|CF7", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentSkullHandler",
-						"propertyName": "NamedSouls",
-						"defaultValue": true
-					}
 				},
 				{
 					"type": "empty"
@@ -402,22 +305,6 @@
 					}
 				},
 				{
-					"text": "$DVT_NPCChance",
-					"help": "$DVT_Help_NPCChance",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "NPCBonus",
-					  	"min": 0.1,
-					  	"max": 10.0,
-					  	"step": 0.1,
-						"defaultValue": 1.0,
-					  	"formatString": "{2}"
-					}
-				},
-				{
 					"text": "$DVT_SwallowHeal",
 					"help": "$DVT_Help_SwallowHeal",
 					"type": "toggle",
@@ -514,23 +401,6 @@
 					}
 				},
 				{
-					"text": "$DVT_PlayerBias",
-					"help": "$DVT_Help_PlayerBias",
-					"type": "enum",
-					"valueOptions": {
-						"options": [
-							"$DVT_PlayerNoPref",
-							"$DVT_PlayerAvoidant",
-							"$DVT_PlayerCentric"
-						],
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueInt",
-						"scriptName": "DevourmentManager",
-						"propertyName": "playerPreference",
-						"defaultValue": 0
-					}	
-				},
-				{
 					"text": "$DVT_Header_WhoGetsDigested",
 					"type": "header"
 				},
@@ -581,6 +451,185 @@
 		{
 			"pageDisplayName": "$DVT_Page_WhoCanPred",
 			"cursorFillMode": "topToBottom",
+			"content": [
+				{
+					"text": "$DVT_Header_NPCPredSettings",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_PlayerBias",
+					"help": "$DVT_Help_PlayerBias",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_PlayerNoPref",
+							"$DVT_PlayerAvoidant",
+							"$DVT_PlayerCentric"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "playerPreference",
+						"defaultValue": 0
+					}	
+				},
+				{
+					"text": "$DVT_NPCChance",
+					"help": "$DVT_Help_NPCChance",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "NPCBonus",
+					  	"min": 0.1,
+					  	"max": 10.0,
+					  	"step": 0.05,
+						"defaultValue": 1.0,
+					  	"formatString": "{2}x"
+					}
+				}
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_Page_Disposal",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_Page_Reform",
+			"cursorFillMode": "leftToRight",
+			"content": [
+				{
+					"text": "$DVT_Header_Skulls",
+					"type": "header"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_SkullsSeparate",
+					"help": "$DVT_Help_SkullsSeparate",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsSeparate",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_SkullsEveryone",
+					"help": "$DVT_Help_SkullsEveryone",
+					"type": "toggle",
+					"groupControl": 6,
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForEveryone",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_SkullsUnique",
+					"help": "$DVT_Help_SkullsUnique",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForUnique",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_SkullsEssential",
+					"help": "$DVT_Help_SkullsEssential",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForEssential",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_SkullsUnleveled",
+					"help": "$DVT_Help_SkullsUnleveled",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForUnleveled",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_SkullsDragons",
+					"help": "$DVT_Help_SkullsDragons",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForDragons",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_NamedSouls",
+					"help": "$DVT_Help_NamedSouls",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "NamedSouls",
+						"defaultValue": true
+					}
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_Header_Reformation",
+					"type": "header"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_AutoRebirth",
+					"help": "$DVT_Help_AutoRebirth",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "AutoRebirth",
+						"defaultValue": false
+					}
+				}
+				
+
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_Page_Endo",
+			"cursorFillMode": "leftToRight",
 			"content": [
 			]
 		},

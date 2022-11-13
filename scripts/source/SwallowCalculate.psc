@@ -290,7 +290,13 @@ endFunction
 
 
 int Function RandomLocus()
-	bool isFemale = Manager.IsFemale(pred)
+	bool isFemale = Manager.IsFemale(pred) 
+	bool DualBreastMode = Manager.Menu.Morphs.UseDualBreastMode	;WTF...
+	Form SoSAPI = Quest.GetQuest("SOS_Misc") 
+	bool hasCock = false
+	If SoSAPI
+		hasCock = ((SoSAPI as Form) as SOS_API).IsSchlonged(pred)
+	EndIf
 	float[] cumulative = Manager.Menu.LocusCumulative
 	float chance = Utility.RandomFloat(0.0, cumulative[0])
 	int loc = cumulative.length
@@ -298,7 +304,14 @@ int Function RandomLocus()
 	while loc
 		loc -= 1
 		if chance < cumulative[loc]
-			if (isFemale && loc != 5) || (!isFemale && loc != 2 && loc != 3 && loc != 4)
+			if (hasCock && loc == 5) || (!isFemale && loc != 2 && loc != 3)
+				if loc == 3 && DualBreastMode	;Alternate the breasts..
+					if StorageUtil.PluckIntValue(pred, "DevourmentBreastVoreL", missing = 0)
+						loc = 4
+					Else
+						StorageUtil.SetIntValue(pred, "DevourmentBreastVoreL", 1)
+					endif
+				endIf
 				return loc
 			else
 				return 0

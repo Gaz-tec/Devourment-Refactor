@@ -109,16 +109,19 @@ endFunction
 
 
 event OnConfigInit()
-	Pages = new string[9]
+	Pages = new string[11]
 	Pages[0] = "$DVT_Page_StatsSkills"
 	Pages[1] = "$DVT_Page_General"
 	Pages[2] = "$DVT_Page_Whitelist"
 	Pages[3] = "$DVT_Page_WhoCanPred"
-	Pages[4] = "$DVT_Page_VisualSoundMisc"
-	Pages[5] = "$DVT_Page_LocusMorphs"
-	Pages[6] = "$DVT_Page_RaceWeights"
-	Pages[7] = "$DVT_Page_Debugging"
-	Pages[8] = "$DVT_Page_Dependancies"
+	Pages[3] = "$DVT_Page_Disposal"
+	Pages[4] = "$DVT_Page_Reform"
+	Pages[5] = "$DVT_Page_Endo"
+	Pages[6] = "$DVT_Page_VisualSoundMisc"
+	Pages[7] = "$DVT_Page_LocusMorphs"
+	Pages[8] = "$DVT_Page_RaceWeights"
+	Pages[9] = "$DVT_Page_Debugging"
+	Pages[10] = "$DVT_Page_Dependancies"
 
 	;/
 	equipList = new string[3]
@@ -685,6 +688,14 @@ event OnPageReset(string page)
 
 	ElseIf page == "$DVT_Page_WhoCanPred"
 
+		AddHeaderOption("NPC Vore Type Probability")
+		addSliderOptionSt("Chance_Locus0", "$DVT_Locus0Chance", LocusChances[0], "{2}%")
+		addSliderOptionSt("Chance_Locus1", "$DVT_Locus1Chance", LocusChances[1], "{2}%")
+		addSliderOptionSt("Chance_Locus2", "$DVT_Locus2Chance", LocusChances[2], "{2}%")
+		addSliderOptionSt("Chance_Locus3", "$DVT_Locus3Chance", LocusChances[3], "{2}%")
+		;addSliderOptionSt("Chance_Locus4", "$DVT_LocusChance", LocusChances[4], "{2}")	;Previously the Right breast specifically.
+		addSliderOptionSt("Chance_Locus5", "$DVT_Locus5Chance", LocusChances[5], "{2}%")
+		
 		addHeaderOption("Female Predator Toggles")
 		Int i = 0
 		Int iLength = Manager.HumanoidPredatorRaces.Length
@@ -704,7 +715,6 @@ event OnPageReset(string page)
 			endWhile
 		EndIf
 
-		AddEmptyOption()
 		addHeaderOption("Male Predator Toggles")
 
 		i = 0
@@ -763,7 +773,6 @@ event OnPageReset(string page)
 		AddHeaderOption("Morphing Settings")
 		;addToggleOptionSt("UseLocusMorphsState", "$DVT_LocusMorphs", Morphs.UseLocationalMorphs)
 		addSliderOptionSt("MorphSpeedState", "$DVT_MorphSpeed", Morphs.MorphSpeed, "{2}x")
-		addToggleOptionSt("EliminationLocusState", "$DVT_UseEliminationLocus", Morphs.UseEliminationLocus)
 		addToggleOptionSt("struggleSlidersState", "$DVT_StruggleSliders", Morphs.useStruggleSliders)
 
 		if Morphs.UseStruggleSliders
@@ -781,51 +790,57 @@ event OnPageReset(string page)
 			addSliderOptionSt("Scaling_Locus0_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[0], "{2}")
 			/;
 		;else
-			AddHeaderOption("Locus 0 - Stomach")
-			addInputOptionSt("Slider_Locus0State", "$DVT_LocusSlider", Morphs.Locus_Sliders[0])
-			addSliderOptionSt("Scaling_Locus0State", "$DVT_LocusScale", Morphs.Locus_Scales[0], "{2}")
-			addSliderOptionSt("Scaling_Locus0_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[0], "{2}")
-			addSliderOptionSt("Chance_Locus0", "$DVT_LocusChance", LocusChances[0], "{2}")
 
-			AddHeaderOption("Locus 1 - Buttocks")
+
+			AddHeaderOption("Post-Vore Visuals")
+			addToggleOptionSt("EliminationLocusState", "$DVT_UseEliminationLocus", Morphs.UseEliminationLocus)
 			addInputOptionSt("Slider_Locus1State", "$DVT_LocusSlider", Morphs.Locus_Sliders[1])
 			addSliderOptionSt("Scaling_Locus1State", "$DVT_LocusScale", Morphs.Locus_Scales[1], "{2}")
 			addSliderOptionSt("Scaling_Locus1_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[1], "{2}")
-			addSliderOptionSt("Chance_Locus1", "$DVT_LocusChance", LocusChances[1], "{2}")
 
-			AddHeaderOption("Locus 2 - Uterus")
+			AddHeaderOption("Oral Vore (Also used for Unbirth and Anal)")
+			addInputOptionSt("Slider_Locus0State", "$DVT_LocusSlider", Morphs.Locus_Sliders[0])
+			addSliderOptionSt("Scaling_Locus0State", "$DVT_LocusScale", Morphs.Locus_Scales[0], "{2}")
+			addSliderOptionSt("Scaling_Locus0_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[0], "{2}")
+			
+
+			;AddHeaderOption("Anal Vore (Uses Oral Vore Visuals)")
+			
+			;/
+			AddHeaderOption("Unbirth")
 			addInputOptionSt("Slider_Locus2State", "$DVT_LocusSlider", Morphs.Locus_Sliders[2], OPTION_FLAG_DISABLED)
 			addSliderOptionSt("Scaling_Locus2State", "$DVT_LocusScale", Morphs.Locus_Scales[2], "{2}", OPTION_FLAG_DISABLED)
 			addSliderOptionSt("Scaling_Locus2_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[2], "{2}", OPTION_FLAG_DISABLED)
-			addSliderOptionSt("Chance_Locus2", "$DVT_LocusChance", LocusChances[2], "{2}")
+			/;
 
 			setCursorPosition(1)
 
+			AddHeaderOption("")
 			addToggleOptionSt("DualBreastModeState", "$DVT_UseDualBreastMode", Morphs.UseDualBreastMode)
 
 			if Morphs.UseDualBreastMode
-				AddHeaderOption("Locus 3 - Breasts (left)")
+				AddHeaderOption("Breast Vore (left)")
 			else
-				AddHeaderOption("Locus 3 - Breasts")
+				AddHeaderOption("Breast Vore")
 			endIf
 			addInputOptionSt("Slider_Locus3State", "$DVT_LocusSlider", Morphs.Locus_Sliders[3])
 			addSliderOptionSt("Scaling_Locus3State", "$DVT_LocusScale", Morphs.Locus_Scales[3], "{2}")
 			addSliderOptionSt("Scaling_Locus3_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[3], "{2}")
-			addSliderOptionSt("Chance_Locus3", "$DVT_LocusChance", LocusChances[3], "{2}")
+			
 
 			if Morphs.UseDualBreastMode
-				AddHeaderOption("Locus 4 - Breasts (right)")
+				AddHeaderOption("Breast Vore (right)")
 				addInputOptionSt("Slider_Locus4State", "$DVT_LocusSlider", Morphs.Locus_Sliders[4])
 				addSliderOptionSt("Scaling_Locus4State", "$DVT_LocusScale", Morphs.Locus_Scales[4], "{2}")
 				addSliderOptionSt("Scaling_Locus4_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[4], "{2}")
-				addSliderOptionSt("Chance_Locus4", "$DVT_LocusChance", LocusChances[4], "{2}")
+				
 			endIf
 
-			AddHeaderOption("Locus 5 - Scrotum")
+			AddHeaderOption("Cock Vore")
 			addInputOptionSt("Slider_Locus5State", "$DVT_LocusSlider", Morphs.Locus_Sliders[5])
 			addSliderOptionSt("Scaling_Locus5State", "$DVT_LocusScale", Morphs.Locus_Scales[5], "{2}")
 			addSliderOptionSt("Scaling_Locus5_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[5], "{2}")
-			addSliderOptionSt("Chance_Locus5", "$DVT_LocusChance", LocusChances[5], "{2}")
+			
 		;endIf
 	ElseIf page == "$DVT_Page_RaceWeights"
 
@@ -1119,7 +1134,7 @@ endstate
 state Scaling_Locus0State
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(Morphs.Locus_Scales[0])
-		SetSliderDialogDefaultValue(1.0)
+		SetSliderDialogDefaultValue(5.0)
 		SetSliderDialogRange(0.0, 10.0)
 		SetSliderDialogInterval(0.05)
 	endEvent
@@ -1131,22 +1146,22 @@ state Scaling_Locus0State
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Scales[0] = 1.0
-		SetSliderOptionValueST(1.0, "{2}")
+		Morphs.Locus_Scales[0] = 5.0
+		SetSliderOptionValueST(5.0, "{2}")
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Scaling size for Locus 0 (which is the stomach by default).")
+		SetInfoText("Scaling size for Oral Vore.")
 	endEvent
 endState
 
 state Scaling_Locus1State
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(Morphs.Locus_Scales[1])
-		SetSliderDialogDefaultValue(5.0)
+		SetSliderDialogDefaultValue(2.0)
 		SetSliderDialogRange(0.0, 20.0)
-		SetSliderDialogInterval(0.1)
+		SetSliderDialogInterval(0.05)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
@@ -1156,20 +1171,20 @@ state Scaling_Locus1State
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Scales[1] = 5.0
-		SetSliderOptionValueST(5.0, "{2}")
+		Morphs.Locus_Scales[1] = 2.0
+		SetSliderOptionValueST(2.0, "{2}")
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Scaling size for Locus 1 (which is the buttocks by default).")
+		SetInfoText("Scaling factor for the Post-Vore visual.")
 	endEvent
 endState
 
 state Scaling_Locus3State
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(Morphs.Locus_Scales[3])
-		SetSliderDialogDefaultValue(2.0)
+		SetSliderDialogDefaultValue(3.0)
 		SetSliderDialogRange(0.0, 10.0)
 		SetSliderDialogInterval(0.05)
 	endEvent
@@ -1181,16 +1196,16 @@ state Scaling_Locus3State
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Scales[3] = 2.0
-		SetSliderOptionValueST(2.0, "{2}")
+		Morphs.Locus_Scales[3] = 3.0
+		SetSliderOptionValueST(3.0, "{2}")
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
 		if Morphs.UseDualBreastMode
-			SetInfoText("Scaling size for Locus 3 (which is the left breast by default).")
+			SetInfoText("Scaling size for the left breast.")
 		else
-			SetInfoText("Scaling size for Locus 3 (which is the breasts by default).")
+			SetInfoText("Scaling size for Breast Vore.")
 		endIf
 	endEvent
 endState
@@ -1198,7 +1213,7 @@ endState
 state Scaling_Locus4State
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(Morphs.Locus_Scales[4])
-		SetSliderDialogDefaultValue(2.0)
+		SetSliderDialogDefaultValue(3.0)
 		SetSliderDialogRange(0.0, 10.0)
 		SetSliderDialogInterval(0.05)
 	endEvent
@@ -1210,13 +1225,13 @@ state Scaling_Locus4State
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Scales[4] = 2.0
-		SetSliderOptionValueST(2.0, "{2}")
+		Morphs.Locus_Scales[4] = 3.0
+		SetSliderOptionValueST(3.0, "{2}")
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Scaling size for Locus 4 (which is the right breast by default).")
+		SetInfoText("Scaling size for the right breast.")
 	endEvent
 endState
 
@@ -1225,7 +1240,7 @@ state Scaling_Locus5State
 		SetSliderDialogStartValue(Morphs.Locus_Scales[5])
 		SetSliderDialogDefaultValue(4.0)
 		SetSliderDialogRange(0.0, 20.0)
-		SetSliderDialogInterval(0.1)
+		SetSliderDialogInterval(0.05)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
@@ -1241,7 +1256,7 @@ state Scaling_Locus5State
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Scaling size for Locus 5 (which is the scrotum by default).")
+		SetInfoText("Scaling size for Cock Vore.")
 	endEvent
 endState
 
@@ -1266,14 +1281,14 @@ state Scaling_Locus0_MaxState
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Maximum scaling size for Locus 0 (which is the stomach by default).")
+		SetInfoText("Maximum scaling size for Oral Vore.")
 	endEvent
 endState
 
 state Scaling_Locus1_MaxState
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(Morphs.Locus_Maxes[1])
-		SetSliderDialogDefaultValue(25.0)
+		SetSliderDialogDefaultValue(10.0)
 		SetSliderDialogRange(0.0, 250.0)
 		SetSliderDialogInterval(0.1)
 	endEvent
@@ -1285,20 +1300,20 @@ state Scaling_Locus1_MaxState
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Maxes[1] = 25.0
-		SetSliderOptionValueST(25.0, "{2}")
+		Morphs.Locus_Maxes[1] = 10.0
+		SetSliderOptionValueST(10.0, "{2}")
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Maximum scaling size for Locus 1 (which is the buttocks by default).")
+		SetInfoText("Maximum scaling size for the Post-Vore visual.")
 	endEvent
 endState
 
 state Scaling_Locus3_MaxState
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(Morphs.Locus_Maxes[3])
-		SetSliderDialogDefaultValue(10.0)
+		SetSliderDialogDefaultValue(20.0)
 		SetSliderDialogRange(0.0, 100.0)
 		SetSliderDialogInterval(0.1)
 	endEvent
@@ -1310,16 +1325,16 @@ state Scaling_Locus3_MaxState
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Maxes[3] = 10.0
-		SetSliderOptionValueST(10.0, "{2}")
+		Morphs.Locus_Maxes[3] = 20.0
+		SetSliderOptionValueST(20.0, "{2}")
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
 		if Morphs.UseDualBreastMode
-			SetInfoText("Maximum scaling size for Locus 3 (which is the left breast by default).")
+			SetInfoText("Maximum scaling size for the left breast.")
 		else
-			SetInfoText("Maximum scaling size for Locus 3 (which is the breasts by default).")
+			SetInfoText("Maximum scaling size for Breast Vore.")
 		endIf
 	endEvent
 endState
@@ -1327,7 +1342,7 @@ endState
 state Scaling_Locus4_MaxState
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(Morphs.Locus_Maxes[4])
-		SetSliderDialogDefaultValue(10.0)
+		SetSliderDialogDefaultValue(20.0)
 		SetSliderDialogRange(0.0, 100.0)
 		SetSliderDialogInterval(0.1)
 	endEvent
@@ -1339,13 +1354,13 @@ state Scaling_Locus4_MaxState
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Maxes[4] = 10.0
-		SetSliderOptionValueST(10.0, "{2}")
+		Morphs.Locus_Maxes[4] = 20.0
+		SetSliderOptionValueST(20.0, "{2}")
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Maximum scaling size for Locus 4 (which is the right breast by default).")
+		SetInfoText("Maximum scaling size for the right breast.")
 	endEvent
 endState
 
@@ -1370,7 +1385,7 @@ state Scaling_Locus5_MaxState
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Maximum scaling size for Locus 5 (which is the scrotum by default).")
+		SetInfoText("Maximum scaling size for Cock Vore.")
 	endEvent
 endState
 
@@ -1388,7 +1403,7 @@ state DualBreastModeState
 		resetBellies = true
 	endEvent
 	event OnHighlightST()
-		SetInfoText("In Dual-Breast mode, the breasts are treated as separate locuses.")
+		SetInfoText("In Dual-Breast mode, the breasts are treated as separate vore types.")
 	endEvent
 endstate
 
@@ -1410,7 +1425,7 @@ state Slider_Locus0State
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Slider/Node for Locus 0 (which is the belly by default). Recommendations:\n" + \
+		SetInfoText("Slider/Node for Oral Vore. Recommendations:\n" + \
 		"'Vore Prey Belly' is a slider present in the Devourment bodies.\n" + \
 		"'PregnancyBelly' is a slider in CBBE, 3BA, and BHUNP; it's supported by many armors and outfits.")
 	endEvent
@@ -1428,14 +1443,13 @@ state Slider_Locus1State
 	endEvent
 
 	event OnDefaultST()
-		Morphs.Locus_Sliders[1] = "ChubbyButt"
+		Morphs.Locus_Sliders[1] = "SSBBW3 Belly Sic1"
 		SetInputOptionValueST(Morphs.Locus_Sliders[1])
 		resetBellies = true
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Slider/Node for Locus 1 (which is the buttocks by default).\n" + \
-		"Recommended: 'ChubbyButt' is a slider in CBBE, 3BA, and BHUNP; it's supported by many armors and outfits.")
+		SetInfoText("Slider/Node to use for a Post-Vore 'bloated' effect. This will increase as prey is digested.")
 	endEvent
 endState
 
@@ -1463,11 +1477,11 @@ state Slider_Locus3State
 	event OnHighlightST()
 		if Morphs.UseDualBreastMode
 			SetInfoText(\
-			"Slider/Node for Locus 3 (which is the left breast by default). Recommendations:\n" + \
+			"Slider/Node for the left breast by default. Recommendations:\n" + \
 			"'BVoreL' is the left breast vore slider from the Devourment bodies.\n" + \
 			"'CME L PreBreast' is the left breast node from the XPMSE skeleton. It works with almost everything but it can interfere with physics.")
 		else
-			SetInfoText("Slider/Node for Locus 3 (which is the breasts by default).\n" + \
+			SetInfoText("Slider/Node for Breast Vore.\n" + \
 			"Recommended: 'BreastsNewSH' is a slider in CBBE, 3BA, and BHUNP; it's supported by many armors and outfits.")
 		endIf
 	endEvent
@@ -1493,7 +1507,7 @@ state Slider_Locus4State
 	event OnHighlightST()
 		if Morphs.UseDualBreastMode
 			SetInfoText(\
-			"Slider/Node for Locus 4 (which is the right breast by default). Recommendations:\n" + \
+			"Slider/Node for the right breast. Recommendations:\n" + \
 			"'BVoreR' is the right breast vore slider from the Devourment bodies.\n" + \
 			"'CME R PreBreast' is the left breast node from the XPMSE skeleton. It works with almost everything but it can interfere with physics.")
 		else
@@ -1519,7 +1533,7 @@ state Slider_Locus5State
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Slider/Node for Locus 5 (which is the scrotum by default). Recommendations:\n" + \
+		SetInfoText("Slider/Node for Cock Vore. Recommendations:\n" + \
 		"'CVore' is the cockvore slider from the Devourment male bodies.\n" + \
 		"'NPC GenitalsScrotum [GenScrot]' is the scrotum node from the XPMSE skeleton. It works with almost everything.")
 	endEvent
@@ -1527,100 +1541,108 @@ endState
 
 state Chance_Locus0
 	Event OnSliderOpenST()
+		Float fMaxChance = ((LocusCumulative[0] - LocusChances[0]) - 1.0) * -1.0
+		fMaxChance = BoundFloat(fMaxChance, 0.0, 1.0)
 		SetSliderDialogStartValue(LocusChances[0])
-		SetSliderDialogDefaultValue(0.5)
-		SetSliderDialogRange(0.0, 100.0)
-		SetSliderDialogInterval(0.02)
+		SetSliderDialogDefaultValue(0.0)
+		SetSliderDialogRange(0.0, fMaxChance)
+		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
 		LocusChances[0] = a_value
-		SetSliderOptionValueST(a_value, "{2}")
+		SetSliderOptionValueST(a_value, "{2}%")
+		RecalculateLocusCumulative()
 	endEvent
 
 	event OnDefaultST()
-		LocusChances[0] = 0.5
-		SetSliderOptionValueST(0.5, "{2}")
+		SetSliderOptionValueST(LocusChances[0], "{2}%")
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Probability that NPCs will ingest to locus 0 (oral-vore by default)")
+		SetInfoText("Probability that NPCs will pick Oral Vore as their Vore Type on attack.")
 	endEvent
 endState
 
 state Chance_Locus1
 	Event OnSliderOpenST()
+		Float fMaxChance = ((LocusCumulative[0] - LocusChances[1]) - 1.0) * -1.0
+		fMaxChance = BoundFloat(fMaxChance, 0.0, 1.0)
 		SetSliderDialogStartValue(LocusChances[1])
-		SetSliderDialogDefaultValue(0.1)
-		SetSliderDialogRange(0.0, 100.0)
-		SetSliderDialogInterval(0.02)
+		SetSliderDialogDefaultValue(0.0)
+		SetSliderDialogRange(0.0, fMaxChance)
+		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
 		LocusChances[1] = a_value
-		SetSliderOptionValueST(a_value, "{2}")
+		SetSliderOptionValueST(a_value, "{2}%")
+		RecalculateLocusCumulative()
 	endEvent
 
 	event OnDefaultST()
-		LocusChances[1] = 0.1
-		SetSliderOptionValueST(0.1, "{2}")
+		SetSliderOptionValueST(LocusChances[1], "{2}%")
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Probability that NPCs will ingest to locus 1 (anal-vore by default)")
+		SetInfoText("Probability that NPCs will pick Anal Vore as their Vore Type on attack.")
 	endEvent
 endState
 
 state Chance_Locus2
 	Event OnSliderOpenST()
+		Float fMaxChance = ((LocusCumulative[0] - LocusChances[2]) - 1.0) * -1.0
+		fMaxChance = BoundFloat(fMaxChance, 0.0, 1.0)
 		SetSliderDialogStartValue(LocusChances[2])
-		SetSliderDialogDefaultValue(0.1)
-		SetSliderDialogRange(0.0, 100.0)
-		SetSliderDialogInterval(0.02)
+		SetSliderDialogDefaultValue(0.0)
+		SetSliderDialogRange(0.0, fMaxChance)
+		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
 		LocusChances[2] = a_value
-		SetSliderOptionValueST(a_value, "{2}")
+		SetSliderOptionValueST(a_value, "{2}%")
+		RecalculateLocusCumulative()
 	endEvent
 
 	event OnDefaultST()
-		LocusChances[2] = 0.1
-		SetSliderOptionValueST(0.1, "{2}")
+		SetSliderOptionValueST(LocusChances[2], "{2}%")
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Probability that NPCs will ingest to locus 2 (unbirth by default)")
+		SetInfoText("Probability that NPCs will pick Unbirth as their Vore Type on attack. NPCs without a vagina will have this chance roll over into their Oral Vore chance.")
 	endEvent
 endState
 
 state Chance_Locus3
 	Event OnSliderOpenST()
+		Float fMaxChance = ((LocusCumulative[0] - LocusChances[3]) - 1.0) * -1.0
+		fMaxChance = BoundFloat(fMaxChance, 0.0, 1.0)
 		SetSliderDialogStartValue(LocusChances[3])
-		SetSliderDialogDefaultValue(0.1)
-		SetSliderDialogRange(0.0, 100.0)
-		SetSliderDialogInterval(0.02)
+		SetSliderDialogDefaultValue(0.0)
+		SetSliderDialogRange(0.0, fMaxChance)
+		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
 		LocusChances[3] = a_value
-		SetSliderOptionValueST(a_value, "{2}")
+		SetSliderOptionValueST(a_value, "{2}%")
+		RecalculateLocusCumulative()
 	endEvent
 
 	event OnDefaultST()
-		LocusChances[3] = 0.1
-		SetSliderOptionValueST(0.1, "{2}")
+		SetSliderOptionValueST(LocusChances[3], "{2}%")
 	endEvent
 
 	event OnHighlightST()
-		if Morphs.UseDualBreastMode
-			SetInfoText("Probability that NPCs will ingest to locus 3 (left breast-vore by default)")
-		else
-			SetInfoText("Probability that NPCs will ingest to locus 3 (breast-vore by default)")
-		endIf
+		;if Morphs.UseDualBreastMode
+			SetInfoText("Probability that NPCs will pick Breast Vore as their Vore Type on attack. NPCs without breasts will have this chance roll over into their Oral Vore chance. With Dual-Breast Mode on, NPCs will try to alternate.")
+		;else
+		;	SetInfoText("Probability that NPCs will ingest to locus 3 (breast-vore by default)")
+		;endIf
 	endEvent
 endState
-
+;/
 state Chance_Locus4
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(LocusChances[4])
@@ -1631,39 +1653,41 @@ state Chance_Locus4
 
 	event OnSliderAcceptST(float a_value)
 		LocusChances[4] = a_value
-		SetSliderOptionValueST(a_value, "{2}")
+		SetSliderOptionValueST(a_value, "{2}%")
 	endEvent
 
 	event OnDefaultST()
 		LocusChances[4] = 0.1
-		SetSliderOptionValueST(0.1, "{2}")
+		SetSliderOptionValueST(0.1, "{2}%")
 	endEvent
 
 	event OnHighlightST()
 		SetInfoText("Probability that NPCs will ingest to locus 4 (right breast-vore by default)")
 	endEvent
 endState
-
+/;
 state Chance_Locus5
 	Event OnSliderOpenST()
+		Float fMaxChance = ((LocusCumulative[0] - LocusChances[5]) - 1.0) * -1.0
+		fMaxChance = BoundFloat(fMaxChance, 0.0, 1.0)
 		SetSliderDialogStartValue(LocusChances[5])
-		SetSliderDialogDefaultValue(0.1)
-		SetSliderDialogRange(0.0, 100.0)
-		SetSliderDialogInterval(0.02)
+		SetSliderDialogDefaultValue(0.0)
+		SetSliderDialogRange(0.0, fMaxChance)
+		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
 		LocusChances[5] = a_value
-		SetSliderOptionValueST(a_value, "{2}")
+		SetSliderOptionValueST(a_value, "{2}%")
+		RecalculateLocusCumulative()
 	endEvent
 
 	event OnDefaultST()
-		LocusChances[5] = 0.1
-		SetSliderOptionValueST(0.1, "{2}")
+		SetSliderOptionValueST(LocusChances[5], "{2}%")
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Probability that NPCs will ingest to locus 5 (cock-vore by default)")
+		SetInfoText("Probability that NPCs will pick Cock Vore as their Vore Type on attack. NPCs without male genitalia will have this chance roll over into their Oral Vore chance.")
 	endEvent
 endState
 
@@ -1704,7 +1728,7 @@ state EliminationLocusState
 		setToggleOptionValueST(Morphs.UseEliminationLocus)
 	endEvent
 	event OnHighlightST()
-		SetInfoText("As digestion proceeds and the stomach shrinks, the butt will be inflated proportionally.")
+		SetInfoText("As digestion proceeds and the stomach shrinks, this slider increases proportionally. The slider shrinks when you defecate or otherwise clear out your stomach.")
 	endEvent
 endstate
 
