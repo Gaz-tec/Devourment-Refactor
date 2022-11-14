@@ -758,6 +758,32 @@ event OnPageReset(string page)
 				i += 1
 			EndWhile
 		EndIf
+
+	ElseIf page == "$DVT_Page_Reform"
+
+		setCursorFillMode(LEFT_TO_RIGHT)
+		setCursorPosition(14)
+		addHeaderOption("Phylacteries")
+		setCursorPosition(16)
+		
+		DevourmentReformationQuest ReformQuest = Quest.GetQuest("DevourmentReformationQuest") as DevourmentReformationQuest
+		Form[] ReformationHosts = ReformQuest.PhylacteryList.ToArray()
+		int hostIndex = ReformationHosts.length
+
+		while hostIndex
+			hostIndex -= 1
+			Actor host = ReformationHosts[hostIndex] as Actor
+
+			; Clear any hosts that are dead, disabled, or unfriendly.
+			if host
+				if host.IsDead() || host.IsDisabled() || !Manager.AreFriends(PlayerRef, host)
+					Log2(PREFIX, "DVT_Page_Reform", "Purging dead/disabled/hostile host.", Namer(host))
+					ReformQuest.PhylacteryList.RemoveAddedForm(host)
+				Else
+					addTextOption("Host:", Namer(host))
+				endIf
+			endIf
+		endWhile
 		
 	ElseIf page == "$DVT_Page_LocusMorphs"
 
@@ -2134,14 +2160,30 @@ Function DisplayQuickSettings()
 			exit = true
 
 		elseif result == ENTRY_MAXSKILLS
-			Manager.GivePredXP(PlayerRef, 10000.0)
-			Manager.GivePreyXP(PlayerRef, 10000.0)
+			MaxSkills()
 			
 		elseif result == ENTRY_MAXPERKS
-			Manager.IncreaseVoreLevel(PlayerRef, 100)
+			MaxPerks()
 			
 		endIf
 	endWhile
+EndFunction
+
+
+Function MaxSkills()
+{ MCM Helper workaround. }
+
+	Manager.GivePredXP(PlayerRef, 10000.0)
+	Manager.GivePreyXP(PlayerRef, 10000.0)
+
+EndFunction
+
+
+Function MaxPerks()
+{ MCM Helper workaround. }
+
+	Manager.IncreaseVoreLevel(PlayerRef, 100)
+
 EndFunction
 
 

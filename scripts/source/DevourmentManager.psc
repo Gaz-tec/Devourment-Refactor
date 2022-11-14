@@ -356,9 +356,22 @@ Int lockTries = 0
 Function Upgrade(int oldVersion, int newVersion)
 	Log2(PREFIX, "Upgrade", oldVersion, newVersion)
 	
-	if oldVersion > 0 && oldVersion != newVersion
-		ResetBellies()
-	endIf
+	if oldVersion != newVersion
+		if oldVersion > 0
+			ResetBellies()
+		endIf
+		if oldVersion < 220
+			Menu.AltPerkMenus = True	;Fix for users not using Minimalistic Custom Skills.
+			Menu.LocusChances[0] = 0.6	;This version now caps Locus Chances, so let's just sanitise settings.
+			Menu.LocusChances[1] = 0.1
+			Menu.LocusChances[2] = 0.1
+			Menu.LocusChances[3] = 0.1
+			Menu.LocusChances[4] = 0.0	;In 2.2 I removed the second Breast Vore chance MCM option.
+			Menu.LocusChances[5] = 0.1
+			Menu.RecalculateLocusCumulative()
+		endIf
+	endif
+
 EndFunction
 
 

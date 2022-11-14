@@ -616,9 +616,8 @@
 					"help": "$DVT_Help_AutoRebirth",
 					"type": "toggle",
 					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
+						"scriptName": "DevourmentMCM",
 						"propertyName": "AutoRebirth",
 						"defaultValue": false
 					}
