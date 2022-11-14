@@ -53,7 +53,8 @@
 
 	"Stick the Landing" : {
 		"Perk" : "__formData|Devourment.esp|0xC22",
-		"Skill" : 50.0
+		"Skill" : 50.0,
+		"Description" : "You recover quickly from being regurgitated."
 	},
 
 	"Resilience I" : {
