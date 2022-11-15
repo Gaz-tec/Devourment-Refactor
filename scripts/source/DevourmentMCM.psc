@@ -609,9 +609,8 @@ event OnPageReset(string page)
 		preySkillInfo = addTextOption("Devourment prey skill: ", preySkill)
 		addTextOption("Devourment level: ", Manager.GetVoreLevel(target))
 		addTextOption("Devourment perk points: ", perkPoints)
-		;Disabled for now, as Minimalistic Custom Skills Menu for AE cannot make use of them.
-		;addToggleOptionSt("PredPerksState", "$DVT_ShowPredPerks", false)
-		;addToggleOptionSt("PreyPerksState", "$DVT_ShowPreyPerks", false)
+		addToggleOptionSt("PredPerksState", "$DVT_ShowPredPerks", false)
+		addToggleOptionSt("PreyPerksState", "$DVT_ShowPreyPerks", false)
 		
 		String raceEDID = MiscUtil.GetActorRaceEditorID(PlayerRef)
 		Int CapacityActual = 1

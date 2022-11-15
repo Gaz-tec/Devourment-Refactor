@@ -83,11 +83,50 @@
 					"ignoreConflicts": false
 				},
 				{
+					"text": "$DVT_Header_WhoGetsDigested",
+					"type": "header"
+				},
+				{
 					"type": "empty"
 				},
-				
 				{
-					"text": "$DVT_Header_Difficulty",
+					"text": "$DVT_DigestNonessentials",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "killNPCs",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_DigestEssentials",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "killEssential",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_DigestPlayer",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "killPlayer",
+						"defaultValue": true
+					}
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_Header_Gameplay",
 					"type": "header"
 				},
 				{
@@ -133,41 +172,6 @@
 						"$DVT_STRUGGLE_Everyone"
 						],
 						"defaultValue": 2
-					}
-				},
-				{
-					"text": "$DVT_Autovore",
-					"type": "enum",
-					"help": "$DVT_Help_Autovore",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|A73", 
-						"sourceType": "PropertyValueInt",
-						"scriptName": "DevourmentRandomNoms",
-						"propertyName": "AutoNoms",
-					 	 "options": [
-						"$DVT_Noms0",
-						"$DVT_Noms1", 
-						"$DVT_Noms2",
-						"$DVT_Noms3"
-						],
-						"shortNames": ["$DVT_ShortNoms0", "$DVT_ShortNoms1", "$DVT_ShortNoms2", "$DVT_ShortNoms3"],
-						"defaultValue": 0
-					}
-				},
-				{
-					"text": "$DVT_NomsChance",
-					"help": "$DVT_Help_NomsChance",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|A73", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentRandomNoms",
-						"propertyName": "NomsChance",
-					  	"min": 0.005,
-					  	"max": 1.0,
-					  	"step": 0.005,
-						"defaultValue": 1.0,
-					  	"formatString": "{3}"
 					}
 				},
 				{
@@ -329,30 +333,6 @@
 					}
 				},
 				{
-					"text": "$DVT_endoAnyone",
-					"help": "$DVT_Help_endoAnyone",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "endoAnyone",
-						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_endoStruggling",
-					"help": "$DVT_Help_endoStruggling",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "EndoStruggling",
-						"defaultValue": true
-					}
-				},
-				{
 					"text": "$DVT_ComplexStruggles",
 					"help": "$DVT_Help_ComplexStruggles",
 					"type": "toggle",
@@ -389,55 +369,141 @@
 					}
 				},
 				{
-					"text": "$DVT_EndoTimeout",
-					"help": "$DVT_Help_EndoTimeout",
+					"text": "$DVT_VoreDialogue",
+					"help": "$DVT_Help_VoreDialogue",
 					"type": "toggle",
 					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "EndoTimeout",
-						"defaultValue": true
+						"sourceForm": "Devourment.esp|80C",
+						"sourceType": "GlobalValue",
+						"defaultValue": 1.0
 					}
 				},
 				{
-					"text": "$DVT_Header_WhoGetsDigested",
-					"type": "header"
+					"text": "$DVT_LiveTime",
+					"help": "$DVT_Help_LiveTime",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "liveMultiplier",
+					  	"min": 0.1,
+					  	"max": 10.0,
+					  	"step": 0.1,
+						"defaultValue": 1.0,
+					  	"formatString": "{2}x"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|96A",   
+						"scriptName": "DevourmentManager",
+						"function": "AdjustPreyData",
+						"params": []
+					}
 				},
 				{
-					"type": "empty"
+					"text": "$DVT_DeadTime",
+					"help": "$DVT_Help_DeadTime",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "DigestionTime",
+					  	"min": 30.0,
+					  	"max": 86400.0,
+					  	"step": 30.0,
+						"defaultValue": 240.0,
+					  	"formatString": "{0} seconds"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|96A",   
+						"scriptName": "DevourmentManager",
+						"function": "AdjustPreyData",
+						"params": []
+					}
 				},
 				{
-					"text": "$DVT_DigestNonessentials",
+					"text": "$DVT_MinSwallow",
+					"help": "$DVT_Help_MinSwallow",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MinimumSwallowChance",
+					  	"min": 0.0,
+					  	"max": 100.0,
+					  	"step": 1.0,
+						"defaultValue": 5.0,
+					  	"formatString": "{0}%"
+					}
+				},
+				{
+					"text": "$DVT_CooldownNPC",
+					"help": "$DVT_Help_CooldownNPC",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "Cooldown_NPC",
+					  	"min": 2.0,
+					  	"max": 60.0,
+					  	"step": 0.5,
+						"defaultValue": 6.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_CooldownCreature",
+					"help": "$DVT_Help_CooldownCreature",
+					"type": "slider",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "Cooldown_Creature",
+					  	"min": 2.0,
+					  	"max": 60.0,
+					  	"step": 0.5,
+						"defaultValue": 4.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_MultiPrey",
+					"help": "$DVT_Help_MultiPrey",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_MULTI_Off",
+							"$DVT_MULTI_Count",
+							"$DVT_MULTI_Size1",
+							"$DVT_MULTI_Size2",
+							"$DVT_MULTI_Full"
+						],
+						"shortNames": ["Single", "Count", "Size (Restrict)", "Size (Vomit)", "Unlimited"],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "multiprey",
+						"defaultValue": 2
+					}	
+				},
+				{
+					"text": "$DVT_PreyStripping",
+					"help": "$DVT_Help_PreyStripping",
 					"type": "toggle",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
 						"scriptName": "DevourmentManager",
-						"propertyName": "killNPCs",
+						"propertyName": "stomachStrip",
 						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_DigestEssentials",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "killEssential",
-						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_DigestPlayer",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "killPlayer",
-						"defaultValue": true
 					}
 				}
 			]
@@ -493,8 +559,108 @@
 		},
 		{
 			"pageDisplayName": "$DVT_Page_Disposal",
-			"cursorFillMode": "topToBottom",
+			"cursorFillMode": "leftToRight",
 			"content": [
+				{
+					"text": "$DVT_Header_Disposal",
+					"type": "header"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_SCAT_TypeNPC",
+					"help": "$DVT_Help_SCAT_TypeNPC",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_SCAT_Absorb",
+							"$DVT_SCAT_Feces",
+							"$DVT_SCAT_Bones",
+							"$DVT_SCAT_Vomit"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "scatTypeNPC",
+						"defaultValue": 2
+					}	
+				},
+				{
+					"text": "$DVT_SCAT_TypeCreature",
+					"help": "$DVT_Help_SCAT_TypeCreature",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_SCAT_Absorb",
+							"$DVT_SCAT_Feces",
+							"$DVT_SCAT_Vomit"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "scatTypeCreature",
+						"defaultValue": 1
+					}	
+				},
+				{
+					"text": "$DVT_SCAT_TypeBolus",
+					"help": "$DVT_Help_SCAT_TypeBolus",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_SCAT_Add",
+							"$DVT_SCAT_Defecate",
+							"$DVT_SCAT_Vomit"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "scatTypeBolus",
+						"defaultValue": 1
+					}	
+				},
+				{
+					"text": "$DVT_VomitStyle",
+					"help": "$DVT_Help_VomitStyle",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_VOMITSTYLE0",
+							"$DVT_VOMITSTYLE1",
+							"$DVT_VOMITSTYLE2"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "VomitStyle",
+						"defaultValue": 2
+					}	
+				},
+				{
+					"text": "$DVT_crouchScat",
+					"help": "$DVT_Help_crouchScat",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "crouchScat",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_DefecateGear",
+					"help": "$DVT_Help_DefecateGear",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "ShitItems",
+						"defaultValue": false
+					}
+				}
 			]
 		},
 		{
@@ -622,92 +788,102 @@
 						"defaultValue": false
 					}
 				}
-				
-
 			]
 		},
 		{
 			"pageDisplayName": "$DVT_Page_Endo",
 			"cursorFillMode": "leftToRight",
 			"content": [
+				{
+					"text": "$DVT_Header_Endo",
+					"type": "header"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_endoAnyone",
+					"help": "$DVT_Help_endoAnyone",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "endoAnyone",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_endoStruggling",
+					"help": "$DVT_Help_endoStruggling",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "EndoStruggling",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_EndoTimeout",
+					"help": "$DVT_Help_EndoTimeout",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "EndoTimeout",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_Autovore",
+					"type": "enum",
+					"help": "$DVT_Help_Autovore",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|A73", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentRandomNoms",
+						"propertyName": "AutoNoms",
+					 	 "options": [
+						"$DVT_Noms0",
+						"$DVT_Noms1", 
+						"$DVT_Noms2",
+						"$DVT_Noms3"
+						],
+						"shortNames": ["$DVT_ShortNoms0", "$DVT_ShortNoms1", "$DVT_ShortNoms2", "$DVT_ShortNoms3"],
+						"defaultValue": 0
+					}
+				},
+				{
+					"text": "$DVT_NomsChance",
+					"help": "$DVT_Help_NomsChance",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|A73", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentRandomNoms",
+						"propertyName": "NomsChance",
+					  	"min": 0.005,
+					  	"max": 1.0,
+					  	"step": 0.005,
+						"defaultValue": 1.0,
+					  	"formatString": "{3}"
+					}
+				}
 			]
 		},
 		{
 			"pageDisplayName": "$DVT_Page_VisualSoundMisc",
-			"cursorFillMode": "topToBottom",
+			"cursorFillMode": "leftToRight",
 			"content": [
 				{
 					"text": "$DVT_Header_Visuals",
 					"type": "header"
 				},
 				{
-					"text": "$DVT_SCAT_TypeNPC",
-					"help": "$DVT_Help_SCAT_TypeNPC",
-					"type": "enum",
-					"valueOptions": {
-						"options": [
-							"$DVT_SCAT_Absorb",
-							"$DVT_SCAT_Feces",
-							"$DVT_SCAT_Bones",
-							"$DVT_SCAT_Vomit"
-						],
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueInt",
-						"scriptName": "DevourmentManager",
-						"propertyName": "scatTypeNPC",
-						"defaultValue": 2
-					}	
-				},
-				{
-					"text": "$DVT_SCAT_TypeCreature",
-					"help": "$DVT_Help_SCAT_TypeCreature",
-					"type": "enum",
-					"valueOptions": {
-						"options": [
-							"$DVT_SCAT_Absorb",
-							"$DVT_SCAT_Feces",
-							"$DVT_SCAT_Vomit"
-						],
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueInt",
-						"scriptName": "DevourmentManager",
-						"propertyName": "scatTypeCreature",
-						"defaultValue": 1
-					}	
-				},
-				{
-					"text": "$DVT_SCAT_TypeBolus",
-					"help": "$DVT_Help_SCAT_TypeBolus",
-					"type": "enum",
-					"valueOptions": {
-						"options": [
-							"$DVT_SCAT_Add",
-							"$DVT_SCAT_Defecate",
-							"$DVT_SCAT_Vomit"
-						],
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueInt",
-						"scriptName": "DevourmentManager",
-						"propertyName": "scatTypeBolus",
-						"defaultValue": 1
-					}	
-				},
-				{
-					"text": "$DVT_VomitStyle",
-					"help": "$DVT_Help_VomitStyle",
-					"type": "enum",
-					"valueOptions": {
-						"options": [
-							"$DVT_VOMITSTYLE0",
-							"$DVT_VOMITSTYLE1",
-							"$DVT_VOMITSTYLE2"
-						],
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueInt",
-						"scriptName": "DevourmentManager",
-						"propertyName": "VomitStyle",
-						"defaultValue": 2
-					}	
+					"type": "empty"
 				},
 				{
 					"text": "$DVT_cameraShake",
@@ -790,8 +966,30 @@
 					}
 				},
 				{
+					"text": "$DVT_WeightGain",
+					"help": "$DVT_Help_WeightGain",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "WeightGain",
+					  	"min": 0.0,
+					  	"max": 20.0,
+					  	"step": 0.1,
+						"defaultValue": 0.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"type": "empty"
+				},
+				{
 					"text": "$DVT_Header_Sound",
 					"type": "header"
+				},
+				{
+					"type": "empty"
 				},
 				{
 					"text": "$DVT_ScreamSounds",
@@ -854,153 +1052,11 @@
 					}
 				},
 				{
-					"text": "$DVT_Header_Other",
-					"type": "header",
-					"position": 1
+					"text": "$DVT_Header_Animations",
+					"type": "header"
 				},
 				{
-					"text": "$DVT_VoreDialogue",
-					"help": "$DVT_Help_VoreDialogue",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|80C",
-						"sourceType": "GlobalValue",
-						"defaultValue": 1.0
-					}
-				},
-				{
-					"text": "$DVT_LiveTime",
-					"help": "$DVT_Help_LiveTime",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "liveMultiplier",
-					  	"min": 0.1,
-					  	"max": 10.0,
-					  	"step": 0.1,
-						"defaultValue": 1.0,
-					  	"formatString": "{2}x"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|96A",   
-						"scriptName": "DevourmentManager",
-						"function": "AdjustPreyData",
-						"params": []
-					}
-				},
-				{
-					"text": "$DVT_DeadTime",
-					"help": "$DVT_Help_DeadTime",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "DigestionTime",
-					  	"min": 30.0,
-					  	"max": 86400.0,
-					  	"step": 30.0,
-						"defaultValue": 240.0,
-					  	"formatString": "{0} seconds"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|96A",   
-						"scriptName": "DevourmentManager",
-						"function": "AdjustPreyData",
-						"params": []
-					}
-				},
-				{
-					"text": "$DVT_MinSwallow",
-					"help": "$DVT_Help_MinSwallow",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "MinimumSwallowChance",
-					  	"min": 0.0,
-					  	"max": 100.0,
-					  	"step": 1.0,
-						"defaultValue": 5.0,
-					  	"formatString": "{0}%"
-					}
-				},
-				{
-					"text": "$DVT_WeightGain",
-					"help": "$DVT_Help_WeightGain",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "WeightGain",
-					  	"min": 0.0,
-					  	"max": 20.0,
-					  	"step": 0.1,
-						"defaultValue": 0.0,
-					  	"formatString": "{1}"
-					}
-				},
-				{
-					"text": "$DVT_MultiPrey",
-					"help": "$DVT_Help_MultiPrey",
-					"type": "enum",
-					"valueOptions": {
-						"options": [
-							"$DVT_MULTI_Off",
-							"$DVT_MULTI_Count",
-							"$DVT_MULTI_Size1",
-							"$DVT_MULTI_Size2",
-							"$DVT_MULTI_Full"
-						],
-						"shortNames": ["Single", "Count", "Size (Restrict)", "Size (Vomit)", "Unlimited"],
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueInt",
-						"scriptName": "DevourmentManager",
-						"propertyName": "multiprey",
-						"defaultValue": 2
-					}	
-				},
-				{
-					"text": "$DVT_crouchScat",
-					"help": "$DVT_Help_crouchScat",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "crouchScat",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_DefecateGear",
-					"help": "$DVT_Help_DefecateGear",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "ShitItems",
-						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_PreyStripping",
-					"help": "$DVT_Help_PreyStripping",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "stomachStrip",
-						"defaultValue": false
-					}
+					"type": "empty"
 				},
 				{
 					"text": "$DVT_DragonAnimations",
@@ -1036,40 +1092,6 @@
 						"scriptName": "DevourmentManager",
 						"propertyName": "drawnAnimations",
 						"defaultValue": false
-					}
-				},
-				{
-					"text": "$DVT_CooldownNPC",
-					"help": "$DVT_Help_CooldownNPC",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "Cooldown_NPC",
-					  	"min": 2.0,
-					  	"max": 60.0,
-					  	"step": 0.5,
-						"defaultValue": 6.0,
-					  	"formatString": "{1}"
-					}
-				},
-				{
-					"text": "$DVT_CooldownCreature",
-					"help": "$DVT_Help_CooldownCreature",
-					"type": "slider",
-					"groupCondition": 1,
-  					"groupBehavior": "hide",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "Cooldown_Creature",
-					  	"min": 2.0,
-					  	"max": 60.0,
-					  	"step": 0.5,
-						"defaultValue": 4.0,
-					  	"formatString": "{1}"
 					}
 				}
 			]
