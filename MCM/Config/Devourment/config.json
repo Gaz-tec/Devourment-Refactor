@@ -1275,6 +1275,34 @@
 					}
 				},
 				{
+					"text": "$DVT_ResetPredSkill",
+					"type": "text",
+					"help": "$DVT_Help_ResetPredSkill",
+					"valueOptions": {
+						"value": "Reset Pred Skill"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM",
+					  	"function": "ResetPredSkill",
+					  	"params": []
+					}
+				},
+				{
+					"text": "$DVT_ResetPreySkill",
+					"type": "text",
+					"help": "$DVT_Help_ResetPreySkill",
+					"valueOptions": {
+						"value": "Reset Prey Skill"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM",
+					  	"function": "ResetPreySkill",
+					  	"params": []
+					}
+				},
+				{
 					"text": "$DVT_FlushVomitQueue",
 					"type": "text",
 					"help": "$DVT_Help_FlushVomitQueue",

@@ -364,6 +364,24 @@ Function resetPrey()
 EndFunction
 
 
+function ResetPredSkill()
+	if target == PlayerRef
+		Manager.Devourment_PredSkill.SetValue(10.0)
+	endIf
+	StorageUtil.SetFloatValue(target, "vorePredSkill", 0.0)
+	StorageUtil.SetFloatValue(target, "vorePredXP", 0.0)
+endFunction
+
+
+function ResetPreySkill()
+	if target == PlayerRef
+		Manager.Devourment_PreySkill.SetValue(10.0)
+	endIf
+	StorageUtil.SetFloatValue(target, "vorePreySkill", 0.0)
+	StorageUtil.SetFloatValue(target, "vorePreyXP", 0.0)
+endFunction
+
+
 Function ResetVisuals()
 	Manager.UnassignAllPreyMeters()
 	Manager.RestoreAllPreyMeters()
@@ -2172,8 +2190,8 @@ EndFunction
 Function MaxSkills()
 { MCM Helper workaround. }
 
-	Manager.GivePredXP(PlayerRef, 10000.0)
-	Manager.GivePreyXP(PlayerRef, 10000.0)
+	Manager.GivePredXP(target, 10000.0)
+	Manager.GivePreyXP(target, 10000.0)
 
 EndFunction
 
@@ -2181,7 +2199,7 @@ EndFunction
 Function MaxPerks()
 { MCM Helper workaround. }
 
-	Manager.IncreaseVoreLevel(PlayerRef, 100)
+	Manager.IncreaseVoreLevel(target, 100)
 
 EndFunction
 
