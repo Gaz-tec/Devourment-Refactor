@@ -505,6 +505,17 @@
 						"propertyName": "stomachStrip",
 						"defaultValue": false
 					}
+				},
+				{
+					"text": "$DVT_GentleGas",
+					"help": "$DVT_Help_GentleGas",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentMCM",
+						"propertyName": "GentleGas",
+						"defaultValue": false
+					}
 				}
 			]
 		},

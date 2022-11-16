@@ -648,6 +648,13 @@ event OnPageReset(string page)
 		addTextOption("Acid resistance: ", acidresistance + "%")
 		setCursorPosition(1)
 
+		addHeaderOption("Perk Toggles")
+		AddToggleOptionST("HungryBonesState", "$DVT_HungryBonesState", EnableHungryBones)
+		AddToggleOptionST("CordycepsState", "$DVT_CordycepsState", EnableCordyceps)
+		AddToggleOptionST("CounterVoreState", "$DVT_CounterVoreState", CounterVoreEnabled)
+		AddToggleOptionST("DigestToInvState", "$DVT_DigestToInvState", DigestToInventory)
+
+
 		addHeaderOption("Total times swallowed: " + (endoes + vores))
 		addTextOption("Endo", endoes)
 		addTextOption("Vore", vores)
@@ -1061,6 +1068,78 @@ event OnOptionInputAccept(int oid, string a_input)
 	EndIf
 
 endEvent
+
+
+state HungryBonesState
+	event OnDefaultST()
+		EnableHungryBones = true
+		setToggleOptionValueST(EnableHungryBones)
+	endEvent
+
+	event OnSelectST()
+		EnableHungryBones = !EnableHungryBones
+		setToggleOptionValueST(EnableHungryBones)
+		ForcePageReset()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Toggles the effects of the Hungry Bones perk, which resurrects skeletons you defecate automatically.")
+	endEvent
+endstate
+
+
+state CordycepsState
+	event OnDefaultST()
+		EnableCordyceps = true
+		setToggleOptionValueST(EnableCordyceps)
+	endEvent
+
+	event OnSelectST()
+		EnableCordyceps = !EnableCordyceps
+		setToggleOptionValueST(EnableCordyceps)
+		ForcePageReset()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Toggles the effects of the Cordyceps perk, which gives partial control over hostile predators you're swallowed by.")
+	endEvent
+endstate
+
+
+state CounterVoreState
+	event OnDefaultST()
+		CounterVoreEnabled = true
+		setToggleOptionValueST(CounterVoreEnabled)
+	endEvent
+
+	event OnSelectST()
+		CounterVoreEnabled = !CounterVoreEnabled
+		setToggleOptionValueST(CounterVoreEnabled)
+		ForcePageReset()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Toggles the effects of the Counter-Vore perk, which gives a chance to swallow enemies who fail to swallow you.")
+	endEvent
+endstate
+
+
+state DigestToInvState
+	event OnDefaultST()
+		DigestToInventory = false
+		setToggleOptionValueST(DigestToInventory)
+	endEvent
+
+	event OnSelectST()
+		DigestToInventory = !DigestToInventory
+		setToggleOptionValueST(DigestToInventory)
+		ForcePageReset()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("If true, Items broken down with the Digest Items power are deposited straight into your inventory.")
+	endEvent
+endstate
 
 
 state ShowHelpState
