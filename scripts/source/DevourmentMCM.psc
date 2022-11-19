@@ -67,7 +67,7 @@ Spell Property Power_EatThis auto
 
 
 ; Script-defined Properties.
-int property VERSION = 210 auto Hidden
+;int property VERSION = 210 auto Hidden
 bool property EnableHungryBones = true auto Hidden	;Makes it so Skeletons defecated start resurrected as Skeletons.
 bool property EnableCordyceps = true auto Hidden 	;Partially control actor movements / attacks if they swallow you.
 bool property AutoRebirth = false auto Hidden	;Makes it so prey that are unbirthed are automatically reformed when absorbed.
@@ -104,7 +104,7 @@ int optionsMap
 
 
 int function GetVersion()
-	return 210
+	return 220
 endFunction
 
 
@@ -140,7 +140,7 @@ EndEvent
 Function Upgrade(int oldVersion, int newVersion)
 { Version 200 is a clean break, so upgrades all start from there. }
 	if oldVersion < newVersion
-		VERSION = newVersion
+		;VERSION = newVersion
 		PlayerAlias.Upgrade(oldVersion, newVersion)
 		Manager.Upgrade(oldVersion, newVersion)
 		DevourmentSkullHandler.instance().Upgrade(oldVersion, newVersion)
@@ -621,7 +621,7 @@ event OnPageReset(string page)
 		int vores = Manager.GetTimesSwallowed(target, false)
 
 		setCursorFillMode(TOP_TO_BOTTOM)
-		addHeaderOption("Devourment v" + (Version / 100) + "." + (Version % 100))
+		addHeaderOption("Devourment v" + (CurrentVersion / 100) + "." + (CurrentVersion % 100))
 		addTextOption("Viewing: ", targetName)
 		predSkillInfo = addTextOption("Devourment pred skill: ", predSkill)
 		preySkillInfo = addTextOption("Devourment prey skill: ", preySkill)

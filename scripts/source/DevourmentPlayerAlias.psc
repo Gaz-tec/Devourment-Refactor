@@ -112,14 +112,16 @@ Event OnPlayerLoadGame()
 
 	(DevourMCM as ski_questbase).OnGameReload()	;Required by MCM Helper. I did this here just to avoid attaching a load game alias.
 
-	if DevourMCM.VERSION < DevourMCM.GetVersion()
-		Log3(PREFIX, "OnPlayerLoadGame", "UPGRADE REQUIRED", DevourMCM.VERSION, DevourMCM.GetVersion())
-		DevourMCM.Upgrade(DevourMCM.VERSION, DevourMCM.GetVersion())
+	;/
+	if DevourMCM.CurrentVersion < DevourMCM.GetVersion()
+		Log3(PREFIX, "OnPlayerLoadGame", "UPGRADE REQUIRED", DevourMCM.CurrentVersion, DevourMCM.GetVersion())
+		DevourMCM.Upgrade(DevourMCM.CurrentVersion, DevourMCM.GetVersion())
 	endIf
+	/;
 
 	Manager.LoadGameChecks()
 	self.LoadGameChecks()
-	Utility.wait(3.0)
+	Utility.wait(1.0)
 EndEvent
 
 
