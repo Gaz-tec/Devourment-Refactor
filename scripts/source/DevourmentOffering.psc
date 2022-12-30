@@ -29,9 +29,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	pred.EvaluatePackage()
 
 	prey.SheatheWeapon()
-	Debug.SendAnimationEvent(prey, "IdlePrayCrouchedEnter")
+	;Debug.SendAnimationEvent(prey, "IdlePrayCrouchedEnter")
 	
-	RegisterForSingleUpdate(4.0)
+	RegisterForSingleUpdate(1.0)
 EndEvent
 
 

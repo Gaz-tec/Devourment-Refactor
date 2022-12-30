@@ -962,13 +962,12 @@ Event OnOptionSelect(int a_option)
 
 	parent.OnOptionSelect(a_option)
 
-	if !AssertTrue(PREFIX, "OnOptionSelect", "JIntMap_hasKey(optionsMap, a_option)", JIntMap_hasKey(optionsMap, a_option))
-		return
-	endIf
-
 	If CurrentPage == "$DVT_Page_Whitelist"
 		; Get the double.
 		int od = JIntMap_GetObj(optionsMap, a_option)
+		if !AssertTrue(PREFIX, "OnOptionSelect", "JIntMap_hasKey(optionsMap, a_option)", JIntMap_hasKey(optionsMap, a_option))
+			return
+		endIf
 		if !AssertExists(PREFIX, "OnOptionSelect", "od", od)
 			return
 		endIf
@@ -986,6 +985,9 @@ Event OnOptionSelect(int a_option)
 	ElseIf CurrentPage == "$DVT_Page_WhoCanPred"
 		; Get the double.
 		int od = JIntMap_GetObj(optionsMap, a_option)
+		if !AssertTrue(PREFIX, "OnOptionSelect", "JIntMap_hasKey(optionsMap, a_option)", JIntMap_hasKey(optionsMap, a_option))
+			return
+		endIf
 		if !AssertExists(PREFIX, "OnOptionSelect", "od", od)
 			return
 		endIf

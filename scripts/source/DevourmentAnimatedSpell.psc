@@ -6,22 +6,25 @@ Intended to be extended by spells where needed. Does not handle FX beyond animat
 TODO: Node Scaling systems.
 }
 
+import Devourment_JCDomain
+
 DevourmentManager Property Manager Auto
 Actor Property PlayerRef Auto
 Int property Locus = -1 Auto
 Bool Property Endo = false Auto
-Bool Property PreferLongAnimation = False Auto
+Bool Property PreferlongAnimation = False Auto
 Bool Property ProtectActors = True Auto
 Actor Property Prey Auto
-Actor Property Pred Auto 
+Actor Property Pred Auto
+FormList Property DevourmentPairedIdles Auto
 
+Idle PairedAnimation
 Bool PredWasEssential = False
 Bool PreyWasEssential = False
 Bool PredWasProtected = False
 Bool PreyWasProtected = False
 Bool ReversedAngle = False
-String PreyAnim = ""
-String PredAnim = ""
+Int AnimIndex = 0
 String AnimationFinisher = ""
 Float AnimationFinisherDelay = 0.0
 Float PreyOffset = 1.0
@@ -29,319 +32,433 @@ Float AnimLength = 0.0
 Float MouthOpenStart = 0.0
 Float MouthOpenTimer = 0.0
 
-Bool Function DoAnimatedVore()
+Bool doScaling = False
+Bool isFemale
+Int scaleInterps ; TODO - make this an MCM configurable?
+Int animationScales ; JArray holds all scaling events
+Int numScales ; Total number of scaling events
+Int scaleFrame = 0; Scaling iterator
+Float lagFactor ; From profiling, the lag appears to be approximately 10% of the time submitted.
+
+Int Function DoAnimatedVore()
 { Intended to be a latent function, only returning after the animation has fully run. 
- Prey, Pred, Consent, Locus & Endo must be set before calling. 
- Setting Short/Long animation preference is optional. }
+  Prey, Pred, Consent, Locus & Endo must be set before calling. 
+  Setting Short/long animation preference is optional. 
+  47 - Modified to return an int code:
+  0 for no animation found, 1 for animation executed successfully,
+  2 for animation failed to execute.
+  Note: Animations can "succeed", yet fail to play. Need to nail this down.}
 
     If DecideAnim() && Pred.Is3DLoaded()
 
-			ActorBase PredActorBase
-			ActorBase PreyActorBase
-			If ProtectActors
-				PredWasEssential = Pred.IsEssential()
-				PreyWasEssential = Prey.IsEssential()
-				PredActorBase = Pred.GetActorBase()
-				PreyActorBase = Prey.GetActorBase()
-				PredWasProtected = PredActorBase.IsProtected()
-				PreyWasProtected = PreyActorBase.IsProtected()
-				PredActorBase.SetEssential(True)
-				PreyActorBase.SetEssential(True)
-			EndIf
+		If doScaling
+			numScales = JArray_Count(animationScales)
+			isFemale = prey.GetActorBase().GetSex()==1
+		EndIf
 
-			If Pred != PlayerRef
-				Debug.SendAnimationEvent(Pred, "Reset")
-				Pred.SetDontMove(true)
-				Pred.StopCombat()
-				Pred.StopTranslation()
-				Pred.EnableAI(false)
-				Pred.SetRestrained()
-			EndIf
+		; What are these for..... Commenting for now as they add significant delay.
+		;ActorBase PredActorBase
+		;ActorBase PreyActorBase
+		;If ProtectActors
+		;	PredWasEssential = Pred.IsEssential()
+		;	PreyWasEssential = Prey.IsEssential()
+		;	PredActorBase = Pred.GetActorBase()
+		;	PreyActorBase = Prey.GetActorBase()
+		;	PredWasProtected = PredActorBase.IsProtected()
+		;	PreyWasProtected = PreyActorBase.IsProtected()
+		;	PredActorBase.SetEssential(True)
+		;	PreyActorBase.SetEssential(True)
+		;EndIf
 
-			float angleX = Pred.GetAngleX()
-			float angleY = Pred.GetAngleY()
-			float angleZ = Pred.GetAngleZ()
-			float posX = Pred.GetPositionX()
-			float posY = Pred.GetPositionY()
-			float posZ = Pred.GetPositionZ()
+		if Pred.IsFlying()  ; Flying animations bad - specifically for dragons
+			;ConsoleUtil.PrintMessage("Pred is Flying")
+			return 2
+		endIf
 
-			ObjectReference PredMarker = Pred.PlaceAtMe(Manager.AnimationMarker, 1, false, false)
-			PredMarker.SetPosition(posX, posY, posZ)
-			PredMarker.SetAngle(angleX, angleY, angleZ)
+		; We could use a JContainers Formarray for this, but for now a hardcoded FormList will do.
+		PairedAnimation = DevourmentPairedIdles.GetAt(AnimIndex) as Idle
 
-			ObjectReference PreyMarker = Pred.PlaceAtMe(Manager.AnimationMarker, 1, false, false)
-			PreyMarker.SetPosition(posX + preyOffset*Math.Sin(angleZ), posY + preyOffset*Math.Cos(angleZ), posZ)
-			If !ReversedAngle
-				PreyMarker.SetAngle(angleX+180.0, angleY+180.0, angleZ+180.0)
-			Else
-				PreyMarker.SetAngle(angleX, angleY, angleZ)
-			EndIf
-			
-			If Prey != PlayerRef
-				Prey.SetDontMove(true)
-				Prey.StopCombat()
-				Prey.StopTranslation()
-				Prey.EnableAI(false)
-				Prey.SetRestrained()
-			Else
-				Game.ForceThirdPerson()
-			EndIf
+		; Unfortunately, this does not catch all the errors.
+		; I still get the occasional animation that 'succeeds' but doesn't actually play.
+		; However, this should just play out as normal even if this happens.
+		if !Pred.PlayIdleWithTarget(PairedAnimation, Prey)  
+			;ConsoleUtil.PrintMessage("Animation Failed")
+			return 2
+		endIf
 
-			Pred.MoveTo(PredMarker)
-			Pred.SetVehicle(PredMarker)
+		If doScaling ; For now, these are incompatible
+			RegisterForSingleUpdate(JArray_getFlt(JArray_getObj(animationScales,scaleFrame),1)*lagFactor)
+		ElseIf AnimationFinisherDelay != 0.0
+			RegisterForSingleUpdate(AnimationFinisherDelay)
+		EndIf
 
-			Prey.MoveTo(PreyMarker)
-			Prey.SetVehicle(PreyMarker)
+		If MouthOpenStart != 0.0
+			Utility.Wait(MouthOpenStart)
+			OpenMouth()
+			Utility.Wait(MouthOpenTimer)
+			CloseMouth()
+			Utility.Wait(AnimLength - (MouthOpenStart + MouthOpenTimer))
+		Else
+			Utility.Wait(AnimLength)
+		EndIf
+		
+		;If ProtectActors
+		;	If !PredWasEssential && !PredWasProtected
+		;		PredActorBase.SetEssential(False)
+		;	ElseIf !PredWasEssential && PredWasProtected
+		;		PredActorBase.SetEssential(False)
+		;		PredActorBase.SetProtected(True)
+		;	EndIf
 
-			Pred.EnableAI(true)
-			Prey.EnableAI(true)
-			Utility.Wait(0.7)
-			Debug.SendAnimationEvent(Prey, PreyAnim)
-			Debug.SendAnimationEvent(Pred, PredAnim)
+		;	If !PreyWasEssential && !PreyWasProtected
+		;		PreyActorBase.SetEssential(False)
+		;	ElseIf !PreyWasEssential && PreyWasProtected
+		;		PreyActorBase.SetEssential(False)
+		;		PreyActorBase.SetProtected(True)
+		;	EndIf
+		;EndIf
 
-			If AnimationFinisherDelay != 0.0
-				RegisterForSingleUpdate(AnimationFinisherDelay)
-			EndIf
-			If MouthOpenStart != 0.0
-				Utility.Wait(MouthOpenStart)
-				OpenMouth()
-				Utility.Wait(MouthOpenTimer)
-				CloseMouth()
-				Utility.Wait(AnimLength - (MouthOpenStart + MouthOpenTimer))
-			Else
-				Utility.Wait(AnimLength)
-			EndIf
-			
-			If ProtectActors
-				If !PredWasEssential && !PredWasProtected
-					PredActorBase.SetEssential(False)
-				ElseIf !PredWasEssential && PredWasProtected
-					PredActorBase.SetEssential(False)
-					PredActorBase.SetProtected(True)
-				EndIf
-
-				If !PreyWasEssential && !PreyWasProtected
-					PreyActorBase.SetEssential(False)
-				ElseIf !PreyWasEssential && PreyWasProtected
-					PreyActorBase.SetEssential(False)
-					PreyActorBase.SetProtected(True)
-				EndIf
-			EndIf
-
-			Pred.SetVehicle(None)
-			Prey.SetVehicle(None)
-			Return True
+		Return 1
 	
 	Else
-		Return False
+		Return 0
     EndIf
+EndFunction
+
+Int Function GetAnimationData()
+{ Retrieves the animation info database, and If not cached, caches it. }
+	int info = jdb_solveObj(".dvtPairedAnimData")
+	If !info
+		info = jvalue_readFromFile("Data/dvtPairedAnimData.json")
+		jdb_setObj("dvtPairedAnimData", info)
+	EndIf
+	return info
 EndFunction
 
 Bool Function DecideAnim()
 { Populates this scripts' variables and decides on a suitable animation, if any. }
+	; 27/11/22 Reworked to support paired anims.
+	Int dvtAnimDB = GetAnimationData()
+	String query = AnimQueryBuilder()
 
-    ;Note, because of the nature of this function, it will need adjustment anytime animations are sufficiently changed.
-    Bool FNISDetected = Manager.FNISDetected
-    DevourmentRemap Remapper = (Manager as Quest) as DevourmentRemap
-    bool isConsented = StorageUtil.HasIntValue(prey, "voreConsent")
+	; Edge Cases
+	If query=="human.endo"
+		pred.PlayIdleWithTarget(Manager.IdleVore, prey)
+		return False
+	EndIf
+
+	Int animData = jmap_GetObj(dvtAnimDB, query)
+	If animData == 0
+		return False
+	EndIf
+	
+	AnimIndex = jmap_getInt(animData, "animindex")
+	AnimLength = jmap_getFlt(animData, "animlength")
+	PreyOffset = jmap_getFlt(animData, "preyoffset")
+	ReversedAngle = jmap_getInt(animData, "reversedangle") == 1
+	MouthOpenStart = jmap_getFlt(animData, "mouthopenstart")
+	MouthOpenTimer = jmap_getFlt(animData, "mouthopentimer")
+	AnimationFinisher = jmap_getStr(animData, "animationfinisher")
+	AnimationFinisherDelay = jmap_getFlt(animData, "animationfinisherdelay")
+	animationScales = jmap_getObj(animData, "scales")
+
+	ConsoleUtil.PrintMessage("dvtAnimData: "+dvtAnimDB+", AnimIndex: "+AnimIndex)
+
+	; We need to do this in order to change the OnUpdate function from "AnimationFinisher" to "Scaling"
+	If animationScales != 0
+		If AnimationFinisher == ""
+			ConsoleUtil.PrintMessage("We are doing Scaling")
+			doScaling = True
+			scaleInterps = jmap_getInt(dvtAnimDB, "scaleinterps")
+			lagFactor = jmap_getFlt(dvtAnimDB, "lagfactor")
+			ConsoleUtil.PrintMessage(lagFactor)
+			jvalue_retain(animationScales, "dvtAnimScales")
+			GoToState("Scaling")
+		Else
+			ConsoleUtil.PrintMessage("Scaling and AnimationFinisher not compatible!")
+		EndIf
+	EndIf
+
+	return True
+EndFunction
+
+String Function AnimQueryBuilder()
+{ Builds a query string to retrieve data from JSON dvtAnimationData }
+	Bool FNISDetected = Manager.FNISDetected
+	DevourmentRemap Remapper = (Manager as Quest) as DevourmentRemap
+	bool isConsented = StorageUtil.HasIntValue(prey, "voreConsent")
 	Bool isPreyNPC = Prey.HasKeywordString("ActorTypeNPC")
+	Int predRace = remapper.RemapRace(pred.GetLeveledActorBase().GetRace()).GetFormID() ; Only run this once and use decimal races
+	Int preyRace = remapper.RemapRace(prey.GetLeveledActorBase().GetRace()).GetFormID() ; Only run this once and use decimal races
+
+	String query = ""
 
 	If Pred.hasKeywordString("ActorTypeDragon")
 		If Pred.GetAnimationVariableInt("DevourmentDragonAnimationVersion") > 0 && Manager.DragonVoreAnimation && isPreyNPC
 			If !Prey.IsDead()
-				ReversedAngle = True
-				PreyOffset = 20.0
+				query += "dragon.human"
 				If isConsented
-					If PreferLongAnimation
-						PredAnim = "DevourmentDragon_FeetFirstLong_DragonPredator"
-						PreyAnim = "DevourmentDragon_FeetFirstLong_HumanPrey"
-						AnimLength = 21.5	;Anim is 645 frames long.
-					Else
-						PredAnim = "DevourmentDragon_FeetFirstShort_DragonPredator"
-						PreyAnim = "DevourmentDragon_FeetFirstShort_HumanPrey"
-						AnimLength = 9.0	;Anim is 270 frames long.
-					EndIf
-				Else
-					If PreferLongAnimation
-						PredAnim = "DevourmentDragon_HeadFirstLong_DragonPredator"
-						PreyAnim = "DevourmentDragon_HeadFirstLong_HumanPrey"
-						AnimLength = 19.3	;Anim is 580 frames long.
-					Else
-						PredAnim = "DevourmentDragon_HeadFirstShort_DragonPredator"
-						PreyAnim = "DevourmentDragon_HeadFirstShort_HumanPrey"
-						AnimLength = 9.7	;Anim is 290 frames long.
-					EndIf
+					query += ".con"
+				ElseIf locus==1
+					query += ".anal"
+				ElseIf locus==2
+					query += ".unbirth"
 				EndIf
-				Return True
+				If Utility.RandomFloat() > 0.75 ;PreferlongAnimation && 
+					query += ".long"
+				EndIf
+				Return query
 			EndIF
 		EndIf
-	ElseIf Game.GetForm(0x000131EE) == remapper.RemapRace(pred.GetLeveledActorBase().GetRace()) || \
-		Game.GetForm(0x0001320A) == remapper.RemapRace(pred.GetLeveledActorBase().GetRace())	;Dog + Wolf
-    	If Pred.GetAnimationVariableInt("DevourmentCanineAnimationVersion") > 0 && isPreyNPC
-			If !Prey.IsDead()
-				If isConsented
-					PreyOffset = 160.17
-					PredAnim = "DevourmentCanine_CaninePredator"
-					PreyAnim = "DevourmentCanine_HumanPrey"
-					AnimLength = 26.0
+	ElseIf predRace == 78318 ;Dog
+   	 	If Pred.GetAnimationVariableInt("DevourmentCanineAnimationVersion") > 0
+			query += "dog"
+			If isPreyNPC
+				If !Prey.IsDead()
+					If isConsented
+						query += ".human"
+					EndIf
 				EndIf
-				Return True
+			ElseIf preyRace == 78318
+				If !Prey.IsDead()
+					query += ".dog"
+				EndIf
 			EndIf
+			Return query
 		EndIf
-    ElseIf Pred.HasKeywordString("ActorTypeNPC")
-        if !FNISDetected
-			PredAnim = "IdleHug"
-			PreyAnim = "IdleCowerEnter"
-			AnimLength = 0.5
-		else
-			if prey.isDead() ; Corpse Vore
-				PredAnim = "IdleCannibalFeedCrouching"
-				AnimLength = 0.45
-			elseif prey.GetSleepState() > 2 ; Sleeping Vore
-				PredAnim = "IdleCannibalFeedStanding"
-				AnimLength = 0.45
-			elseif Manager.GetVoreWeightRatio(pred, prey) > 0.125 && isPreyNPC ; Giant Vore
-				;Beast races have different mouth alignments and tails, so must be different.
-				Bool IsPredBeastRace = pred.hasKeywordString("IsBeastRace")
-				ReversedAngle = True
-				PreyOffset = 25.0
-				If IsPredBeastRace
-					If PreferLongAnimation
-						PredAnim = "DevourmentMacroBeast_Long_BeastPredator"
-						PreyAnim = "DevourmentMacroBeast_Long_HumanPrey"
-						AnimLength = 12.0	;Anim is 360 frames long.
-						MouthOpenStart = 2.7 	;Prey near mouth at frame 80.
-						MouthOpenTimer = 7.3	;Prey at base of neck at frame 300.
-					Else
-						PredAnim = "DevourmentMacroBeast_Short_BeastPredator"
-						PreyAnim = "DevourmentMacroBeast_Short_HumanPrey"
-						AnimLength = 5.0	;Anim is 180 frames long. Reduced timer for brevity.
-						MouthOpenStart = 1.3 	;Prey near mouth at frame 40.
-						MouthOpenTimer = 3.7	;Prey at base of neck at frame 150.
-					EndIf
-				Else
-					If PreferLongAnimation
-						PredAnim = "DevourmentMacroHuman_Long_HumanPredator"
-						PreyAnim = "DevourmentMacroHuman_Long_HumanPrey"
-						AnimLength = 12.0	;Anim is 360 frames long.
-						MouthOpenStart = 2.7 	;Prey near mouth at frame 80.
-						MouthOpenTimer = 7.3	;Prey at base of neck at frame 300.
-					Else
-						PredAnim = "DevourmentMacroHuman_Short_HumanPredator"
-						PreyAnim = "DevourmentMacroHuman_Short_HumanPrey"
-						AnimLength = 5.0	;Anim is 180 frames long. Reduced timer for brevity.
-						MouthOpenStart = 1.3 	;Prey near mouth at frame 40.
-						MouthOpenTimer = 3.7	;Prey at base of neck at frame 150.
-					EndIf
+	ElseIf predRace == 78346 ;Wolf
+    		If Pred.GetAnimationVariableInt("DevourmentCanineAnimationVersion") > 0
+			query += "wolf"
+			If isPreyNPC
+				If !Prey.IsDead()
+					;If isConsented
+						query += ".human"
+					;EndIf
 				EndIf
-				Return True
-
-			elseif endo
-				if locus == 1 ; AnalVore (endo)
-					PredAnim = "IdleChairFrontEnter"
-					PreyAnim = "IdleCowerEnter"
-					AnimLength = 1.2
-					AnimationFinisher = "IdleChairFrontQuickExit"
-					AnimationFinisherDelay = 1.0
-				elseif locus == 5 ; CockVore (endo)
-					PredAnim = "AP_IdleStand_A2_S3"
-					PreyAnim = "AP_KneelBlowjob_A1_S1"
-					AnimLength = 1.2
-				else
-					Return False
-					pred.PlayIdleWithTarget(Manager.IdleVore, prey)
-				endIf
-				Return True
-			else
-				if locus == 0 ; OralVore
-					PreyOffset = 30.0
-					PredAnim = "DevourmentSameSize_HumanPredator"
-					;Debug.SendAnimationEvent(prey, "DevourA02")
-					PreyAnim = "IdleCowerEnter"
-					AnimLength = 4.3
-				elseif locus == 1 ; AnalVore
-					PredAnim = "IdleChairFrontEnter"
-					PreyAnim = "IdleCowerEnter"
-					AnimLength = 1.65
-					AnimationFinisher = "IdleChairFrontQuickExit"
-					AnimationFinisherDelay = 1.5
-				else
-					PredAnim = "IdleHug"
-					PreyAnim = "IdleCowerEnter"
-				endIf
-				Return True
-			endIf
-		endif
-
-	ElseIf Game.GetForm(0x000131FF) == remapper.RemapRace(pred.GetLeveledActorBase().GetRace())	;Mammoth
+			ElseIf preyRace == 78346
+				If !Prey.IsDead()
+					query += ".wolf"
+				EndIf
+			EndIf
+			Return query
+		EndIf
+	ElseIf Pred.HasKeywordString("ActorTypeNPC")
+		If !FNISDetected
+			query += "human.nofnis"
+			Return query
+		Else
+			If prey.isDead() ; Corpse Vore
+				query += "human.corpse"
+				Return query
+			ElseIf prey.GetSleepState() > 2 ; Sleeping Vore
+				query += "human.sleep"
+				Return query
+			ElseIf Manager.GetVoreWeightRatio(pred, prey) > 0.125 && isPreyNPC ; giant Vore
+				;beast races have different mouth alignments and tails, so must be different.
+				query += "giant.human"
+				If pred.hasKeywordString("IsBeastRace")
+					query += ".beast"
+				EndIf
+				If Utility.RandomFloat() > 0.75 ;PreferlongAnimation && 
+					query += ".long" ;Prey near mouth at frame 80. Prey at base of neck at frame 300.
+					;SHORT - Prey near mouth at frame 40. Prey at base of neck at frame 150.
+				EndIf
+				Return query
+			EndIf
+			query += "human" ; Must be a vanilla human anim
+			If endo ; Add Endo check
+				query += ".endo"
+			EndIf
+			If locus == 0 ; OralVore
+				query += ".oral"
+			ElseIf locus == 1 ; AnalVore
+				query += ".anal"
+			ElseIf locus == 5 ; CockVore
+				query += ".cock"
+			EndIf
+			Return query
+		EndIf
+	ElseIf predRace == 78335 ;Mammoth
    		If Manager.MammothVoreAnimation && isPreyNPC && \
 			pred.GetAnimationVariableInt("DevourmentMammothAnimationVersion") > 0
 			If !Prey.IsDead()
-				ReversedAngle = True
-				PreyOffset = 39.0
-				If PreferLongAnimation
-					PredAnim = "DevourmentMammoth_Long_MammothPredator"
-					PreyAnim = "DevourmentMammoth_Long_HumanPrey"
-					AnimLength = 10.15	;Anim is 335 frames long. Shortened timer.
-				Else
-					PredAnim = "DevourmentMammoth_Short_MammothPredator"
-					PreyAnim = "DevourmentMammoth_Short_HumanPrey"
-					AnimLength = 5.3	;Anim is 190 frames long. Shortened timer.
+				query += "mammoth.human"
+				If Utility.RandomFloat() > 0.75 ;PreferlongAnimation && 
+					query += ".long"
 				EndIf
-				Return True
+				Return query
 			EndIf
 		EndIf
-
-	ElseIf Game.GetForm(0x000CDD84) == remapper.RemapRace(pred.GetLeveledActorBase().GetRace())	;Werewolf
+	ElseIf predRace == 843140 ;Werewolf
 		If pred.GetAnimationVariableInt("DevourmentWerewolfAnimationVersion") > 0
 			If prey.GetAnimationVariableInt("DevourmentBunnyAnimationVersion") > 0
 				If !Prey.IsDead()
-					If PreferLongAnimation
-						PredAnim = "DevourmentWerewolf_Long_WerewolfPredator"
-						PreyAnim = "DevourmentWerewolf_Long_BunnyPrey"
-						AnimLength = 11.00	;Anim is 330 frames long.
-					Else
-						PredAnim = "DevourmentWerewolf_Short_WerewolfPredator"
-						PreyAnim = "DevourmentWerewolf_Short_BunnyPrey"
-						AnimLength = 6.7	;Anim is 200 frames long.
+					query += "werewolf.bunny"
+					If Utility.RandomFloat() > 0.75 ;PreferlongAnimation &&
+						query += ".long"
 					EndIf
-					Return True
+					Return query
 				EndIF
 			EndIf
 		EndIf
 	Else
-		Return False
+		Return query
     EndIf
 EndFunction
 
 Event OnUpdate()
-	if AnimationFinisher != ""
+	If AnimationFinisher != ""
 		Debug.SendAnimationEvent(pred, AnimationFinisher)
-	endIf
+	EndIf
 EndEvent
 
 Function OpenMouth() ;Mouth functions taken from Vicyntae's SCV mod.
 	ClearPhoneme()
 	Pred.SetExpressionOverride(16, 80)
 	MfgConsoleFunc.SetPhonemeModifier(Pred, 0, 1, 60)
-endFunction
+EndFunction
 
 function CloseMouth()
 	Pred.SetExpressionOverride(7, 50)
 	MfgConsoleFunc.SetPhonemeModifier(Pred, 0, 1, 0)
-endFunction
+EndFunction
 
 function ClearPhoneme()
 	int i
 	while i <= 15
 		MfgConsoleFunc.SetPhonemeModifier(Pred, 0, i, 0)
 		i += 1
-	endWhile
-endFunction
+	EndWhile
+EndFunction
 
 ;/
-			if IsPlayer && Config.AutoTFC
+			If IsPlayer && Config.AutoTFC
 				MiscUtil.SetFreeCameraState(true)
 				MiscUtil.SetFreeCameraSpeed(Config.AutoSUCSM)
-			endIf
+			EndIf
 			/;
+
+State Scaling
+	; The active scaling event. Incompatible with AnimationFinisher!
+	Event OnUpdate()
+		;Debug.StartStackProfiling()
+		
+		Int localScaleFrame = scaleFrame
+		scaleFrame += 1
+		If scaleFrame < numScales
+			; Time for next Frame
+			RegisterForSingleUpdate(jarray_getFlt(jarray_getObj(animationScales,localScaleFrame + 1),1)*lagFactor)
+		Else
+			; Begin ending sequence
+			GoToState("EndScaling")
+			RegisterForSingleUpdate(1.0) ; Temporary Measure - eventually I'll add a JSON entry for this, but this will do.
+		EndIf
+		; 47 Notes - This is Incredibly Cumbersome (tm). I don't think it's slow - JContainers is v. fast
+		; but it doesn't stop this code from being ugly and difficult to read. There must be a better way to do this.
+		Int boneData = jarray_getObj(animationScales,localScaleFrame)
+		Bool counter = jarray_getStr(boneData, 0) == "Counter"
+		If !counter ; Regular Scaling - Simply loop through bones and scale linearly
+			Int bones = jarray_getObj(boneData,2)
+			Int numBones = jarray_Count(bones)
+			Int startScales = jarray_getObj(boneData,3)
+			Int deltaScales = jarray_getObj(boneData,5)
+			Int subFrameIterator = 0
+			Int boneIterator = 0
+			While (subFrameIterator < scaleInterps)
+				boneIterator = numBones
+				While (boneIterator > 0)
+					boneIterator -= 1
+					String currentBone = jarray_getStr(bones,boneIterator)
+					Float currentScale = jarray_getFlt(startScales,boneIterator) + subFrameIterator*jarray_getFlt(deltaScales,boneIterator)/scaleInterps
+					NiOverride.AddNodeTransformScale(prey, False, isFemale, currentBone, "DevourmentAnimScale", currentScale)
+					NiOverride.UpdateNodeTransform(prey, False, isFemale, currentBone)
+				EndWhile
+				subFrameIterator += 1
+			EndWhile
+		Else ; CounterScaling - Loop through parents and scale linearly, then loop through children and scale inversely
+			Int parentBones = jarray_getObj(boneData,2)
+			Int childBones = jarray_getObj(boneData,3)
+			Int parentScales = jarray_getObj(boneData,4)
+			Int parentDeltas = jarray_getObj(boneData,6)
+			Int childScales = jarray_getObj(boneData,7)
+			Int childFinalScales = jarray_getObj(boneData, 8)
+			Int subFrameIterator = 0
+			Int parentBoneIterator
+			Int childBoneIterator
+			Float parentProduct
+			While (subFrameIterator < scaleInterps)
+				parentProduct = 1.0 ; Product of parent scalings
+				parentBoneIterator = jarray_count(parentBones)
+				childBoneIterator = jarray_count(childBones)
+				While (parentBoneIterator > 0) ; Perform parent scaling
+					parentBoneIterator -= 1
+					String currentBone = jarray_getStr(parentBones,parentBoneIterator)
+					Float currentScale = jarray_getFlt(parentScales,parentBoneIterator) + subFrameIterator*jarray_getFlt(parentDeltas,parentBoneIterator)/scaleInterps
+					parentProduct *= currentScale
+					NiOverride.AddNodeTransformScale(prey, False, isFemale, currentBone, "DevourmentAnimScale", currentScale)
+					NiOverride.UpdateNodeTransform(prey, False, isFemale, currentBone)
+				EndWhile
+				While (childBoneIterator > 0) ; Perform child scaling
+					childBoneIterator -= 1
+					If (subFrameIterator == (scaleInterps - 1)) ; If it's the last frame, use JSON values - prevents accumulating error.
+						String currentBone = jarray_getStr(childBones,childBoneIterator)
+						NiOverride.AddNodeTransformScale(prey, False, isFemale, currentBone, "DevourmentAnimScale", jarray_getFlt(childFinalScales,childBoneIterator))
+						NiOverride.UpdateNodeTransform(prey, False, isFemale, currentBone)
+					Else
+						String currentBone = jarray_getStr(childBones,childBoneIterator)
+						Float currentScale = 1 / parentProduct ;jarray_getFlt(childScales,childBoneIterator) / parentProduct	
+						NiOverride.AddNodeTransformScale(prey, False, isFemale, currentBone, "DevourmentAnimScale", currentScale)
+						NiOverride.UpdateNodeTransform(prey, False, isFemale, currentBone)
+					EndIf
+				EndWhile
+				subFrameIterator += 1
+			EndWhile
+		EndIf
+	EndEvent
+EndState
+
+State EndScaling
+	; Resets all prey bones to normal scale
+	Event OnUpdate()
+		GoToState(None)
+		Utility.wait(10.0) ; Again, this is a temporary measure. Eventually I will have a JSON entry for this/
+		Int frame = 0
+		While (frame < numScales)
+			Int boneData = jarray_getObj(animationScales,frame)
+			Bool counter = jarray_getStr(boneData, 0) == "Counter"
+			If !counter ; Regular Scaling - Simply loop through bones and scale linearly
+				Int bones = jarray_getObj(boneData,2)
+				Int numBones = jarray_Count(bones)
+				Int boneIterator = numBones
+				While (boneIterator > 0)
+					boneIterator -= 1
+					String currentBone = jarray_getStr(bones,boneIterator)
+					NiOverride.RemoveNodeTransformScale(prey, False, isFemale, currentBone, "DevourmentAnimScale")
+					NiOverride.UpdateNodeTransform(prey, False, isFemale, currentBone)
+				EndWhile
+			Else ; CounterScaling - Loop through parents and scale linearly, then loop through children and scale inversely
+				Int parentBones = jarray_getObj(boneData,2)
+				Int childBones = jarray_getObj(boneData,3)
+				Int parentBoneIterator = jarray_count(parentBones)
+				Int childBoneIterator = jarray_count(childBones)
+				parentBoneIterator = jarray_count(parentBones)
+				While (parentBoneIterator > 0) ; Perform parent scaling
+					parentBoneIterator -= 1
+					String currentBone = jarray_getStr(parentBones,parentBoneIterator)
+					NiOverride.RemoveNodeTransformScale(prey, False, isFemale, currentBone, "DevourmentAnimScale")
+					NiOverride.UpdateNodeTransform(prey, False, isFemale, currentBone)
+				EndWhile
+				childBoneIterator = jarray_count(childBones)
+				While (childBoneIterator > 0) ; Perform child scaling
+					childBoneIterator -= 1
+					String currentBone = jarray_getStr(childBones,childBoneIterator)
+					NiOverride.RemoveNodeTransformScale(prey, False, isFemale, currentBone, "DevourmentAnimScale")
+					NiOverride.UpdateNodeTransform(prey, False, isFemale, currentBone)
+				EndWhile
+			EndIf
+			frame += 1
+		EndWhile
+		jvalue_release(animationScales)
+		ConsoleUtil.PrintMessage("Finished Scaling")
+	EndEvent
+EndState

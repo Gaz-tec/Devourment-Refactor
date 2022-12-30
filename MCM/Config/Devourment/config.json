@@ -321,6 +321,18 @@
 					}
 				},
 				{
+					"text": "$DVT_DigestionRegen",
+					"help": "$DVT_Help_DigestionRegen",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "digestionRegen",
+						"defaultValue": true
+					}
+				},
+				{
 					"text": "$DVT_harderBosses",
 					"help": "$DVT_Help_harderBosses",
 					"type": "toggle",
@@ -460,7 +472,6 @@
 					"text": "$DVT_CooldownCreature",
 					"help": "$DVT_Help_CooldownCreature",
 					"type": "slider",
-					"groupCondition": 1,
   					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
@@ -715,7 +726,7 @@
 					"help": "$DVT_Help_SkullsUnique",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
+  					"groupBehavior": "disable",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|CF7", 
 						"sourceType": "PropertyValueBool",
@@ -729,7 +740,7 @@
 					"help": "$DVT_Help_SkullsEssential",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
+  					"groupBehavior": "disable",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|CF7", 
 						"sourceType": "PropertyValueBool",
@@ -743,7 +754,7 @@
 					"help": "$DVT_Help_SkullsUnleveled",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
+  					"groupBehavior": "disable",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|CF7", 
 						"sourceType": "PropertyValueBool",
@@ -757,7 +768,7 @@
 					"help": "$DVT_Help_SkullsDragons",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
-  					"groupBehavior": "hide",
+  					"groupBehavior": "disable",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|CF7", 
 						"sourceType": "PropertyValueBool",
@@ -1070,8 +1081,23 @@
 					"type": "empty"
 				},
 				{
+					"text": "$DVT_VoreAnimationsToggle",
+					"help": "$DVT_Help_VoreAnimationsToggle",
+					"groupControl": 1,
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "VoreAnimations",
+						"defaultValue": true
+					}
+				},
+				{
 					"text": "$DVT_DragonAnimations",
 					"help": "$DVT_Help_DragonAnimations",
+					"groupCondition": 1,
+  					"groupBehavior": "disable",
 					"type": "toggle",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
@@ -1084,6 +1110,8 @@
 				{
 					"text": "$DVT_MammothAnimations",
 					"help": "$DVT_Help_MammothAnimations",
+					"groupCondition": 1,
+  					"groupBehavior": "disable",
 					"type": "toggle",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
@@ -1096,6 +1124,8 @@
 				{
 					"text": "$DVT_DrawnAnimations",
 					"help": "$DVT_Help_DrawnAnimations",
+					"groupCondition": 1,
+  					"groupBehavior": "disable",
 					"type": "toggle",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 

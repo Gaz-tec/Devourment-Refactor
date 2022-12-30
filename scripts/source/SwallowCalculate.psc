@@ -39,6 +39,9 @@ bool DEBUGGING = false
 bool weaponDrawn
 bool deadPrey
 int timer = 0
+int animCode
+float d100Roll
+float swallowDifficulty
 
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
@@ -109,8 +112,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, false, true, locus)
 	
 	elseif endo
-		float swallowDifficulty = 1.0 - Manager.getEndoSwallowChance(pred, prey)
-		float d100Roll = Utility.randomFloat()
+		swallowDifficulty = 1.0 - Manager.getEndoSwallowChance(pred, prey)
+		d100Roll = Utility.randomFloat()
 		
 		if d100Roll < swallowDifficulty
 			if pred == playerRef
@@ -133,7 +136,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	else
 		bool stealth = pred.isSneaking() && !pred.isDetectedBy(prey)
 		bool silent = stealth && pred.hasPerk(SilentSwallow)
-		float swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(pred, prey, stealth)
+		swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(pred, prey, stealth)
 
 		if silent
 			prey.stopcombat()
@@ -142,15 +145,13 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			prey.SendStealAlarm(pred)
 		endIf
 
-		float d100Roll = Utility.randomFloat()
+		d100Roll = Utility.randomFloat()
 		if d100Roll >= swallowDifficulty
 			DoSwallow()
 			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
-			SwallowNotification(d100Roll, swallowDifficulty, success=true)
 
 		else
 			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, false, locus)
-			SwallowNotification(d100Roll, swallowDifficulty, success=false)
 
 			if Manager.Menu.CounterVoreEnabled && prey.HasPerk(Manager.Menu.CounterVore)
 				swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(prey, pred, false)
@@ -161,10 +162,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 					pred = akTarget
 					prey = akCaster
 					DoSwallow()
-					SwallowNotification(d100Roll, swallowDifficulty, success=true, counter=true)
 					DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
 				else
-					SwallowNotification(d100Roll, swallowDifficulty, success=false, counter=true)
 					dispel()
 				endIf
 			else
@@ -190,9 +189,9 @@ Function DoSwallow()
 
 	; If the player is being swallowed, stop the pred from attacking and disable the player.
 	if prey == playerRef
-		pred.stopCombat()
-		Utility.wait(0.01)
-		Manager.deactivatePrey(prey)
+		;pred.stopCombat()
+		;Utility.wait(0.01)
+		;Manager.deactivatePrey(prey)
 
 	; If the player is endoing, stop the prey from attacking and switch the camera to them. Didn't I disable this?
 	elseif pred == playerRef && endo
@@ -206,13 +205,13 @@ Function DoSwallow()
 
 	; Disable the prey's ability to move and attack and whatnot.
 	; Calling SetRestrained on a dead NPC will resurrect them!
-	;
-	if prey != playerRef && !deadPrey
-		prey.setRestrained(true)
-	endIf
+	
+	;if prey != playerRef && !deadPrey
+	;	prey.setRestrained(true)
+	;endIf
 
 	; This is where we do animation stuff.
-	if pred.is3DLoaded()
+	if pred.is3DLoaded() && Manager.VoreAnimations
 		if Reversed
 			prey.SplineTranslateTo(pred.GetPositionX(), pred.GetPositionY(), pred.GetPositionZ(), 0.0, 0.0, prey.GetAngleZ(), 1.0, 500.0)
 			prey.pushActorAway(pred, 0.3)
@@ -220,10 +219,10 @@ Function DoSwallow()
 			if Manager.drawnAnimations
 				pred.sheatheWeapon()
 				Utility.wait(0.3)
-				DoAnimatedVore()
+				animCode = DoAnimatedVore()
 			endIf
 		else
-			DoAnimatedVore()
+			animCode = DoAnimatedVore()
 		endif
 	endIf
 	
@@ -243,7 +242,8 @@ Function DoSwallow()
 
 	; A lot of vore is done in combat so the pred may have died since the effect started.
 	; If that is the case, this effect has to cleanup after itself nicely.
-	if pred.isDead()
+	if (pred.isDead()) || (animCode==2)
+		ConsoleUtil.PrintMessage("Failed Anim - Cleaning up")
 		Log3(PREFIX, "FinishSwallow", Namer(pred), Namer(prey), "Dead pred!")
 		Manager.reactivatePrey(prey)
 		SwallowShader.stop(prey)
@@ -261,6 +261,7 @@ Function DoSwallow()
 
 		SwallowShader.stop(prey)
 		Manager.RegisterDigestion(pred, prey, endo, locus)
+		SwallowNotification(d100Roll, swallowDifficulty, success=true, counter=false)
 		
 		if weaponDrawn && !endo && pred == playerRef && !pred.hasKeyword(BeingSwallowed)
 			pred.drawWeapon()
@@ -290,7 +291,7 @@ endFunction
 
 
 int Function RandomLocus()
-	bool isFemale = Manager.IsFemale(pred) 
+	bool isFemale = Manager.IsFemale(pred)
 	bool DualBreastMode = Manager.Menu.Morphs.UseDualBreastMode	;WTF...
 	Form SoSAPI = Quest.GetQuest("SOS_Misc") 
 	bool hasCock = false
@@ -323,31 +324,31 @@ int Function RandomLocus()
 EndFunction
 
 
-Function SwallowNotification(float d100Roll, float swallowDifficulty, bool success, bool counter = false)
+Function SwallowNotification(float roll, float difficulty, bool success, bool counter = false)
 	if DEBUGGING
 		if counter
 			Log3(PREFIX, "SwallowNotification", Namer(pred), Namer(prey), "COUNTERVORE")
 		endIf
 
 		if success
-			Log4(PREFIX, "SwallowNotification", Namer(pred), Namer(prey), "SUCCESS", d100Roll + " < " + swallowDifficulty)
+			Log4(PREFIX, "SwallowNotification", Namer(pred), Namer(prey), "SUCCESS", roll + " < " + difficulty)
 		else
-			Log4(PREFIX, "SwallowNotification", Namer(pred), Namer(prey), "FAILURE", d100Roll + " < " + swallowDifficulty)
+			Log4(PREFIX, "SwallowNotification", Namer(pred), Namer(prey), "FAILURE", roll + " < " + difficulty)
 		endIf
 	endIf
 
 	if Manager.Notifications
 		if counter
 			if success
-				ConsoleUtil.PrintMessage("Countervore attack by " + Namer(pred, true) + " succeeded against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+				ConsoleUtil.PrintMessage("Countervore attack by " + Namer(pred, true) + " succeeded against " + Namer(prey, true) + ": " + (roll * 100.0) + " > " + (difficulty * 100.0) + "%")
 			else
-				ConsoleUtil.PrintMessage("Countervore attack by " + Namer(pred, true) + " failed against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+				ConsoleUtil.PrintMessage("Countervore attack by " + Namer(pred, true) + " failed against " + Namer(prey, true) + ": " + (roll * 100.0) + " > " + (difficulty * 100.0) + "%")
 			endIf
 		else
 			if success
-				ConsoleUtil.PrintMessage("Vore attack by " + Namer(pred, true) + " succeeded against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+				ConsoleUtil.PrintMessage("Vore attack by " + Namer(pred, true) + " succeeded against " + Namer(prey, true) + ": " + (roll * 100.0) + " > " + (difficulty * 100.0) + "%")
 			else
-				ConsoleUtil.PrintMessage("Vore attack by " + Namer(pred, true) + " failed against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+				ConsoleUtil.PrintMessage("Vore attack by " + Namer(pred, true) + " failed against " + Namer(prey, true) + ": " + (roll * 100.0) + " > " + (difficulty * 100.0) + "%")
 			endIf
 		endIf
 	endIf

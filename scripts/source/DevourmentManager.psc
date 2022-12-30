@@ -178,6 +178,7 @@ int[] property EdibleTypes auto
 bool property AnalEscape = false auto
 bool property CombatAcceleration = false auto
 bool property SoftDeath = false auto
+bool property digestionRegen = true auto
 bool property creaturePreds = false auto
 bool property crouchScat = true auto
 bool property drawnAnimations = true auto
@@ -200,6 +201,7 @@ bool property VisualStruggles = true auto
 bool property ComplexStruggles = false auto
 bool property SkillGain = true auto
 bool property AttributeGain = true auto
+bool property VoreAnimations = true auto
 bool property DragonVoreAnimation = true auto
 bool property MammothVoreAnimation = true auto
 bool property LongVoreAnimations = false auto
@@ -1677,17 +1679,19 @@ Function DeadDigestion(Actor pred, ObjectReference content, int preyData, float 
 		endIf
 		
 	elseif prey
-		if pred.hasPerk(Menu.NourishmentBody)
-			pred.restoreActorValue("Health", 4.0 * dt)
-			pred.restoreActorValue("Stamina", 4.0 * dt)
-		else
-			pred.restoreActorValue("Health", 2.0 * dt)
-			pred.restoreActorValue("Stamina", 2.0 * dt)
-		endIf
+		If digestionRegen
+			if pred.hasPerk(Menu.NourishmentBody)
+				pred.restoreActorValue("Health", 4.0 * dt)
+				pred.restoreActorValue("Stamina", 4.0 * dt)
+			else
+				pred.restoreActorValue("Health", 2.0 * dt)
+				pred.restoreActorValue("Stamina", 2.0 * dt)
+			endIf
 
-		if pred.hasPerk(Menu.NourishmentMana)
-			pred.restoreActorValue("Magicka", 2.0 * dt)
-		endIf
+			if pred.hasPerk(Menu.NourishmentMana)
+				pred.restoreActorValue("Magicka", 2.0 * dt)
+			endIf
+		EndIf
 
 		SendDeadDigestionEvent(pred, prey, GetDigestionPercent(preyData))
 	endIf	
@@ -2337,14 +2341,25 @@ Removes a single dead content from the pred and places a scat pile or bones behi
 		if local
 			float angleZ = apex.GetAngleZ()
 			pile.setPosition(apex.GetPositionX() - 60.0*Math.sin(angleZ), apex.GetPositionY() - 60.0*Math.cos(angleZ), apex.GetPositionZ())
-			pile.setAlpha(0.0)
+			;po3_sksefunctions.SetSkinAlpha(pile, 0.0)	;"has no 3D"
+			;Float[] ShaderParams = New Float[4]
+			;ShaderParams[0] = 255
+			;ShaderParams[1] = 255
+			;ShaderParams[2] = 255
+			;ShaderParams[3] = 0
+			;po3_sksefunctions.PlayDebugShader(pile, ShaderParams)
+			;pile.setAlpha(0.0)	;"has no AI process and so cannot have its alpha set."
 			pile.kill()
 			pile.Enable()
+			;po3_sksefunctions.PlayDebugShader(pile, ShaderParams)	;"has no 3D"
+			;po3_sksefunctions.SetSkinAlpha(pile, 0.0)
 			pile.setAlpha(0.0)
 			apex.placeAtMe(BoneExplosion)
 			pile.setScale(prey.GetScale())
 			pile.SetDisplayName("Bones (" + Namer(prey, true) + ")")
-			Utility.Wait(0.5)
+			Utility.Wait(0.4)
+			;po3_sksefunctions.StopAllShaders(pile)
+			;po3_sksefunctions.SetSkinAlpha(pile, 1.0)
 			pile.setAlpha(1.0, true)
 		endIf
 		
@@ -4469,7 +4484,7 @@ Function ResetPred(Actor pred)
 	Else
 		Int iIndex = IndicesPred.Find(pred)
 		While iIndex	
-			ResetPrey(IndicesPred[iIndex], abSendToEditor = true)
+			ResetPrey(IndicesPrey[iIndex], abSendToEditor = true)
 			RemovePairSafeguard(iIndex)
 			iIndex = IndicesPred.Find(pred)
 		EndWhile
@@ -6694,7 +6709,11 @@ float Function GetVoreWeightRatio(Actor pred, Actor prey)
 	float predSize = GetVoreWeight(pred)
 	float preySize = GetVoreWeight(prey)
 	float ratio = (predSize - preySize) / (predSize + preySize)
-
+	;		0.66	500			100			500			100
+	;		0.09	120			100			120			100
+	;		0		100			100			100			100
+	;		-0.5	100			300			100			300
+	;Cases because I suck at math.
 	if DEBUGGING
 		Log5(PREFIX, "GetVoreWeightRatio", Namer(pred), Namer(prey), predSize, preySize, ratio)
 	endIf
