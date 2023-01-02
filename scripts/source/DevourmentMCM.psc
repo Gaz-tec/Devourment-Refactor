@@ -688,7 +688,7 @@ event OnPageReset(string page)
 		Int[] whitelistDouble = new Int[2]
 
 		while i < iLength
-			whitelistDouble[0] = i + 300 ;Offset so we can differentiate this and creatures since same page.
+			whitelistDouble[0] = i + 300 ;Offset so we can differentiate this and blacklist since same page.
 			whitelistDouble[1] = AddTextOption(Manager.PredatorWhitelist[i].GetLeveledActorBase().GetName(), "Remove?")	;OID
 			int owhitelistDouble = JArray_objectWithInts(whitelistDouble)
 			JIntMap_SetObj(optionsMap, whitelistDouble[1], owhitelistDouble)

@@ -64,6 +64,7 @@ Actor property FakePlayer auto
 Actor property PlayerRef Auto
 ActorBase[] property RemainsBones auto
 ActorValueInfo property AVProxy_Size auto
+
 Armor property GutArmor auto
 CommonMeterInterfaceHandler property PlayerFullnessMeter auto
 CommonMeterInterfaceHandler property PlayerStruggleMeter auto
@@ -79,6 +80,8 @@ DevourmentSkullHandler property SkullHandler auto
 Explosion property BoneExplosion auto
 Faction property PlayerFaction auto
 FormList property FullnessTypes_All auto
+Faction property PredatorBlacklistFaction auto
+Faction property PredatorWhitelistFaction auto
 Actor[] property PredatorBlacklist auto
 { Predators inside this can never Vore, no matter other settings. }
 Actor[] property PredatorWhitelist auto
@@ -183,11 +186,11 @@ bool property creaturePreds = false auto
 bool property crouchScat = true auto
 bool property drawnAnimations = true auto
 bool property endoAnyone = false auto
-bool property femalePreds = false auto
+bool property femalePreds = false auto conditional
 bool property killEssential = false auto
 bool property killNPCs = true auto
 bool property killPlayer = true auto
-bool property malePreds = false auto
+bool property malePreds = false auto conditional
 bool property notifications = true auto
 bool property screamSounds = true auto
 bool property shitItems = false auto
@@ -227,7 +230,7 @@ int property scatTypeBolus = 1 auto
 int property scatTypeCreature = 1 auto
 int property scatTypeNPC = 2 auto
 int property playerPreference = 0 auto
-int property companionPredPreference = 0 auto
+;int property companionPredPreference = 0 auto
 int property VomitStyle = 2 auto
 int property whoStruggles = 2 auto
 
@@ -4558,8 +4561,10 @@ Function WhitelistPredator()
 			Int Choice = MenuWhitelist.Show()
 			If Choice == 0
 				PredatorWhitelist = PapyrusUtil.PushActor(PredatorWhitelist, targeted as Actor)
+				(targeted as Actor).AddToFaction(PredatorWhitelistFaction)
 			ElseIf Choice == 1
 				PredatorBlacklist = PapyrusUtil.PushActor(PredatorBlacklist, targeted as Actor)
+				(targeted as Actor).AddToFaction(PredatorBlacklistFaction)
 			EndIf
 			WhitelistNameAlias.Clear()
 		EndIf
