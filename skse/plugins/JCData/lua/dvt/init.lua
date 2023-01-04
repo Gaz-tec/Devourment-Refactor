@@ -1248,7 +1248,7 @@ function dvt.SetReforming(preyData)
 	preyData.timer = 0.0
 	preyData.reforming = 1
 	preyData.digested = nil
-	preyData.digesting = nil
+	preyData.digesting = 1
 end
 
 
