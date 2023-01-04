@@ -28,6 +28,7 @@ DevourmentManager Property Manager Auto
 DevourmentMorphs Property Morphs Auto
 DevourmentSkullHandler Property SkullHandler Auto
 GlobalVariable Property VoreDialog Auto
+GlobalVariable Property CheskoMeterPreyDisplayMode Auto
 float[] property LocusChances auto
 float[] property LocusCumulative auto
 String[] property StatRaces auto
@@ -151,20 +152,21 @@ endFunction
 
 
 Function CheckMeterVisibility()
-{ This function does not discriminate, as frankly updating meters when the player leaves the MCM is a good idea for reactivity in *most* cases. }
 
-	Manager.PlayerFullnessMeter.UpdateMeter()
-	Manager.PlayerStruggleMeter.UpdateMeter()
-	Int iIndex = 0
-	While iIndex < Manager.PreyHealthMeters.Length
-		Manager.PreyHealthMeters[iIndex].UpdateMeter()
-		iIndex += 1
-	EndWhile
-	iIndex = 0
-	While iIndex < Manager.PreyStruggleMeters.Length
-		Manager.PreyStruggleMeters[iIndex].UpdateMeter()
-		iIndex += 1
-	EndWhile
+	If CheskoMeterPreyDisplayMode.GetValue() == 0.0
+		Manager.PlayerFullnessMeter.UpdateMeter()
+		Manager.PlayerStruggleMeter.UpdateMeter()
+		Int iIndex = 0
+		While iIndex < Manager.PreyHealthMeters.Length
+			Manager.PreyHealthMeters[iIndex].UpdateMeter()
+			iIndex += 1
+		EndWhile
+		iIndex = 0
+		While iIndex < Manager.PreyStruggleMeters.Length
+			Manager.PreyStruggleMeters[iIndex].UpdateMeter()
+			iIndex += 1
+		EndWhile
+	EndIf
 
 EndFunction
 
