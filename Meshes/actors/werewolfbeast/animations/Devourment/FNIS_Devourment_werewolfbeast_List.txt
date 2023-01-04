@@ -1,5 +1,0 @@
-Version V3
-AnimVar DevourmentWerewolfAnimationVersion INT32 103
-
-b -a DevourmentWerewolf_Long_WerewolfPredator DevourmentWerewolf_Long_WerewolfPredator.HKX
-b -a DevourmentWerewolf_Short_WerewolfPredator DevourmentWerewolf_Short_WerewolfPredator.HKX

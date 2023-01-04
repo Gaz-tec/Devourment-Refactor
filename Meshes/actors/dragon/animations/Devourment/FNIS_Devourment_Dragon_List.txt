@@ -1,7 +1,0 @@
-Version V3
-AnimVar DevourmentDragonAnimationVersion INT32 103
-
-b -a DevourmentDragon_FeetFirstLong_DragonPredator DevourmentDragon_FeetFirstLong_DragonPredator.hkx
-b -a DevourmentDragon_FeetFirstShort_DragonPredator DevourmentDragon_FeetFirstShort_DragonPredator.hkx
-b -a DevourmentDragon_HeadFirstLong_DragonPredator DevourmentDragon_HeadFirstLong_DragonPredator.hkx
-b -a DevourmentDragon_HeadFirstShort_DragonPredator DevourmentDragon_HeadFirstShort_DragonPredator.hkx

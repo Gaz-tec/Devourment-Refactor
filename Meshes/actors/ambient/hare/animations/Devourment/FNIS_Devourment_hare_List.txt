@@ -1,5 +1,0 @@
-Version V3
-AnimVar DevourmentBunnyAnimationVersion INT32 103
-
-b -a DevourmentWerewolf_Long_BunnyPrey DevourmentWerewolf_Long_BunnyPrey.HKX
-b -a DevourmentWerewolf_Short_BunnyPrey DevourmentWerewolf_Short_BunnyPrey.HKX
