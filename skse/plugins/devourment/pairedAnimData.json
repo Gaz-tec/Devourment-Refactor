@@ -1,0 +1,79 @@
+{
+    "scaleinterps": 100,
+    "lagfactor": 0.95,
+    "dog.human":{
+        "predanim":"DevourmentDog_DogPredator",
+        "preyanim":"DevourmentDog_HumanPrey",
+        "animlength": 26.0,
+        "preyoffset": 165,
+        "frames": 929,
+        "scales": [["Regular", 2.566666666666667, ["CME R Hand [RHnd]"], [1.0], [0.7246], [-0.2754]], ["Regular", 1.1333333333333333, ["CME R Hand [RHnd]"], [0.7246], [0.1], [-0.6246]], ["Regular", 0.5666666666666667, ["CME R Forearm [RLar]"], [1.0], [0.1], [-0.9]], ["Regular", 1.6666666666666667, ["CME R UpperArm [RUar]"], [1.0], [0.1], [-0.9]], ["Regular", 0.26666666666666666, ["CME R Clavicle [RClv]", "CME Neck [Neck]"], [1.0, 1.0], [0.1, 0.1], [-0.9, -0.9]], ["Counter", 1.83333333333333333, ["CME Spine1 [Spn1]"], ["CME L UpperArm [LUar]"], [1.0], [0.4519], [-0.5481], [1.0], [2.2127], [1.2127]], ["Counter", 3.2666666666666666, ["CME Spine2 [Spn2]"], ["CME L UpperArm [LUar]"], [1.0], [0.7], [-0.3], [2.2127], [3.161], [0.9483]], ["Counter", 2.0, ["CME Body [Body]"], ["CME L Thigh [LThg]", "CME R Thigh [RThg]"], [1.0], [0.3004], [-0.6996], [1.0, 1.0], [3.3293, 3.3293], [2.3293, 2.3293]], ["Regular", 2.5, ["CME Spine [Spn0]"], [1.0], [0.1], [-0.9]], ["Regular", 8.533333333333333, ["CME L Thigh [LThg]", "CME R Thigh [RThg]"], [3.3293, 3.3293], [0.3329, 0.3329], [-2.9964, -2.9964]]]
+        },
+    "dog.dog":{
+        "animindex": 1,
+        "predanim":"pa_DevourmentPaired_CanineCanine",
+        "animlength": 30.0,
+        "preyoffset": 160.2,
+        "frames": 1068,
+        "scales": [["Regular", 2.1, ["CME_Canine_Head"], [0.999], [0.84], [-0.159]], ["Regular", 1.03333333333333334, ["CME_Canine_Neck1", "CME_Canine_Head"], [1.0, 0.84], [0.829, 0.614], [-0.171, -0.226]], ["Counter", 0.8666666666666667, ["CME_Canine_Spine2"], ["CME_Canine_LFrontLeg2", "CME_Canine_RFrontLeg2"], [1.0], [0.572], [-0.428], [1.0, 1.0], [1.749, 1.749], [0.749, 0.749]], ["Counter", 8.3333333333333335, ["CME_Canine_Spine1","CME_Canine_Spine2"], ["CME_Canine_LFrontLeg2", "CME_Canine_RFrontLeg2"], [1.0, 0.572], [0.748, 0.572], [-0.252, 0.0], [1.749, 1.749], [2.338, 2.338], [0.589, 0.589]], ["Regular", 2.1666666666666665, ["CME_Canine_Spine1", "CME_Canine_LFrontLeg2", "CME_Canine_RFrontLeg2"], [0.748, 2.338, 2.338], [0.374, 0.582, 0.582], [-0.374, -1.756, -1.756]], ["Counter", 0.16666666666666666, ["CME_Canine_COM"], ["CME_Canine_LBackLeg2", "CME_Canine_RBackLeg2", "CME_Canine_Tail1"], [1.0], [0.7], [-0.3], [1.0, 1.0, 1.0], [1.429, 1.429, 1.429], [0.429, 0.429, 0.429]], ["Counter", 0.8333333333333334, ["CME_Canine_COM"], ["CME_Canine_LBackLeg2", "CME_Canine_RBackLeg2", "CME_Canine_Tail1"], [0.7], [0.497], [-0.203], [1.429, 1.429, 1.429], [2.01, 2.01, 2.01], [0.581, 0.581, 0.581]], ["Regular", 2.8333333333333335, ["CME_Canine_Spine1", "CME_Canine_Tail1"], [0.374, 2.01], [0.02, 0.201], [-0.354, -1.809]], ["Regular", 9.666666666666666, ["CME_Canine_LBackLeg2", "CME_Canine_RBackLeg2"], [2.01, 2.01], [0.201, 0.201], [-1.809, -1.809]]]
+    },
+    "wolf.human":{
+        "animindex": 0,
+        "predanim":"pa_DevourmentPaired_WolfHuman",
+        "animlength": 26.0,
+        "preyoffset": 182,
+        "frames": 929,
+        "scales": [["Regular", 2.8, ["CME R Hand [RHnd]"], [1.0], [0.2], [-0.8]], ["Regular", 1.733333333333333, ["CME R Forearm [RLar]"], [1.0], [0.2], [-0.8]], ["Regular", 1.0, ["CME Head [Head]", "CME R Clavicle [RClv]"], [1.0, 1.0], [0.7, 0.7], [-0.3, -0.3]], ["Counter", 0.8, ["CME Spine2 [Spn2]"], ["CME L Forearm [LLar]"], [1.0], [0.785], [-0.215], [1.0], [1.275], [0.275]], ["Counter", 1.0, ["CME Spine1 [Spn1]", "CME Spine2 [Spn2]"], ["CME L Forearm [LLar]"], [1.0, 0.785], [0.762, 0.785], [-0.238, 0.0], [1.275], [1.673], [0.398]], ["Counter", 0.6666666666666666, ["CME Spine1 [Spn1]", "CME Spine2 [Spn2]"], ["CME L Forearm [LLar]"], [0.762, 0.785], [0.762, 0.277], [0.0, -0.508], [1.673], [4.73], [3.057]], ["Counter", 3.466666666666667, ["CME LBody [LBody]"], ["CME Pelvis [Pelv]"], [1.0], [0.258], [-0.742], [1.0], [3.876], [2.876]], ["Regular", 0.833333333333334, ["CME L Forearm [LLar]"], [4.73], [1.892], [-2.838]], ["Regular", 10.0, ["CME Body [Body]", "CME Pelvis [Pelv]"], [1.0, 1.4286], [0.1, 0.6286], [-0.9, -1.8]]]
+        },
+    "wolf.wolf":{
+        "animindex": 1,
+        "predanim":"pa_DevourmentPaired_CanineCanine",
+        "animlength": 30.0,
+        "preyoffset": 192.24,
+        "frames": 1068,
+        "scales": [["Regular", 2.1, ["CME_Canine_Head"], [0.999], [0.84], [-0.159]], ["Regular", 1.03333333333333334, ["CME_Canine_Neck1", "CME_Canine_Head"], [1.0, 0.84], [0.829, 0.614], [-0.171, -0.226]], ["Counter", 0.8666666666666667, ["CME_Canine_Spine2"], ["CME_Canine_LFrontLeg2", "CME_Canine_RFrontLeg2"], [1.0], [0.572], [-0.428], [1.0, 1.0], [1.749, 1.749], [0.749, 0.749]], ["Counter", 8.3333333333333335, ["CME_Canine_Spine1","CME_Canine_Spine2"], ["CME_Canine_LFrontLeg2", "CME_Canine_RFrontLeg2"], [1.0, 0.572], [0.748, 0.572], [-0.252, 0.0], [1.749, 1.749], [2.338, 2.338], [0.589, 0.589]], ["Regular", 2.1666666666666665, ["CME_Canine_Spine1", "CME_Canine_LFrontLeg2", "CME_Canine_RFrontLeg2"], [0.748, 2.338, 2.338], [0.374, 0.582, 0.582], [-0.374, -1.756, -1.756]], ["Counter", 0.16666666666666666, ["CME_Canine_COM"], ["CME_Canine_LBackLeg2", "CME_Canine_RBackLeg2", "CME_Canine_Tail1"], [1.0], [0.7], [-0.3], [1.0, 1.0, 1.0], [1.429, 1.429, 1.429], [0.429, 0.429, 0.429]], ["Counter", 0.8333333333333334, ["CME_Canine_COM"], ["CME_Canine_LBackLeg2", "CME_Canine_RBackLeg2", "CME_Canine_Tail1"], [0.7], [0.497], [-0.203], [1.429, 1.429, 1.429], [2.01, 2.01, 2.01], [0.581, 0.581, 0.581]], ["Regular", 2.8333333333333335, ["CME_Canine_Spine1", "CME_Canine_Tail1"], [0.374, 2.01], [0.02, 0.201], [-0.354, -1.809]], ["Regular", 9.666666666666666, ["CME_Canine_LBackLeg2", "CME_Canine_RBackLeg2"], [2.01, 2.01], [0.201, 0.201], [-1.809, -1.809]]]
+    },
+    "human.nofnis":{
+        "predanim":"IdleHug",
+        "preyanim":"IdleCowerEnter",
+        "animlength": 0.5
+    },
+    "human.corpse":{
+        "predanim":"IdleCannibalFeedCrouching",
+        "animlength": 0.45
+    },
+    "human.sleep":{
+        "predanim":"IdleCannibalFeedStanding",
+        "animlength": 0.45
+    },
+    "human.endo.anal":{
+        "predanim":"IdleChairFrontEnter",
+        "preyanim":"IdleCowerEnter",
+        "animlength": 1.2,
+        "animationfinisher": "IdleChairFrontQuickExit",
+        "animationfinisherdelay": 1.0
+    },
+    "human.endo.cock":{
+        "predanim":"AP_IdleStand_A2_S3",
+        "preyanim":"AP_KneelBlowjob_A1_S1",
+        "animlength": 1.2
+    },
+    "human.oral":{
+        "animindex": 16,
+        "predanim":"DevourmentSameSize_HumanPredator",
+        "preyanim":"IdleCowerEnter",
+        "animlength": 4.3
+    },
+    "human.anal":{
+        "predanim":"IdleChairFrontEnter",
+        "preyanim":"IdleCowerEnter",
+        "animlength": 1.65,
+        "animationfinisher": "IdleChairFrontQuickExit",
+        "animationfinisherdelay": 1.5
+    },
+    "human":{
+        "predanim":"IdleHug",
+        "preyanim":"IdleCowerEnter"
+    }
+
+}
