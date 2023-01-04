@@ -4184,7 +4184,7 @@ bool Function BurpItem(Actor pred)
 	
 	if item == none
 		return false
-	elseif item.GetWeight() > 5.0 || !IsStrippable(item)
+	elseif item.GetWeight() > 5.0 || !IsStrippable(item) || (item as DevourmentSkullObject)
 		return false
 	endIf
 

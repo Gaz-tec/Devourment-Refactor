@@ -988,6 +988,15 @@
 					}
 				},
 				{
+					"text": "$DVT_hudMeters",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|8A8", 
+						"sourceType": "GlobalValue",
+						"defaultValue": 1.0
+					}
+				},
+				{
 					"text": "$DVT_WeightGain",
 					"help": "$DVT_Help_WeightGain",
 					"type": "slider",
@@ -1002,9 +1011,6 @@
 						"defaultValue": 0.0,
 					  	"formatString": "{1}"
 					}
-				},
-				{
-					"type": "empty"
 				},
 				{
 					"text": "$DVT_Header_Sound",
