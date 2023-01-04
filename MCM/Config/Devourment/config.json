@@ -1072,68 +1072,6 @@
 						"defaultValue": 0.20,
 					  	"formatString": "{2}"
 					}
-				},
-				{
-					"text": "$DVT_Header_Animations",
-					"type": "header"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"text": "$DVT_VoreAnimationsToggle",
-					"help": "$DVT_Help_VoreAnimationsToggle",
-					"groupControl": 1,
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "VoreAnimations",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_DragonAnimations",
-					"help": "$DVT_Help_DragonAnimations",
-					"groupCondition": 1,
-  					"groupBehavior": "disable",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "DragonVoreAnimation",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_MammothAnimations",
-					"help": "$DVT_Help_MammothAnimations",
-					"groupCondition": 1,
-  					"groupBehavior": "disable",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "MammothVoreAnimation",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_DrawnAnimations",
-					"help": "$DVT_Help_DrawnAnimations",
-					"groupCondition": 1,
-  					"groupBehavior": "disable",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "drawnAnimations",
-						"defaultValue": false
-					}
 				}
 			]
 		},

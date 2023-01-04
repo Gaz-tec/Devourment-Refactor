@@ -21,7 +21,6 @@ LOCUS_COCK 		= 5
 ; * No male grunt sounds during defecation
 ; * Blackbox covering screen thing (not reproducible, but too many reports to ignore)
 ; * Other mods changing PerceptionCondition
-; * Devourment MCM Title does not show up. No idea why.
 ;
 ; REPORTED BUGS
 ; * Some people reporting that scaling suddenly stops working
@@ -38,13 +37,8 @@ LOCUS_COCK 		= 5
 ; * Silent Swallow makes Disposal noises silent to the user ??
 ; * Add something to make Dragons that vore the player stay put.
 ; * SCL-inspired PlayerThoughts function?
-; * Dialogue to intiiate Vore with friendly animals ?
-; * Now that the onload dependancy check is gone, make child checks less frustrating.
 ; * True Directional Movement camera patch. Maybe reach out?
-; * Reach out to MMG or whoever made Horny Creatures / whatever nsfw creature mod people like for conversion permission.
 ; * Write a series of Vore tests using Chesko's Lilac.
-; * Better way to manipulate RaceWeights, preferably from MCM.
-; * Finish? The ResetPrey debug function.
 ; * Re-add all the old depreciated toggles we sacrificed, their strings are at the bottom of the translation file.
 ; * Finish moving EVERYTHING over to the strings file, we still use some MCM text that is hard-coded.
 
@@ -204,7 +198,7 @@ bool property VisualStruggles = true auto
 bool property ComplexStruggles = false auto
 bool property SkillGain = true auto
 bool property AttributeGain = true auto
-bool property VoreAnimations = true auto
+bool property VoreAnimations = false auto
 bool property DragonVoreAnimation = true auto
 bool property MammothVoreAnimation = true auto
 bool property LongVoreAnimations = false auto
@@ -3233,10 +3227,12 @@ Function NPCStruggle(Actor pred, Actor prey, int preyData, float times, bool suc
 			ConsoleUtil.PrintMessage(Namer(prey, true) + " struggled " + struggle as int + " percent free.")
 		endIf
 	else
-		pred.DamageActorValue("Health", damage)
-		if DEBUGGING
-			ConsoleUtil.PrintMessage(Namer(prey) + " struggled " + struggle as int + " percent free, causing " + damage + " damage.")
-		endIf
+		If damage > 0.0
+			pred.DamageActorValue("Health", damage)
+			if DEBUGGING
+				ConsoleUtil.PrintMessage(Namer(prey) + " struggled " + struggle as int + " percent free, causing " + damage + " damage.")
+			endIf
+		EndIf
 	endIf
 EndFunction
 
@@ -6973,6 +6969,7 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "ComplexStruggles", 		ComplexStruggles as int)
 	JMap_setInt(data, "SkillGain", 				SkillGain as int)
 	JMap_setInt(data, "AttributeGain", 			AttributeGain as int)
+	JMap_setInt(data, "VoreAnimations", 		VoreAnimations as int)
 	JMap_setInt(data, "DragonVoreAnimation", 	DragonVoreAnimation as int)
 	JMap_setInt(data, "MammothVoreAnimation", 	MammothVoreAnimation as int)
 	JMap_setInt(data, "LongVoreAnimations", 	LongVoreAnimations as int)
@@ -7006,6 +7003,8 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "UseHelpMessages", 		UseHelpMessages as int)
 	JMap_setInt(data, "Notifications", 			Notifications as int)
 	JMap_setInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int)
+	JMap_setInt(data, "DigestionRegen", 		DigestionRegen as int)
+	JMap_setInt(data, "VoreDialog", 			Menu.VoreDialog.GetValue() as int)
 
 	JMap_setInt(data, "CreaturePreds", 		CreaturePreds as int)
 	JMap_setInt(data, "FemalePreds", 		FemalePreds as int)
@@ -7050,6 +7049,7 @@ bool Function loadSettings(String settingsFileName)
 	ComplexStruggles = 		JMap_getInt(data, "ComplexStruggles", 			ComplexStruggles as int) as bool
 	SkillGain = 			JMap_getInt(data, "SkillGain", 					SkillGain as int) as bool
 	AttributeGain = 		JMap_getInt(data, "AttributeGain", 				AttributeGain as int) as bool
+	VoreAnimations = 	JMap_getInt(data, "VoreAnimations", 		VoreAnimations as int) as bool
 	DragonVoreAnimation = 	JMap_getInt(data, "DragonVoreAnimation", 		DragonVoreAnimation as int) as bool
 	MammothVoreAnimation = 	JMap_getInt(data, "MammothVoreAnimation", 		MammothVoreAnimation as int) as bool
 	LongVoreAnimations = 	JMap_getInt(data, "LongVoreAnimations", 		LongVoreAnimations as int) as bool
@@ -7085,6 +7085,8 @@ bool Function loadSettings(String settingsFileName)
 	useHelpMessages = 		JMap_getInt(data, "useHelpMessages", 		useHelpMessages as int) as bool
 	notifications = 		JMap_getInt(data, "notifications", 			notifications as int) as bool
 	SwallowHeal = 			JMap_getInt(data, "SwallowHeal", 			SwallowHeal as int) as bool
+	DigestionRegen = 		JMap_getInt(data, "DigestionRegen", 			DigestionRegen as int) as bool
+	Menu.VoreDialog.SetValue(JMap_getInt(data, "VoreDialog", 1) as Float) 
 	creaturePreds = 		JMap_getInt(data, "creaturePreds", 			creaturePreds as int) as bool
 	femalePreds = 			JMap_getInt(data, "femalePreds", 			femalePreds as int) as bool
 	malePreds = 			JMap_getInt(data, "malePreds", 				malePreds as int) as bool
