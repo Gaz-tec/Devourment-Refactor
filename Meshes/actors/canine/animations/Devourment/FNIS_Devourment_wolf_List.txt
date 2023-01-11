@@ -1,4 +1,0 @@
-Version V3
-AnimVar DevourmentCanineAnimationVersion INT32 103
-
-b -a DevourmentCanine_CaninePredator DevourmentCanine_CaninePredator.hkx

@@ -726,6 +726,9 @@ Return value is a flag indicating whether the predator is still active.
 
 	String tickCommand = "return dvt.Tick(args, " + dt + ", " + potency1 + ", " + potency2 + ")"
 	int timeout = JLua_EvalLuaInt(tickCommand, predData, 0, false)
+	if DEBUGGING
+		Log1(PREFIX, "ProcessPredator", "TickCommand: " +tickCommand)
+	endIf
 	
 	; The Tick function already did some of the processing. This next loop does the rest.
 	bool vomitted = false
@@ -1101,6 +1104,9 @@ Function SwitchLethalAll(Actor pred, bool toggle)
 		
 			elseif IsEndo(preyData) && toggle
 				SetVore(preyData)
+				float heldTime = getHoldingTime(pred)
+				OverrideTimer(preyData, heldTime, heldTime)
+				JMap_removeKey(preyData, "ForceStruggling")
 				AddPreyEffects(pred, prey, false, preyData)
 				
 				if prey == playerRef
@@ -1160,6 +1166,9 @@ Event SwitchLethal(Form f1, bool toggle)
 
 	elseif !isVore && toggle
 		SetVore(preyData)
+		float heldTime = getHoldingTime(pred)
+		OverrideTimer(preyData, heldTime, heldTime)
+		JMap_removeKey(preyData, "ForceStruggling")
 		AddPreyEffects(pred, prey, false, preyData)
 		
 		if prey == playerRef
@@ -1248,8 +1257,8 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 		return
 	endIf
 	
-	float damage = JValue_solveFlt(preyData, ".flux.damage")
-	float times = JValue_solveFlt(preyData, ".flux.times")
+	float damage = JMap_getFlt(preyData, "fluxdamage")
+	float times = JMap_getFlt(preyData, "fluxtimes")
 	float timer = JMap_getFlt(preyData, "timer")
 
 	if times > 100.0 / struggleDifficulty
@@ -2606,7 +2615,7 @@ Function KillPlayer(Actor pred)
 	elseif Menu.AutoRebirth && GetLocusFor(PlayerRef) == 2 && !IsPrey(pred) ;BYK == 0 &&
 		RegisterReformation(pred, PlayerRef, 2)
 			
-	elseif pred.hasKeyword(ActorTypeNPC) ;BYK == 0 &&
+	else	;if pred.hasKeyword(ActorTypeNPC) ;BYK == 0 &&
 		Log1(PREFIX, "KillPlayer", "No reincarnation.")
 		KillPlayer_ForReal()
 		
@@ -2614,13 +2623,13 @@ Function KillPlayer(Actor pred)
 	;	Log1(PREFIX, "KillPlayer", "BYK is < 2 -- no reincarnation as a creature.")
 	;	KillPlayer_ForReal()
 		
-	elseif IsPrey(pred) 
-		Log1(PREFIX, "KillPlayer", "Pred is not the apex -- no reincarnation.")
-		KillPlayer_ForReal()
-		
-	elseif !VerifyPred(playerRef) 
-		assertFail(PREFIX, "KillPlayer", "!VerifyPred(playerRef)")
-		KillPlayer_ForReal()
+	;elseif IsPrey(pred) 
+	;	Log1(PREFIX, "KillPlayer", "Pred is not the apex -- no reincarnation.")
+	;	KillPlayer_ForReal()
+	;	
+	;elseif !VerifyPred(playerRef) 
+	;	assertFail(PREFIX, "KillPlayer", "!VerifyPred(playerRef)")
+	;	KillPlayer_ForReal()
 		
 	;else
 		;/
@@ -6161,7 +6170,8 @@ int Function CreatePreyData(Actor pred, Actor prey, bool endo, bool dead, int lo
 
 	JMap_SetFlt(preyData, "dps", getAcidDamage(pred, prey))
 	JMap_SetFlt(preyData, "struggleDamage", getStruggleDamage(pred, prey))
-	JMap_SetObj(preyData, "flux", JMap_object())
+	JMap_SetFlt(preyData, "fluxdamage", 0.0)
+	JMap_SetFlt(preyData, "fluxtimes", 0.0)
 
 	if prey.hasKeyword(ActorTypeNPC)
 		JLua_evalLuaInt("dvt.SetNPC(args)", preyData, 0, false)

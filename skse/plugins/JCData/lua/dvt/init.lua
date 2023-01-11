@@ -49,25 +49,25 @@ function dvt.Tick(predData, dt, rapid1, rapid2)
 				end
 
 				if preyData.vore then
-					preyData.flux.damage = dt * preyData.dps * rapid1
+					preyData.fluxdamage = dt * preyData.dps * rapid1
 					if preyData.prey ~= DB.playerRef then
-						preyData.flux.times = dvt.poisson(dt * 0.333)
+						preyData.fluxtimes = dvt.poisson(dt * 0.333)
 					end
 				end
 			elseif preyData.reforming then
 				if preyData.timer + dt >= preyData.timerMax then
-					preyData.flux = math.max(0.0, preyData.timerMax - preyData.timer)
+					preyData.fluxtimes = math.max(0.0, preyData.timerMax - preyData.timer)
 					preyData.timer = preyData.timerMax
 				else
-					preyData.flux = dt
+					preyData.fluxtimes = dt
 					preyData.timer = preyData.timer + dt
 				end
 			elseif preyData.digesting then
 				if dt * rapid2 >= preyData.timer then
-					preyData.flux = preyData.timer
+					preyData.fluxtimes = preyData.timer
 					preyData.timer = 0.0
 				else
-					preyData.flux = dt
+					preyData.fluxtimes = dt
 					preyData.timer = math.max(0.0, preyData.timer - dt * rapid2)
 				end
 			end
@@ -1208,6 +1208,7 @@ end
 function dvt.SetEndo(preyData)
 	assert(preyData, "preyData must be specified.")
 	preyData.alive = 1
+	preyData.corpse = nil
 	preyData.endo = 1
 	preyData.vore = nil
 	preyData.digesting = nil

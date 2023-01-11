@@ -56,8 +56,6 @@ AnimVar DevourmentAnimationVersion INT32 108
 b -a DevourmentSameSize_HumanPredator DevourmentSameSize_HumanPredator.hkx
 b -a DevourmentSameSize_HumanPrey DevourmentSameSize_HumanPrey.hkx
 
-b -a DevourmentCanine_HumanPrey DevourmentCanine_HumanPrey.hkx
-
 s -a,k DevourmentUnbirth Animations\IdleLaydown_Enter.hkx
 + -B1.4 DevourmentUnbirthS1 DevourmentUnbirth_S1.hkx
 + -a DevourmentUnbirthS2 DevourmentUnbirth_S2.hkx

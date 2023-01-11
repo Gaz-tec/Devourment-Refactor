@@ -588,17 +588,17 @@ event OnConfigClose()
 	endIf
 
 	If PerkMenuQueue == 1
-		if AltPerkMenus
+		;if AltPerkMenus	Commented out until Custom Skills Menu is updated.
 			ShowPerkSubMenu(true)
-		else
-			Manager.Devourment_ShowPredPerks.SetValue(1.0)
-		endIf
+		;else
+		;	Manager.Devourment_ShowPredPerks.SetValue(1.0)
+		;endIf
 	ElseIf PerkMenuQueue == 2
-		if AltPerkMenus
+		;if AltPerkMenus
 			ShowPerkSubMenu(false)
-		else
-			Manager.Devourment_ShowPreyPerks.SetValue(1.0)
-		endIf
+		;else
+		;	Manager.Devourment_ShowPreyPerks.SetValue(1.0)
+		;endIf
 	EndIf
 	PerkMenuQueue = 0
 
