@@ -119,38 +119,53 @@ Function AddSkull(Actor pred, Actor prey)
 	
 	; Make the skull and name it appropriately.
 	MiscObject skullForm = Skulls[raceIndex]
-	DevourmentSkullObject skullRef = Pred.PlaceAtMe(skullForm, 1, true, true) as DevourmentSkullObject
+	DevourmentSkullObject skullRef = Pred.PlaceAtMe(skullForm, 1, true, false) as DevourmentSkullObject
 	
 	; Set the name. This is actually really important, it's what prevents the skulls from stacking and keeps them distinct.
-	skullRef.InitializeFor(prey)
+	skullRef.InitializeFor(prey)	;Moved to deal with ItemDigest quirks!
+
 
 	if SkullsSeparate
 		; Digest it!
+		;skullRef.InitializeFor(prey)
 		Manager.DigestItem(pred, skullRef, 1, none)
-		skullRef.enable()
+		;((skullRef as Form) as ObjectReference).enable()	;This order looks funny, but DigestItem will start reformation if the skull is enabled first.
 	else
 		; Put it in their inventory.
-		skullRef.enable()
+		;skullRef.InitializeFor(prey)
+		;((skullRef as Form) as ObjectReference).enable()
 		prey.addItem(skullRef, 1, true)
 	endIf
+
 	
 	Log3(PREFIX, "AddSkull", "Created skull", Namer(prey), Namer(skullRef))
 EndFunction
 
 
-bool Function SwallowSkull(Actor pred, DevourmentSkullObject skullRef, int locus = -1)
+ObjectReference Function CloneSkullToWorld(DevourmentSkullObject akSkull, Actor akPrey)
+{Function to clone a Skull relatively exactly. Used when we need a Skull that was previously in a container to suddenly be in a worldspace as .Drop functions break their Prey Var.}
+
+	Form skullBaseForm = akSkull.GetBaseObject()
+	MiscObject skullForm = skullBaseForm as MiscObject
+	DevourmentSkullObject skullRef = (PlayerRef.PlaceAtMe(skullForm, 1, true, true) as Form) as DevourmentSkullObject
+	skullRef.InitializeFor(akPrey)
+	Return skullRef
+	
+EndFunction
+
+
+bool Function SwallowSkull(Actor pred, ObjectReference skullRef, int locus = -1)
 	if skullRef == none || skullRef.IsDisabled()
 		assertFail(PREFIX, "SwallowSkull", "Invalid skull.")
 		return false
 	endIf
 	
-	Actor revivee = skullRef.GetRevivee()
+	Actor revivee = (skullRef as DevourmentSkullObject).GetRevivee()
 	if revivee == none
 		assertFail(PREFIX, "SwallowSkull", "Revivee couldn't be found.")
 		return false
 	endIf
 	
-	;/
 	; For the player, get a suitable proxy.
 	if revivee == PlayerRef
 		Actor deadDovaRef = DevourmentNewDova.instance().deadDovaRef
@@ -160,7 +175,6 @@ bool Function SwallowSkull(Actor pred, DevourmentSkullObject skullRef, int locus
 			return false
 		endIf
 	endIf
-	/;
 
 	Log0(PREFIX, "SwallowSkull")
 	
@@ -206,8 +220,8 @@ bool Function ReviveSkullToWorld(Actor pred, DevourmentSkullObject skullRef)
 	revivee.StopCombatAlarm()
 	
 	Log3(PREFIX, "ReviveSkullToWorld", "Finished revival process.", Namer(skullRef), Namer(revivee))
-	SkullRef.Disable(true)
-	SkullRef.Delete()
+	skullRef.Disable(true)
+	skullRef.Delete()
 
 	return true
 EndFunction

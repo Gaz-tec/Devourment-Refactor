@@ -1,11 +1,6 @@
 ScriptName DevourmentSkullObject extends ObjectReference
 import Logging
 
-
-;Actor property PlayerRef auto
-;Keyword property DevourmentSkull auto
-;DevourmentManager property Manager auto
-
 Actor Prey
 ; PERSISTENCE NOTES: "When any variable in a currently loaded script points at a reference, that reference is temporarily persistent. 
 ; It will stay persistent until no variables are pointing at it any more, at which point it will unload. (This assumes no other game system is keeping the object alive) 
@@ -16,36 +11,25 @@ Actor Prey
 ; allow us to keep Actors persistent without increasing save script data / papyrus heap size, instead offloading to the SKSE co-save. Unfortunately both these methods were not always reliable.
 ; So for now, we're just going to use a known safe method, an Actor Var, even though it adds a bit of weight to the save.
 
-
-String PREFIX = "DevourmentSkullObject"
-
+;String PREFIX = "DevourmentSkullObject"
 
 bool Function IsInitialized()
-	return Prey != None ;self.GetLinkedRef(DevourmentSkull) != None
+	return Prey != None
 EndFunction
-
 
 Actor Function GetRevivee()
-	;Actor revivee = self.GetLinkedRef(DevourmentSkull) as Actor
-	;if !revivee
-	;	revivee = Prey
-	;endIf
-	;if revivee == none
-	;	revivee = StorageUtil.GetFormValue(self, "DevourmentRevivee") as Actor
-	;endIf
-	return Prey ;revivee
+	return Prey
 EndFunction
 
-
-Function InitializeFor(Actor thePrey)
-	;Log1(PREFIX, "InitializeFor", Namer(thePrey))
-	SetDisplayName(Namer(thePrey, true) + "'s Skull")
-	;PO3_SKSEFunctions.SetLinkedRef(self, thePrey, DevourmentSkull)
-	;StorageUtil.SetFormValue(self, "DevourmentRevivee", thePrey)
-	Prey = thePrey
+Function InitializeFor(Actor akPrey)
+	Self.SetDisplayName(Namer(akPrey, true) + "'s Skull")
+	Prey = akPrey
 EndFunction
 
-
-;Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldContainer)
-	;PO3_SKSEFunctions.SetLinkedRef(self, Prey, DevourmentSkull)
-;endEvent
+Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldContainer)
+	If akOldContainer as DevourmentBolus && !akNewContainer as DevourmentBolus
+		;It is important that the result of this call be very deliberate in timing when the thread yields.
+		;Yielding at the wrong time causes ref shuffling and the ref to this skull can be lost before the Bolus can swap it.
+		(akOldContainer as DevourmentBolus).SkullSwapNew = DevourmentSkullHandler.Instance().CloneSkullToWorld(Self, Prey)
+	EndIf
+endEvent

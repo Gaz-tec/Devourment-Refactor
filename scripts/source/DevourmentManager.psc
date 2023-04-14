@@ -67,6 +67,7 @@ CommonMeterInterfaceHandler[] property PreyStruggleMeters Auto
 Container property BolusContainer auto
 Container[] property RemainsFeces auto
 DevourmentMCM property Menu auto
+DevourmentNewDova property NewDova auto
 DevourmentRemap property Remapper auto
 DevourmentPlayerAlias property PlayerAlias auto
 DevourmentReformationQuest property ReformationQuest auto
@@ -207,7 +208,6 @@ float property AcidDamageModifier = 1.0 auto
 float property BurpsRate = 16.0 auto
 float property GurglesRate = 8.0 auto
 float property NPCBonus = 1.0 Auto
-float property WeightGain = 0.0 auto
 float property ItemBurping = 0.20 auto
 float property cameraShake = 0.0 auto
 float property preyExperienceRate = 2.0 auto
@@ -227,6 +227,7 @@ int property playerPreference = 0 auto
 ;int property companionPredPreference = 0 auto
 int property VomitStyle = 2 auto
 int property whoStruggles = 2 auto
+int property BYK = 0 auto
 
 
 float property DigestionTime = 240.0 auto
@@ -392,6 +393,7 @@ Event OnInit()
 
 	vomitLocks_Prey = new ObjectReference[5]
 	vomitLocks_Pred = new Actor[5]
+	
 	lastRealTimeProcessed = Utility.GetCurrentRealTime() ; seconds, real-time
 	lastGameTimeProcessed = Utility.GetCurrentGameTime() ; seconds, game-time
 	LoadGameChecks()
@@ -487,7 +489,6 @@ script. Instead it's called from DevourmentPlayerAlias.
 	RegisterForModEvent("Devourment_Burp", "PlayBurp")
 	RegisterForModEvent("Devourment_UpdateSounds", "UpdateSounds")
 	RegisterForModEvent("Devourment_Entitlement", "Entitlement")
-	RegisterForModEvent("Devourment_WeightGain", "WeightGain")
 	RegisterForModEvent("Devourment_OutfitRestore", "OutfitRestore")
 
 	RegisterForSingleUpdate(UpdateInterval)
@@ -926,7 +927,6 @@ Event RegisterDigestion(Form f1, Form f2, bool endo, int locus)
 			endIf
 
 			if pred == playerRef || pred.GetActorBase().IsUnique()
-				WeightGain_async(pred, prey, true)
 				incrementVictimType(pred, "corpses")
 			endIf
 
@@ -1499,7 +1499,6 @@ function FinishLiveDigestion(Actor pred, Actor prey, int preyData)
 	if pred == playerRef || pred.GetActorBase().IsUnique()
 		incrementVictims(pred)
 		voreStats(pred, prey)
-		WeightGain_async(pred, prey, true)
 		VoreSkills_async(pred, prey)
 	endIf
 
@@ -1514,49 +1513,6 @@ function FinishLiveDigestion(Actor pred, Actor prey, int preyData)
 
 	SendDeathEvent(pred, prey)
 endFunction
-
-
-Function WeightGain_async(Actor pred, Actor prey, bool gain)
-{ Used to call WeightGain asynchronously using a ModEvent. }
-	if WeightGain > 0.0
-		int handle = ModEvent.create("Devourment_WeightGain")
-		ModEvent.pushForm(handle, pred)
-		ModEvent.pushForm(handle, prey)
-		ModEvent.pushBool(handle, gain)
-		ModEvent.Send(handle)
-	endIf
-EndFunction
-		
-		
-Event WeightGain(Form f1, Form f2, bool gain)
-	Actor pred = f1 as Actor
-	ActorBase predBase = pred.getLeveledActorBase()
-	
-	if WeightGain > 0.0
-		float oldweight = predBase.getWeight()
-		if oldweight < 100.0
-			float newWeight
-			if gain
-				newWeight = oldweight + WeightGain
-				if newWeight > 100.0
-					newWeight = 100.0
-				endIf
-			else
-				newWeight = oldweight - WeightGain
-				if newWeight < 0.0
-					newWeight = 0.0
-				endIf
-			endIf
-	
-			predBase.setWeight(newWeight)
-				
-			if !pred.IsOnMount()
-				pred.updateWeight(oldweight / 100 - newWeight / 100.0)
-				pred.QueueNiNodeUpdate()
-			endIf
-		endIf
-	endIf	
-EndEvent
 
 
 Function Entitlement_async(Actor pred, Actor prey)
@@ -2566,9 +2522,9 @@ Function ReformPrey(Actor pred, Actor prey, int preyData)
 	prey.IgnoreFriendlyHits(true)
 	prey.SetGhost(false)
 
-	;if pred == playerRef && prey == playerRef && NewDova.deadDovaRef != None
-	;	prey = NewDova.deadDovaRef
-	;endIf
+	if pred == playerRef && prey == playerRef && NewDova.deadDovaRef != None
+		prey = NewDova.deadDovaRef
+	endIf
 	
 	; Make the prey friendly towards the pred.
 	if prey == playerRef
@@ -2585,7 +2541,6 @@ Function ReformPrey(Actor pred, Actor prey, int preyData)
 		prey.RemoveFromFaction(prey.GetCrimeFaction())
 	endIf
 
-	WeightGain_Async(pred, prey, false)
 	DeactivatePrey(prey)
 	SetEndo(preyData, prey != playerRef && pred != playerRef)
 	SetMeters_Reformed(prey)
@@ -2603,7 +2558,7 @@ Function KillPlayer(Actor pred)
 
 	UnassignAllPreyMeters()
 
-	if PlayerRef.HasPerk(Menu.Phylactery) ;BYK == 0 &&
+	if PlayerRef.HasPerk(Menu.Phylactery) && BYK == 0
 		Log1(PREFIX, "KillPlayer", "Phylactery.")
 		if IsPrey(pred)
 			DefecateOne(playerRef, force = true)
@@ -2612,27 +2567,27 @@ Function KillPlayer(Actor pred)
 		ReplacePrey(pred, playerRef, fakePlayer)
 		ReformationQuest.StartReformation()
 	
-	elseif Menu.AutoRebirth && GetLocusFor(PlayerRef) == 2 && !IsPrey(pred) ;BYK == 0 &&
+	elseif Menu.AutoRebirth && GetLocusFor(PlayerRef) == 2 && !IsPrey(pred) && BYK == 0 
 		RegisterReformation(pred, PlayerRef, 2)
 			
-	else	;if pred.hasKeyword(ActorTypeNPC) ;BYK == 0 &&
+	elseif pred.hasKeyword(ActorTypeNPC) && BYK == 0
 		Log1(PREFIX, "KillPlayer", "No reincarnation.")
 		KillPlayer_ForReal()
 		
-	;elseif BYK < 2 && pred.hasKeyword(ActorTypeCreature)
-	;	Log1(PREFIX, "KillPlayer", "BYK is < 2 -- no reincarnation as a creature.")
-	;	KillPlayer_ForReal()
+	elseif BYK < 2 && pred.hasKeyword(ActorTypeCreature)
+		Log1(PREFIX, "KillPlayer", "BYK is < 2 -- no reincarnation as a creature.")
+		KillPlayer_ForReal()
 		
-	;elseif IsPrey(pred) 
-	;	Log1(PREFIX, "KillPlayer", "Pred is not the apex -- no reincarnation.")
-	;	KillPlayer_ForReal()
-	;	
-	;elseif !VerifyPred(playerRef) 
-	;	assertFail(PREFIX, "KillPlayer", "!VerifyPred(playerRef)")
-	;	KillPlayer_ForReal()
+	elseif IsPrey(pred) 
+		Log1(PREFIX, "KillPlayer", "Pred is not the apex -- no reincarnation.")
+		KillPlayer_ForReal()
 		
-	;else
-		;/
+	elseif !VerifyPred(playerRef) 
+		assertFail(PREFIX, "KillPlayer", "!VerifyPred(playerRef)")
+		KillPlayer_ForReal()
+		
+	else
+
 		RegisterBlocks("KillPlayer", playerRef, pred)
 		
 		; BYK IS set, so we have to completely disable the predator and then turn
@@ -2664,7 +2619,7 @@ Function KillPlayer(Actor pred)
 		UpdateSounds_async(playerRef)
 		SendNewCharacterEvent(pred, playerRef)
 		RestoreAllPreyMeters()
-		/;
+
 	endIf
 EndFunction
 
@@ -2819,24 +2774,23 @@ The unrestricted skips the "IsStrippable" check.
 	endIf
 	
 	; If the item is a DevourmentSkull, try to revive it.
-	if item as DevourmentSkullObject
-		DevourmentSkullObject skull = item as DevourmentSkullObject
+	;if item as DevourmentSkullObject
+	;	DevourmentSkullObject skull = item as DevourmentSkullObject
+		;if !skull.IsInitialized() ;|| !skull.IsFirstDigestPassed()
+		;	Log1(PREFIX, "DigestItem", "Uninitialized DevourmentSkull; skipping reformation.")
 
-		if !skull.IsInitialized() || !skull.IsEnabled()
-			Log1(PREFIX, "DigestItem", "Uninitialized DevourmentSkull; skipping reformation.")
+		;elseif SkullHandler.SwallowSkull(pred, (item as ObjectReference), locus)
+		;	Log1(PREFIX, "DigestItem", "DevourmentSkull passed to the SkullHandler.")
+		;	return true
 
-		elseif SkullHandler.SwallowSkull(pred, item as DevourmentSkullObject, locus)
-			Log1(PREFIX, "DigestItem", "DevourmentSkull passed to the SkullHandler.")
-			return true
-
-		else
-			Log1(PREFIX, "DigestItem", "SkullHandler failed for some reason.")
-			if DEBUGGING
-				Debug.MessageBox("Skull reformation failed. Check the Papyrus Log.")
-			endIf
-			return false
-		endIf
-	endIf
+		;else
+		;	Log1(PREFIX, "DigestItem", "SkullHandler failed for some reason.")
+		;	if DEBUGGING
+		;		Debug.MessageBox("Skull reformation failed. Check the Papyrus Log.")
+		;	endIf
+		;	return true
+		;endIf
+	;endIf
 	
 	; If the item is edible, eat it.
 	Form itemBase
@@ -2853,8 +2807,9 @@ The unrestricted skips the "IsStrippable" check.
 	endIf
 
 	; If there is a very recent bolus, stick this item into it rather than creating a new one.
+	; Skulls each have their own bolus, to prevent their ObjectReferences being located inside Containers with more than one item, as this seems to cause the container to substitute their ref.
 	DevourmentBolus recentBolus = JLua_evalLuaForm("return dvt.GetRecentBolus(args.pred)", JLua_setForm("pred", pred)) as DevourmentBolus
-	if recentBolus
+	if recentBolus && !item as DevourmentSkullObject
 		Log1(PREFIX, "DigestItem", "Found recent bolus")
 		recentBolus.AddItem(item, count)
 		recentBolus.SetName("Bolus")
@@ -3914,7 +3869,7 @@ Function ReappearItemAt(ObjectReference item, ObjectReference loc, bool front, f
 		px += Math.sin(angleZ) * lateral
 		py += Math.cos(angleZ) * lateral
 	endIf
-	
+
 	item.moveTo(loc)
 	item.SetPosition(px, py, pz)
 	item.setAngle(0.0, 0.0, angleZ)
@@ -4193,7 +4148,7 @@ bool Function BurpItem(Actor pred)
 	
 	if item == none
 		return false
-	elseif item.GetWeight() > 5.0 || !IsStrippable(item) || (item as DevourmentSkullObject)
+	elseif item.GetWeight() > 5.0 || !IsStrippable(item)
 		return false
 	endIf
 
@@ -6974,6 +6929,7 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "bossesSuperPrey", 		bossesSuperPrey as int)
 	JMap_setInt(data, "whoStruggles", 			whoStruggles)
 	JMap_setInt(data, "multiPrey", 				multiPrey)
+	JMap.setInt(data, "BYK", 					BYK)
 	JMap_setInt(data, "EndoStruggling", 		EndoStruggling as int)
 	JMap_setInt(data, "VisualStruggles", 		VisualStruggles as int)
 	JMap_setInt(data, "ComplexStruggles", 		ComplexStruggles as int)
@@ -7005,7 +6961,6 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "StomachStrip", 			StomachStrip as int)
 	JMap_setInt(data, "DrawnAnimations", 		DrawnAnimations as int)
 	JMap_setInt(data, "CrouchScat", 			CrouchScat as int)
-	JMap_setFlt(data, "WeightGain",				WeightGain)
 	JMap_setFlt(data, "ItemBurping",			ItemBurping)
 	
 	JMap_setInt(data, "endoAnyone", 			endoAnyone as int)
@@ -7013,17 +6968,27 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "UseHelpMessages", 		UseHelpMessages as int)
 	JMap_setInt(data, "Notifications", 			Notifications as int)
 	JMap_setInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int)
+
+	JMap_setInt(data, "EnableHungryBones",		Menu.EnableHungryBones as int)
+	JMap_setInt(data, "EnableCordyceps",		Menu.EnableCordyceps as int)
+	JMap_setInt(data, "AutoRebirth",			Menu.AutoRebirth as int)
+	JMap_setInt(data, "DontAddPowers",			Menu.DontAddPowers as int)
+	JMap_setInt(data, "UnrestrictedItemVore",	Menu.UnrestrictedItemVore as int)
+	JMap_setInt(data, "GentleGas",				Menu.GentleGas as int)
+	JMap_setInt(data, "CounterVoreEnabled",		Menu.CounterVoreEnabled as int)
+	JMap_setInt(data, "DigestToInventory",		Menu.DigestToInventory as int)
+
 	JMap_setInt(data, "DigestionRegen", 		DigestionRegen as int)
 	JMap_setInt(data, "VoreDialog", 			Menu.VoreDialog.GetValue() as int)
 
-	JMap_setInt(data, "CreaturePreds", 		CreaturePreds as int)
-	JMap_setInt(data, "FemalePreds", 		FemalePreds as int)
-	JMap_setInt(data, "MalePreds", 			MalePreds as int)
+	JMap_setInt(data, "CreaturePreds", 			CreaturePreds as int)
+	JMap_setInt(data, "FemalePreds", 			FemalePreds as int)
+	JMap_setInt(data, "MalePreds", 				MalePreds as int)
 
 	JMap_SetObj(data, "CreaturePredatorToggles",		JArray_objectWithInts(CreaturePredatorToggles))
 	JMap_SetObj(data, "HumanoidMalePredatorToggles",	JArray_objectWithInts(HumanoidMalePredatorToggles))
 	JMap_SetObj(data, "HumanoidFemalePredatorToggles",	JArray_objectWithInts(HumanoidFemalePredatorToggles))
-	JMap_setInt(data, "PlayerAlias.DefaultLocus", PlayerAlias.DefaultLocus)
+	JMap_setInt(data, "DefaultLocus", 					PlayerAlias.DefaultLocus)
 	
 	SkullHandler.SaveSettings(data)
 	Menu.Morphs.SaveSettings(data)
@@ -7054,58 +7019,67 @@ bool Function loadSettings(String settingsFileName)
 	entitlement = 			JMap_getInt(data, "entitlement", 				entitlement as int) as bool
 	whoStruggles =			JMap_getInt(data, "whoStruggles", 				whoStruggles)
 	multiPrey = 			JMap_getInt(data, "multiPrey", 					multiPrey)
+	BYK = 					JMap.getInt(data, "BYK", 						BYK)
 	EndoStruggling = 		JMap_getInt(data, "EndoStruggling", 			EndoStruggling as int) as bool
 	VisualStruggles = 		JMap_getInt(data, "VisualStruggles", 			VisualStruggles as int) as bool
 	ComplexStruggles = 		JMap_getInt(data, "ComplexStruggles", 			ComplexStruggles as int) as bool
 	SkillGain = 			JMap_getInt(data, "SkillGain", 					SkillGain as int) as bool
 	AttributeGain = 		JMap_getInt(data, "AttributeGain", 				AttributeGain as int) as bool
-	VoreAnimations = 	JMap_getInt(data, "VoreAnimations", 		VoreAnimations as int) as bool
+	VoreAnimations = 		JMap_getInt(data, "VoreAnimations", 			VoreAnimations as int) as bool
 	DragonVoreAnimation = 	JMap_getInt(data, "DragonVoreAnimation", 		DragonVoreAnimation as int) as bool
 	MammothVoreAnimation = 	JMap_getInt(data, "MammothVoreAnimation", 		MammothVoreAnimation as int) as bool
 	LongVoreAnimations = 	JMap_getInt(data, "LongVoreAnimations", 		LongVoreAnimations as int) as bool
 	
-	PredExperienceRate = 	JMap_getFlt(data, "PredExperienceRate", 	PredExperienceRate)
-	PreyExperienceRate = 	JMap_getFlt(data, "PreyExperienceRate", 	PreyExperienceRate)
-	StruggleDifficulty = 	JMap_getFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
-	StruggleDamage = 		JMap_getFlt(data, "StruggleDamage", 		StruggleDamage)
-	liveMultiplier = 		JMap_getFlt(data, "liveMultiplier", 		liveMultiplier)
-	DigestionTime = 		JMap_getFlt(data, "DigestionTime", 			DigestionTime)
-	MinimumSwallowChance = 	JMap_getFlt(data, "MinimumSwallowChance", 	MinimumSwallowChance)
-	NPCBonus = 				JMap_getFlt(data, "NPCBonus", 				NPCBonus)
-	CombatChanceScale = 	JMap_getFlt(data, "CombatChanceScale", 		CombatChanceScale)
-	AcidDamageModifier = 	JMap_getFlt(data, "AcidDamageModifier", 	AcidDamageModifier)
-	BurpsRate = 			JMap_getFlt(data, "BurpsRate", 				BurpsRate)
-	GurglesRate = 			JMap_getFlt(data, "GurglesRate", 			GurglesRate)
-	cameraShake = 			JMap_getFlt(data, "cameraShake", 			cameraShake)
-	Cooldown_Creature = 	JMap_getFlt(data, "Cooldown_Creature", 		Cooldown_Creature)
-	Cooldown_NPC = 			JMap_getFlt(data, "Cooldown_NPC", 			Cooldown_NPC)
+	PredExperienceRate = 	JMap_getFlt(data, "PredExperienceRate", 		PredExperienceRate)
+	PreyExperienceRate = 	JMap_getFlt(data, "PreyExperienceRate", 		PreyExperienceRate)
+	StruggleDifficulty = 	JMap_getFlt(data, "StruggleDifficulty", 		StruggleDifficulty)
+	StruggleDamage = 		JMap_getFlt(data, "StruggleDamage", 			StruggleDamage)
+	liveMultiplier = 		JMap_getFlt(data, "liveMultiplier", 			liveMultiplier)
+	DigestionTime = 		JMap_getFlt(data, "DigestionTime", 				DigestionTime)
+	MinimumSwallowChance = 	JMap_getFlt(data, "MinimumSwallowChance", 		MinimumSwallowChance)
+	NPCBonus = 				JMap_getFlt(data, "NPCBonus", 					NPCBonus)
+	CombatChanceScale = 	JMap_getFlt(data, "CombatChanceScale", 			CombatChanceScale)
+	AcidDamageModifier = 	JMap_getFlt(data, "AcidDamageModifier", 		AcidDamageModifier)
+	BurpsRate = 			JMap_getFlt(data, "BurpsRate", 					BurpsRate)
+	GurglesRate = 			JMap_getFlt(data, "GurglesRate", 				GurglesRate)
+	cameraShake = 			JMap_getFlt(data, "cameraShake", 				cameraShake)
+	Cooldown_Creature = 	JMap_getFlt(data, "Cooldown_Creature", 			Cooldown_Creature)
+	Cooldown_NPC = 			JMap_getFlt(data, "Cooldown_NPC", 				Cooldown_NPC)
 
-	AutoNoms = 				JMap_getInt(data, "AutoNoms", 				AutoNoms)
-	ShitItems = 			JMap_getInt(data, "ShitItems", 				ShitItems as int) as bool
-	VoreTimeout = 			JMap_getInt(data, "VoreTimeout", 			VoreTimeout as int) as bool
-	EndoTimeout = 			JMap_getInt(data, "EndoTimeout", 			EndoTimeout as int) as bool
-	StomachStrip = 			JMap_getInt(data, "StomachStrip", 			StomachStrip as int) as bool
-	drawnAnimations = 		JMap_getInt(data, "drawnAnimations", 		drawnAnimations as int) as bool
-	crouchScat = 			JMap_getInt(data, "crouchScat", 			crouchScat as int) as bool
-	WeightGain = 			JMap_getFlt(data, "WeightGain", 			WeightGain)
-	ItemBurping = 			JMap_getFlt(data, "ItemBurping", 			ItemBurping)
+	AutoNoms = 				JMap_getInt(data, "AutoNoms", 					AutoNoms)
+	ShitItems = 			JMap_getInt(data, "ShitItems", 					ShitItems as int) as bool
+	VoreTimeout = 			JMap_getInt(data, "VoreTimeout", 				VoreTimeout as int) as bool
+	EndoTimeout = 			JMap_getInt(data, "EndoTimeout", 				EndoTimeout as int) as bool
+	StomachStrip = 			JMap_getInt(data, "StomachStrip", 				StomachStrip as int) as bool
+	drawnAnimations = 		JMap_getInt(data, "drawnAnimations", 			drawnAnimations as int) as bool
+	crouchScat = 			JMap_getInt(data, "crouchScat", 				crouchScat as int) as bool
+	ItemBurping = 			JMap_getFlt(data, "ItemBurping", 				ItemBurping)
 
-	endoAnyone = 			JMap_getInt(data, "endoAnyone", 			endoAnyone as int) as bool
-	VomitStyle = 			JMap_getInt(data, "VomitStyle", 			VomitStyle)
-	useHelpMessages = 		JMap_getInt(data, "useHelpMessages", 		useHelpMessages as int) as bool
-	notifications = 		JMap_getInt(data, "notifications", 			notifications as int) as bool
-	SwallowHeal = 			JMap_getInt(data, "SwallowHeal", 			SwallowHeal as int) as bool
+	endoAnyone = 			JMap_getInt(data, "endoAnyone", 				endoAnyone as int) as bool
+	VomitStyle = 			JMap_getInt(data, "VomitStyle", 				VomitStyle)
+	useHelpMessages = 		JMap_getInt(data, "useHelpMessages", 			useHelpMessages as int) as bool
+	notifications = 		JMap_getInt(data, "notifications", 				notifications as int) as bool
+	SwallowHeal = 			JMap_getInt(data, "SwallowHeal", 				SwallowHeal as int) as bool
 	DigestionRegen = 		JMap_getInt(data, "DigestionRegen", 			DigestionRegen as int) as bool
 	Menu.VoreDialog.SetValue(JMap_getInt(data, "VoreDialog", 1) as Float) 
-	creaturePreds = 		JMap_getInt(data, "creaturePreds", 			creaturePreds as int) as bool
-	femalePreds = 			JMap_getInt(data, "femalePreds", 			femalePreds as int) as bool
-	malePreds = 			JMap_getInt(data, "malePreds", 				malePreds as int) as bool
+	creaturePreds = 		JMap_getInt(data, "creaturePreds", 				creaturePreds as int) as bool
+	femalePreds = 			JMap_getInt(data, "femalePreds", 				femalePreds as int) as bool
+	malePreds = 			JMap_getInt(data, "malePreds", 					malePreds as int) as bool
 	
-	CreaturePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "CreaturePredatorToggles", JArray_ObjectWithInts(CreaturePredatorToggles)))
-	HumanoidMalePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "HumanoidMalePredatorToggles", JArray_ObjectWithInts(HumanoidMalePredatorToggles)))
-	HumanoidFemalePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "HumanoidFemalePredatorToggles", JArray_ObjectWithInts(HumanoidFemalePredatorToggles)))
-	PlayerAlias.DefaultLocus = JMap_getInt(data, "DefaultLocus", PlayerAlias.DefaultLocus)
-	Menu.AltPerkMenus = 	JMap_getInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int) as bool
+	CreaturePredatorToggles =		JArray_asIntArray(JMap_getObj(data, "CreaturePredatorToggles", 			JArray_ObjectWithInts(CreaturePredatorToggles)))
+	HumanoidMalePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "HumanoidMalePredatorToggles", 		JArray_ObjectWithInts(HumanoidMalePredatorToggles)))
+	HumanoidFemalePredatorToggles =	JArray_asIntArray(JMap_getObj(data, "HumanoidFemalePredatorToggles", 	JArray_ObjectWithInts(HumanoidFemalePredatorToggles)))
+	PlayerAlias.DefaultLocus = 		JMap_getInt(data, "DefaultLocus", 			PlayerAlias.DefaultLocus)
+	Menu.AltPerkMenus = 			JMap_getInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int) as bool
+	Menu.EnableHungryBones = 		JMap_getInt(data, "EnableHungryBones", 		Menu.EnableHungryBones as int) as bool
+	Menu.EnableCordyceps = 			JMap_getInt(data, "EnableCordyceps", 		Menu.EnableCordyceps as int) as bool
+	Menu.AutoRebirth = 				JMap_getInt(data, "AutoRebirth", 			Menu.AutoRebirth as int) as bool
+	Menu.DontAddPowers = 			JMap_getInt(data, "DontAddPowers", 			Menu.DontAddPowers as int) as bool
+	Menu.UnrestrictedItemVore = 	JMap_getInt(data, "UnrestrictedItemVore", 	Menu.UnrestrictedItemVore as int) as bool
+	Menu.GentleGas = 				JMap_getInt(data, "GentleGas", 				Menu.GentleGas as int) as bool
+	Menu.CounterVoreEnabled = 		JMap_getInt(data, "CounterVoreEnabled", 	Menu.CounterVoreEnabled as int) as bool
+	Menu.DigestToInventory = 		JMap_getInt(data, "DigestToInventory", 		Menu.DigestToInventory as int) as bool
+
 	Menu.RecalculateLocusCumulative()
 	
 	SkullHandler.LoadSettings(data)

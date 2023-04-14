@@ -94,7 +94,7 @@ EndEvent
 
 
 Event onUpdate()
-{ Called repeatedly whenever the prey is in a loaded cell and not in dialogue. }
+{ Called repeatedly whenever the prey is not in dialogue. }
 
 	if dead
 		return
@@ -117,7 +117,7 @@ Event onUpdate()
 			Log4(PREFIX, "OnUpdate", Namer(apex), Namer(apexCell), Namer(subjectCell), distance)
 		endIf
 
-		if apexCell != subjectCell && (apexCell.IsInterior() || subjectCell.IsInterior())	
+		if apexCell != subjectCell ;&& (apexCell.IsInterior() || subjectCell.IsInterior())	;"This function will return false for the various interior cells in certain worldspaces due to those being classified by the game engine as being exteriors." https://ck.uesp.net/wiki/IsInInterior_-_ObjectReference
 			if DEBUGGING
 				Log1(PREFIX, "onUpdate", "Relocating Player to Pred's cell.")
 			endIf

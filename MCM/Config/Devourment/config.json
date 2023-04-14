@@ -690,6 +690,26 @@
 			"cursorFillMode": "leftToRight",
 			"content": [
 				{
+					"text": "$DVT_PlayerDigested",
+					"help": "$DVT_Help_PlayerDigested",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_BYK0",
+							"$DVT_BYK1",
+							"$DVT_BYK2"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "BYK",
+						"defaultValue": 0
+					}	
+				},
+				{
+					"type": "empty"
+				},
+				{
 					"text": "$DVT_Header_Skulls",
 					"type": "header"
 				},
@@ -997,20 +1017,7 @@
 					}
 				},
 				{
-					"text": "$DVT_WeightGain",
-					"help": "$DVT_Help_WeightGain",
-					"type": "slider",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueFloat",
-						"scriptName": "DevourmentManager",
-						"propertyName": "WeightGain",
-					  	"min": 0.0,
-					  	"max": 20.0,
-					  	"step": 0.1,
-						"defaultValue": 0.0,
-					  	"formatString": "{1}"
-					}
+					"type": "empty"
 				},
 				{
 					"text": "$DVT_Header_Sound",

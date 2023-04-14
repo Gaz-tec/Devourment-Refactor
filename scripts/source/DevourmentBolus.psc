@@ -14,6 +14,9 @@ String property name auto
 Faction property PlayerFaction auto
 bool property eatConsumables = true auto
 
+ObjectReference Property SkullSwapNew Auto
+{Intended to be left un-filled. Is used as temporary storage for Cloned Skulls.}
+
 bool DEBUGGING = false
 float angleZ = 0.0
 float force = 10.0
@@ -131,9 +134,25 @@ state DropState
 		bool havok = force > 0.0 && baseItem.GetWeight() >= 1.0
 
 		; Singular item, so we probably got an ItemReference handle too.
-		; Drop it, disown it, and apply a the havok impulse.
+		; Drop it, disown it, and apply a havok impulse.
 		if itemCount == 1
+			;Actor rev = (baseItem as DevourmentSkullObject).GetRevivee()
+			;Debug.MessageBox("1 Revivee: " + rev)
+
 			ObjectReference ref = destination.DropObject(baseItem, 1)
+
+			;When we Drop skulls, the SkullObject script is reinstantiated, clearing the Prey Variable.
+			;To preserve the Prey Variable, we make a new skull via OnContainerChange Event, then swap the "real" dropped skull with the new clone skull here.
+			If ref as DevourmentSkullObject
+				While SkullSwapNew == None
+					Utility.Wait(0.01)
+				EndWhile
+				ref.Disable()
+				SkullSwapNew.MoveTo(Ref)
+				ref.Delete()
+				itemReference = SkullSwapNew
+				itemReference.Enable()
+			Endif
 
 			if itemReference && havok
 				int count = 0

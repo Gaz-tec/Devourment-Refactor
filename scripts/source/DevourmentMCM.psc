@@ -686,6 +686,12 @@ event OnPageReset(string page)
 		addTextOption("Men", Manager.GetVictimType(target, "men"))
 		addTextOption("Corpses", Manager.GetVictimType(target, "corpses"))
 
+		DevourmentNewDova newDova = DevourmentNewDova.instance()
+		if NewDova.prevDov > 0
+			addTextOption("Previous Dovahkiins: ", NewDova.prevDov)
+			addTextOption("Last Dovahkiin", NewDova.previousName)
+		endif
+
 		addEmptyOption()
 		addTextOption("RACE ", " DIGESTED")
 		
@@ -808,9 +814,9 @@ event OnPageReset(string page)
 	ElseIf page == "$DVT_Page_Reform"
 
 		setCursorFillMode(LEFT_TO_RIGHT)
-		setCursorPosition(14)
-		addHeaderOption("Phylacteries")
 		setCursorPosition(16)
+		addHeaderOption("Phylacteries")
+		setCursorPosition(18)
 		
 		DevourmentReformationQuest ReformQuest = Quest.GetQuest("DevourmentReformationQuest") as DevourmentReformationQuest
 		Form[] ReformationHosts = ReformQuest.PhylacteryList.ToArray()
