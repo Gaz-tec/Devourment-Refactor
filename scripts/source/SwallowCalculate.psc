@@ -12,6 +12,7 @@ import Logging
 
 ;Actor property playerRef auto
 ;DevourmentManager Property Manager Auto
+DevourmentMCM Property Menu Auto
 DevourmentPlayerAlias property playerAlias auto
 EffectShader Property SwallowShader	 Auto
 Keyword Property BeingSwallowed Auto
@@ -136,39 +137,52 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	else
 		bool stealth = pred.isSneaking() && !pred.isDetectedBy(prey)
 		bool silent = stealth && pred.hasPerk(SilentSwallow)
-		swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(pred, prey, stealth)
-
+		
 		if silent
 			prey.stopcombat()
 			prey.setalert(false)
 		elseif deadPrey && pred == playerRef
 			prey.SendStealAlarm(pred)
 		endIf
+		
+		if pred == PlayerRef
+			float fStaminaCost = Manager.GetStaminaSwallowCost(pred, prey, stealth)
+			if pred.GetActorValue("Stamina") >= fStaminaCost
+				pred.DamageActorValue("Stamina", fStaminaCost)
+				DoSwallow()
+				DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
+			else
+				UI.invoke("HUD Menu", "_root.HUDMovieBaseInstance.StartStaminaBlinking")
+				Dispel()
+			endIf
+		Else
+			swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(pred, prey, stealth)
 
-		d100Roll = Utility.randomFloat()
-		if d100Roll >= swallowDifficulty
-			DoSwallow()
-			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
+			d100Roll = Utility.randomFloat()
+			if d100Roll >= swallowDifficulty
+				DoSwallow()
+				DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
 
-		else
-			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, false, locus)
+			else
+				DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, false, locus)
 
-			if Manager.Menu.CounterVoreEnabled && prey.HasPerk(Manager.Menu.CounterVore)
-				swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(prey, pred, false)
-				d100Roll = Utility.randomFloat()
+				if Menu.CounterVoreEnabled && prey.HasPerk(Menu.CounterVore)
+					swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(prey, pred, false)
+					d100Roll = Utility.randomFloat()
 
-				if d100Roll >= swallowDifficulty
-					reversed = true
-					pred = akTarget
-					prey = akCaster
-					DoSwallow()
-					DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
+					if d100Roll >= swallowDifficulty
+						reversed = true
+						pred = akTarget
+						prey = akCaster
+						DoSwallow()
+						DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
+					else
+						dispel()
+					endIf
 				else
 					dispel()
 				endIf
-			else
-				dispel()
-			endIf
+			endif
 		endif
 	endif
 endEvent
@@ -292,30 +306,37 @@ endFunction
 
 int Function RandomLocus()
 	bool isFemale = Manager.IsFemale(pred)
-	bool DualBreastMode = Manager.Menu.Morphs.UseDualBreastMode	;WTF...
+	bool DualBreastMode = Menu.Morphs.UseDualBreastMode
 	Form SoSAPI = Quest.GetQuest("SOS_Misc") 
 	bool hasCock = false
 	If SoSAPI
 		hasCock = ((SoSAPI as Form) as SOS_API).IsSchlonged(pred)
 	EndIf
-	float[] cumulative = Manager.Menu.LocusCumulative
+	float[] cumulative = Menu.LocusCumulative
+	;Cumulative is actually 5 elements long, not 6, as it does not feature a second breast locus.
 	float chance = Utility.RandomFloat(0.0, cumulative[0])
 	int loc = cumulative.length
 
 	while loc
 		loc -= 1
-		if chance < cumulative[loc]
-			if (hasCock && loc == 5) || (!isFemale && loc != 2 && loc != 3)
-				if loc == 3 && DualBreastMode	;Alternate the breasts..
-					if StorageUtil.PluckIntValue(pred, "DevourmentBreastVoreL", missing = 0)
-						loc = 4
-					Else
-						StorageUtil.SetIntValue(pred, "DevourmentBreastVoreL", 1)
-					endif
+		if chance <= cumulative[loc]
+			if loc == 4
+				if hasCock
+					return 5
 				endIf
+			ElseIf loc == 2 || loc == 3
+				if isFemale
+					if loc == 3 && DualBreastMode	;Alternate the breasts..
+						if StorageUtil.PluckIntValue(pred, "DevourmentBreastVoreL", missing = 0)
+							loc = 4
+						Else
+							StorageUtil.SetIntValue(pred, "DevourmentBreastVoreL", 1)
+						endif
+					endIf
+					return loc
+				endif
+			Else
 				return loc
-			else
-				return 0
 			endIf
 		endIf
 	endWhile

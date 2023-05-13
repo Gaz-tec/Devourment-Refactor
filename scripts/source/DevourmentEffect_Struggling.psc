@@ -5,9 +5,10 @@ import Logging
 DevourmentManager property Manager auto
 DevourmentDialog property DialogQuest auto
 Actor property PlayerRef auto
-TalkingActivator property Talker auto
-Topic property StrugglePrompt auto
-GlobalVariable property PlayerStruggleNext auto
+Message property StruggleTutorial auto
+;TalkingActivator property Talker auto
+;Topic property StrugglePrompt auto
+;GlobalVariable property PlayerStruggleNext auto
 Perk property ConstrictingGrip auto
 CommonMeterInterfaceHandler property PlayerStruggleMeter auto
 
@@ -16,23 +17,23 @@ String PREFIX = "DevourmentEffect_Struggling"
 bool DEBUGGING = true
 
 Actor pred
-DevourmentTalker strugglePrompter
+;DevourmentTalker strugglePrompter
 int preyData
 bool constricted
-bool complexStruggles
+;bool complexStruggles
 float cameraShake
 float struggleDifficulty 
 float struggleDamage
 String playerName 
 
 float struggleScaling = 0.2
-int BLOCK_KEY = 0
-int ATTACK_KEY = 0
+;int BLOCK_KEY = 0
+;int ATTACK_KEY = 0
 int[] STRUGGLE_KEYS
-int STRUGGLE_KEY2 = 0
+;int STRUGGLE_KEY2 = 0
 bool StruggleLatch = false
 float struggleProgress = 0.0
-int selectedStruggleKey = 0
+;int selectedStruggleKey = 0
 
 
 Event OnEffectStart(Actor target, Actor caster)
@@ -40,17 +41,17 @@ Event OnEffectStart(Actor target, Actor caster)
 	playerName = Namer(PlayerRef, true)
 
 	pred = Manager.GetPred(preyData)
-	complexStruggles = Manager.ComplexStruggles
+	;complexStruggles = Manager.ComplexStruggles
 	
 	constricted = pred.hasPerk(ConstrictingGrip)
 	cameraShake = Manager.cameraShake
 	struggleDifficulty = Manager.struggleDifficulty
 	struggleDamage = Manager.GetStruggleDamage(pred, PlayerRef)
 
-	if complexStruggles
+	;if complexStruggles
 		struggleScaling = 0.5
-		strugglePrompter = PlayerRef.PlaceAtMe(Talker) as DevourmentTalker
-		strugglePrompter.PrepareForDialog(none)
+		;strugglePrompter = PlayerRef.PlaceAtMe(Talker) as DevourmentTalker
+		;strugglePrompter.PrepareForDialog(none)
 
 		if Game.UsingGamepad()
 			STRUGGLE_KEYS = new int[4]
@@ -65,6 +66,7 @@ Event OnEffectStart(Actor target, Actor caster)
 			STRUGGLE_KEYS[2] = Input.getMappedKey("Forward")
 			STRUGGLE_KEYS[3] = Input.getMappedKey("Back")
 		endIf
+		;/
 	else
 		struggleScaling = 0.2
 
@@ -78,42 +80,50 @@ Event OnEffectStart(Actor target, Actor caster)
 			STRUGGLE_KEYS[1] = Input.getMappedKey("Strafe Right")
 		endIf
 	endIf
-
-	selectedStruggleKey = STRUGGLE_KEYS[0]
+	/;
+	;selectedStruggleKey = STRUGGLE_KEYS[0]
 	StruggleLatch = true
-	RegisterForKey(selectedStruggleKey)
+	RegisterForKey(STRUGGLE_KEYS[0])
+	RegisterForKey(STRUGGLE_KEYS[1])
+	RegisterForKey(STRUGGLE_KEYS[2])
+	RegisterForKey(STRUGGLE_KEYS[3])
 	ResolvePlayerStruggle(0)
-	
+
+	If !Manager.StruggleTutorialShown
+		Manager.StruggleTutorialShown = True
+		StruggleTutorial.Show()
+	EndIf
+
 	if DEBUGGING
 		!assertNotNone(PREFIX, "Struggle", "pred", pred)
 		!assertExists(PREFIX, "Struggle", "preyData", preyData)
 		Log3(PREFIX, "OnEffectStart", Namer(pred), constricted, struggleDamage)
 	endIf
 	
-	BLOCK_KEY = Input.GetMappedKey("Left Attack/Block")
-	ATTACK_KEY = Input.GetMappedKey("Right Attack/Block")
+	;BLOCK_KEY = Input.GetMappedKey("Left Attack/Block")
+	;ATTACK_KEY = Input.GetMappedKey("Right Attack/Block")
 
-	RegisterForKey(ATTACK_KEY)
-	RegisterForKey(BLOCK_KEY)
+	;RegisterForKey(ATTACK_KEY)
+	;RegisterForKey(BLOCK_KEY)
 EndEvent
 
 
 Event OnEffectFinish(Actor target, Actor caster)
 	PlayerStruggleMeter.RemoveMeter()
 
-	if strugglePrompter
-		strugglePrompter.Disable()
-		strugglePrompter.Delete()
-	endIf
+	;if strugglePrompter
+	;	strugglePrompter.Disable()
+	;	strugglePrompter.Delete()
+	;endIf
 EndEvent
 
-
+;/
 Event OnPlayerLoadGame()
 	if strugglePrompter
 		strugglePrompter.ShowPrompt(StrugglePrompt)
 	endIf
 EndEvent
-
+/;
 
 Function updateStruggleMeter(float struggle)
 	PlayerStruggleMeter.AttributeValue.setValue(struggle)
@@ -144,12 +154,12 @@ EndEvent
 
 
 Function ResolvePlayerStruggle(int keyCode)
-	bool successful = (keyCode == selectedStruggleKey) && (keyCode != 0)
+	bool successful = (keyCode == STRUGGLE_KEYS[0] || keyCode == STRUGGLE_KEYS[1] || keyCode == STRUGGLE_KEYS[2] || keyCode == STRUGGLE_KEYS[3]) && (keyCode != 0)
 
-	if successful
-		selectedStruggleKey = GetNextStruggleKey()
-		RegisterForKey(selectedStruggleKey)
-	endIf
+	;if successful
+		;selectedStruggleKey = GetNextStruggleKey()
+		;RegisterForKey(selectedStruggleKey)
+	;endIf
 
 	; Chance in the struggle bar.
 	float increment = struggleDifficulty * struggleScaling
@@ -190,8 +200,8 @@ Function ResolvePlayerStruggle(int keyCode)
 		Manager.CheckAndSetPartingGift(pred, PlayerRef)
 		Manager.ForceEscape(PlayerRef)
 	; Otherwise display the struggle prompt.
-	elseif strugglePrompter
-		strugglePrompter.ShowPrompt(StrugglePrompt)
+	;elseif strugglePrompter
+	;	strugglePrompter.ShowPrompt(StrugglePrompt)
 	endIf
 
 	if !successful
@@ -213,13 +223,14 @@ Function ResolvePlayerStruggle(int keyCode)
 	int handle = ModEvent.Create("Devourment_PlayerStruggle")
 	ModEvent.Send(handle)
 
-	Manager.GivePreyXP_async(PlayerRef, damage / 5.0)
+	;Manager.GivePreyXP_async(PlayerRef, damage / 5.0)
+	Manager.GivePredXP_async(PlayerRef, damage / 5.0)
 	if !constricted
 		Manager.GivePredXP_async(pred, damage / 5.0)
 	endIf	
 EndFunction
 
-
+;/
 int Function GetNextStruggleKey()
 	if complexStruggles
 		int prev = STRUGGLE_KEYS.find(selectedStruggleKey)
@@ -243,3 +254,4 @@ int Function GetNextStruggleKey()
 		endIf
 	endIf
 EndFunction
+/;

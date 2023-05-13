@@ -49,7 +49,7 @@ function dvt.Tick(predData, dt, rapid1, rapid2)
 				end
 
 				if preyData.vore then
-					preyData.fluxdamage = dt * preyData.dps * rapid1
+					preyData.fluxdamage = dt * (preyData.dps + (preyData.maxhp * 0.004)) * rapid1
 					if preyData.prey ~= DB.playerRef then
 						preyData.fluxtimes = dvt.poisson(dt * 0.333)
 					end

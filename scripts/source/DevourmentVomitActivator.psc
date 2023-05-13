@@ -151,7 +151,7 @@ ObjectReference Function SpawnPuddle1(int locus)
 
 	ObjectReference pile = self.placeAtMe(PuddleActivator, 1, false, true)
 	pile.setAngle(0.0, 0.0, 1.0)
-	pile.setScale(2.0)
+	pile.setScale(1.0)	;TODO: adjust based on specific pile. Some piles should scale volumetrically, others should not as they include static assets like dragon bones.
 
 	pile.SetActorOwner(None)
 	pile.SetFactionOwner(None)
@@ -174,7 +174,7 @@ ObjectReference Function SpawnSkeeverpuddle2(int locus)
 
 	ObjectReference pile = self.placeAtMe(PuddleActivator, 1, false, true)
 	pile.setAngle(0.0, 0.0, 1.0)
-	pile.setScale(2.0)
+	pile.setScale(1.0)	;TODO: adjust based on specific pile. Some piles should scale volumetrically, others should not as they include static assets like dragon bones.
 
 	pile.SetActorOwner(None)
 	pile.SetFactionOwner(None)

@@ -31,5 +31,11 @@ Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldCo
 		;It is important that the result of this call be very deliberate in timing when the thread yields.
 		;Yielding at the wrong time causes ref shuffling and the ref to this skull can be lost before the Bolus can swap it.
 		(akOldContainer as DevourmentBolus).SkullSwapNew = DevourmentSkullHandler.Instance().CloneSkullToWorld(Self, Prey)
+		RegisterForSingleUpdate(6.0)
 	EndIf
 endEvent
+
+Event OnUpdate()
+	Self.Disable()
+	Self.Delete()
+EndEvent

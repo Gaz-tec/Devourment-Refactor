@@ -309,6 +309,18 @@
 					}
 				},
 				{
+					"text": "$DVT_SkillUncapped",
+					"help": "$DVT_Help_SkillUncapped",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "bSkillUncapped",
+						"defaultValue": false
+					}
+				},
+				{
 					"text": "$DVT_SwallowHeal",
 					"help": "$DVT_Help_SwallowHeal",
 					"type": "toggle",
@@ -318,6 +330,18 @@
 						"scriptName": "DevourmentManager",
 						"propertyName": "SwallowHeal",
 						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_CombatRegen",
+					"help": "$DVT_Help_CombatRegen",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "combatRegen",
+						"defaultValue": true
 					}
 				},
 				{
@@ -342,18 +366,6 @@
 						"scriptName": "DevourmentManager",
 						"propertyName": "bossesSuperPrey",
 						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_ComplexStruggles",
-					"help": "$DVT_Help_ComplexStruggles",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "ComplexStruggles",
-						"defaultValue": false
 					}
 				},
 				{
@@ -1211,6 +1223,16 @@
 					}
 				},
 				{
+					"text": "$DVT_AltPerkMenu",
+					"help": "$DVT_Help_AltPerkMenu",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"propertyName": "AltPerkMenus",
+						"defaultValue": false
+					}
+				},
+				{
 					"text": "$DVT_PerformanceMode",
 					"help": "$DVT_Help_PerformanceMode",
 					"type": "toggle",
@@ -1253,20 +1275,6 @@
 					}
 				},
 				{
-					"text": "$DVT_MaxPerks",
-					"type": "text",
-					"help": "$DVT_Help_MaxPerks",
-					"valueOptions": {
-						"value": "Gain Perk Points"
-					},
-					"action": {
-						"type": "CallFunction",
-						"scriptName": "DevourmentMCM",
-					  	"function": "MaxPerks",
-					  	"params": []
-					}
-				},
-				{
 					"text": "$DVT_ResetPredSkill",
 					"type": "text",
 					"help": "$DVT_Help_ResetPredSkill",
@@ -1277,20 +1285,6 @@
 						"type": "CallFunction",
 						"scriptName": "DevourmentMCM",
 					  	"function": "ResetPredSkill",
-					  	"params": []
-					}
-				},
-				{
-					"text": "$DVT_ResetPreySkill",
-					"type": "text",
-					"help": "$DVT_Help_ResetPreySkill",
-					"valueOptions": {
-						"value": "Reset Prey Skill"
-					},
-					"action": {
-						"type": "CallFunction",
-						"scriptName": "DevourmentMCM",
-					  	"function": "ResetPreySkill",
 					  	"params": []
 					}
 				},

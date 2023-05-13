@@ -6,7 +6,6 @@ Actor property PlayerRef auto
 DevourmentManager property Manager auto
 Faction property CorpseVore auto
 Keyword property BeingSwallowed auto
-MagicEffect property DontSwallowMe auto
 Spell property VoreSpell auto
 Spell[] property CombatSpells auto
 float property SwallowRange = 225.0 autoReadOnly
@@ -184,8 +183,8 @@ EndEvent
 
 bool Function combatCheck(Actor newTarget, int combatState)
 	return combatState ==  1 && newTarget != none && pred != none && !newTarget.isChild() \
-	&& (doCorpseVore || !newTarget.isDead()) && PlayerCheck(newTarget) \
-	&& Manager.IsValidDigestion(pred, newTarget)
+	&& (doCorpseVore || !newTarget.isDead()) && PlayerCheck(newTarget) ;\
+	;&& Manager.IsValidDigestion(pred, newTarget)
 endFunction	
 
 

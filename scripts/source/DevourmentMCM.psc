@@ -3,7 +3,7 @@ Scriptname DevourmentMCM extends MCM_ConfigBase Conditional
 AUTHOR: Gaz and MarkDF
 PURPOSE: Manages the mod configuration menu for Devourment. 
 Stores all Vore Perks as properties, so is useful for other scripts needing access.
-CREDIT: Additional guidance acquired by pestering Parapets on his Discord.
+CREDIT: Additional guidance acquired by pestering Parapets on Discord.
 }
 
 ;/
@@ -45,9 +45,12 @@ Perk Property ConsumeEssence Auto
 Perk Property CounterVore auto
 Perk Property Cordyceps Auto
 Perk Property Delicious Auto
+
+;For now, unused. May be used again later. Previously these entirely gated the ability to vore these actor types.
 Perk Property DigestionDaedric Auto
 Perk Property DigestionDwemer Auto
 Perk Property DigestionUndead Auto
+
 Perk Property NourishmentBody Auto
 Perk Property NourishmentMana Auto
 Perk Property PartingGift Auto
@@ -72,7 +75,7 @@ Spell Property Power_EatThis auto
 bool property EnableHungryBones = true auto Hidden	;Makes it so Skeletons defecated start resurrected as Skeletons.
 bool property EnableCordyceps = true auto Hidden 	;Partially control actor movements / attacks if they swallow you.
 bool property AutoRebirth = false auto Hidden	;Makes it so prey that are unbirthed are automatically reformed when absorbed.
-bool property AltPerkMenus = true auto Hidden	;Uses QuickMenu for perk selection rather than Custom Skills.
+bool property AltPerkMenus = false auto Hidden	;Uses QuickMenu for perk selection rather than Custom Skills.
 bool property DontAddPowers = false auto conditional Hidden
 bool property UnrestrictedItemVore = false auto Hidden
 bool property GentleGas = false auto Hidden	;Makes it so that gas powers do not cause items around to be knocked down.
@@ -81,7 +84,7 @@ bool property DigestToInventory = false auto Hidden	;Items broken down with the 
 String property ExportFilename = "data\\skse\\plugins\\devourment\\db_export.json" autoreadonly Hidden
 String property SettingsFileName = "data\\skse\\plugins\\devourment\\settings.json" autoreadonly Hidden
 String property PredPerkFile = "data\\skse\\plugins\\devourment\\PredPerkData.json" autoreadonly Hidden
-String property PreyPerkFile = "data\\skse\\plugins\\devourment\\PreyPerkData.json" autoreadonly Hidden
+;String property PreyPerkFile = "data\\skse\\plugins\\devourment\\PreyPerkData.json" autoreadonly Hidden
 
 ; Properties required for MCM pages.
 Actor Property target Auto Hidden
@@ -95,7 +98,7 @@ bool vomitActivated = false
 bool flushActivated = false
 
 int predSkillInfo
-int preySkillInfo
+;int preySkillInfo
 
 String PREFIX = "DevourmentMCM"
 int Property difficulty = 2 Auto
@@ -176,6 +179,7 @@ Function RecalculateLocusCumulative()
 	
 	float sum = 0
 	int locus = LocusChances.length
+	;Note, LocusChances is an array 0 - 4. We skip the *real* 4th locus, the other breast, which means cock vore is element 4 here, not 5.
 
 	while locus
 		locus -= 1
@@ -246,13 +250,13 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 	int perkMap
 	float skill
 	
-	if pred
+	;if pred
 		perkMap = JValue_readFromFile(PredPerkFile)
 		skill = Manager.GetPredSkill(subject)
-	else
-		perkMap = JValue_readFromFile(PreyPerkFile)
-		skill = Manager.GetPreySkill(subject)
-	endIf
+	;else
+	;	perkMap = JValue_readFromFile(PreyPerkFile)
+	;	skill = Manager.GetPreySkill(subject)
+	;endIf
 	
 	if !AssertExists(PREFIX, "ShowPerkSubMenu", "perkMap", perkMap)
 		return false
@@ -393,7 +397,7 @@ function ResetPredSkill()
 	StorageUtil.SetFloatValue(target, "vorePredXP", 0.0)
 endFunction
 
-
+;/
 function ResetPreySkill()
 	if target == PlayerRef
 		Manager.Devourment_PreySkill.SetValue(10.0)
@@ -401,7 +405,7 @@ function ResetPreySkill()
 	StorageUtil.SetFloatValue(target, "vorePreySkill", 0.0)
 	StorageUtil.SetFloatValue(target, "vorePreyXP", 0.0)
 endFunction
-
+/;
 
 Function ResetVisuals()
 	Manager.UnassignAllPreyMeters()
@@ -588,17 +592,19 @@ event OnConfigClose()
 	endIf
 
 	If PerkMenuQueue == 1
-		;if AltPerkMenus	Commented out until Custom Skills Menu is updated.
+		if AltPerkMenus
 			ShowPerkSubMenu(true)
-		;else
-		;	Manager.Devourment_ShowPredPerks.SetValue(1.0)
-		;endIf
+		else
+			Manager.Devourment_ShowPredPerks.SetValue(1.0)
+		endIf
+		;/
 	ElseIf PerkMenuQueue == 2
-		;if AltPerkMenus
+		if AltPerkMenus
 			ShowPerkSubMenu(false)
-		;else
-		;	Manager.Devourment_ShowPreyPerks.SetValue(1.0)
-		;endIf
+		else
+			Manager.Devourment_ShowPreyPerks.SetValue(1.0)
+		endIf
+		/;
 	EndIf
 	PerkMenuQueue = 0
 
@@ -616,7 +622,10 @@ EndFunction
 
 
 event OnPageReset(string page)
+
+	;Incredibly important call. Without calling parent, our MCM will only get Legacy SKI events and MCM Helper options won't populate.
 	parent.OnPageReset(page)
+	
 	optionsMap = JValue_ReleaseAndRetain(optionsMap, JIntMap_Object(), PREFIX)
 	target = GetTarget()	;We use this so often we should just refresh it whenever.
 	targetName = Namer(target, true)
@@ -630,12 +639,12 @@ event OnPageReset(string page)
 	If page == "$DVT_Page_StatsSkills"
 		int perkPoints = Manager.GetPerkPoints(target)
 		int predSkill = Manager.GetPredSkill(target) as int
-		int preySkill = Manager.GetPreySkill(target) as int
+		;int preySkill = Manager.GetPreySkill(target) as int
 		int numVictims = Manager.getNumVictims(target)
 		int swallowSkill = Manager.getSwallowSkill(target) as int
-		int acidDamage = Manager.getAcidDamage(target, Manager.fakePlayer) as int
+		float acidDamage = Manager.getAcidDamage(target, Manager.fakePlayer, true)
 		int MaxTime = Manager.getHoldingTime(target) as int
-		int StruggleDamage = Manager.getStruggleDamage(target, Manager.fakePlayer) as int
+		float StruggleDamage = Manager.getStruggleDamage(Manager.fakePlayer, target, true)
 		int acidresistance = (Manager.getAcidResistance(target) * 100) as int
 		int swallowResistance = Manager.getSwallowResistance(target) as int
 		int dtime = Manager.GetDigestionTime(target, none) as int
@@ -645,12 +654,12 @@ event OnPageReset(string page)
 		setCursorFillMode(TOP_TO_BOTTOM)
 		addHeaderOption("Devourment v" + (CurrentVersion / 100) + "." + (CurrentVersion % 100))
 		addTextOption("Viewing: ", targetName)
-		predSkillInfo = addTextOption("Devourment pred skill: ", predSkill)
-		preySkillInfo = addTextOption("Devourment prey skill: ", preySkill)
-		addTextOption("Devourment level: ", Manager.GetVoreLevel(target))
-		addTextOption("Devourment perk points: ", perkPoints)
+		;predSkillInfo = addTextOption("Devourment pred skill: ", predSkill)
+		;preySkillInfo = addTextOption("Devourment prey skill: ", preySkill)
+		addTextOption("Devourment level: ", predSkill)
+		addTextOption("Perk points: ", perkPoints)
 		addToggleOptionSt("PredPerksState", "$DVT_ShowPredPerks", false)
-		addToggleOptionSt("PreyPerksState", "$DVT_ShowPreyPerks", false)
+		;addToggleOptionSt("PreyPerksState", "$DVT_ShowPreyPerks", false)
 		
 		String raceEDID = MiscUtil.GetActorRaceEditorID(PlayerRef)
 		Int CapacityActual = 1
@@ -746,7 +755,7 @@ event OnPageReset(string page)
 		addSliderOptionSt("Chance_Locus2", "$DVT_Locus2Chance", LocusChances[2], "{2}%")
 		addSliderOptionSt("Chance_Locus3", "$DVT_Locus3Chance", LocusChances[3], "{2}%")
 		;addSliderOptionSt("Chance_Locus4", "$DVT_LocusChance", LocusChances[4], "{2}")	;Previously the Right breast specifically.
-		addSliderOptionSt("Chance_Locus5", "$DVT_Locus5Chance", LocusChances[5], "{2}%")
+		addSliderOptionSt("Chance_Locus5", "$DVT_Locus5Chance", LocusChances[4], "{2}%")
 		
 		addHeaderOption("Female Predator Toggles")
 		Int i = 0
@@ -1258,7 +1267,7 @@ state PredPerksState
 	endEvent
 endstate
 
-
+;/
 state PreyPerksState
 	event OnDefaultST()
 		PerkMenuQueue = 0
@@ -1281,7 +1290,7 @@ state PreyPerksState
 		SetInfoText("If selected, then the Prey perk tree will be displayed once the MCM is closed.")
 	endEvent
 endstate
-
+/;
 
 state Scaling_Locus0State
 	Event OnSliderOpenST()
@@ -1820,22 +1829,22 @@ endState
 /;
 state Chance_Locus5
 	Event OnSliderOpenST()
-		Float fMaxChance = ((LocusCumulative[0] - LocusChances[5]) - 1.0) * -1.0
+		Float fMaxChance = ((LocusCumulative[0] - LocusChances[4]) - 1.0) * -1.0
 		fMaxChance = BoundFloat(fMaxChance, 0.0, 1.0)
-		SetSliderDialogStartValue(LocusChances[5])
+		SetSliderDialogStartValue(LocusChances[4])
 		SetSliderDialogDefaultValue(0.0)
 		SetSliderDialogRange(0.0, fMaxChance)
 		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
-		LocusChances[5] = a_value
+		LocusChances[4] = a_value
 		SetSliderOptionValueST(a_value, "{2}%")
 		RecalculateLocusCumulative()
 	endEvent
 
 	event OnDefaultST()
-		SetSliderOptionValueST(LocusChances[5], "{2}%")
+		SetSliderOptionValueST(LocusChances[4], "{2}%")
 	endEvent
 
 	event OnHighlightST()
@@ -2101,9 +2110,9 @@ Function DisplayQuickSettings()
 		locusIndex += 1
 	endWhile
 
-	int ENTRY_PERKS = menu.AddEntryItem("Perks (" + Manager.GetPerkPoints(subject) + " perk points)", entryHasChildren = true)
-	int ENTRY_PERK_PRED = menu.AddEntryItem("Pred Perks", ENTRY_PERKS)
-	int ENTRY_PERK_PREY = menu.AddEntryItem("Prey Perks", ENTRY_PERKS)
+	int ENTRY_PERKS = menu.AddEntryItem("Perks (" + Manager.GetPerkPoints(subject) + " perk points)")
+	;int ENTRY_PERK_PRED = menu.AddEntryItem("Pred Perks", ENTRY_PERKS)
+	;int ENTRY_PERK_PREY = menu.AddEntryItem("Prey Perks", ENTRY_PERKS)
 
 	int ENTRY_TOGGLES = menu.AddEntryItem("Toggles", entryHasChildren = true)
 	int ENTRY_REBIRTH = menu.AddEntryItem(ToggleString("Automatic rebirth", AutoRebirth), ENTRY_TOGGLES)
@@ -2159,7 +2168,7 @@ Function DisplayQuickSettings()
 	int ENTRY_DEBUG = menu.AddEntryItem("Debug", entryHasChildren = true)
 	int ENTRY_COMPEL = menu.AddEntryItem("Compel Vore", ENTRY_DEBUG)
 	int ENTRY_MAXSKILLS = menu.AddEntryItem("Max Skills", ENTRY_DEBUG)
-	int ENTRY_MAXPERKS = menu.AddEntryItem("Max Perks", ENTRY_DEBUG)
+	;int ENTRY_MAXPERKS = menu.AddEntryItem("Max Perks", ENTRY_DEBUG)
 	int ENTRY_NAMETEST = menu.AddEntryItem("Name Test", ENTRY_DEBUG)
 
 	int ENTRY_EXIT = menu.AddEntryItem("Exit")
@@ -2217,7 +2226,7 @@ Function DisplayQuickSettings()
 			EnableCordyceps = !EnableCordyceps
 			menu.SetPropertyIndexString("entryName", ENTRY_CORDYCEPS, ToggleString("Cordyceps", EnableCordyceps))
 
-		elseif result == ENTRY_PERK_PRED
+		elseif result == ENTRY_PERKS
 			if AltPerkMenus || subject != playerRef
 				ShowPerkSubMenu(true, subject)
 			else
@@ -2225,13 +2234,13 @@ Function DisplayQuickSettings()
 			endIf
 			exit = true
 
-		elseif result == ENTRY_PERK_PREY
-			if AltPerkMenus || subject != playerRef
-				ShowPerkSubMenu(false, subject)
-			else
-				Manager.Devourment_ShowPreyPerks.SetValue(1.0)
-			endIf
-			exit = true
+		;elseif result == ENTRY_PERK_PREY
+		;	if AltPerkMenus || subject != playerRef
+		;		ShowPerkSubMenu(false, subject)
+		;	else
+		;		Manager.Devourment_ShowPreyPerks.SetValue(1.0)
+		;	endIf
+		;	exit = true
 
 		elseif result == ENTRY_VOMIT
 			if subject == PlayerRef || subject.IsPlayerTeammate()
@@ -2288,8 +2297,8 @@ Function DisplayQuickSettings()
 		elseif result == ENTRY_MAXSKILLS
 			MaxSkills()
 			
-		elseif result == ENTRY_MAXPERKS
-			MaxPerks()
+		;elseif result == ENTRY_MAXPERKS
+		;	MaxPerks()
 			
 		endIf
 	endWhile
@@ -2299,19 +2308,21 @@ EndFunction
 Function MaxSkills()
 { MCM Helper workaround. }
 
+	target = GetTarget()
 	Manager.GivePredXP(target, 10000.0)
-	Manager.GivePreyXP(target, 10000.0)
+	;Manager.GivePreyXP(target, 10000.0)
 
 EndFunction
 
-
+;/
 Function MaxPerks()
 { MCM Helper workaround. }
 
+	target = GetTarget()
 	Manager.IncreaseVoreLevel(target, 100)
 
 EndFunction
-
+/;
 
 Function AddPredContents(UIListMenu menu, int parentEntry, Actor pred)
 	Form[] stomach = Manager.getStomachArray(pred) as Form[]
@@ -2357,7 +2368,7 @@ Function AddPreyDetails(UIListMenu menu, int parentEntry, Actor prey)
 	menu.AddEntryItem("Name: " + Namer(prey, true), parentEntry)
 	menu.AddEntryItem("Level: " + prey.GetLevel(), parentEntry)
 	menu.AddEntryItem("Pred skill: " + Manager.GetPredSkill(prey) as int, parentEntry)
-	menu.AddEntryItem("Prey skill: " + Manager.GetPreySkill(prey) as int, parentEntry)
+	;menu.AddEntryItem("Prey skill: " + Manager.GetPreySkill(prey) as int, parentEntry)
 	
 	int preyData = Manager.GetPreyData(prey)
 	menu.AddEntryItem("Locus: " + GetLocusName(Manager.GetLocus(preyData)), parentEntry)

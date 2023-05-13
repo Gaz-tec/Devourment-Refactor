@@ -9,8 +9,8 @@ import Devourment_JCDomain
 DevourmentManager property Manager auto
 DevourmentMorphs property Morphs auto
 Actor property PlayerRef auto
-Armor[] property Fullnesses auto
-FormList property FullnessTypes_All auto
+;Armor[] property Fullnesses auto
+;FormList property FullnessTypes_All auto
 Keyword property ActorTypeNPC auto
 
 
@@ -266,5 +266,5 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	;endIf
 	
 	NiOverride.UpdateModelWeight(target)
-	target.RemoveItem(FullnessTypes_All, 99, true)
+	;target.RemoveItem(FullnessTypes_All, 99, true)
 endEvent

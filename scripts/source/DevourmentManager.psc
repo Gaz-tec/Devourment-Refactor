@@ -59,7 +59,7 @@ Actor property PlayerRef Auto
 ActorBase[] property RemainsBones auto
 ActorValueInfo property AVProxy_Size auto
 
-Armor property GutArmor auto
+;Armor property GutArmor auto
 CommonMeterInterfaceHandler property PlayerFullnessMeter auto
 CommonMeterInterfaceHandler property PlayerStruggleMeter auto
 CommonMeterInterfaceHandler[] property PreyHealthMeters Auto
@@ -74,7 +74,7 @@ DevourmentReformationQuest property ReformationQuest auto
 DevourmentSkullHandler property SkullHandler auto
 Explosion property BoneExplosion auto
 Faction property PlayerFaction auto
-FormList property FullnessTypes_All auto
+;FormList property FullnessTypes_All auto	;From when Equipable armors were used instead of sliders. Defunct.
 Faction property PredatorBlacklistFaction auto
 Faction property PredatorWhitelistFaction auto
 Actor[] property PredatorBlacklist auto
@@ -93,12 +93,15 @@ I was concerned making an Actor[] property in Skyrim I fill in-game would make A
 GlobalVariable property Devourment_PerkPoints auto
 GlobalVariable property Devourment_PredProgress auto
 GlobalVariable property Devourment_PredSkill auto
-GlobalVariable property Devourment_PreyProgress auto
-GlobalVariable property Devourment_PreySkill auto
 GlobalVariable property Devourment_ShowPredGain auto
 GlobalVariable property Devourment_ShowPredPerks auto
-GlobalVariable property Devourment_ShowPreyGain auto
-GlobalVariable property Devourment_ShowPreyPerks auto
+
+;Irrelevant as of 2.3 Pred and Prey perk tree merge.
+;GlobalVariable property Devourment_PreyProgress auto
+;GlobalVariable property Devourment_PreySkill auto
+;GlobalVariable property Devourment_ShowPreyGain auto
+;GlobalVariable property Devourment_ShowPreyPerks auto
+
 GlobalVariable property PreyWeightEdit auto
 GlobalVariable[] property HealthMeterColours auto
 Idle Property IdleStop Auto
@@ -114,9 +117,9 @@ Keyword property ActorTypeDwarven auto
 Keyword property ActorTypeNPC auto
 Keyword property ActorTypeUndead auto
 Keyword property BeingSwallowed auto
-Keyword property DevourmentPred auto
+
 Keyword property DevourmentSuperPred auto
-Keyword property DevourmentSuperPrey auto
+;Keyword property DevourmentSuperPrey auto	;No longer relevant as of 2.3's Prey and Pred skill merge.
 Keyword property DevourmentBoss auto
 Keyword property KeywordFullness auto
 Keyword property KeywordParalysis auto
@@ -125,8 +128,12 @@ Keyword property RapidDigestion auto
 Keyword property Secretion auto
 Keyword property Vampire auto
 Keyword property VoreTalker auto
-Keyword property Vorish auto
-Keyword[] property RaceDigestionKeywords auto
+
+;Relics from before SPID existed, when we used a RefAlias scanner to find NPCs and stick Keywords and Spells on them if they were allowed to vore. Vorish is still kept in the Plugin itself to simplify SPID files.
+;Keyword property Vorish auto	
+;Keyword property DevourmentPred auto
+
+;Keyword[] property RaceDigestionKeywords auto	;We used to use this with a LibFire function for quick sorting of Undead/Daedra/Dwemer but we no longer use LibFire.
 Message property MenuPreyWeight auto
 Message property MenuWhitelist auto
 Message property Message_NowDigesting auto
@@ -141,7 +148,11 @@ MusicType property DeathMusic auto
 ObjectReference property HerStomach auto
 Outfit property DigestionOutfit auto
 PlayerVampireQuestScript property PlayerVampireQuest auto
+PlayerWerewolfChangeScript property PlayerWerewolfQuest auto
+Perk Property DLC1GorgingPerk Auto
 Race property Dragon auto
+Race property WerewolfBeastRace auto
+Race property DLC2WerebearBeastRace auto
 Race[] property CreaturePredatorRaces auto
 Race[] property HumanoidPredatorRaces auto
 ReferenceAlias property PredNameAlias auto
@@ -165,6 +176,14 @@ Spell property RaiseDead Auto
 Spell property ScriptedEndo auto
 Spell property ScriptedVore auto
 Spell property CordycepsFrenzy auto
+Spell property PlayerWerewolfFeedVictimSpell Auto
+{Vanilla spell that increments Werewolf Perk Points.}
+
+Spell property Burping auto
+{A modified Burp spell that does not create a recursive ModEvent.}
+Spell property Farting auto
+{A modified Fart spell that does not create a recursive ModEvent.}
+
 Spell[] property SoundsOfDigestion auto
 Spell[] property StatusSpells auto
 Static Property AnimationMarker Auto
@@ -176,6 +195,7 @@ int[] property EdibleTypes auto
 bool property AnalEscape = false auto
 bool property CombatAcceleration = false auto
 bool property SoftDeath = false auto
+bool property combatRegen = true auto
 bool property digestionRegen = true auto
 bool property creaturePreds = false auto
 bool property crouchScat = true auto
@@ -196,9 +216,11 @@ bool property bossesSuperPrey = true auto
 bool property entitlement = false auto
 bool property EndoStruggling = true auto
 bool property VisualStruggles = true auto
-bool property ComplexStruggles = false auto
+;bool property ComplexStruggles = false auto
 bool property SkillGain = true auto
 bool property AttributeGain = true auto
+bool property StruggleTutorialShown = false auto
+bool property bSkillUncapped = false auto
 bool property VoreAnimations = false auto
 bool property DragonVoreAnimation = true auto
 bool property MammothVoreAnimation = true auto
@@ -238,7 +260,7 @@ float property liveMultiplier = 1.0 auto
 {Multiplies the time a pred can keep live prey trapped inside them, and divides the acid damage per second.}
 
 
-float property struggleDifficulty = 10.0 auto
+float property struggleDifficulty = 6.0 auto
 {Controls the difficulty of a prey struggling free from a pred.}
 
 
@@ -335,6 +357,11 @@ bool FrostFallInstalled = false
 float lastRealTimeProcessed = 0.0
 float lastGameTimeProcessed = 0.0
 
+bool playerBurping = false
+;Yeah... I really made a mutex for the player burping.
+
+bool npcBurping = false
+;One for NPCs too. Admittedly won't cover more than one NPC at a time but it shouldn't come up often.
 
 bool DEBUGGING = false
 String PREFIX = "DevourmentManager"
@@ -361,7 +388,7 @@ Function Upgrade(int oldVersion, int newVersion)
 			ResetBellies()
 		endIf
 		if oldVersion < 220
-			Menu.AltPerkMenus = True	;Fix for users not using Minimalistic Custom Skills.
+			Menu.AltPerkMenus = False
 			Menu.LocusChances[0] = 0.6	;This version now caps Locus Chances, so let's just sanitise settings.
 			Menu.LocusChances[1] = 0.1
 			Menu.LocusChances[2] = 0.1
@@ -399,7 +426,7 @@ Event OnInit()
 	LoadGameChecks()
 
 	GetPredSkill(playerRef)
-	GetPreySkill(playerRef)
+	;GetPreySkill(playerRef)
 
 	PreyMeterAssignments = new Actor[10]
 
@@ -480,13 +507,14 @@ script. Instead it's called from DevourmentPlayerAlias.
 
 	RegisterForModEvent("Devourment_VoreSkills", "VoreSkills")
 	RegisterForModEvent("Devourment_PredXP", "GivePredXP")
-	RegisterForModEvent("Devourment_PreyXP", "GivePreyXP")
+	;RegisterForModEvent("Devourment_PreyXP", "GivePreyXP")
 	RegisterForModEvent("Devourment_ProduceVomit", "ProduceVomit")
 	RegisterForModEvent("Devourment_DeadDigested", "DeadDigested")
-	RegisterForModEvent("Devourment_ValidDigestion", "CheckValidDigestion")
+	;RegisterForModEvent("Devourment_ValidDigestion", "CheckValidDigestion")
 	RegisterForModEvent("Devourment_RaiseDead", "RaiseDead")
 	RegisterForModEvent("Devourment_AddSkull", "AddSkull")
 	RegisterForModEvent("Devourment_Burp", "PlayBurp")
+	RegisterForModEvent("Devourment_BurpAnimation", "BurpAnimation")
 	RegisterForModEvent("Devourment_UpdateSounds", "UpdateSounds")
 	RegisterForModEvent("Devourment_Entitlement", "Entitlement")
 	RegisterForModEvent("Devourment_OutfitRestore", "OutfitRestore")
@@ -954,7 +982,7 @@ Event RegisterDigestion(Form f1, Form f2, bool endo, int locus)
 		;UncacheVoreWeight(prey)
 
 		GivePredXP_async(pred, Math.sqrt(prey.GetLevel()))
-		GivePreyXP_async(prey, Math.sqrt(pred.GetLevel()))
+		;GivePreyXP_async(prey, Math.sqrt(pred.GetLevel()))
 
 		if prey == PlayerRef && AreFriends(pred, PlayerRef)
 			ReformationQuest.AddReformationHost(pred)
@@ -1235,6 +1263,10 @@ Function EndoDigestion(Actor pred, Actor prey, int preyData, float dt)
 	endIf
 EndFunction
 
+Float Function GetMaximumStatValue(Actor prey, String asValueName)
+    float MaxValue = Math.Ceiling(prey.GetActorValue(asValueName) / prey.GetActorValuePercentage(asValueName))
+	return MaxValue
+EndFunction
 
 Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 { Processes live vore digestion for a pred/prey pair. }
@@ -1257,7 +1289,8 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 		return
 	endIf
 	
-	float damage = JMap_getFlt(preyData, "fluxdamage")
+	;float PreyMaxHealth = GetMaximumStatValue(prey, "Health")
+	float damage = JMap_getFlt(preyData, "fluxdamage") ;* PreyMaxHealth
 	float times = JMap_getFlt(preyData, "fluxtimes")
 	float timer = JMap_getFlt(preyData, "timer")
 
@@ -1319,18 +1352,20 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 	
 	if damage > 0.0
 		GivePredXP_async(pred, damage / 5.0)
-		GivePreyXP_async(prey, damage / 5.0)
+		;GivePreyXP_async(prey, damage / 5.0)
 
-		if pred.hasPerk(Menu.NourishmentBody)
-			pred.restoreActorValue("Health", damage * 2.0)
-			pred.restoreActorValue("Stamina", damage * 2.0)
+		if combatRegen
+			if pred.hasPerk(Menu.NourishmentBody)
+				pred.restoreActorValue("Health", damage * 2.0)
+				pred.restoreActorValue("Stamina", damage * 2.0)
 
-			if pred.hasPerk(Menu.NourishmentMana)
-				pred.restoreActorValue("Magicka", damage * 2.0)
+				if pred.hasPerk(Menu.NourishmentMana)
+					pred.restoreActorValue("Magicka", damage * 2.0)
+				endIf
+			else
+				pred.restoreActorValue("Health", damage)
+				pred.restoreActorValue("Stamina", damage)
 			endIf
-		else
-			pred.restoreActorValue("Health", damage)
-			pred.restoreActorValue("Stamina", damage)
 		endIf
 	endIf
 	
@@ -1391,7 +1426,7 @@ endFunction
 
 Function CheckAndSetPartingGift(Actor pred, Actor prey)
 	if prey.HasPerk(Menu.PartingGift)
-		if !pred.hasPerk(Menu.ConstrictingGrip) || GetVoreLevel(prey) > GetVoreLevel(pred)
+		if !pred.hasPerk(Menu.ConstrictingGrip) || GetPredSkill(prey) > GetPredSkill(pred)
 			StorageUtil.SetIntValue(prey, "DevourmentPartingGift", 1)
 		endIf
 	endIf
@@ -1491,8 +1526,23 @@ function FinishLiveDigestion(Actor pred, Actor prey, int preyData)
 	endIf
 
 	if pred == playerRef
-		if prey.GetLeveledActorBase().getRace() == Dragon
+		if pred.hasKeyword(Vampire) && prey.hasKeyword(ActorTypeNPC)
+			PlayerVampireQuest.VampireFeed()
+			Log2(PREFIX, "FinishLiveDigestion", Namer(pred), "Vampire drank blood by voring.")
+		endif
+		if pred.GetRace() == WerewolfBeastRace || pred.GetRace() == DLC2WerebearBeastRace
+			if (pred.HasPerk(DLC1GorgingPerk) && prey.HasKeywordString("ActorTypeAnimal")) || (prey.HasKeywordString("ActorTypeNPC") && !prey.HasKeywordString("ActorTypeGhost"))
+				Idle TempBackup = PlayerWerewolfQuest.SpecialFeeding
+				PlayerWerewolfQuest.SpecialFeeding = None
+				PlayerWerewolfQuest.Feed(prey)
+				PlayerWerewolfQuest.SpecialFeeding = TempBackup
+				Log2(PREFIX, "FinishLiveDigestion", Namer(pred), "Werewolf ate by voring.")
+				PlayerWerewolfFeedVictimSpell.Cast(playerref, playerref)
+			endif
+		endif
+		if prey.GetLeveledActorBase().getRace() == Dragon && (prey as dragonActorSCRIPT).GetState() != "deadDisintegrated"
 			pred.modActorValue("dragonsouls", 1.0)
+			(prey as dragonActorSCRIPT).GoToState("deadDisintegrated")	;Could have disastrous consequence. Let's find out together.
 		endIf
 	endIf
 
@@ -2773,24 +2823,26 @@ The unrestricted skips the "IsStrippable" check.
 		return false
 	endIf
 	
+	;/
 	; If the item is a DevourmentSkull, try to revive it.
-	;if item as DevourmentSkullObject
-	;	DevourmentSkullObject skull = item as DevourmentSkullObject
-		;if !skull.IsInitialized() ;|| !skull.IsFirstDigestPassed()
-		;	Log1(PREFIX, "DigestItem", "Uninitialized DevourmentSkull; skipping reformation.")
+	if item as DevourmentSkullObject
+		DevourmentSkullObject skull = item as DevourmentSkullObject
+		if !skull.IsInitialized() ;|| !skull.IsFirstDigestPassed()
+			Log1(PREFIX, "DigestItem", "Uninitialized DevourmentSkull; skipping reformation.")
 
-		;elseif SkullHandler.SwallowSkull(pred, (item as ObjectReference), locus)
-		;	Log1(PREFIX, "DigestItem", "DevourmentSkull passed to the SkullHandler.")
-		;	return true
+		elseif SkullHandler.SwallowSkull(pred, (item as ObjectReference), locus)
+			Log1(PREFIX, "DigestItem", "DevourmentSkull passed to the SkullHandler.")
+			return true
 
-		;else
-		;	Log1(PREFIX, "DigestItem", "SkullHandler failed for some reason.")
-		;	if DEBUGGING
-		;		Debug.MessageBox("Skull reformation failed. Check the Papyrus Log.")
-		;	endIf
-		;	return true
-		;endIf
-	;endIf
+		else
+			Log1(PREFIX, "DigestItem", "SkullHandler failed for some reason.")
+			if DEBUGGING
+				Debug.MessageBox("Skull reformation failed. Check the Papyrus Log.")
+			endIf
+			return true
+		endIf
+	endIf
+	/;
 	
 	; If the item is edible, eat it.
 	Form itemBase
@@ -3152,7 +3204,8 @@ Function NPCStruggle(Actor pred, Actor prey, int preyData, float times, bool suc
 
 	if successful
 		struggle = AdjustStruggle(preyData, increment)
-		GivePreyXP_async(prey, damage / 5.0)
+		;GivePreyXP_async(prey, damage / 5.0)
+		GivePredXP_async(prey, damage / 5.0)
 	else
 		struggle = AdjustStruggle(preyData, -increment)
 	endIf
@@ -3481,6 +3534,7 @@ EndFunction
 float function getHoldingTime(Actor pred)
 {
 Calculate the maximum time a pred can keep live prey trapped in their stomach.
+I will forget later, but this number is this way so that at level 100 you have precisely enough time to tick for 100% maximum health.
 The calculation incorporates:
 + Pred vore skill (quadratic)
 + Iron stomach perks
@@ -3488,7 +3542,7 @@ The calculation incorporates:
 + liveMultiplier
 }
 	float X = GetPredSkill(pred)
-	float holdingTime = 5.0 + 0.55 * X
+	float holdingTime = 5.0 + 0.95 * X
 	holdingTime *= liveMultiplier
 	holdingTime *= GetPerkMultiplier(pred, Menu.IronStomach_arr, 1.0, 0.5)
 	
@@ -3504,8 +3558,14 @@ float function getAcidResistance(Actor prey)
 	{ Calculate the prey's acid resistance. The calculation incorporates:
 	+ Resilience perks }
 
-	float X = GetPreySkill(prey)
-	float acidResistance = 0.0025 * X
+	;float X = GetPreySkill(prey)
+	float X = GetPredSkill(prey)
+	float acidResistance = 0.0
+	If x > 100.0
+		x -= 100.0
+		acidResistance += 100.0 * 0.0025
+	endIf
+	acidResistance += 0.0010 * X
 	if prey != playerRef
 		acidResistance *= NPCBonus
 	endIf
@@ -3521,31 +3581,33 @@ float function getAcidResistance(Actor prey)
 EndFunction
 	
 	
-Float function getAcidDamage(Actor pred, Actor prey)
+Float function getAcidDamage(Actor pred, Actor prey, bool mcmDemo = false)
 {
 Calculate the digestion damage per second for a pred/prey combination.
 
 The calculation incorporates:
-+ Pred vore skill (quadratic)
++ Pred vore skill
 + Strong acid perks
 + The acidDamageModifier setting.
-+ An automatic bonus for NPCs of 50%.
++ An automatic bonus for NPCs of 2x.
 - Prey acid resistance
 - The inverse of liveMultiplier
 
 It does NOT incorporate magic effects that provide bonus damage, because these
-need to be applied in real-time.
+need to be applied in real-time. Note that flux damage is not included in this and is seeded by max HP.
 }
 	float X = GetPredSkill(pred)
-	float damage = 2.0 + 0.18 * X
+	float damage = 1.0 + 0.05 * X
 
 	damage *= AcidDamageModifier
 	damage *= GetPerkMultiplier(pred, Menu.StrongAcid_arr, 1.0, 0.5)
-	damage *= (1.0 - getAcidResistance(prey))
+	If mcmDemo
+		damage *= (1.0 - getAcidResistance(prey))
+	EndIf
 	damage /= liveMultiplier
 
 	if pred != playerRef
-		damage *= NPCBonus
+		damage *= 2.0
 	endIf
 
 	if DEBUGGING
@@ -3556,17 +3618,18 @@ need to be applied in real-time.
 endFunction
 
 
-float function getStruggleDamage(Actor pred, Actor prey)
+float function getStruggleDamage(Actor pred, Actor prey, bool mcmDemo = false)
 {
 Calculate the pred's struggling damage. The calculation incorporates:
-+ Prey vore skill
++ Prey* vore skill (Changed to Predator as of AE 2.3)
 + Struggling perks
-+ An automatic bonus for NPCs of 50%.
++ An automatic malus for NPCs of 30%.
 - The multiplier to live digestion time.
 - The struggle difficulty setting.
 }
-	float X = GetPreySkill(prey)
-	float damage = 2.5 + 0.225 * X
+	;float X = GetPreySkill(prey)
+	float X = GetPredSkill(prey)
+	float damage = 2.5 + (0.075 * X)
 
 	damage *= StruggleDamage
 	damage /= liveMultiplier
@@ -3574,7 +3637,7 @@ Calculate the pred's struggling damage. The calculation incorporates:
 	damage *= GetPerkMultiplier(pred, Menu.IronStomach_arr, 1.0, -0.25)
 
 	if prey != playerRef
-		damage *= 2.0
+		damage *= 0.7
 	endIf
 
 	if DEBUGGING
@@ -3593,10 +3656,12 @@ Calculate the prey's swallow resistance. The calculation incorporates:
 + Magic effects that provide swallow resistance.
 }
 	if DEBUGGING
-		Log3(PREFIX, "getSwallowResistance", Namer(prey), "skill="+GetPreySkill(prey), "size="+GetCumulativeSize(prey))
+		;Log3(PREFIX, "getSwallowResistance", Namer(prey), "skill="+GetPreySkill(prey), "size="+GetCumulativeSize(prey))
+		Log3(PREFIX, "getSwallowResistance", Namer(prey), "skill="+GetPredSkill(prey), "size="+GetCumulativeSize(prey))
 	endIf
 
-	float swallowResistance = GetPreySkill(prey)
+	;float swallowResistance = GetPreySkill(prey)
+	float swallowResistance = GetPredSkill(prey)
 	swallowResistance *= GetPerkMultiplier(prey, Menu.Slippery_arr, 1.0, 0.1)
 	swallowResistance *= GetCumulativeSize(prey)
 	return swallowResistance
@@ -3667,6 +3732,70 @@ Success is automatic for followers or lovers.
 EndFunction
 
 
+Float Function GetStaminaSwallowCost(Actor pred, Actor prey, bool stealthy, bool abMagicka = false)
+{
+A modified GetVoreSwallowChance which returns a Stamina cost required to swallow the Prey.
+
+The calculation incorporates:
++ Pred swallow skill
++ Pred size
++ Pred Voracious perks
++ Pred Sneaking
++ Prey Paralysis, Dead and Unconscious/Sleeping state
+- Prey swallow resistance
+- Prey size
+- Prey health
+- Prey stamina
++ Magic effects that fortify swallow for the pred
++ Magic effects that damage slipperiness for the prey
+- Magic effects that fortify slipperiness for the prey
+}
+	if DEBUGGING
+		assertNotNone(PREFIX, "GetStaminaSwallowCost", "pred", pred)
+		assertNotNone(PREFIX, "GetStaminaSwallowCost", "prey", prey)
+	endIf
+
+	float fSizeRatio = GetVoreWeightRatio(pred, prey)
+
+	float predSkill = GetSwallowSkill(pred)
+	float preySkill = GetSwallowResistance(prey)
+	
+	float preyHealth = prey.GetActorValuePercentage("Health")
+	float preyStamina = prey.GetActorValuePercentage("Stamina")
+	
+	float healthFactor = CombatChanceScale * (preyHealth + preyStamina/2.0)
+
+	float skillFactor = ((predSkill - preySkill) / (predSkill + preySkill)) * -1
+	float fPerkFactor = GetPerkMultiplier(pred, Menu.Voracious_arr, 1.05, -0.2)
+
+	float fStaminaCost = math.pow(4.1, healthFactor + skillFactor + fSizeRatio + fPerkFactor)
+	if abMagicka
+		fStaminaCost *= 0.5	;Half the cost should be on the Spell itself, so we don't disturb experience gain too much. This also helps prevent free staggers.
+	else
+		fStaminaCost += 12.0
+	endIf
+	
+	if stealthy
+		fStaminaCost *= 0.5
+	endIf
+	
+	if prey.GetSleepState() > 2 || prey.isDead() || prey.IsUnconscious() || prey.HasMagicEffectWithKeyword(KeywordParalysis)
+		fStaminaCost *= 0.5
+	endIf
+	
+	if DEBUGGING
+		ConsoleUtil.PrintMessage("ln(fStaminaCost) = "+CombatChanceScale+"(" + preyHealth + " + " + preyStamina + "/2) + (" + predSkill + " - " + preySkill + ")/(" + predSkill + " + " + preySkill + ") + (" + fSizeRatio + ") + (" + fPerkFactor + ")")
+		ConsoleUtil.PrintMessage("fStaminaCost = 4.1^(" + healthFactor + " + " + skillFactor + " + " + fSizeRatio + " + " + fPerkFactor + ")")
+		ConsoleUtil.PrintMessage("fStaminaCost = " + fStaminaCost)
+	endIf
+	
+	Log7(PREFIX, "GetStaminaSwallowCost", Namer(pred), Namer(prey), fStaminaCost, healthFactor, skillFactor, fSizeRatio, fPerkFactor)
+
+	return fStaminaCost
+
+EndFunction
+
+
 float Function GetVoreSwallowChance(Actor pred, Actor prey, bool stealthy)
 {
 Calculate the swallow chance for a pred/prey vore combination. The calculation incorporates:
@@ -3691,8 +3820,9 @@ Success is automatic for prey that is dead, bleeding out, surrendered, or asleep
 		assertNotNone(PREFIX, "GetVoreSwallowChance", "prey", prey)
 	endIf
 
-	float predSize = GetVoreWeight(pred)
-	float preySize = GetVoreWeight(prey)
+	float fSizeRatio = GetVoreWeightRatio(pred, prey)
+	;float predSize = GetVoreWeight(pred)
+	;float preySize = GetVoreWeight(prey)
 
 	; These cases allow automatic success or failure.
 	if prey.isDead() || prey.isBleedingOut() || prey.HasMagicEffectWithKeyword(KeywordSurrender)
@@ -3709,8 +3839,8 @@ Success is automatic for prey that is dead, bleeding out, surrendered, or asleep
 	
 	float healthFactor = -CombatChanceScale * (preyHealth + preyStamina/2.0)
 	float skillFactor = (predSkill - preySkill) / (predSkill + preySkill)
-	float sizeFactor = (predSize - preySize) / (predSize + preySize)
-	float swallowChance = math.pow(2.71828, healthFactor + skillFactor + sizeFactor)
+	;float sizeFactor = (predSize - preySize) / (predSize + preySize)
+	float swallowChance = math.pow(2.71828, healthFactor + skillFactor + fSizeRatio)
 	
 	if stealthy
 		swallowChance *= 1.5
@@ -3721,10 +3851,10 @@ Success is automatic for prey that is dead, bleeding out, surrendered, or asleep
 	endIf
 
 	if DEBUGGING
-		ConsoleUtil.PrintMessage("ln(swallowChance) = -"+CombatChanceScale+"(" + preyHealth + " + " + preyStamina + "/2) + (" + predSkill + " - " + preySkill + ")/(" + predSkill + " + " + preySkill + ") + (" + predSize + " - " + preySize + ")/(" + predSize + " + " + preySize + ")")
-		ConsoleUtil.PrintMessage("swallowChance = e^(" + healthFactor + " + " + skillFactor + " + " + sizeFactor + ")")
+		ConsoleUtil.PrintMessage("ln(swallowChance) = -"+CombatChanceScale+"(" + preyHealth + " + " + preyStamina + "/2) + (" + predSkill + " - " + preySkill + ")/(" + predSkill + " + " + preySkill + ") + (" + fSizeRatio + ")")
+		ConsoleUtil.PrintMessage("swallowChance = e^(" + healthFactor + " + " + skillFactor + " + " + fSizeRatio + ")")
 		ConsoleUtil.PrintMessage("swallowChance = " + swallowChance)
-		Log6(PREFIX, "GetVoreSwallowChance", Namer(pred), Namer(prey), swallowChance, healthFactor, skillFactor, sizeFactor)
+		Log6(PREFIX, "GetVoreSwallowChance", Namer(pred), Namer(prey), swallowChance, healthFactor, skillFactor, fSizeRatio)
 	endIf
 
 	if DEBUGGING && pred == playerRef
@@ -4063,50 +4193,94 @@ Function unGhostify(Actor prey)
 EndFunction
 
 
-Function PlayBurp_async(Actor pred, bool oral = true)
+Function PlayBurp_async(Actor pred, bool oral = true, bool castSpell = true)
 { Used to call PlayBurp asynchronously using SendModEvent. }
 	int handle = ModEvent.create("Devourment_Burp")
 	ModEvent.pushForm(handle, pred)
 	ModEvent.pushBool(handle, oral)
+	ModEvent.pushBool(handle, castSpell)
 	ModEvent.Send(handle)
 EndFunction
 
 
-Event PlayBurp(Form f, bool oral)
-{ Do a burp and a facial expression. If oral is set to false, it will be a fart instead. }
+Event PlayBurp(Form f, bool oral, bool castSpell)
+{ Do a burp and queue up a facial expression. If oral is set to false, it will be a fart instead. 
+ Optionally casts the burp/fart power, which speeds digestion and applies a HDT force-field. }
 	if DEBUGGING
 		Log2(PREFIX, "PlayBurp", Namer(f), oral)
 	endIf
 
-	int expression
+	;int expression
 	Sound TheSound
 	
-	if oral
-		expression = 16
-		TheSound = BurpSound
-	else
-		expression = 10
-		theSound = ScatSounds[2]
-	endIf
-
 	Actor pred = f as Actor
-	if pred == playerRef
-		pred.SetExpressionOverride(expression, 100)
-		theSound.play(pred)
-		BurpItem(pred)
-		Utility.Wait(2.0)
-		pred.ClearExpressionOverride()
-
-	elseif pred && pred.is3DLoaded()
-		if pred.haskeyword(ActorTypeNPC)
-			pred.SetExpressionOverride(expression, 100)
-			theSound.play(pred)
-			Utility.Wait(2.0)
-			pred.ClearExpressionOverride()
-		else
-			theSound.play(pred)
+	if oral
+		;expression = 16
+		TheSound = BurpSound
+		if castSpell
+			Burping.cast(pred, pred)
+		endIf
+	else
+		;expression = 10
+		theSound = ScatSounds[2]
+		if castSpell
+			Farting.cast(pred, pred)
 		endIf
 	endIf
+
+	
+	if pred == playerRef
+		BurpAnimation_async(pred)
+		;pred.SetExpressionOverride(expression, 100)
+		BurpItem(pred)
+
+
+	elseif pred && pred.is3DLoaded()
+		BurpAnimation_async(pred)
+	endIf
+	theSound.play(pred)
+EndEvent
+
+
+Function BurpAnimation_async(Actor akPred)
+{ Used to call Burp phoneme functions asynchronously using SendModEvent. }
+	int handle = ModEvent.create("Devourment_BurpAnimation")
+	ModEvent.pushForm(handle, akPred)
+	ModEvent.Send(handle)
+EndFunction
+
+
+Event BurpAnimation(Form f)
+	Actor pred = f as Actor
+	If pred == playerRef && !playerBurping
+		playerBurping = true
+		Int iOpen = 0
+		While iOpen < 90
+			MfgConsoleFunc.SetPhonemeModifier(pred, 0, 1, iOpen)
+			iOpen += 10
+		EndWhile
+		Utility.Wait(2.0)
+		While iOpen > 0
+			MfgConsoleFunc.SetPhonemeModifier(pred, 0, 1, iOpen)
+			iOpen -= 10
+		EndWhile
+		MfgConsoleFunc.ResetPhonemeModifier(pred)
+		playerBurping = false
+	elseif !npcBurping	;Not restricted by ActorTypeNPC Keywords because most things have mouthes and we expect beast preds.
+		npcBurping = true
+		Int iOpen = 0
+		While iOpen < 90
+			MfgConsoleFunc.SetPhonemeModifier(pred, 0, 1, iOpen)
+			iOpen += 10
+		EndWhile
+		Utility.Wait(2.0)
+		While iOpen > 0
+			MfgConsoleFunc.SetPhonemeModifier(pred, 0, 1, iOpen)
+			iOpen -= 10
+		EndWhile
+		MfgConsoleFunc.ResetPhonemeModifier(pred)
+		npcBurping = false
+	endif
 EndEvent
 
 
@@ -4385,7 +4559,7 @@ EndFunction
 Function ResetBelly(Actor pred)
 	{Reapplies belly of predator. }
 	Log0(PREFIX, "ResetBelly")
-	pred.removeItem(FullnessTypes_All, 99, true)
+	;pred.removeItem(FullnessTypes_All, 99, true)
 	pred.RemoveSpell(DevourmentSlow)
 	pred.AddSpell(DevourmentSlow, false)
 	UpdateSounds_async(pred)
@@ -4495,7 +4669,7 @@ Function ResetActor(Actor target, ObjectReference place)
 	UnassignPreyMeters(target)
 	Unghostify(target)
 	target.enable()
-	target.removeItem(FullnessTypes_All, 99, true)
+	;target.removeItem(FullnessTypes_All, 99, true)
 	target.removeSpell(DevourmentSlow)
 	target.removeSpell(NotThere_Trapped)
 	target.removeSpell(NotThere_Friendly)
@@ -4637,7 +4811,7 @@ bool Function canStruggle(Actor prey, int preyData)
 	endIf
 endFunction
 
-
+;/
 bool Function IsValidDigestion(Actor pred, Actor prey)
 	;int keywordIndex = LibFire.ActorFindAnyKeyword(prey, RaceDigestionKeywords)
 
@@ -4651,7 +4825,7 @@ bool Function IsValidDigestion(Actor pred, Actor prey)
 		return true
 	endIf
 EndFunction
-
+/;
 
 Function CheckValidDigestion_async(Actor pred, Actor prey, int preyData)
 { Used to call CheckValidDigestion asynchronously using a ModEvent. }
@@ -4674,7 +4848,7 @@ Determines if a prey is eligible to be digested.
 	Actor prey = f2 as Actor
 
 	;int keywordIndex = LibFire.ActorFindAnyKeyword(prey, RaceDigestionKeywords)
-
+;/
 	if prey.hasKeyword(ActorTypeUndead) ; keywordIndex == 0
 		if !pred.hasPerk(Menu.DigestionUndead)
 			HandleInvalidDigestion(MessageIndigestible[0], pred, prey)
@@ -4687,7 +4861,8 @@ Determines if a prey is eligible to be digested.
 		if !pred.hasPerk(Menu.DigestionDwemer)
 			HandleInvalidDigestion(MessageIndigestible[2], pred, prey)
 		endIf
-	elseif prey.getitemcount(Ipecac) > 0
+	else /;
+	if prey.getitemcount(Ipecac) > 0
 		prey.removeItem(Ipecac, 1, false, none)
 		HandleInvalidDigestion(MessageIndigestible[3], pred, prey)
 	endIf
@@ -5408,7 +5583,7 @@ Function RemovePredator(Actor pred)
 	endIf
 	JFormMap_removeKey(predators, pred)
 	pred.RemoveSpell(DevourmentSlow)
-	pred.RemoveItem(FullnessTypes_All, 99, true)
+	;pred.RemoveItem(FullnessTypes_All, 99, true)
 	StopVoreSounds(pred)
 
 	if pred == PlayerRef
@@ -5746,12 +5921,12 @@ float Function GetPerkMultiplier(Actor subject, Perk[] perks, float base, float 
 	;int perkIndex = LibFire.ActorFindAnyPerk(subject, perks)
 	int perkIndex = -1
 	int perksLength = perks.Length
-	int iIndex = 0
-    while iIndex < perksLength && perkIndex == -1
+	int iIndex = perksLength - 1
+    while iIndex > -1 && perkIndex == -1
 		if subject.HasPerk(perks[iIndex])
 			perkIndex = iIndex
 		endIf
-		iIndex += 1
+		iIndex -= 1
 	endWhile
 	int perkLevel = 1 + perkIndex
 	float result = base + mult * (perkLevel as float)
@@ -6123,6 +6298,7 @@ int Function CreatePreyData(Actor pred, Actor prey, bool endo, bool dead, int lo
 	JMap_setInt(preyData, "sex", sex)
 	StorageUtil.SetIntValue(prey, "sex", sex)
 
+	JMap_setFlt(preyData, "maxhp", GetMaximumStatValue(prey, "Health"))
 	JMap_SetFlt(preyData, "dps", getAcidDamage(pred, prey))
 	JMap_SetFlt(preyData, "struggleDamage", getStruggleDamage(pred, prey))
 	JMap_SetFlt(preyData, "fluxdamage", 0.0)
@@ -6347,7 +6523,7 @@ float Function GetPredSkill(Actor target)
 	return skill
 EndFunction
 
-
+;/
 float Function GetPreySkill(Actor target)
 { Calculates the pred's prey skill and returns it. }
 	float skill
@@ -6371,7 +6547,7 @@ float Function GetPreySkill(Actor target)
 
 	return skill
 EndFunction
-
+/;
 
 float Function GetCapacity(Actor target)
 { Gets the stomach capacity of the target, which is their pred skill divided by twelve. }
@@ -6414,7 +6590,7 @@ float Function GetDefaultPredSkill(Actor target)
 	endIf
 EndFunction
 
-
+;/
 float Function GetDefaultPreySkill(Actor target)
 	if target == playerRef
 		int level = playerRef.getLevel()
@@ -6434,7 +6610,7 @@ float Function GetDefaultPreySkill(Actor target)
 		return 6.0 + 1.7 * target.getLevel()
 	endIf
 EndFunction
-
+/;
 
 int Function GetPerkPoints(Actor target)
 	if target == playerRef
@@ -6457,21 +6633,21 @@ int Function DecrementPerkPoints(Actor target)
 	endIf
 EndFunction
 
-
+;/	I got rid of this in AE 2.3. I now default to using what used to be predLevel.
 int Function GetVoreLevel(Actor pred)
 	return StorageUtil.GetIntValue(pred, "voreLevel", 0)
 EndFunction
-
+/;
 
 float Function GetPredXP(Actor target)
 	return StorageUtil.GetFloatValue(target, "vorePredXP", 0.0)
 EndFunction
 
-
+;/
 float Function GetPreyXP(Actor target)
 	return StorageUtil.GetFloatValue(target, "vorePreyXP", 0.0)
 EndFunction
-
+/;
 
 Function GivePredXP_async(Actor pred, float xp)
 { Used to call GivePredXP asynchronously using a ModEvent. }
@@ -6481,7 +6657,7 @@ Function GivePredXP_async(Actor pred, float xp)
 	ModEvent.Send(handle)
 EndFunction
 
-
+;/
 Function GivePreyXP_async(Actor prey, float xp)
 { Used to call GivePreyXP asynchronously using a ModEvent. }
 	int handle = ModEvent.Create("Devourment_PreyXP")
@@ -6489,7 +6665,7 @@ Function GivePreyXP_async(Actor prey, float xp)
 	ModEvent.pushFloat(handle, xp)
 	ModEvent.Send(handle)
 EndFunction
-
+/;
 
 Event GivePredXP(Form target, float xp)
 	Actor pred = target as Actor
@@ -6498,14 +6674,14 @@ Event GivePredXP(Form target, float xp)
 	float experience = StorageUtil.AdjustFloatValue(pred, "vorePredXP", xp * PredExperienceRate)
 
 	; Bleedover a trickle of pred xp to prey.
-	StorageUtil.AdjustFloatValue(pred, "vorePreyXP", xp * PreyExperienceRate / 20.0)
+	;StorageUtil.AdjustFloatValue(pred, "vorePreyXP", xp * PreyExperienceRate / 20.0)
 
 	if DEBUGGING
 		ConsoleUtil.PrintMessage(Namer(pred) + " gained " + xp + " points of pred xp.")
 		Log5(PREFIX, "GivePredXP", Namer(pred), "xp="+xp, "totalXP="+experience, "rate="+PredExperienceRate, "skill="+skill)
 	endIf
 
-	while experience >= skill*skill
+	while experience >= skill*skill && (skill < 100.0 || bSkillUncapped)
 		skill = IncreasePredSkill(pred)
 		skillUp = true
 	endWhile
@@ -6519,15 +6695,17 @@ Event GivePredXP(Form target, float xp)
 		endIf
 	endIf
 
+	;/
 	int perkProgress = StorageUtil.GetIntValue(pred, "vorePerkProgress")
 	while perkProgress >= 5
 		perkProgress -= 5
 		perkProgress = StorageUtil.SetIntValue(pred, "vorePerkProgress", perkProgress)
 		IncreaseVoreLevel(pred)
 	endWhile
+	/;
 EndEvent
 
-
+;/
 Event GivePreyXP(Form target, float xp)
 	Actor prey = target as Actor
 	bool skillUp = false
@@ -6563,7 +6741,7 @@ Event GivePreyXP(Form target, float xp)
 		IncreaseVoreLevel(prey)
 	endWhile
 EndEvent
-
+/;
 
 Event GiveCapacityXP(Form target, float xp)
 	Actor pred = target as Actor
@@ -6587,14 +6765,22 @@ EndEvent
 float Function IncreasePredSkill(Actor target)
 { Adjusts the target's pred skill and returns it. }
 	float skill = StorageUtil.AdjustFloatValue(target, "vorePredSkill", 1.0)
-	StorageUtil.AdjustIntValue(target, "vorePerkProgress", 1)
+	;StorageUtil.AdjustIntValue(target, "vorePerkProgress", 1)
 	if target == playerRef
 		Devourment_PredSkill.SetValue(skill)
+	endIf
+	if (skill as Int) % 3 == 0
+		if target == playerRef
+			Devourment_PerkPoints.mod(1.0)
+			VSkillLevelSound.play(target)
+		else
+			StorageUtil.AdjustIntValue(target, "vorePerkPoints", 1)
+		endIf
 	endIf
 	return skill
 EndFunction
 
-
+;/
 float Function IncreasePreySkill(Actor target)
 { Adjusts the target's prey skill and returns it. }
 	float skill = StorageUtil.AdjustFloatValue(target, "vorePreySkill", 1.0)
@@ -6604,7 +6790,7 @@ float Function IncreasePreySkill(Actor target)
 	endIf
 	return skill
 EndFunction
-
+/;
 
 float Function IncreaseCapacity(Actor target)
 { Adjusts the target's pred skill and returns it. }
@@ -6612,7 +6798,7 @@ float Function IncreaseCapacity(Actor target)
 	return skill
 EndFunction
 	
-	
+;/
 Function IncreaseVoreLevel(Actor target, int delta = 1)
 { Adjusts the target's vore level and returns their available perk points. }
 
@@ -6625,7 +6811,7 @@ Function IncreaseVoreLevel(Actor target, int delta = 1)
 		StorageUtil.AdjustIntValue(target, "vorePerkPoints", delta)
 	endIf
 EndFunction
-
+/;
 
 int Function GetNumVictims(Actor pred)
 { Returns the total number of victims that have died in the pred's stomach. }
@@ -6932,9 +7118,10 @@ bool Function saveSettings(String settingsFileName)
 	JMap.setInt(data, "BYK", 					BYK)
 	JMap_setInt(data, "EndoStruggling", 		EndoStruggling as int)
 	JMap_setInt(data, "VisualStruggles", 		VisualStruggles as int)
-	JMap_setInt(data, "ComplexStruggles", 		ComplexStruggles as int)
+	;JMap_setInt(data, "ComplexStruggles", 		ComplexStruggles as int)
 	JMap_setInt(data, "SkillGain", 				SkillGain as int)
 	JMap_setInt(data, "AttributeGain", 			AttributeGain as int)
+	JMap_setInt(data, "bSkillUncapped", 		bSkillUncapped as int)
 	JMap_setInt(data, "VoreAnimations", 		VoreAnimations as int)
 	JMap_setInt(data, "DragonVoreAnimation", 	DragonVoreAnimation as int)
 	JMap_setInt(data, "MammothVoreAnimation", 	MammothVoreAnimation as int)
@@ -6979,6 +7166,7 @@ bool Function saveSettings(String settingsFileName)
 	JMap_setInt(data, "DigestToInventory",		Menu.DigestToInventory as int)
 
 	JMap_setInt(data, "DigestionRegen", 		DigestionRegen as int)
+	JMap_setInt(data, "combatRegen", 			combatRegen as int)
 	JMap_setInt(data, "VoreDialog", 			Menu.VoreDialog.GetValue() as int)
 
 	JMap_setInt(data, "CreaturePreds", 			CreaturePreds as int)
@@ -7022,9 +7210,10 @@ bool Function loadSettings(String settingsFileName)
 	BYK = 					JMap.getInt(data, "BYK", 						BYK)
 	EndoStruggling = 		JMap_getInt(data, "EndoStruggling", 			EndoStruggling as int) as bool
 	VisualStruggles = 		JMap_getInt(data, "VisualStruggles", 			VisualStruggles as int) as bool
-	ComplexStruggles = 		JMap_getInt(data, "ComplexStruggles", 			ComplexStruggles as int) as bool
+	;ComplexStruggles = 		JMap_getInt(data, "ComplexStruggles", 			ComplexStruggles as int) as bool
 	SkillGain = 			JMap_getInt(data, "SkillGain", 					SkillGain as int) as bool
 	AttributeGain = 		JMap_getInt(data, "AttributeGain", 				AttributeGain as int) as bool
+	bSkillUncapped = 		JMap_getInt(data, "bSkillUncapped", 			bSkillUncapped as int) as bool
 	VoreAnimations = 		JMap_getInt(data, "VoreAnimations", 			VoreAnimations as int) as bool
 	DragonVoreAnimation = 	JMap_getInt(data, "DragonVoreAnimation", 		DragonVoreAnimation as int) as bool
 	MammothVoreAnimation = 	JMap_getInt(data, "MammothVoreAnimation", 		MammothVoreAnimation as int) as bool
@@ -7060,6 +7249,7 @@ bool Function loadSettings(String settingsFileName)
 	useHelpMessages = 		JMap_getInt(data, "useHelpMessages", 			useHelpMessages as int) as bool
 	notifications = 		JMap_getInt(data, "notifications", 				notifications as int) as bool
 	SwallowHeal = 			JMap_getInt(data, "SwallowHeal", 				SwallowHeal as int) as bool
+	combatRegen = 			JMap_getInt(data, "combatRegen", 					combatRegen as int) as bool
 	DigestionRegen = 		JMap_getInt(data, "DigestionRegen", 			DigestionRegen as int) as bool
 	Menu.VoreDialog.SetValue(JMap_getInt(data, "VoreDialog", 1) as Float) 
 	creaturePreds = 		JMap_getInt(data, "creaturePreds", 				creaturePreds as int) as bool

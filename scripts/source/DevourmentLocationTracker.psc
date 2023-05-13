@@ -10,7 +10,7 @@ Actor property PlayerRef auto
 Cell property StomachCell auto
 DevourmentManager Property Manager auto
 DevourmentDialog property DialogQuest auto
-float property UpdateInterval = 2.0 autoreadonly
+float property UpdateInterval = 1.5 autoreadonly
 
 
 String PREFIX = "DevourmentLocationTracker"

@@ -22,6 +22,7 @@ Perk property PlayerAbilities auto
 ReferenceAlias property ApexRef auto
 ReferenceAlias property PredRef auto
 Spell property PlayerStruggleSpell auto
+Spell property BeastformVoreSpell auto
 Spell[] property SwallowSpells auto
 Topic property DigestedDialog auto
 int property DefaultLocus = 0 auto
@@ -29,7 +30,7 @@ int property DefaultLocus = 0 auto
 
 float property INTERVAL = 3.0 autoreadonly
 int SHOUT_KEY = 0
-int TOGGLE_POV = 0
+;int TOGGLE_POV = 0
 int BLOCK_KEY = 0
 int ATTACK_KEY = 0
 
@@ -268,10 +269,10 @@ Function StopPlayerStruggle()
 	endIf
 EndFunction
 
-
+;/
 Event OnKeyUp(int keyCode, float holdTime)
 	if keyCode == TOGGLE_POV
-		;/if jvalue_isExists(preyData)
+		if jvalue_isExists(preyData)
 			if Game.GetCameraState() != 0
 				setCameraTarget(PlayerRef)
 				Game.ForceFirstPerson()
@@ -281,14 +282,14 @@ Event OnKeyUp(int keyCode, float holdTime)
 				Game.ForceThirdPerson()
 				PlayerRef.SetAlpha(0.0)
 			endIf
-		endIf/;
+		endIf
 	
 	elseif blocking && puppet
 		Debug.SendAnimationEvent(puppet, "BlockStop")
 		blocking = false
 	endIf
 endEvent
-
+/;
 
 Function HotkeyDialogue()
 	if DEBUGGING
@@ -305,21 +306,23 @@ Function HotkeyDialogue()
 	endIf
 EndFunction
 
-
+;/
 Event OnKeyDown(int keyCode)
 	if KeyCode == SHOUT_KEY
 		HotkeyVore(SwallowSpells.find(playerRef.GetEquippedSpell(2)))
 	endIf
 EndEvent
-
+/;
 
 bool Function HotkeyVore(int i)
+	;debug.MessageBox("hotkey")
 	if i == 2
 		SwallowSpells[2].cast(PlayerRef, PlayerRef)
 		return true
 
 	elseif i == 0 || i == 1
 		Spell swallowSpell = SwallowSpells[i]
+		;debug.MessageBox("try something")
 		return TryGrabbedVore(swallowSpell) || TryCrosshairVore(swallowSpell)
 	endIf
 
@@ -344,6 +347,12 @@ EndFunction
 bool Function TryCrosshairVore(Spell swallowSpell)
 	ObjectReference targeted = Game.GetCurrentCrossHairRef()
 	if targeted == None 
+		if PlayerRef.GetRace() == Manager.WerewolfBeastRace || PlayerRef.GetRace() == Manager.DLC2WerebearBeastRace
+			BeastformVoreSpell.Cast(PlayerRef, None)
+			;ObjectReference marker = PlayerRef.PlaceAtMe(Manager.AnimationMarker, 1, false, true)
+			;marker.MoveTo()
+	;	debug.MessageBox("nothing targeted")
+		endif
 		return false
 	elseif targeted as Actor
 		swallowSpell.cast(PlayerRef, targeted)
@@ -377,7 +386,7 @@ This state means that the player is free (not prey).
 		if DEBUGGING
 			Log0(PREFIX, "DefaultState.OnBeginState")
 		endIf
-		RegisterForKey(SHOUT_KEY)
+		;RegisterForKey(SHOUT_KEY)
 		SetCameraTarget(PlayerRef)
 		DialogQuest.setStage(0)
 	EndEvent
@@ -1202,15 +1211,15 @@ Function RegisterForKeys()
 		SHOUT_KEY = Input.getMappedKey("Shout")
 	endIf
 	
-	if Input.getMappedKey("Toggle POV") != TOGGLE_POV
-		if TOGGLE_POV > 0
-			UnregisterForKey(TOGGLE_POV)
-		endIf
-		TOGGLE_POV = Input.getMappedKey("Toggle POV")
-	endIf
+	;if Input.getMappedKey("Toggle POV") != TOGGLE_POV
+	;	if TOGGLE_POV > 0
+	;		UnregisterForKey(TOGGLE_POV)
+	;	endIf
+	;	TOGGLE_POV = Input.getMappedKey("Toggle POV")
+	;endIf
 
 	RegisterForKey(SHOUT_KEY)
-	RegisterForKey(TOGGLE_POV)
+	;RegisterForKey(TOGGLE_POV)
 	
 	if BLOCK_KEY > 1
 		RegisterForKey(BLOCK_KEY)

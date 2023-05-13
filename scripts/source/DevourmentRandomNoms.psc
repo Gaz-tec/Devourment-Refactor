@@ -7,7 +7,6 @@ DevourmentManager property Manager auto
 Faction property RandomNoms auto
 Keyword property BeingSwallowed auto
 Keyword property ActorTypeNPC auto
-MagicEffect property DontSwallowMe auto
 Spell property ScriptedEndoSpell auto
 Spell property ScriptedVoreSpell auto
 
@@ -53,7 +52,7 @@ Event OnUpdate()
 		endIf
 	endIf
 
-	RegisterForSingleUpdate(Utility.RandomFloat(0.5 * nomsInterval, 1.5 * nomsInterval))
+	RegisterForSingleUpdate(Utility.RandomFloat(nomsInterval, 1.5 * nomsInterval))
 endEvent
 
 
@@ -352,7 +351,7 @@ bool Function IsViablePredator(Actor pred)
 	if DEBUGGING
 		Log1(PREFIX, "ViablePredator", Namer(pred))
 	endIf
-
+	Pred.GetCombatState() ; QueueSD11: The Creation Kit's page for GetCombatState() says its unreliable the FIRST time. Call it on nothing, then call it for real.
 	return pred && !pred.isDead() && !pred.isDisabled() && !pred.isChild() && !pred.IsInDialogueWithPlayer() \
 	&& pred.GetCombatState() == 0 && !Manager.IsPrey(pred) && Manager.validPredator(pred) && pred.GetSleepState() < 3 \
 	&& !Manager.IsBlocked(pred)
